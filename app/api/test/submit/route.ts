@@ -1,9 +1,27 @@
 import { submitDomain } from "@/app/utils/actions";
 import { NextResponse } from "next/server";
+import getSessionUser from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
-    const data = await request.json();
+    // Verify the user is authenticated via server session
+    const user = await getSessionUser();
+    if (!user?.id) {
+      return NextResponse.json(
+        { message: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json();
+
+    // Override userID with the authenticated session user — never trust the client
+    const data = {
+      url: body.url,
+      device: body.device,
+      network: body.network,
+      userID: user.id,
+    };
 
     const result = await submitDomain(data);
 

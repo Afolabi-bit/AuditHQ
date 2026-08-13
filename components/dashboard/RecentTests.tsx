@@ -11,6 +11,11 @@ type RecentTestData = {
   createdAt: Date;
   domainId: number;
   status: string;
+  performanceScore: number | null;
+  fcp: number | null;
+  lcp: number | null;
+  tbt: number | null;
+  cls: number | null;
   domain: {
     id: number;
     createdAt: Date;
@@ -21,6 +26,12 @@ type RecentTestData = {
     updatedAt: Date;
   };
 };
+
+/** Convert milliseconds to seconds, rounded to 1 decimal place */
+function msToSeconds(ms: number | null | undefined): number | null {
+  if (ms == null) return null;
+  return Math.round(ms / 100) / 10;
+}
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -74,11 +85,11 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
           status={test.status}
           date={new Date(test.createdAt).toLocaleDateString()}
           device={test.domain.device}
-          score={null}
-          fcp={null}
-          lcp={null}
-          tti={null}
-          cls={null}
+          score={test.performanceScore ?? null}
+          fcp={msToSeconds(test.fcp)}
+          lcp={msToSeconds(test.lcp)}
+          tti={msToSeconds(test.tbt)}
+          cls={test.cls ?? null}
           speedIndex={null}
         />
       ))}

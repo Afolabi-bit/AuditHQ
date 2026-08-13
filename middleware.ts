@@ -1,8 +1,12 @@
 import { withAuth } from "@kinde-oss/kinde-auth-nextjs/middleware";
+import type { NextRequest } from "next/server";
 
-export default withAuth(async function proxy() {}, {
-  publicPaths: ["/"],
-});
+export default withAuth(
+  async function middleware(request: NextRequest) {},
+  {
+    publicPaths: ["/", "/api/inngest"],
+  }
+);
 
 export const config = {
   matcher: [

@@ -1,8 +1,18 @@
 import { NextResponse } from "next/server";
 import { runLighthouseAudit } from "@/lib/lighthouse-runner";
+import getSessionUser from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
+    // Verify the user is authenticated via server session
+    const user = await getSessionUser();
+    if (!user?.id) {
+      return NextResponse.json(
+        { error: "UNAUTHORIZED", message: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     // Parse request body
     let body;
     try {
@@ -43,7 +53,6 @@ export async function POST(request: Request) {
         error: "LIGHTHOUSE AUDIT FAILED",
         message:
           error instanceof Error ? error.message : "Unknown error occurred",
-        details: error instanceof Error ? error.stack : undefined,
       },
       { status: 500 }
     );

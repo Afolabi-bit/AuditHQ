@@ -1,11 +1,21 @@
 import { NextResponse } from "next/server";
 import { getTestStatus } from "@/app/utils/actions";
+import getSessionUser from "@/lib/auth";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Verify the user is authenticated via server session
+    const user = await getSessionUser();
+    if (!user?.id) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
 
     const testId = parseInt(id);

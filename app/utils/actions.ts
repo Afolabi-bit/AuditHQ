@@ -24,29 +24,20 @@ export async function syncUserToDatabase(user: KindeUser) {
   }
 }
 
-export async function updateTestStatus(status: string) {
-  try {
-    const test = await prisma.test.findFirst({
-      where: {
-        status: "pending",
-      },
-    });
-    if (!test) {
-      return null;
-    }
-    await prisma.test.update({
-      where: {
-        id: test.id,
-      },
-      data: {
-        status: status,
-      },
-    });
-    return test;
-  } catch (error) {
-    console.error("Error updating test status:", error);
-    throw new Error("Failed to update test status");
-  }
+/**
+ * Cancels any pending tests for a specific domain.
+ * Scoped to a single domain to avoid corrupting other users' data.
+ */
+async function cancelPendingTestsForDomain(domainId: number) {
+  await prisma.test.updateMany({
+    where: {
+      domainId: domainId,
+      status: "pending",
+    },
+    data: {
+      status: "cancelled",
+    },
+  });
 }
 
 interface Domain {
@@ -67,7 +58,8 @@ export async function submitDomain(data: Domain) {
     });
 
     if (existingDomain) {
-      await updateTestStatus("failed");
+      // Only cancel pending tests for THIS specific domain
+      await cancelPendingTestsForDomain(existingDomain.id);
       test = await prisma.test.create({
         data: {
           domainId: existingDomain.id,
@@ -84,8 +76,7 @@ export async function submitDomain(data: Domain) {
         },
       });
 
-      await updateTestStatus("failed");
-
+      // New domain — no pending tests to cancel
       test = await prisma.test.create({
         data: {
           domainId: domain.id,

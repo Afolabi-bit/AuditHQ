@@ -1,19 +1,20 @@
 import { NextResponse } from "next/server";
 import { getRecentTests } from "@/app/utils/actions";
+import getSessionUser from "@/lib/auth";
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get("userId");
-
-    if (!userId) {
+    // Verify the user is authenticated via server session
+    const user = await getSessionUser();
+    if (!user?.id) {
       return NextResponse.json(
-        { error: "User ID is required" },
-        { status: 400 }
+        { error: "Unauthorized" },
+        { status: 401 }
       );
     }
 
-    const tests = await getRecentTests(userId);
+    // Use the session user ID — not a client-provided query param
+    const tests = await getRecentTests(user.id);
     return NextResponse.json({ tests });
   } catch (error) {
     console.error("Error fetching recent tests:", error);
