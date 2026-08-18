@@ -1,16 +1,18 @@
 import { inngest } from "@/lib/inngest";
-import { runLighthouseAudit as lighthouseRunner } from "@/lib/lighthouse-runner";
+import { runPageSpeedAudit } from "@/lib/pagespeed-runner";
 import prisma from "@/lib/db";
 
 export const runLighthouseAudit = inngest.createFunction(
-  { id: "lighthouse-runner" },
-  { event: "test/run-audit" },
+  {
+    id: "pagespeed-runner",
+    triggers: [{ event: "test/run-audit" }],
+  },
   async ({ event, step }) => {
     const { testId, url, device, network } = event.data;
 
-    // Step 1: Run the audit (captured in step to handle retries/timeouts better)
-    const results = await step.run("run-lighthouse-audit", async () => {
-      return await lighthouseRunner({
+    // Step 1: Run the audit via Google PageSpeed Insights Cloud API
+    const results = await step.run("run-pagespeed-audit", async () => {
+      return await runPageSpeedAudit({
         url,
         device,
         network,
@@ -28,7 +30,7 @@ export const runLighthouseAudit = inngest.createFunction(
           lcp: results.lcp,
           tbt: results.tbt,
           cls: results.cls,
-          fullReport: JSON.parse(results.fullReport || "{}"),
+          fullReport: results.fullReport,
         },
       });
     });

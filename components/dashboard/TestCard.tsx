@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Badge,
   CheckCircle2,
@@ -7,6 +8,7 @@ import {
   Share2,
   Smartphone,
   XCircle,
+  ArrowRight,
 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { getScoreBgColor, getScoreColor } from "@/data";
@@ -52,10 +54,14 @@ const TestCard = ({
     cls,
     speedIndex,
   };
-  return (
+
+  const isCompleted = test.status === "completed";
+
+  const cardContent = (
     <Card
-      key={test.id}
-      className={`hover:shadow-md transition-shadow cursor-pointer ${
+      className={`hover:shadow-md transition-all ${
+        isCompleted ? "hover:border-blue-300 cursor-pointer group" : ""
+      } ${
         test.status === "pending"
           ? "opacity-70 bg-gray-100 cursor-not-allowed pointer-events-none"
           : ""
@@ -65,7 +71,7 @@ const TestCard = ({
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center space-x-3 mb-2">
-              <h3 className="text-lg font-semibold text-blue-600 hover:underline">
+              <h3 className="text-lg font-semibold text-blue-600 group-hover:text-blue-700 transition-colors">
                 {test.url}
               </h3>
               {test.status === "completed" && (
@@ -112,7 +118,7 @@ const TestCard = ({
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">TTI</p>
+                  <p className="text-xs text-gray-500">TBT</p>
                   <p className="text-sm font-semibold">
                     {test.tti != null ? `${test.tti}s` : "—"}
                   </p>
@@ -128,6 +134,11 @@ const TestCard = ({
                   <p className="text-sm font-semibold">
                     {test.speedIndex != null ? `${test.speedIndex}s` : "—"}
                   </p>
+                </div>
+                <div className="flex items-end">
+                  <span className="inline-flex items-center text-xs font-semibold text-blue-600 group-hover:translate-x-1 transition-transform">
+                    View Report <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                  </span>
                 </div>
               </div>
             )}
@@ -153,20 +164,22 @@ const TestCard = ({
                     : "Poor"
                   : "Unknown"}
               </div>
-              <div className="flex space-x-2 mt-4">
-                <Button variant="outline" size="sm">
-                  <Share2 className="h-3 w-3" />
-                </Button>
-                <Button variant="outline" size="sm">
-                  <Download className="h-3 w-3" />
-                </Button>
-              </div>
             </div>
           )}
         </div>
       </CardContent>
     </Card>
   );
+
+  if (isCompleted) {
+    return (
+      <Link href={`/dashboard/test/${test.id}`} className="block">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 };
 
 export default TestCard;

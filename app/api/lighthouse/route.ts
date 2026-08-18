@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { runLighthouseAudit } from "@/lib/lighthouse-runner";
+import { runPageSpeedAudit } from "@/lib/pagespeed-runner";
 import getSessionUser from "@/lib/auth";
 
 export async function POST(request: Request) {
@@ -34,8 +34,8 @@ export async function POST(request: Request) {
 
     const { url, device, network } = body;
 
-    // Call shared Lighthouse utility
-    const results = await runLighthouseAudit({
+    // Call shared PageSpeed utility (Google Cloud Lighthouse runner)
+    const results = await runPageSpeedAudit({
       url,
       device: device?.toLowerCase(),
       network,

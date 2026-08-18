@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { inngest } from "@/lib/inngest";
+import { executeAuditForTest } from "@/lib/pagespeed-runner";
 
 export async function syncUserToDatabase(user: KindeUser) {
   try {
@@ -85,8 +86,13 @@ export async function submitDomain(data: Domain) {
       });
     }
 
-    // Trigger Inngest function
-    await inngest.send({
+    // Kick off Google PageSpeed audit in the background immediately
+    executeAuditForTest(test.id, data.url, data.device, data.network).catch((err) => {
+      console.error("Background PageSpeed execution error:", err);
+    });
+
+    // Also dispatch to Inngest if Inngest is configured/running
+    inngest.send({
       name: "test/run-audit",
       data: {
         testId: test.id,
@@ -94,6 +100,9 @@ export async function submitDomain(data: Domain) {
         device: data.device,
         network: data.network,
       },
+    }).catch((inngestErr) => {
+      // Inngest is optional in local development mode
+      console.log("ℹ️ Inngest event skipped or offline (audit handled directly):", inngestErr?.message || inngestErr);
     });
 
     return {

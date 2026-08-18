@@ -71,7 +71,7 @@ const NewTest = ({ user }: { user: KindeUser }) => {
             setUrl(""); // Clear the input field
             // Refresh the tests list to show updated status
             mutate(`/api/tests/recent?userId=${user.id}`);
-            console.log("Test completed successfully!");
+            console.log("✅ [CLIENT] Test completed successfully! Full API response & report:", statusData);
           } else if (statusData.status === "failed") {
             if (pollInterval) clearInterval(pollInterval);
             setIsTesting(false);
