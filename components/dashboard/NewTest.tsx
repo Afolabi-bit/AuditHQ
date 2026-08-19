@@ -13,7 +13,7 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import isValidUrl from "@/app/utils/validateUrl";
+import { normalizeAndValidateUrl } from "@/app/utils/validateUrl";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { mutate } from "swr";
 import { toast } from "sonner";
@@ -28,16 +28,20 @@ const NewTest = ({ user }: { user: KindeUser }) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const urlvalidation = isValidUrl(url);
-    setIsUrlValid(urlvalidation);
+    const urlValidation = normalizeAndValidateUrl(url);
+    setIsUrlValid({ validity: urlValidation.validity, message: urlValidation.message });
 
-    if (urlvalidation.validity === false || !user) {
+    if (!urlValidation.validity || !user) {
       return;
     }
 
+    const normalizedTargetUrl = urlValidation.normalizedUrl;
+
+    // Immediately update input field to show the corrected URL
+    setUrl(normalizedTargetUrl);
     setIsTesting(true);
 
-    const queuedToastId = toast.loading(`Queuing audit for ${url}…`, {
+    const queuedToastId = toast.loading(`Queuing audit for ${normalizedTargetUrl}…`, {
       description: "Connecting to Google Lighthouse Cloud Engine",
     });
 
@@ -45,7 +49,12 @@ const NewTest = ({ user }: { user: KindeUser }) => {
       const req = await fetch("/api/test/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userID: user.id, url, device, network }),
+        body: JSON.stringify({
+          userID: user.id,
+          url: normalizedTargetUrl,
+          device,
+          network,
+        }),
       });
 
       const res = await req.json();
@@ -89,8 +98,11 @@ const NewTest = ({ user }: { user: KindeUser }) => {
             setIsTesting(false);
             setUrl("");
 
-            mutate(`/api/tests/recent?userId=${user.id}`);
-            mutate("/api/dashboard/stats");
+            // Synchronously update recent tests and stats cache
+            await Promise.all([
+              mutate(`/api/tests/recent?userId=${user.id}`),
+              mutate("/api/dashboard/stats"),
+            ]);
 
             toast.success("Audit complete!", {
               id: queuedToastId,
@@ -105,8 +117,10 @@ const NewTest = ({ user }: { user: KindeUser }) => {
             if (pollInterval) clearInterval(pollInterval);
             setIsTesting(false);
 
-            mutate(`/api/tests/recent?userId=${user.id}`);
-            mutate("/api/dashboard/stats");
+            await Promise.all([
+              mutate(`/api/tests/recent?userId=${user.id}`),
+              mutate("/api/dashboard/stats"),
+            ]);
 
             toast.error("Audit failed", {
               id: queuedToastId,
@@ -165,7 +179,7 @@ const NewTest = ({ user }: { user: KindeUser }) => {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} noValidate className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
           {/* URL Input */}
           <div className="md:col-span-6 space-y-1.5">
@@ -178,9 +192,13 @@ const NewTest = ({ user }: { user: KindeUser }) => {
               </div>
               <Input
                 id="url"
-                type="url"
+                type="text"
+                inputMode="url"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
                 value={url}
-                placeholder="https://example.com"
+                placeholder="example.com, www.example.com, or https://…"
                 onChange={(e) => setUrl(e.target.value)}
                 onClick={() => setIsUrlValid({ validity: true, message: "" })}
                 className={`pl-9.5 h-11 text-sm bg-white border-[#e3e8ee] text-[#0a2540] placeholder:text-[#8898aa] focus:bg-white focus:border-[#635bff] focus:ring-2 focus:ring-[#635bff]/20 rounded-lg transition-all font-mono ${

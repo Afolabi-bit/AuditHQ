@@ -1,57 +1,90 @@
-function isValidUrl(value: string) {
-  const trimmedValue = value.trim();
+export interface UrlValidationResult {
+  validity: boolean;
+  message: string;
+  normalizedUrl: string;
+}
 
-  // Check if URL is empty
-  if (trimmedValue === "") {
-    return { validity: false, message: "URL cannot be empty" };
-  }
+/**
+ * Normalizes and validates any website URL:
+ * - 'google.com' -> 'https://google.com'
+ * - 'www.google.com' -> 'https://www.google.com'
+ * - 'http://example.com' -> 'http://example.com'
+ * - 'https://example.com/about' -> 'https://example.com/about'
+ * - 'localhost:3000' -> 'http://localhost:3000'
+ */
+export function normalizeAndValidateUrl(value: string): UrlValidationResult {
+  let trimmed = value.trim();
 
-  // Explicit protocol check before parsing
-  const hasHttpProtocol = trimmedValue.startsWith("http://");
-  const hasHttpsProtocol = trimmedValue.startsWith("https://");
-
-  if (!hasHttpProtocol && !hasHttpsProtocol) {
-    if (!trimmedValue.includes("://")) {
-      return {
-        validity: false,
-        message: "URL must start with http:// or https://.",
-      };
-    }
-
+  if (!trimmed) {
     return {
       validity: false,
-      message: "Only HTTP and HTTPS protocols are supported",
+      message: "Please enter a website URL",
+      normalizedUrl: "",
     };
   }
 
-  // Validate URL structure
-  try {
-    const url = new URL(trimmedValue);
+  // Remove trailing slashes from origin if bare
+  trimmed = trimmed.replace(/\/+$/, "");
 
-    // Double-check protocol (redundant but safe)
+  // Auto-attach protocol if missing
+  if (!/^https?:\/\//i.test(trimmed)) {
+    // If it has some unsupported scheme like ftp:// or mailto:
+    if (/^[a-zA-Z]+:\/\//i.test(trimmed)) {
+      return {
+        validity: false,
+        message: "Only HTTP and HTTPS protocols are supported",
+        normalizedUrl: trimmed,
+      };
+    }
+
+    if (trimmed.startsWith("localhost")) {
+      trimmed = `http://${trimmed}`;
+    } else {
+      trimmed = `https://${trimmed}`;
+    }
+  }
+
+  try {
+    const url = new URL(trimmed);
+
     if (url.protocol !== "http:" && url.protocol !== "https:") {
       return {
         validity: false,
         message: "Only HTTP and HTTPS protocols are supported",
+        normalizedUrl: trimmed,
       };
     }
 
-    // Check if hostname exists
-    if (!url.hostname || url.hostname.length === 0) {
+    // Ensure valid hostname with TLD or localhost
+    const hostname = url.hostname;
+    if (!hostname || (!hostname.includes(".") && hostname !== "localhost")) {
       return {
         validity: false,
-        message: "URL must include a valid domain name",
+        message: "Please enter a valid domain (e.g. example.com or www.example.com)",
+        normalizedUrl: trimmed,
       };
     }
 
-    return { validity: true, message: "" };
-  } catch (error) {
+    return {
+      validity: true,
+      message: "",
+      normalizedUrl: url.toString().replace(/\/+$/, "") || trimmed,
+    };
+  } catch {
     return {
       validity: false,
-      message:
-        "Invalid URL format. Please enter a valid URL (e.g., https://example.com)",
+      message: "Please enter a valid URL (e.g. example.com or https://example.com)",
+      normalizedUrl: trimmed,
     };
   }
 }
 
-export default isValidUrl;
+/** Legacy default export for backwards compatibility */
+export default function isValidUrl(value: string) {
+  const result = normalizeAndValidateUrl(value);
+  return {
+    validity: result.validity,
+    message: result.message,
+    normalizedUrl: result.normalizedUrl,
+  };
+}
