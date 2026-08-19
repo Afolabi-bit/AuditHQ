@@ -2,13 +2,14 @@
 
 import { FormEvent, useState } from "react";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { Loader2, Zap } from "lucide-react";
+  Loader2,
+  Zap,
+  Globe,
+  Monitor,
+  Smartphone,
+  Wifi,
+  Play,
+} from "lucide-react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -36,9 +37,8 @@ const NewTest = ({ user }: { user: KindeUser }) => {
 
     setIsTesting(true);
 
-    // Show queued toast immediately
     const queuedToastId = toast.loading(`Queuing audit for ${url}…`, {
-      description: "Connecting to Google PageSpeed Insights",
+      description: "Connecting to Google Lighthouse Cloud Engine",
     });
 
     try {
@@ -69,17 +69,14 @@ const NewTest = ({ user }: { user: KindeUser }) => {
 
       const testId = res.data.testId;
 
-      // Update toast to running state
       toast.loading("Audit running…", {
         id: queuedToastId,
         description: `Lighthouse is analysing ${url}`,
       });
 
-      // Immediately refresh tests list & stats
       mutate(`/api/tests/recent?userId=${user.id}`);
       mutate("/api/dashboard/stats");
 
-      // Poll for completion every 2 seconds
       let pollInterval: NodeJS.Timeout | null = null;
 
       pollInterval = setInterval(async () => {
@@ -120,7 +117,6 @@ const NewTest = ({ user }: { user: KindeUser }) => {
               duration: 8000,
             });
           }
-          // If still pending, keep polling
         } catch (error) {
           console.error("Error polling test status:", error);
           if (pollInterval) clearInterval(pollInterval);
@@ -132,7 +128,6 @@ const NewTest = ({ user }: { user: KindeUser }) => {
         }
       }, 2000);
 
-      // 5 minute safety timeout
       setTimeout(() => {
         if (pollInterval) {
           clearInterval(pollInterval);
@@ -156,115 +151,139 @@ const NewTest = ({ user }: { user: KindeUser }) => {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center">
-          <Zap className="h-5 w-5 mr-2 text-blue-600" />
-          Run New Performance Test
-        </CardTitle>
-        <CardDescription>
-          Test your website&apos;s performance and get detailed insights
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form
-          onSubmit={(e) => handleSubmit(e)}
-          className="grid grid-cols-1 md:grid-cols-12 gap-4"
-        >
-          <div className="md:col-span-6 relative">
-            <Label htmlFor="url">Website URL</Label>
-            <Input
-              id="url"
-              value={url}
-              placeholder="https://example.com"
-              onChange={(e) => setUrl(e.target.value)}
-              onClick={() => setIsUrlValid({ validity: true, message: "" })}
-              className={
-                isUrlValid.validity
-                  ? "mt-1"
-                  : "mt-1 outline-red-600 border-red-600"
-              }
-            />
-            <span
-              className={
-                isUrlValid.validity ? "hidden" : "text-red-600 text-sm"
-              }
-            >
-              {isUrlValid.message}
-            </span>
+    <div className="bg-surface-0 border border-surface-3 rounded-2xl p-6 sm:p-7 shadow-xs hover:border-brand-200 transition-all mb-8">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-5">
+        <div className="space-y-0.5">
+          <div className="flex items-center gap-2">
+            <div className="h-6 w-6 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center">
+              <Zap className="h-3.5 w-3.5 fill-brand-600" />
+            </div>
+            <h2 className="text-base font-bold text-text-primary font-sans">
+              Run New Performance Audit
+            </h2>
           </div>
-          <div className="md:col-span-2">
-            <Label htmlFor="device">Device</Label>
-            <select
-              id="device"
-              value={device}
-              onChange={(e) => setDevice(e.target.value)}
-              className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md"
-            >
-              <option>Desktop</option>
-              <option>Mobile</option>
-            </select>
+          <p className="text-xs text-text-secondary">
+            Execute headless Lighthouse evaluation with device & network throttling
+          </p>
+        </div>
+
+        <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-text-tertiary bg-surface-1 border border-surface-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          Engine Ready
+        </span>
+      </div>
+
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
+          {/* URL Input */}
+          <div className="md:col-span-6 space-y-1.5">
+            <Label htmlFor="url" className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              Website URL
+            </Label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-text-tertiary">
+                <Globe className="h-4 w-4" />
+              </div>
+              <Input
+                id="url"
+                type="url"
+                value={url}
+                placeholder="https://example.com"
+                onChange={(e) => setUrl(e.target.value)}
+                onClick={() => setIsUrlValid({ validity: true, message: "" })}
+                className={`pl-9.5 h-11 text-sm bg-surface-1/60 border-surface-3 focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all font-mono ${
+                  !isUrlValid.validity ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/20" : ""
+                }`}
+              />
+            </div>
+            {!isUrlValid.validity && (
+              <p className="text-xs text-rose-600 font-medium">{isUrlValid.message}</p>
+            )}
           </div>
-          <div className="md:col-span-2">
-            <Label htmlFor="network">Network</Label>
-            <select
-              id="network"
-              value={network}
-              onChange={(e) => setNetwork(e.target.value)}
-              className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md"
-            >
-              <option>No Throttling</option>
-              <option>4G</option>
-              <option>3G</option>
-            </select>
+
+          {/* Device Selection */}
+          <div className="md:col-span-3 space-y-1.5">
+            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              Device Profile
+            </Label>
+            <div className="grid grid-cols-2 gap-1.5 p-1 bg-surface-1 rounded-xl border border-surface-3 h-11 items-center">
+              <button
+                type="button"
+                onClick={() => setDevice("Desktop")}
+                className={`h-8.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                  device === "Desktop"
+                    ? "bg-surface-0 text-brand-600 shadow-xs border border-surface-3"
+                    : "text-text-secondary hover:text-text-primary"
+                }`}
+              >
+                <Monitor className="h-3.5 w-3.5" />
+                Desktop
+              </button>
+              <button
+                type="button"
+                onClick={() => setDevice("Mobile")}
+                className={`h-8.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                  device === "Mobile"
+                    ? "bg-surface-0 text-brand-600 shadow-xs border border-surface-3"
+                    : "text-text-secondary hover:text-text-primary"
+                }`}
+              >
+                <Smartphone className="h-3.5 w-3.5" />
+                Mobile
+              </button>
+            </div>
           </div>
-          <div className="md:col-span-2 flex items-end">
-            <Button
-              className={`w-full bg-blue-600 hover:bg-blue-700 ${
-                isTesting ? "cursor-not-allowed opacity-75" : "cursor-pointer"
-              }`}
-              disabled={isTesting}
-            >
-              {isTesting ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Auditing...
-                </>
-              ) : (
-                <>
-                  <Play className="h-4 w-4 mr-2" />
-                  Run Test
-                </>
-              )}
-            </Button>
+
+          {/* Network Throttling */}
+          <div className="md:col-span-3 space-y-1.5">
+            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              Network
+            </Label>
+            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1 rounded-xl border border-surface-3 h-11 items-center">
+              {["No Throttling", "4G", "3G"].map((net) => (
+                <button
+                  key={net}
+                  type="button"
+                  onClick={() => setNetwork(net)}
+                  className={`h-8.5 rounded-lg text-[11px] font-semibold flex items-center justify-center transition-all truncate px-1 ${
+                    network === net
+                      ? "bg-surface-0 text-brand-600 shadow-xs border border-surface-3"
+                      : "text-text-secondary hover:text-text-primary"
+                  }`}
+                  title={net}
+                >
+                  {net === "No Throttling" ? "Direct" : net}
+                </button>
+              ))}
+            </div>
           </div>
-        </form>
-      </CardContent>
-    </Card>
+        </div>
+
+        {/* Submit Action */}
+        <div className="flex justify-end pt-1">
+          <Button
+            type="submit"
+            disabled={isTesting}
+            className="w-full sm:w-auto h-11 px-7 rounded-xl font-semibold text-sm bg-brand-600 hover:bg-brand-700 text-white shadow-brand transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {isTesting ? (
+              <>
+                <Loader2 className="h-4 w-4 mr-2 animate-spin text-white" />
+                Executing Audit Engine…
+              </>
+            ) : (
+              <>
+                <Play className="h-4 w-4 mr-2 fill-white" />
+                Start Performance Audit
+              </>
+            )}
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 
 export default NewTest;
-
-const Play: React.FC<React.SVGProps<SVGSVGElement>> = ({ className }) => (
-  <svg
-    className={className}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    aria-hidden
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-    />
-  </svg>
-);

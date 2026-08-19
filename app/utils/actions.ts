@@ -155,7 +155,14 @@ export interface DashboardStats {
   activeSites: number;
   avgLoadTime: number | null;
   loadTimeDiff: number | null;
-  performanceTrends: { date: string; score: number }[];
+  performanceTrends: {
+    id?: number;
+    date: string;
+    time?: string;
+    url?: string;
+    device?: string;
+    score: number;
+  }[];
   coreWebVitals: {
     lcp: number | null;
     tbt: number | null;
@@ -193,6 +200,9 @@ export async function getDashboardStats(
           domain: { ownerId: userID },
           status: "completed",
           performanceScore: { not: null },
+        },
+        include: {
+          domain: true,
         },
         orderBy: { createdAt: "desc" },
         take: 30,
@@ -278,13 +288,20 @@ export async function getDashboardStats(
       loadTimeDiff = Math.round((recentLcpAvg - olderLcpAvg) * 10) / 10;
     }
 
-    // 3. Performance Trend (Last 7 completed tests, chronological)
-    const trendSlice = completedTests.slice(0, 7).reverse();
+    // 3. Performance Trend (Last 10 completed tests, chronological)
+    const trendSlice = completedTests.slice(0, 10).reverse();
     const performanceTrends = trendSlice.map((t) => ({
+      id: t.id,
       date: new Date(t.createdAt).toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
       }),
+      time: new Date(t.createdAt).toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      url: t.domain?.url || "Website",
+      device: t.device || "Desktop",
       score: t.performanceScore ?? 0,
     }));
 

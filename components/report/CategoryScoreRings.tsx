@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ScoreGauge } from "./ScoreGauge";
-import { Zap, ShieldCheck, Eye, Search } from "lucide-react";
+import { Gauge, ShieldCheck, Zap } from "lucide-react";
 
 interface CategoryScoreRingsProps {
   scores: {
@@ -14,51 +14,70 @@ interface CategoryScoreRingsProps {
 }
 
 export const CategoryScoreRings: React.FC<CategoryScoreRingsProps> = ({ scores }) => {
+  const avgCategoryScore = Math.round(
+    (scores.performance + scores.accessibility + scores.bestPractices + scores.seo) / 4
+  );
+
   return (
     <section className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-            <Zap className="h-5 w-5 text-blue-600" />
-            Executive Performance Overview
-          </h2>
-          <p className="text-xs text-slate-500">
-            Official Google Lighthouse audit scores across all four key dimensions
+      {/* Section Header with Executive Health Indicator */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0 border border-surface-3/80 rounded-2xl p-4.5 px-6 shadow-xs">
+        <div className="space-y-0.5">
+          <div className="flex items-center gap-2">
+            <h2 className="text-base font-extrabold text-text-primary tracking-tight font-sans">
+              Core Performance Audit
+            </h2>
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-brand-50 text-brand-600 border border-brand-200">
+              Composite Index: {avgCategoryScore}/100
+            </span>
+          </div>
+          <p className="text-xs text-text-secondary">
+            Multi-dimensional evaluation based on official Google Lighthouse 12.0 scoring algorithms
           </p>
         </div>
-        <div className="hidden sm:flex items-center gap-4 text-xs">
-          <span className="flex items-center gap-1.5 font-medium text-slate-600">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> 90–100 Good
+
+        {/* Legend */}
+        <div className="flex items-center gap-4 text-xs font-medium text-text-secondary">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+            90–100 Good
           </span>
-          <span className="flex items-center gap-1.5 font-medium text-slate-600">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> 50–89 Needs Work
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
+            50–89 Needs Work
           </span>
-          <span className="flex items-center gap-1.5 font-medium text-slate-600">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> 0–49 Poor
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+            0–49 Poor
           </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* 4 Cards Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4.5">
         <ScoreGauge
           score={scores.performance}
           label="Performance"
           subtitle="Speed & responsiveness"
+          categoryKey="performance"
         />
         <ScoreGauge
           score={scores.accessibility}
           label="Accessibility"
-          subtitle="Screen readers & contrast"
+          subtitle="A11y compliance & contrast"
+          categoryKey="accessibility"
         />
         <ScoreGauge
           score={scores.bestPractices}
           label="Best Practices"
-          subtitle="Security & modern web"
+          subtitle="Security & modern standards"
+          categoryKey="bestPractices"
         />
         <ScoreGauge
           score={scores.seo}
           label="SEO"
-          subtitle="Search indexability"
+          subtitle="Discoverability & crawling"
+          categoryKey="seo"
         />
       </div>
     </section>

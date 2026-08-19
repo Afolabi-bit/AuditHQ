@@ -43,7 +43,7 @@ export default async function TestDetailsPage({ params }: TestPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-surface-1 w-full max-w-full overflow-x-hidden">
       <DashboardNav user={user} />
       <TestReportView test={test as any} />
     </div>

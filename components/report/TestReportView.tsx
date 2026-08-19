@@ -59,7 +59,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
   if (test.status !== "completed") {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center">
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center w-full max-w-full">
         <Card className="max-w-md w-full border-amber-200 bg-amber-50/50 p-6">
           <CardContent className="p-0 space-y-3">
             <AlertCircle className="h-10 w-10 text-amber-600 mx-auto" />
@@ -74,7 +74,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             </p>
             <div className="pt-2">
               <Link href={isPublic ? "/" : "/dashboard"}>
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                <Button size="sm" className="bg-brand-600 hover:bg-brand-700 text-white">
                   {isPublic ? "Go to AuditHQ Home" : "Return to Dashboard"}
                 </Button>
               </Link>
@@ -86,7 +86,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/60 pb-16">
+    <div className="min-h-screen bg-surface-1 pb-16 w-full max-w-full overflow-x-hidden">
       {/* Top Header with Breadcrumbs & Actions */}
       <ReportHeader
         testId={test.id}
@@ -99,7 +99,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
       />
 
       {/* Main Report Body */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 w-full max-w-full overflow-x-hidden min-w-0">
         {/* 1. Category Score Rings (4 Circular SVG Gauges) */}
         <CategoryScoreRings scores={parsedReport.scores} />
 
@@ -118,17 +118,17 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
         {/* 5. Public Footer CTA Banner (if viewed publicly) */}
         {isPublic && (
-          <div className="mt-12 bg-linear-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-center text-white space-y-4 print:hidden shadow-md">
+          <div className="mt-12 bg-linear-to-r from-brand-600 to-indigo-600 rounded-2xl p-8 text-center text-white space-y-4 print:hidden shadow-md">
             <h3 className="text-2xl font-bold">
-              Optimize your own website performance with AuditHQ
+              Optimize your website performance with AuditHQ
             </h3>
             <p className="text-blue-100 text-sm max-w-xl mx-auto">
               Run automated Lighthouse cloud audits, track Core Web Vitals over time, and get instant recommendations to build faster web experiences.
             </p>
             <div className="pt-2">
               <Link href="/">
-                <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50 font-semibold shadow-sm">
-                  <Zap className="h-4 w-4 mr-2" />
+                <Button size="lg" className="bg-white text-brand-700 hover:bg-blue-50 font-semibold shadow-sm">
+                  <Zap className="h-4 w-4 mr-2 fill-brand-700" />
                   Run Free Audit Now
                 </Button>
               </Link>

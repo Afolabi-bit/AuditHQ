@@ -2,12 +2,12 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 
 const Welcome = ({ user }: { user: KindeUser }) => {
   return (
-    <div className="mb-8">
-      <h1 className="text-3xl font-bold text-gray-900">
-        Welcome back, {user?.given_name}!
+    <div className="mb-7 space-y-1">
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight font-sans">
+        Welcome back, {user?.given_name || "Developer"}
       </h1>
-      <p className="text-gray-600 mt-1">
-        Monitor and optimize your website performance
+      <p className="text-sm text-text-secondary">
+        Autonomous Lighthouse audits, Core Web Vitals, and continuous performance analytics
       </p>
     </div>
   );

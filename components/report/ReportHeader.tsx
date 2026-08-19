@@ -16,6 +16,7 @@ import {
   Activity,
   Zap,
   Loader2,
+  FileCode,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { generateReportPDF } from "@/lib/generate-report-pdf";
@@ -59,7 +60,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
-      // Fallback for browsers that block clipboard access
+      // Fallback
     }
   };
 
@@ -96,147 +97,160 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   const isDesktop = device?.toLowerCase() === "desktop";
 
   return (
-    <div className="bg-white border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Navigation / Public Tag */}
-        <div className="flex items-center justify-between mb-4">
+    <div className="bg-[hsl(222,47%,8%)] text-white border-b border-surface-3/30 relative overflow-hidden w-full max-w-full">
+      {/* Ambient subtle glow */}
+      <div className="absolute top-0 right-1/4 w-96 h-32 bg-brand-600/10 blur-[100px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 relative w-full min-w-0">
+        {/* Navigation & Public Indicator */}
+        <div className="flex items-center justify-between mb-5 flex-wrap gap-2">
           {isPublic ? (
             <Link
               href="/"
-              className="inline-flex items-center text-sm font-semibold text-slate-700 hover:text-blue-600 transition-colors gap-1.5"
+              className="inline-flex items-center text-xs font-semibold text-slate-300 hover:text-white transition-colors gap-2 group"
             >
-              <Zap className="h-4 w-4 text-blue-600" />
-              <span>AuditHQ Public Report</span>
+              <div className="h-6 w-6 rounded-md bg-brand-600 flex items-center justify-center text-white">
+                <Zap className="h-3.5 w-3.5 fill-white" />
+              </div>
+              <span className="font-bold tracking-tight">AuditHQ Public Report</span>
             </Link>
           ) : (
             <Link
               href="/dashboard"
-              className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors group"
+              className="inline-flex items-center text-xs font-semibold text-slate-400 hover:text-white transition-colors group"
             >
-              <ArrowLeft className="h-4 w-4 mr-1.5 transform group-hover:-translate-x-0.5 transition-transform" />
+              <ArrowLeft className="h-3.5 w-3.5 mr-1.5 transform group-hover:-translate-x-1 transition-transform" />
               Back to Dashboard
             </Link>
           )}
 
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-              <Activity className="h-3 w-3 mr-1" />
-              Lighthouse Cloud Engine
+          <div className="flex items-center gap-2.5">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-white/5 border border-white/10 text-brand-200">
+              <Activity className="h-3 w-3 mr-1.5 text-brand-500" />
+              Lighthouse 12 Engine
             </span>
-            <span className="text-xs text-slate-400">Audit #{testId}</span>
+            <span className="text-[11px] font-mono text-slate-400">Audit #{testId}</span>
           </div>
         </div>
 
-        {/* Main Header Content */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight break-all">
-                {url}
-              </h1>
-              <a
-                href={url}
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 hover:text-blue-600 transition-colors"
-                title="Open in new tab"
-              >
-                <ExternalLink className="h-5 w-5" />
-              </a>
+        {/* Main Content Row */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 min-w-0 w-full">
+          <div className="space-y-3 max-w-3xl min-w-0 flex-1">
+            <div className="space-y-1">
+              <p className="text-[11px] font-mono uppercase tracking-widest text-brand-400 font-semibold">
+                Audited Endpoint
+              </p>
+              <div className="flex items-center gap-2.5">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-mono break-all">
+                  {url}
+                </h1>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-slate-400 hover:text-white transition-colors shrink-0"
+                  title="Open live website in new tab"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </div>
             </div>
 
             {/* Metadata Pills */}
-            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600">
-              <span className="inline-flex items-center gap-1 bg-slate-100 px-2.5 py-1 rounded-md font-medium text-slate-700">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-300">
+              <span className="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg">
                 {isDesktop ? (
-                  <Monitor className="h-3.5 w-3.5 text-blue-600" />
+                  <Monitor className="h-3.5 w-3.5 text-brand-400" />
                 ) : (
-                  <Smartphone className="h-3.5 w-3.5 text-blue-600" />
+                  <Smartphone className="h-3.5 w-3.5 text-brand-400" />
                 )}
-                {isDesktop ? "Desktop Chrome" : "Mobile Emulation"}
+                {isDesktop ? "Desktop Chrome" : "Mobile Moto G4"}
               </span>
 
               {network && (
-                <span className="inline-flex items-center gap-1 bg-slate-100 px-2.5 py-1 rounded-md font-medium text-slate-700">
+                <span className="inline-flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg">
                   Network: {network}
                 </span>
               )}
 
-              <span className="inline-flex items-center gap-1 text-slate-500">
-                <Calendar className="h-3.5 w-3.5" />
+              <span className="inline-flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg text-slate-400">
+                <Calendar className="h-3 w-3" />
                 {formattedDate}
               </span>
 
-              <span className="inline-flex items-center gap-1 text-slate-500">
-                <Clock className="h-3.5 w-3.5" />
+              <span className="inline-flex items-center gap-1 bg-white/5 border border-white/10 px-2.5 py-1 rounded-lg text-slate-400">
+                <Clock className="h-3 w-3" />
                 {formattedTime}
               </span>
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-2 pt-2 lg:pt-0">
+          {/* Action Buttons with clear Visual Hierarchy */}
+          <div className="flex flex-wrap items-center gap-2.5 pt-1 lg:pt-0">
+            {/* Share Link */}
             <Button
               variant="outline"
               size="sm"
               onClick={handleCopyShareLink}
-              className="bg-white hover:bg-slate-50 text-slate-700 border-slate-300"
+              className="bg-white/5 hover:bg-white/10 text-slate-200 border-white/15 h-9 rounded-xl font-semibold text-xs transition-colors"
             >
               {copied ? (
                 <>
-                  <Check className="h-4 w-4 mr-1.5 text-emerald-600" />
+                  <Check className="h-3.5 w-3.5 mr-1.5 text-emerald-400" />
                   Link Copied!
                 </>
               ) : (
                 <>
-                  <Share2 className="h-4 w-4 mr-1.5 text-slate-500" />
-                  Share
+                  <Share2 className="h-3.5 w-3.5 mr-1.5 text-slate-400" />
+                  Share Report
                 </>
               )}
             </Button>
 
+            {/* Export JSON */}
             <Button
               variant="outline"
               size="sm"
+              onClick={handleExportJson}
+              className="bg-white/5 hover:bg-white/10 text-slate-200 border-white/15 h-9 rounded-xl font-semibold text-xs transition-colors"
+            >
+              <FileCode className="h-3.5 w-3.5 mr-1.5 text-slate-400" />
+              JSON
+            </Button>
+
+            {/* Download PDF — PRIMARY CTA */}
+            <Button
+              size="sm"
               onClick={handleExportPdf}
               disabled={isGeneratingPdf}
-              className="bg-white hover:bg-slate-50 text-slate-700 border-slate-300"
+              className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs h-9 px-4 rounded-xl shadow-brand transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
             >
               {isGeneratingPdf ? (
                 <>
-                  <Loader2 className="h-4 w-4 mr-1.5 animate-spin text-slate-500" />
-                  Generating...
+                  <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin text-white" />
+                  Building PDF…
                 </>
               ) : (
                 <>
-                  <Download className="h-4 w-4 mr-1.5 text-slate-500" />
+                  <Download className="h-3.5 w-3.5 mr-1.5 text-white" />
                   Download PDF
                 </>
               )}
             </Button>
 
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleExportJson}
-              className="bg-white hover:bg-slate-50 text-slate-700 border-slate-300"
-            >
-              <Download className="h-4 w-4 mr-1.5 text-slate-500" />
-              JSON
-            </Button>
-
+            {/* Context Navigation CTA */}
             {isPublic ? (
               <Link href="/">
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
-                  <Zap className="h-4 w-4 mr-1.5" />
-                  Audit Your Site
+                <Button size="sm" className="bg-white hover:bg-slate-100 text-slate-950 font-semibold text-xs h-9 px-4 rounded-xl shadow-xs transition-all">
+                  <Zap className="h-3.5 w-3.5 mr-1.5 fill-slate-950" />
+                  Audit Your Site Free
                 </Button>
               </Link>
             ) : (
               <Link href="/dashboard">
-                <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm">
-                  <RotateCw className="h-4 w-4 mr-1.5" />
-                  New Test
+                <Button size="sm" className="bg-white hover:bg-slate-100 text-slate-950 font-semibold text-xs h-9 px-4 rounded-xl shadow-xs transition-all">
+                  <RotateCw className="h-3.5 w-3.5 mr-1.5" />
+                  New Audit
                 </Button>
               </Link>
             )}

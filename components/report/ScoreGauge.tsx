@@ -1,79 +1,124 @@
 "use client";
 
 import React from "react";
+import { Zap, Eye, ShieldCheck, Search, CheckCircle, AlertTriangle, XCircle } from "lucide-react";
 
 interface ScoreGaugeProps {
   score: number;
   label: string;
-  size?: number;
-  strokeWidth?: number;
   subtitle?: string;
+  categoryKey?: string;
   className?: string;
 }
 
 export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
   score,
   label,
-  size = 140,
-  strokeWidth = 10,
   subtitle,
+  categoryKey,
   className = "",
 }) => {
+  const size = 144;
+  const strokeWidth = 9;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const clampedScore = Math.max(0, Math.min(100, score || 0));
   const offset = circumference - (clampedScore / 100) * circumference;
 
-  const getScoreTheme = (val: number) => {
+  // Grade rating
+  const getScoreData = (val: number) => {
     if (val >= 90) {
       return {
-        gradientId: `gauge-green-${label.replace(/\s+/g, "-")}`,
-        startColor: "#10B981", // emerald-500
-        stopColor: "#059669", // emerald-600
-        textColor: "text-emerald-600",
-        bgColor: "bg-emerald-50",
-        badgeBg: "bg-emerald-100 text-emerald-800 border-emerald-200",
-        trackColor: "#E2E8F0", // slate-200
-        glowColor: "rgba(16, 185, 129, 0.2)",
-        status: "Good",
+        strokeGradient: ["#10b981", "#059669"],
+        glow: "rgba(16, 185, 129, 0.25)",
+        badgeBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+        badgeGlow: "shadow-[0_0_12px_rgba(16,185,129,0.25)]",
+        statusText: "Exceptional",
+        benchmark: "Top 5% Web Benchmark",
+        dotColor: "bg-emerald-500",
+        textColor: "text-emerald-600 dark:text-emerald-400",
       };
     }
     if (val >= 50) {
       return {
-        gradientId: `gauge-amber-${label.replace(/\s+/g, "-")}`,
-        startColor: "#F59E0B", // amber-500
-        stopColor: "#D97706", // amber-600
-        textColor: "text-amber-600",
-        bgColor: "bg-amber-50",
-        badgeBg: "bg-amber-100 text-amber-800 border-amber-200",
-        trackColor: "#E2E8F0",
-        glowColor: "rgba(245, 158, 11, 0.2)",
-        status: "Needs Work",
+        strokeGradient: ["#f59e0b", "#d97706"],
+        glow: "rgba(245, 158, 11, 0.25)",
+        badgeBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+        badgeGlow: "shadow-[0_0_12px_rgba(245,158,11,0.25)]",
+        statusText: "Needs Work",
+        benchmark: "Standard Web Range",
+        dotColor: "bg-amber-500",
+        textColor: "text-amber-600 dark:text-amber-400",
       };
     }
     return {
-      gradientId: `gauge-rose-${label.replace(/\s+/g, "-")}`,
-      startColor: "#EF4444", // rose-500
-      stopColor: "#DC2626", // rose-600
-      textColor: "text-rose-600",
-      bgColor: "bg-rose-50",
-      badgeBg: "bg-rose-100 text-rose-800 border-rose-200",
-      trackColor: "#E2E8F0",
-      glowColor: "rgba(239, 68, 68, 0.2)",
-      status: "Poor",
+      strokeGradient: ["#ef4444", "#dc2626"],
+      glow: "rgba(239, 68, 68, 0.25)",
+      badgeBg: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+      badgeGlow: "shadow-[0_0_12px_rgba(239,68,68,0.25)]",
+      statusText: "Poor / Critical",
+      benchmark: "Below P75 Target",
+      dotColor: "bg-rose-500",
+      textColor: "text-rose-600 dark:text-rose-400",
     };
   };
 
-  const theme = getScoreTheme(clampedScore);
+  const data = getScoreData(clampedScore);
+  const gradId = `gauge-grad-${label.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
+  const glowFilterId = `glow-${label.toLowerCase().replace(/[^a-z0-9]/g, "-")}`;
+
+  const getIcon = () => {
+    switch (label.toLowerCase()) {
+      case "performance":
+        return <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />;
+      case "accessibility":
+        return <Eye className="h-4 w-4 text-brand-500" />;
+      case "best practices":
+        return <ShieldCheck className="h-4 w-4 text-brand-500" />;
+      case "seo":
+        return <Search className="h-4 w-4 text-brand-500" />;
+      default:
+        return <Zap className="h-4 w-4 text-brand-500" />;
+    }
+  };
 
   return (
     <div
-      className={`flex flex-col items-center justify-center p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 ${className}`}
+      className={`group relative overflow-hidden rounded-3xl bg-surface-0/90 dark:bg-surface-0/40 backdrop-blur-xl border border-surface-3/80 hover:border-brand-500/40 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between p-6 ${className}`}
     >
+      {/* Top ambient radial light behind the gauge */}
       <div
-        className="relative flex items-center justify-center"
-        style={{ width: size, height: size }}
-      >
+        className="absolute -top-12 left-1/2 -translate-x-1/2 w-44 h-44 rounded-full pointer-events-none opacity-40 group-hover:opacity-75 blur-2xl transition-opacity duration-500"
+        style={{ background: data.glow }}
+      />
+
+      {/* Card Header with Icon & Category Name */}
+      <div className="flex items-center justify-between w-full relative z-10">
+        <div className="flex items-center gap-2.5">
+          <div className="p-2 rounded-xl bg-surface-1 border border-surface-3/80 group-hover:bg-brand-50 dark:group-hover:bg-brand-950/30 group-hover:border-brand-300 transition-colors">
+            {getIcon()}
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-text-primary font-sans tracking-tight">
+              {label}
+            </h3>
+            {subtitle && (
+              <p className="text-[11px] text-text-tertiary line-clamp-1">{subtitle}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Status Chip */}
+        <span
+          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border backdrop-blur-md ${data.badgeBg} ${data.badgeGlow}`}
+        >
+          <span className={`w-1.5 h-1.5 rounded-full ${data.dotColor} animate-pulse`} />
+          {data.statusText}
+        </span>
+      </div>
+
+      {/* Central High-Fidelity SVG Radial Gauge */}
+      <div className="relative flex items-center justify-center my-5 z-10">
         <svg
           width={size}
           height={size}
@@ -81,85 +126,73 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
           className="transform -rotate-90"
         >
           <defs>
-            <linearGradient
-              id={theme.gradientId}
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="100%"
-            >
-              <stop offset="0%" stopColor={theme.startColor} />
-              <stop offset="100%" stopColor={theme.stopColor} />
+            <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={data.strokeGradient[0]} />
+              <stop offset="100%" stopColor={data.strokeGradient[1]} />
             </linearGradient>
-            <filter
-              id={`glow-${theme.gradientId}`}
-              x="-20%"
-              y="-20%"
-              width="140%"
-              height="140%"
-            >
+
+            <filter id={glowFilterId} x="-20%" y="-20%" width="140%" height="140%">
               <feDropShadow
                 dx="0"
-                dy="2"
+                dy="0"
                 stdDeviation="3"
-                floodColor={theme.startColor}
-                floodOpacity="0.3"
+                floodColor={data.strokeGradient[0]}
+                floodOpacity="0.4"
               />
             </filter>
           </defs>
 
-          {/* Background Track Circle */}
+          {/* Background Outer Ring */}
           <circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke={theme.trackColor}
+            stroke="var(--surface-2)"
             strokeWidth={strokeWidth}
             fill="transparent"
-            strokeLinecap="round"
+            strokeDasharray="2 3"
+            opacity="0.7"
           />
 
-          {/* Foreground Animated Progress Circle */}
+          {/* Primary Progress Arc */}
           <circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke={`url(#${theme.gradientId})`}
+            stroke={`url(#${gradId})`}
             strokeWidth={strokeWidth}
             fill="transparent"
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             strokeLinecap="round"
-            filter={`url(#glow-${theme.gradientId})`}
+            filter={`url(#${glowFilterId})`}
             className="transition-all duration-1000 ease-out"
           />
         </svg>
 
-        {/* Center Score & Percentage */}
+        {/* Center Score & Scale */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span
-            className={`text-3xl font-extrabold tracking-tight ${theme.textColor}`}
-          >
-            {clampedScore}
-          </span>
-          <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
-            / 100
+          <div className="flex items-baseline">
+            <span
+              className={`text-4xl sm:text-5xl font-black font-sans tracking-tight ${data.textColor} drop-shadow-xs`}
+            >
+              {clampedScore}
+            </span>
+          </div>
+          <span className="text-[10px] font-mono font-semibold text-text-tertiary tracking-widest uppercase mt-0.5">
+            SCORE / 100
           </span>
         </div>
       </div>
 
-      <div className="mt-3 text-center">
-        <h4 className="text-sm font-semibold text-slate-900">{label}</h4>
-        <div className="flex items-center justify-center gap-1.5 mt-1">
-          <span
-            className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${theme.badgeBg}`}
-          >
-            {theme.status}
-          </span>
-        </div>
-        {subtitle && (
-          <p className="text-xs text-slate-500 mt-1 max-w-32.5">{subtitle}</p>
-        )}
+      {/* Card Footer: Benchmark Position */}
+      <div className="w-full pt-3.5 border-t border-surface-2 relative z-10 flex items-center justify-between text-xs">
+        <span className="text-text-tertiary text-[11px] font-medium font-sans">
+          Google Target
+        </span>
+        <span className="font-mono text-[11px] font-semibold text-text-secondary">
+          {data.benchmark}
+        </span>
       </div>
     </div>
   );

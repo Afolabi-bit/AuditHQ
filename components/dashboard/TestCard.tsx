@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  Badge,
   CheckCircle2,
   Clock,
   Monitor,
@@ -11,7 +10,6 @@ import {
   Loader2,
 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import { getScoreBgColor, getScoreColor } from "@/data";
 
 interface TestCardProps {
   id: number;
@@ -26,6 +24,27 @@ interface TestCardProps {
   tti: number | null;
   cls: number | null;
   speedIndex: number | null;
+}
+
+function getScoreTextColor(score: number | null): string {
+  if (score == null) return "text-text-tertiary";
+  if (score >= 90) return "text-score-good";
+  if (score >= 50) return "text-score-warn";
+  return "text-score-poor";
+}
+
+function getScoreBadgeClass(score: number | null): string {
+  if (score == null) return "bg-surface-2 text-text-tertiary";
+  if (score >= 90) return "bg-emerald-50 text-emerald-700 border border-emerald-200";
+  if (score >= 50) return "bg-amber-50 text-amber-700 border border-amber-200";
+  return "bg-rose-50 text-rose-700 border border-rose-200";
+}
+
+function getScoreLabel(score: number | null): string {
+  if (score == null) return "Evaluating";
+  if (score >= 90) return "Good";
+  if (score >= 50) return "Needs Work";
+  return "Poor";
 }
 
 const TestCard = ({
@@ -47,126 +66,123 @@ const TestCard = ({
   const isFailed = status === "failed";
 
   const cardContent = (
-    <Card
-      className={`hover:shadow-md transition-all ${
-        isCompleted ? "hover:border-blue-300 cursor-pointer group" : ""
-      } ${
-        isPending
-          ? "bg-slate-50/80 border-slate-200"
-          : isFailed
-          ? "bg-rose-50/30 border-rose-200"
-          : ""
+    <div
+      className={`rounded-2xl bg-surface-0 border border-surface-3 p-5 shadow-xs transition-all ${
+        isCompleted
+          ? "hover:border-brand-200 hover:shadow-sm cursor-pointer group"
+          : isPending
+          ? "bg-surface-1/60"
+          : "bg-rose-50/20"
       }`}
     >
-      <CardContent className="pt-6">
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-2 mb-2">
-              <h3 className="text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition-colors break-all">
-                {url}
-              </h3>
-              {isCompleted && (
-                <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-50">
-                  <CheckCircle2 className="h-3 w-3 mr-1" />
-                  Completed
-                </Badge>
-              )}
-              {isPending && (
-                <Badge className="bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-50">
-                  <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-                  Running Audit...
-                </Badge>
-              )}
-              {isFailed && (
-                <Badge className="bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-50">
-                  <XCircle className="h-3 w-3 mr-1" />
-                  Audit Failed
-                </Badge>
-              )}
-            </div>
-
-            <div className="flex items-center space-x-4 text-xs text-slate-500 mb-3">
-              <span className="flex items-center">
-                <Clock className="h-3.5 w-3.5 mr-1 text-slate-400" />
-                {date}
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          {/* URL & Status Header */}
+          <div className="flex flex-wrap items-center gap-2 mb-1.5">
+            <h3 className="text-base font-bold text-text-primary group-hover:text-brand-600 transition-colors truncate max-w-md font-mono">
+              {url}
+            </h3>
+            {isPending && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-600 border border-brand-200">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                Auditing…
               </span>
-              <span className="flex items-center capitalize">
-                {device?.toLowerCase() === "mobile" ? (
-                  <Smartphone className="h-3.5 w-3.5 mr-1 text-slate-400" />
-                ) : (
-                  <Monitor className="h-3.5 w-3.5 mr-1 text-slate-400" />
-                )}
-                {device || "Desktop"}
-              </span>
-            </div>
-
-            {isFailed && errorMessage && (
-              <div className="flex items-start gap-1.5 text-xs text-rose-600 bg-rose-50 p-2.5 rounded-md border border-rose-200 mt-2">
-                <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
-                <span>{errorMessage}</span>
-              </div>
             )}
-
-            {isCompleted && (
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-2">
-                <div>
-                  <p className="text-xs text-slate-400 font-medium">FCP</p>
-                  <p className="text-sm font-bold text-slate-700">
-                    {fcp != null ? `${fcp}s` : "—"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs text-slate-400 font-medium">LCP</p>
-                  <p className="text-sm font-bold text-slate-700">
-                    {lcp != null ? `${lcp}s` : "—"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs text-slate-400 font-medium">TBT</p>
-                  <p className="text-sm font-bold text-slate-700">
-                    {tti != null ? `${tti}s` : "—"}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs text-slate-400 font-medium">CLS</p>
-                  <p className="text-sm font-bold text-slate-700">
-                    {cls != null ? cls : "—"}
-                  </p>
-                </div>
-                <div className="flex items-end">
-                  <span className="inline-flex items-center text-xs font-semibold text-blue-600 group-hover:translate-x-1 transition-transform">
-                    View Report <ArrowRight className="h-3.5 w-3.5 ml-1" />
-                  </span>
-                </div>
-              </div>
+            {isFailed && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                <XCircle className="h-3 w-3" />
+                Audit Failed
+              </span>
             )}
           </div>
 
+          {/* Metadata Row */}
+          <div className="flex items-center space-x-3 text-xs text-text-secondary mb-3 font-mono">
+            <span className="flex items-center gap-1">
+              <Clock className="h-3 w-3 text-text-tertiary" />
+              {date}
+            </span>
+            <span>·</span>
+            <span className="flex items-center gap-1 capitalize">
+              {device?.toLowerCase() === "mobile" ? (
+                <Smartphone className="h-3 w-3 text-text-tertiary" />
+              ) : (
+                <Monitor className="h-3 w-3 text-text-tertiary" />
+              )}
+              {device || "Desktop"}
+            </span>
+          </div>
+
+          {/* Failure Error Display */}
+          {isFailed && errorMessage && (
+            <div className="flex items-start gap-2 text-xs text-rose-700 bg-rose-50 p-3 rounded-xl border border-rose-200 mt-2 font-mono">
+              <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-rose-600" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          {/* Pending Skeleton / Pulse */}
+          {isPending && (
+            <div className="flex items-center gap-2 text-xs font-mono text-text-secondary bg-surface-1 p-2.5 rounded-xl border border-surface-3">
+              <span className="w-2 h-2 rounded-full bg-brand-600 animate-ping" />
+              <span>Lighthouse engine executing render pass and network trace…</span>
+            </div>
+          )}
+
+          {/* Completed Metrics Grid */}
           {isCompleted && (
-            <div className="ml-4 shrink-0 text-center">
-              <div
-                className={`text-4xl sm:text-5xl font-extrabold ${getScoreColor(score)}`}
-              >
-                {typeof score === "number" ? score : "—"}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+              <div className="p-2 rounded-lg bg-surface-1 border border-surface-3">
+                <p className="text-[10px] text-text-tertiary uppercase font-mono">FCP</p>
+                <p className="text-xs font-mono font-bold text-text-primary">
+                  {fcp != null ? `${fcp}s` : "—"}
+                </p>
               </div>
-              <div
-                className={`text-xs font-semibold mt-1 px-2.5 py-0.5 rounded-full ${getScoreBgColor(
-                  score
-                )} ${getScoreColor(score)}`}
-              >
-                {typeof score === "number"
-                  ? score >= 90
-                    ? "Good"
-                    : score >= 50
-                    ? "Needs Work"
-                    : "Poor"
-                  : "Unknown"}
+              <div className="p-2 rounded-lg bg-surface-1 border border-surface-3">
+                <p className="text-[10px] text-text-tertiary uppercase font-mono">LCP</p>
+                <p className="text-xs font-mono font-bold text-text-primary">
+                  {lcp != null ? `${lcp}s` : "—"}
+                </p>
+              </div>
+              <div className="p-2 rounded-lg bg-surface-1 border border-surface-3">
+                <p className="text-[10px] text-text-tertiary uppercase font-mono">TBT</p>
+                <p className="text-xs font-mono font-bold text-text-primary">
+                  {tti != null ? `${tti}s` : "—"}
+                </p>
+              </div>
+              <div className="p-2 rounded-lg bg-surface-1 border border-surface-3">
+                <p className="text-[10px] text-text-tertiary uppercase font-mono">CLS</p>
+                <p className="text-xs font-mono font-bold text-text-primary">
+                  {cls != null ? cls : "—"}
+                </p>
               </div>
             </div>
           )}
         </div>
-      </CardContent>
-    </Card>
+
+        {/* Score Badge Pill */}
+        {isCompleted && (
+          <div className="shrink-0 flex flex-col items-center justify-center p-3 rounded-xl bg-surface-1 border border-surface-3 min-w-[76px] text-center">
+            <span className={`text-3xl font-mono font-extrabold tracking-tight ${getScoreTextColor(score)}`}>
+              {typeof score === "number" ? score : "—"}
+            </span>
+            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-1 ${getScoreBadgeClass(score)}`}>
+              {getScoreLabel(score)}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Footer CTA */}
+      {isCompleted && (
+        <div className="mt-3 pt-2.5 border-t border-surface-2 flex items-center justify-between text-xs text-text-tertiary font-mono">
+          <span>Audit #{id}</span>
+          <span className="font-semibold text-brand-600 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform font-sans">
+            View Full Report <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </div>
+      )}
+    </div>
   );
 
   if (isCompleted) {

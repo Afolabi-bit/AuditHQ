@@ -163,7 +163,10 @@ export function parseLighthouseReport(lhr: any): ParsedLighthouseReport {
     },
     ttfb: {
       value: ttfbVal,
-      displayValue: audits["server-response-time"]?.displayValue || (ttfbVal ? `${Math.round(ttfbVal)} ms` : "—"),
+      displayValue:
+        ttfbVal != null
+          ? `${Math.round(ttfbVal)} ms`
+          : audits["server-response-time"]?.displayValue?.replace(/^Root document took /i, "") || "—",
       score: audits["server-response-time"]?.score ?? null,
       rating: getMetricRating("ttfb", ttfbVal),
     },

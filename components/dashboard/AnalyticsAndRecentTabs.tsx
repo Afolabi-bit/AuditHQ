@@ -7,17 +7,13 @@ import {
   Info,
   Activity,
   TrendingUp,
+  Gauge,
+  Layers,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
 import { Progress } from "../ui/progress";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import RecentTests from "./RecentTests";
+import { PerformanceTrajectoryChart } from "./PerformanceTrajectoryChart";
 import useSWR from "swr";
 import { DashboardStats } from "@/app/utils/actions";
 
@@ -56,313 +52,271 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       recommendations: [],
     };
 
-  const getScoreBarColor = (score: number) => {
-    if (score >= 90) return "bg-emerald-500 hover:bg-emerald-600";
-    if (score >= 50) return "bg-amber-500 hover:bg-amber-600";
-    return "bg-rose-500 hover:bg-rose-600";
-  };
-
   const lcp = stats.coreWebVitals.lcp;
   const tbt = stats.coreWebVitals.tbt;
   const cls = stats.coreWebVitals.cls;
 
   return (
-    <Tabs defaultValue="recent" className="space-y-6 mt-7">
-      <TabsList className="bg-slate-100 p-1 border border-slate-200">
-        <TabsTrigger
-          value="recent"
-          className="data-[state=active]:bg-white data-[state=active]:shadow-xs"
-        >
-          Recent Tests
-        </TabsTrigger>
-        <TabsTrigger
-          value="analytics"
-          className="data-[state=active]:bg-white data-[state=active]:shadow-xs"
-        >
-          Live Analytics
-        </TabsTrigger>
-      </TabsList>
+    <Tabs defaultValue="recent" className="space-y-6 mt-8">
+      {/* Tab Navigation Pill Bar */}
+      <div className="flex items-center justify-between border-b border-surface-3 pb-3">
+        <TabsList className="bg-surface-1 p-1 rounded-xl border border-surface-3 h-10">
+          <TabsTrigger
+            value="recent"
+            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 data-[state=active]:shadow-xs px-4 py-1.5 rounded-lg text-xs font-semibold transition-all font-sans"
+          >
+            Recent Audits
+          </TabsTrigger>
+          <TabsTrigger
+            value="analytics"
+            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 data-[state=active]:shadow-xs px-4 py-1.5 rounded-lg text-xs font-semibold transition-all font-sans"
+          >
+            Performance Analytics
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Recent Tests Tab */}
-      <TabsContent value="recent" className="space-y-4">
-        <div className="flex items-center justify-between mb-2">
-          <div>
-            <h2 className="text-xl font-bold text-slate-900">
-              Recent Performance Audits
+        <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-text-tertiary font-mono">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          Live Polling Active
+        </span>
+      </div>
+
+      {/* ── Tab 1: Recent Tests ────────────────────────────────────────────── */}
+      <TabsContent value="recent" className="space-y-4 pt-1">
+        <div className="flex items-center justify-between">
+          <div className="space-y-0.5">
+            <h2 className="text-lg font-bold text-text-primary font-sans">
+              Recent Audits
             </h2>
-            <p className="text-sm text-slate-500">
-              Live history of automated Lighthouse tests across your domains
+            <p className="text-xs text-text-secondary">
+              Chronological feed of automated Lighthouse test runs
             </p>
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3.5">
           <RecentTests user={user} />
         </div>
       </TabsContent>
 
-      {/* Analytics Tab */}
-      <TabsContent value="analytics" className="space-y-6">
-        {/* Performance Trends Card */}
-        <Card className="border-slate-200 shadow-xs">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-blue-600" />
-                  Performance Score History
-                </CardTitle>
-                <CardDescription>
-                  Chronological performance trend from your most recent audits
-                </CardDescription>
-              </div>
-              {stats.avgPerformance != null && (
-                <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                  Avg: {stats.avgPerformance}/100
-                </span>
-              )}
+      {/* ── Tab 2: Analytics ──────────────────────────────────────────────── */}
+      <TabsContent value="analytics" className="space-y-6 pt-1">
+        {/* Performance Score Trend Timeline */}
+        <div className="bg-surface-0 border border-surface-3 rounded-2xl p-6 shadow-xs hover:border-brand-200 transition-all space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <h3 className="text-base font-bold text-text-primary flex items-center gap-2 font-sans">
+                <TrendingUp className="h-4 w-4 text-brand-600" />
+                Performance Score Trajectory
+              </h3>
+              <p className="text-xs text-text-secondary">
+                Sequential score distribution and variation tracking across recent audit executions
+              </p>
             </div>
-          </CardHeader>
-          <CardContent>
-            {stats.performanceTrends.length === 0 ? (
-              <div className="h-56 flex flex-col items-center justify-center text-center text-slate-400 bg-slate-50/50 rounded-xl border border-dashed border-slate-200">
-                <Activity className="h-8 w-8 mb-2 text-slate-300" />
-                <p className="text-sm font-medium text-slate-600">
-                  No audit history yet
-                </p>
-                <p className="text-xs text-slate-400 mt-1 max-w-sm">
-                  Run audits for your websites above to populate live historical
-                  tracking and trend lines.
-                </p>
-              </div>
-            ) : (
-              <div className="h-64 flex items-end justify-between gap-3 pt-6 px-2">
-                {stats.performanceTrends.map((data, index) => {
-                  const heightPercent = Math.max(12, data.score);
-                  return (
-                    <div
-                      key={index}
-                      className="flex-1 flex flex-col items-center group h-full justify-end"
-                    >
-                      <span className="text-xs font-bold text-slate-700 mb-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
-                        {data.score}
-                      </span>
-                      <div
-                        className={`w-full max-w-12 rounded-t-lg transition-all duration-300 ${getScoreBarColor(
-                          data.score,
-                        )} shadow-xs`}
-                        style={{ height: `${heightPercent}%` }}
-                        title={`Score: ${data.score} on ${data.date}`}
-                      />
-                      <p className="text-[11px] font-medium text-slate-500 mt-2 truncate w-full text-center">
-                        {data.date}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </CardContent>
-        </Card>
 
-        {/* Core Web Vitals & Recommendations Grid */}
+            {stats.avgPerformance != null && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-600 border border-brand-200">
+                Avg: {stats.avgPerformance}/100
+              </span>
+            )}
+          </div>
+
+          <PerformanceTrajectoryChart
+            data={stats.performanceTrends}
+            avgScore={stats.avgPerformance}
+          />
+        </div>
+
+        {/* Core Web Vitals & Optimization Priorities Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Core Web Vitals Overview */}
-          <Card className="border-slate-200 shadow-xs">
-            <CardHeader>
-              <CardTitle className="text-lg font-bold text-slate-900">
-                Core Web Vitals Averages
-              </CardTitle>
-              <CardDescription>
-                Mean user experience metrics across all your tested pages
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
+          {/* Core Web Vitals Means */}
+          <div className="bg-surface-0 border border-surface-3 rounded-2xl p-6 shadow-xs space-y-6">
+            <div className="space-y-0.5">
+              <h3 className="text-base font-bold text-text-primary font-sans flex items-center gap-2">
+                <Gauge className="h-4 w-4 text-emerald-600" />
+                Core Web Vitals Aggregates
+              </h3>
+              <p className="text-xs text-text-secondary">
+                Mean user experience metrics across all audited endpoints
+              </p>
+            </div>
+
+            <div className="space-y-5">
               {/* LCP */}
-              <div>
-                <div className="flex justify-between items-center mb-2">
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="text-sm font-semibold text-slate-800">
+                    <span className="font-semibold text-text-primary font-sans">
                       Largest Contentful Paint (LCP)
                     </span>
-                    <p className="text-xs text-slate-500">
-                      Main content loading speed
-                    </p>
+                    <p className="text-[11px] text-text-tertiary">Main content rendering speed</p>
                   </div>
                   <span
-                    className={`text-sm font-bold ${
+                    className={`font-mono font-bold ${
                       lcp == null
-                        ? "text-slate-400"
+                        ? "text-text-tertiary"
                         : lcp <= 2.5
-                          ? "text-emerald-600"
-                          : lcp <= 4.0
-                            ? "text-amber-600"
-                            : "text-rose-600"
+                        ? "text-score-good"
+                        : lcp <= 4.0
+                        ? "text-score-warn"
+                        : "text-score-poor"
                     }`}
                   >
                     {lcp != null ? `${lcp}s` : "—"}
                   </span>
                 </div>
-                <Progress
-                  value={
-                    lcp == null
-                      ? 0
-                      : Math.max(
-                          10,
-                          Math.min(
-                            100,
-                            Math.round((2.5 / Math.max(0.5, lcp)) * 75),
-                          ),
-                        )
-                  }
-                  className="h-2 bg-slate-100"
-                />
-                <p className="text-xs text-slate-500 mt-1.5 flex justify-between">
-                  <span>
-                    {lcp == null
-                      ? "No data"
-                      : lcp <= 2.5
-                        ? "Good"
+                <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${
+                      lcp == null
+                        ? "bg-surface-3"
+                        : lcp <= 2.5
+                        ? "bg-emerald-500"
                         : lcp <= 4.0
-                          ? "Needs Improvement"
-                          : "Poor"}
-                  </span>
-                  <span>Target: &le; 2.5s</span>
-                </p>
+                        ? "bg-amber-500"
+                        : "bg-rose-500"
+                    }`}
+                    style={{
+                      width: `${
+                        lcp == null
+                          ? 0
+                          : Math.max(10, Math.min(100, Math.round((2.5 / Math.max(0.5, lcp)) * 100)))
+                      }%`,
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-[10px] font-mono text-text-tertiary">
+                  <span>{lcp == null ? "No data" : lcp <= 2.5 ? "Good" : lcp <= 4.0 ? "Needs Improvement" : "Poor"}</span>
+                  <span>Target: ≤ 2.5s</span>
+                </div>
               </div>
 
               {/* TBT */}
-              <div>
-                <div className="flex justify-between items-center mb-2">
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="text-sm font-semibold text-slate-800">
+                    <span className="font-semibold text-text-primary font-sans">
                       Total Blocking Time (TBT)
                     </span>
-                    <p className="text-xs text-slate-500">
-                      Main thread responsiveness
-                    </p>
+                    <p className="text-[11px] text-text-tertiary">Main thread responsiveness</p>
                   </div>
                   <span
-                    className={`text-sm font-bold ${
+                    className={`font-mono font-bold ${
                       tbt == null
-                        ? "text-slate-400"
+                        ? "text-text-tertiary"
                         : tbt <= 200
-                          ? "text-emerald-600"
-                          : tbt <= 600
-                            ? "text-amber-600"
-                            : "text-rose-600"
+                        ? "text-score-good"
+                        : tbt <= 600
+                        ? "text-score-warn"
+                        : "text-score-poor"
                     }`}
                   >
-                    {tbt != null ? `${tbt} ms` : "—"}
+                    {tbt != null ? `${tbt}ms` : "—"}
                   </span>
                 </div>
-                <Progress
-                  value={
-                    tbt == null
-                      ? 0
-                      : Math.max(
-                          10,
-                          Math.min(
-                            100,
-                            Math.round((200 / Math.max(50, tbt)) * 85),
-                          ),
-                        )
-                  }
-                  className="h-2 bg-slate-100"
-                />
-                <p className="text-xs text-slate-500 mt-1.5 flex justify-between">
-                  <span>
-                    {tbt == null
-                      ? "No data"
-                      : tbt <= 200
-                        ? "Good"
+                <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${
+                      tbt == null
+                        ? "bg-surface-3"
+                        : tbt <= 200
+                        ? "bg-emerald-500"
                         : tbt <= 600
-                          ? "Needs Improvement"
-                          : "Poor"}
-                  </span>
-                  <span>Target: &le; 200 ms</span>
-                </p>
+                        ? "bg-amber-500"
+                        : "bg-rose-500"
+                    }`}
+                    style={{
+                      width: `${
+                        tbt == null
+                          ? 0
+                          : Math.max(10, Math.min(100, Math.round((200 / Math.max(50, tbt)) * 100)))
+                      }%`,
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-[10px] font-mono text-text-tertiary">
+                  <span>{tbt == null ? "No data" : tbt <= 200 ? "Good" : tbt <= 600 ? "Needs Improvement" : "Poor"}</span>
+                  <span>Target: ≤ 200ms</span>
+                </div>
               </div>
 
               {/* CLS */}
-              <div>
-                <div className="flex justify-between items-center mb-2">
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="text-sm font-semibold text-slate-800">
+                    <span className="font-semibold text-text-primary font-sans">
                       Cumulative Layout Shift (CLS)
                     </span>
-                    <p className="text-xs text-slate-500">
-                      Visual stability during render
-                    </p>
+                    <p className="text-[11px] text-text-tertiary">Visual stability index</p>
                   </div>
                   <span
-                    className={`text-sm font-bold ${
+                    className={`font-mono font-bold ${
                       cls == null
-                        ? "text-slate-400"
+                        ? "text-text-tertiary"
                         : cls <= 0.1
-                          ? "text-emerald-600"
-                          : cls <= 0.25
-                            ? "text-amber-600"
-                            : "text-rose-600"
+                        ? "text-score-good"
+                        : cls <= 0.25
+                        ? "text-score-warn"
+                        : "text-score-poor"
                     }`}
                   >
                     {cls != null ? cls : "—"}
                   </span>
                 </div>
-                <Progress
-                  value={
-                    cls == null
-                      ? 0
-                      : Math.max(
-                          10,
-                          Math.min(
-                            100,
-                            Math.round((0.1 / Math.max(0.01, cls)) * 80),
-                          ),
-                        )
-                  }
-                  className="h-2 bg-slate-100"
-                />
-                <p className="text-xs text-slate-500 mt-1.5 flex justify-between">
-                  <span>
-                    {cls == null
-                      ? "No data"
-                      : cls <= 0.1
-                        ? "Good"
+                <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${
+                      cls == null
+                        ? "bg-surface-3"
+                        : cls <= 0.1
+                        ? "bg-emerald-500"
                         : cls <= 0.25
-                          ? "Needs Improvement"
-                          : "Poor"}
-                  </span>
-                  <span>Target: &le; 0.1</span>
-                </p>
+                        ? "bg-amber-500"
+                        : "bg-rose-500"
+                    }`}
+                    style={{
+                      width: `${
+                        cls == null
+                          ? 0
+                          : Math.max(10, Math.min(100, Math.round((0.1 / Math.max(0.01, cls)) * 100)))
+                      }%`,
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-[10px] font-mono text-text-tertiary">
+                  <span>{cls == null ? "No data" : cls <= 0.1 ? "Good" : cls <= 0.25 ? "Needs Improvement" : "Poor"}</span>
+                  <span>Target: ≤ 0.1</span>
+                </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          {/* Recommendations Card */}
-          <Card className="border-slate-200 shadow-xs flex flex-col">
-            <CardHeader>
-              <CardTitle className="text-lg font-bold text-slate-900">
-                Actionable Optimization Priorities
-              </CardTitle>
-              <CardDescription>
-                Tailored recommendations derived from your live audit metrics
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3.5 flex-1">
+          {/* Actionable Priorities */}
+          <div className="bg-surface-0 border border-surface-3 rounded-2xl p-6 shadow-xs flex flex-col justify-between space-y-4">
+            <div className="space-y-0.5">
+              <h3 className="text-base font-bold text-text-primary font-sans flex items-center gap-2">
+                <Layers className="h-4 w-4 text-brand-600" />
+                Optimization Priorities
+              </h3>
+              <p className="text-xs text-text-secondary">
+                Actionable recommendations synthesized from aggregated audit passes
+              </p>
+            </div>
+
+            <div className="space-y-3 flex-1">
               {stats.recommendations.map((rec, idx) => {
                 if (rec.type === "warning") {
                   return (
                     <div
                       key={idx}
-                      className="flex items-start space-x-3 p-3.5 bg-amber-50/80 border border-amber-200/80 rounded-xl"
+                      className="flex items-start space-x-3 p-3.5 bg-amber-50/70 border border-amber-200/70 rounded-xl"
                     >
-                      <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+                      <AlertCircle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm font-semibold text-amber-900">
+                        <p className="text-xs font-bold text-amber-900 font-sans">
                           {rec.title}
                         </p>
-                        <p className="text-xs text-amber-700/90 mt-0.5 leading-relaxed">
+                        <p className="text-[11px] text-amber-800/85 mt-0.5 leading-relaxed">
                           {rec.description}
                         </p>
                       </div>
@@ -374,14 +328,14 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                   return (
                     <div
                       key={idx}
-                      className="flex items-start space-x-3 p-3.5 bg-emerald-50/80 border border-emerald-200/80 rounded-xl"
+                      className="flex items-start space-x-3 p-3.5 bg-emerald-50/70 border border-emerald-200/70 rounded-xl"
                     >
-                      <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-sm font-semibold text-emerald-900">
+                        <p className="text-xs font-bold text-emerald-900 font-sans">
                           {rec.title}
                         </p>
-                        <p className="text-xs text-emerald-700/90 mt-0.5 leading-relaxed">
+                        <p className="text-[11px] text-emerald-800/85 mt-0.5 leading-relaxed">
                           {rec.description}
                         </p>
                       </div>
@@ -392,22 +346,22 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                 return (
                   <div
                     key={idx}
-                    className="flex items-start space-x-3 p-3.5 bg-blue-50/80 border border-blue-200/80 rounded-xl"
+                    className="flex items-start space-x-3 p-3.5 bg-brand-50/70 border border-brand-200/70 rounded-xl"
                   >
-                    <Info className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                    <Info className="h-4 w-4 text-brand-600 shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-sm font-semibold text-blue-900">
+                      <p className="text-xs font-bold text-brand-900 font-sans">
                         {rec.title}
                       </p>
-                      <p className="text-xs text-blue-700/90 mt-0.5 leading-relaxed">
+                      <p className="text-[11px] text-brand-800/85 mt-0.5 leading-relaxed">
                         {rec.description}
                       </p>
                     </div>
                   </div>
                 );
               })}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </TabsContent>
     </Tabs>

@@ -8,17 +8,23 @@ import {
   TrendingUp,
   Minus,
   Activity,
+  Zap,
 } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import { Progress } from "../ui/progress";
 import useSWR from "swr";
 import { DashboardStats } from "@/app/utils/actions";
-import { getScoreColor } from "@/data";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 interface StatsOverviewCardsProps {
   initialStats?: DashboardStats | null;
+}
+
+function getScoreTextColor(score: number | null): string {
+  if (score == null) return "text-text-tertiary";
+  if (score >= 90) return "text-score-good";
+  if (score >= 50) return "text-score-warn";
+  return "text-score-poor";
 }
 
 const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats }) => {
@@ -47,121 +53,142 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
       {/* 1. Tests This Month */}
-      <Card className="hover:shadow-sm transition-shadow">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-600">Tests This Month</p>
-              <p className="text-3xl font-extrabold text-slate-900 mt-1">
-                {stats.testsThisMonth}
-              </p>
-              <p className="text-xs text-slate-500 mt-1">
-                of {stats.testsLimit} free quota
-              </p>
-            </div>
-            <div className="h-12 w-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center border border-blue-100">
-              <BarChart3 className="h-6 w-6" />
-            </div>
+      <div className="bg-surface-0 border border-surface-3 rounded-2xl p-5 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all flex flex-col justify-between">
+        <div className="flex items-start justify-between">
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-text-secondary uppercase tracking-wider font-sans">
+              Monthly Audits
+            </p>
+            <p className="text-3xl font-mono font-bold text-text-primary tracking-tight">
+              {stats.testsThisMonth}
+            </p>
           </div>
-          <Progress value={usagePercent} className="mt-4 h-2 bg-slate-100" />
-        </CardContent>
-      </Card>
+          <div className="h-10 w-10 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600">
+            <BarChart3 className="h-5 w-5" />
+          </div>
+        </div>
+
+        <div className="mt-4 pt-3 border-t border-surface-2 space-y-1.5">
+          <div className="flex justify-between text-[11px] font-mono text-text-tertiary">
+            <span>Quota Used</span>
+            <span className="font-semibold text-text-primary">
+              {stats.testsThisMonth} / {stats.testsLimit}
+            </span>
+          </div>
+          {/* Segmented / Smooth Modern Bar */}
+          <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-brand-600 rounded-full transition-all duration-500"
+              style={{ width: `${usagePercent}%` }}
+            />
+          </div>
+        </div>
+      </div>
 
       {/* 2. Average Performance */}
-      <Card className="hover:shadow-sm transition-shadow">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-600">Avg Performance</p>
-              <p className={`text-3xl font-extrabold mt-1 ${getScoreColor(stats.avgPerformance)}`}>
-                {stats.avgPerformance != null ? stats.avgPerformance : "—"}
-              </p>
-              <div className="flex items-center mt-1 text-xs">
-                {stats.performanceDiff != null && stats.performanceDiff !== 0 ? (
-                  stats.performanceDiff > 0 ? (
-                    <span className="flex items-center text-emerald-600 font-medium">
-                      <TrendingUp className="h-3.5 w-3.5 mr-1" />
-                      +{stats.performanceDiff} pts vs earlier
-                    </span>
-                  ) : (
-                    <span className="flex items-center text-rose-600 font-medium">
-                      <TrendingDown className="h-3.5 w-3.5 mr-1" />
-                      {stats.performanceDiff} pts vs earlier
-                    </span>
-                  )
-                ) : (
-                  <span className="flex items-center text-slate-400">
-                    <Minus className="h-3.5 w-3.5 mr-1" />
-                    {stats.avgPerformance != null ? "Baseline score" : "No completed audits"}
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="h-12 w-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center border border-emerald-100">
-              <Activity className="h-6 w-6" />
-            </div>
+      <div className="bg-surface-0 border border-surface-3 rounded-2xl p-5 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all flex flex-col justify-between">
+        <div className="flex items-start justify-between">
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-text-secondary uppercase tracking-wider font-sans">
+              Avg Performance
+            </p>
+            <p className={`text-3xl font-mono font-bold tracking-tight ${getScoreTextColor(stats.avgPerformance)}`}>
+              {stats.avgPerformance != null ? stats.avgPerformance : "—"}
+            </p>
           </div>
-        </CardContent>
-      </Card>
+          <div className="h-10 w-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+            <Activity className="h-5 w-5" />
+          </div>
+        </div>
 
-      {/* 3. Active Sites */}
-      <Card className="hover:shadow-sm transition-shadow">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-600">Active Domains</p>
-              <p className="text-3xl font-extrabold text-slate-900 mt-1">
-                {stats.activeSites}
-              </p>
-              <p className="text-xs text-slate-500 mt-1">
-                {stats.activeSites === 1 ? "1 domain tested" : `${stats.activeSites} unique domains`}
-              </p>
-            </div>
-            <div className="h-12 w-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center border border-indigo-100">
-              <Globe className="h-6 w-6" />
-            </div>
+        <div className="mt-4 pt-3 border-t border-surface-2 flex items-center text-xs">
+          {stats.performanceDiff != null && stats.performanceDiff !== 0 ? (
+            stats.performanceDiff > 0 ? (
+              <span className="inline-flex items-center gap-1 text-emerald-600 font-semibold font-mono text-[11px]">
+                <TrendingUp className="h-3.5 w-3.5" />
+                +{stats.performanceDiff} pts vs earlier
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 text-rose-600 font-semibold font-mono text-[11px]">
+                <TrendingDown className="h-3.5 w-3.5" />
+                {stats.performanceDiff} pts vs earlier
+              </span>
+            )
+          ) : (
+            <span className="inline-flex items-center gap-1 text-text-tertiary font-mono text-[11px]">
+              <Minus className="h-3 w-3" />
+              {stats.avgPerformance != null ? "Baseline calibrated" : "No completed audits"}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* 3. Active Domains */}
+      <div className="bg-surface-0 border border-surface-3 rounded-2xl p-5 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all flex flex-col justify-between">
+        <div className="flex items-start justify-between">
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-text-secondary uppercase tracking-wider font-sans">
+              Monitored Domains
+            </p>
+            <p className="text-3xl font-mono font-bold text-text-primary tracking-tight">
+              {stats.activeSites}
+            </p>
           </div>
-        </CardContent>
-      </Card>
+          <div className="h-10 w-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
+            <Globe className="h-5 w-5" />
+          </div>
+        </div>
+
+        <div className="mt-4 pt-3 border-t border-surface-2 flex items-center justify-between text-xs text-text-tertiary font-mono text-[11px]">
+          <span>{stats.activeSites === 1 ? "1 unique domain" : `${stats.activeSites} unique domains`}</span>
+        </div>
+      </div>
 
       {/* 4. Average Load Time (LCP) */}
-      <Card className="hover:shadow-sm transition-shadow">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-slate-600">Avg Load Time (LCP)</p>
-              <p className="text-3xl font-extrabold text-slate-900 mt-1">
-                {stats.avgLoadTime != null ? `${stats.avgLoadTime}s` : "—"}
-              </p>
-              <div className="flex items-center mt-1 text-xs">
-                {stats.avgLoadTime != null ? (
-                  stats.avgLoadTime <= 2.5 ? (
-                    <span className="flex items-center text-emerald-600 font-medium">
-                      <TrendingDown className="h-3.5 w-3.5 mr-1" />
-                      Healthy (&lt;2.5s target)
-                    </span>
-                  ) : (
-                    <span className="flex items-center text-amber-600 font-medium">
-                      <TrendingUp className="h-3.5 w-3.5 mr-1" />
-                      Needs optimization
-                    </span>
-                  )
-                ) : (
-                  <span className="flex items-center text-slate-400">
-                    <Minus className="h-3.5 w-3.5 mr-1" />
-                    Target: &lt;2.5s
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="h-12 w-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center border border-amber-100">
-              <Clock className="h-6 w-6" />
-            </div>
+      <div className="bg-surface-0 border border-surface-3 rounded-2xl p-5 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all flex flex-col justify-between">
+        <div className="flex items-start justify-between">
+          <div className="space-y-1">
+            <p className="text-xs font-semibold text-text-secondary uppercase tracking-wider font-sans">
+              Avg Load Time (LCP)
+            </p>
+            <p className="text-3xl font-mono font-bold text-text-primary tracking-tight">
+              {stats.avgLoadTime != null ? (
+                <>
+                  {stats.avgLoadTime}
+                  <span className="text-base font-normal text-text-tertiary ml-0.5">s</span>
+                </>
+              ) : (
+                "—"
+              )}
+            </p>
           </div>
-        </CardContent>
-      </Card>
+          <div className="h-10 w-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
+            <Clock className="h-5 w-5" />
+          </div>
+        </div>
+
+        <div className="mt-4 pt-3 border-t border-surface-2 flex items-center text-xs">
+          {stats.avgLoadTime != null ? (
+            stats.avgLoadTime <= 2.5 ? (
+              <span className="inline-flex items-center gap-1 text-emerald-600 font-semibold font-mono text-[11px]">
+                <TrendingDown className="h-3.5 w-3.5" />
+                Optimal (&lt;2.5s target)
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 text-amber-600 font-semibold font-mono text-[11px]">
+                <TrendingUp className="h-3.5 w-3.5" />
+                Needs optimization
+              </span>
+            )
+          ) : (
+            <span className="text-text-tertiary font-mono text-[11px]">
+              Target: &lt;2.5s LCP
+            </span>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
