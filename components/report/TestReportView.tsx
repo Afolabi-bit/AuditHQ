@@ -1,16 +1,31 @@
 "use client";
 
 import React, { useMemo } from "react";
+import dynamic from "next/dynamic";
 import { parseLighthouseReport } from "@/lib/report-parser";
 import { ReportHeader } from "./ReportHeader";
-import { CategoryScoreRings } from "./CategoryScoreRings";
-import { CoreWebVitalsGrid } from "./CoreWebVitalsGrid";
-import { VisualExperience } from "./VisualExperience";
-import { ReportTabs } from "./ReportTabs";
 import { Card, CardContent } from "../ui/card";
 import { AlertCircle, Zap } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+
+// Lazily loaded — these are heavy components with large dependency trees
+const CategoryScoreRings = dynamic(
+  () => import("./CategoryScoreRings").then((m) => ({ default: m.CategoryScoreRings })),
+  { ssr: false }
+);
+const CoreWebVitalsGrid = dynamic(
+  () => import("./CoreWebVitalsGrid").then((m) => ({ default: m.CoreWebVitalsGrid })),
+  { ssr: false }
+);
+const VisualExperience = dynamic(
+  () => import("./VisualExperience").then((m) => ({ default: m.VisualExperience })),
+  { ssr: false }
+);
+const ReportTabs = dynamic(
+  () => import("./ReportTabs").then((m) => ({ default: m.ReportTabs })),
+  { ssr: false }
+);
 
 interface TestReportViewProps {
   test: {

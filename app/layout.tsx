@@ -16,10 +16,67 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const BASE_URL = "https://swiftaudithq.vercel.app";
+
 export const metadata: Metadata = {
-  title: "AuditHQ - Performance Testing Made Easy",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "AuditHQ — Website Performance Auditing",
+    template: "%s | AuditHQ",
+  },
   description:
-    "Simplify your performance testing with AuditHQ. Create, run, and analyze tests effortlessly.",
+    "Run instant Google Lighthouse audits from the cloud. Track Core Web Vitals, identify performance bottlenecks, and share results — all in one place.",
+  keywords: [
+    "lighthouse audit",
+    "web performance",
+    "core web vitals",
+    "page speed",
+    "FCP",
+    "LCP",
+    "CLS",
+    "website speed test",
+  ],
+  authors: [{ name: "AuditHQ" }],
+  creator: "AuditHQ",
+
+  openGraph: {
+    type: "website",
+    url: BASE_URL,
+    siteName: "AuditHQ",
+    title: "AuditHQ — Website Performance Auditing",
+    description:
+      "Run instant Google Lighthouse audits from the cloud. Track Core Web Vitals, identify performance bottlenecks, and share results — all in one place.",
+    images: [
+      {
+        url: "/apple-touch-icon.jpg",
+        width: 1024,
+        height: 1024,
+        alt: "AuditHQ — Website Performance Auditing",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary",
+    title: "AuditHQ — Website Performance Auditing",
+    description:
+      "Run instant Google Lighthouse audits. Track Core Web Vitals. Share results.",
+    images: ["/apple-touch-icon.jpg"],
+  },
+
+  icons: {
+    icon: "/icon.jpg",
+    apple: "/apple-touch-icon.jpg",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 };
 
 export default async function RootLayout({

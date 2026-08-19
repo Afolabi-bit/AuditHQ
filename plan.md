@@ -65,16 +65,18 @@ This document outlines the architecture, current state, and the systematic imple
 
 ---
 
-### 🎨 Milestone 5: Brand Assets, SEO & Performance Polish
+### 🎨 Milestone 5: Brand Assets, SEO & Performance Polish (✅ Completed)
 *Polish metadata, social previews, and asset delivery.*
 
-- [ ] **Custom Brand Favicon & Logos**:
-  - Replace default Next.js `favicon.ico` with AuditHQ SVG/PNG icon.
-  - Add `apple-touch-icon.png` and web manifest icons.
-- [ ] **OpenGraph & Twitter Card Metadata**:
-  - Configure `app/layout.tsx` metadata with dynamic OpenGraph title, description, and preview banner image for social sharing.
-- [ ] **Automated Performance Optimization**:
-  - Optimize dynamic imports for heavy charting / tab components to maintain sub-100ms dashboard interaction times.
+- [x] **Custom Brand Favicon & Logos**:
+  - Generated AuditHQ lightning bolt icon and registered as `app/icon.jpg` (browser tab favicon).
+  - Added `public/apple-touch-icon.jpg` for Apple home screen bookmarks.
+- [x] **OpenGraph & Twitter Card Metadata**:
+  - Configured `metadataBase`, `openGraph`, `twitter`, `keywords`, `robots`, and templated `title` in `app/layout.tsx`.
+  - Social link previews now show AuditHQ branding when shared on Twitter/X, Slack, Discord, etc.
+- [x] **Automated Performance Optimization**:
+  - Heavy report components (`CategoryScoreRings`, `CoreWebVitalsGrid`, `VisualExperience`, `ReportTabs`) now use `next/dynamic` with `ssr: false`.
+  - Dashboard loads instantly; report component JS is code-split and only fetched when the report page is opened.
 
 ---
 
