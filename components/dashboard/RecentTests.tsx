@@ -51,11 +51,22 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center text-center py-8 text-gray-500">
-        <span className="flex items-center">
-          <Loader2 className="text-blue-600 h-4 w-4 mr-2 animate-spin" />
-          <span>Loading recent tests...</span>
-        </span>
+      <div className="space-y-3">
+        {[1, 2].map((i) => (
+          <div
+            key={i}
+            className="rounded-xl bg-white border border-[#e3e8ee] p-4.5 flex items-center justify-between shadow-[0_1px_3px_rgba(50,50,93,0.08)]"
+          >
+            <div className="space-y-2 flex-1 max-w-md">
+              <div className="flex items-center gap-2">
+                <div className="h-4 w-48 rounded bg-[#f1f5f9] animate-pulse" />
+                <div className="h-4 w-16 rounded-full bg-[#f1f5f9] animate-pulse" />
+              </div>
+              <div className="h-3 w-32 rounded bg-[#f1f5f9] animate-pulse" />
+            </div>
+            <div className="h-14 w-16 rounded-xl bg-[#f1f5f9] animate-pulse" />
+          </div>
+        ))}
       </div>
     );
   }

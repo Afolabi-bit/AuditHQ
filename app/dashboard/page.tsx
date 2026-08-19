@@ -4,9 +4,7 @@ import StatsOverviewCards from "@/components/dashboard/StatsOverviewCards";
 import AnalyticsAndRecentTabs from "@/components/dashboard/AnalyticsAndRecentTabs";
 import NewTest from "@/components/dashboard/NewTest";
 import { redirect } from "next/navigation";
-import DashboardNav from "@/components/dashboard/DashboardNav";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
-import { getDashboardStats } from "@/app/utils/actions";
 
 export const dynamic = "force-dynamic";
 
@@ -17,22 +15,19 @@ export default async function DashboardPage() {
     redirect("/api/auth/register");
   }
 
-  // Pre-fetch stats on the server for instant page load
-  const initialStats = await getDashboardStats(user.id).catch(() => null);
-
   return (
-    <div className="min-h-screen bg-[#f6f9fc] text-[#0a2540]">
-      <DashboardNav user={user} />
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* 1. Greeting header (instant) */}
+      <Welcome user={user} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Welcome user={user} />
+      {/* 2. Stats cards (instant cards, scoped inline number skeletons) */}
+      <StatsOverviewCards />
 
-        <StatsOverviewCards initialStats={initialStats} />
+      {/* 3. Audit execution command bar (instant, interactive immediately) */}
+      <NewTest user={user} />
 
-        <NewTest user={user} />
-
-        <AnalyticsAndRecentTabs user={user} initialStats={initialStats} />
-      </div>
-    </div>
+      {/* 4. Deep-dive tabs & recent tests (instant tabs, scoped content skeletons) */}
+      <AnalyticsAndRecentTabs user={user} />
+    </main>
   );
 }

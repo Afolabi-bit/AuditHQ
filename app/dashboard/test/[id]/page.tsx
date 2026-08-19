@@ -2,7 +2,6 @@ import { notFound, redirect } from "next/navigation";
 import getSessionUser from "@/lib/auth";
 import prisma from "@/lib/db";
 import { TestReportView } from "@/components/report/TestReportView";
-import DashboardNav from "@/components/dashboard/DashboardNav";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 
 export const dynamic = "force-dynamic";
@@ -38,13 +37,11 @@ export default async function TestDetailsPage({ params }: TestPageProps) {
 
   // Ensure user owns this test domain
   if (test.domain.ownerId !== user.id) {
-    // If not owner, deny access
     notFound();
   }
 
   return (
-    <div className="min-h-screen bg-surface-1 w-full max-w-full overflow-x-hidden">
-      <DashboardNav user={user} />
+    <div className="w-full max-w-full overflow-x-hidden">
       <TestReportView test={test as any} />
     </div>
   );

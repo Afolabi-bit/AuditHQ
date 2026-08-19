@@ -5,6 +5,7 @@ import getSessionUser from "@/lib/auth";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { syncUserToDatabase } from "./utils/actions";
 import { Toaster } from "sonner";
+import { TopProgressBar } from "@/components/ui/TopProgressBar";
 
 const fontSans = Inter({
   variable: "--font-sans",
@@ -97,6 +98,7 @@ export default async function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} bg-[#f6f9fc] text-[#0a2540] font-sans antialiased min-h-screen selection:bg-[#635bff]/15 selection:text-[#635bff]`}
       >
+        <TopProgressBar />
         {children}
         <Toaster
           position="bottom-right"

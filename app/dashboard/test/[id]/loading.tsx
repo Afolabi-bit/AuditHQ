@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function PublicReportLoading() {
+export default function TestDetailsLoading() {
   return (
-    <div className="min-h-screen bg-[#f6f9fc] animate-in fade-in-50 duration-150">
+    <div className="w-full max-w-full overflow-x-hidden animate-in fade-in-50 duration-150">
       {/* 1. Report Header Skeleton */}
       <div className="bg-white border-b border-[#e3e8ee] px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">

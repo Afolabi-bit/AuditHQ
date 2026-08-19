@@ -9,7 +9,6 @@ import {
   TrendingUp,
   Minus,
   Activity,
-  Zap,
 } from "lucide-react";
 import useSWR from "swr";
 import { DashboardStats } from "@/app/utils/actions";
@@ -28,12 +27,17 @@ function getScoreTextColor(score: number | null): string {
 }
 
 const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats }) => {
-  const { data } = useSWR<{ stats: DashboardStats }>("/api/dashboard/stats", fetcher, {
-    fallbackData: initialStats ? { stats: initialStats } : undefined,
-    refreshInterval: 10000,
-    revalidateOnFocus: true,
-  });
+  const { data, isLoading: swrLoading } = useSWR<{ stats: DashboardStats }>(
+    "/api/dashboard/stats",
+    fetcher,
+    {
+      fallbackData: initialStats ? { stats: initialStats } : undefined,
+      refreshInterval: 10000,
+      revalidateOnFocus: true,
+    }
+  );
 
+  const isLoading = !data && !initialStats && swrLoading;
   const stats = data?.stats || initialStats || {
     testsThisMonth: 0,
     testsLimit: 100,
@@ -59,11 +63,20 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <p className="text-xs font-semibold text-[#8898aa] uppercase tracking-wider font-sans">
-              Monthly Audits
+              Audits This Month
             </p>
-            <p className="text-3xl font-mono font-bold text-[#0a2540] tracking-tight">
-              {stats.testsThisMonth}
-            </p>
+            <div className="text-3xl font-mono font-bold text-[#0a2540] tracking-tight">
+              {isLoading ? (
+                <div className="h-8 w-14 rounded-md bg-[#f1f5f9] animate-pulse my-0.5" />
+              ) : (
+                <>
+                  {stats.testsThisMonth}
+                  <span className="text-sm font-normal text-[#8898aa] ml-1.5 font-sans">
+                    / {stats.testsLimit || 100}
+                  </span>
+                </>
+              )}
+            </div>
           </div>
           <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
             <BarChart3 className="h-5 w-5" />
@@ -72,15 +85,13 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
 
         <div className="mt-4 pt-3 border-t border-[#f1f5f9] space-y-1.5">
           <div className="flex justify-between text-[11px] font-mono text-[#8898aa]">
-            <span>Quota Used</span>
-            <span className="font-semibold text-[#0a2540]">
-              {stats.testsThisMonth} / {stats.testsLimit}
-            </span>
+            <span>Monthly Quota</span>
+            <span>{isLoading ? "—" : `${usagePercent}%`}</span>
           </div>
           <div className="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
             <div
               className="h-full bg-[#635bff] rounded-full transition-all duration-500"
-              style={{ width: `${usagePercent}%` }}
+              style={{ width: `${isLoading ? 0 : usagePercent}%` }}
             />
           </div>
         </div>
@@ -93,9 +104,13 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
             <p className="text-xs font-semibold text-[#8898aa] uppercase tracking-wider font-sans">
               Avg Performance
             </p>
-            <p className={`text-3xl font-mono font-bold tracking-tight ${getScoreTextColor(stats.avgPerformance)}`}>
-              {stats.avgPerformance != null ? Math.round(Number(stats.avgPerformance)) : "—"}
-            </p>
+            <div className={`text-3xl font-mono font-bold tracking-tight ${getScoreTextColor(stats.avgPerformance)}`}>
+              {isLoading ? (
+                <div className="h-8 w-12 rounded-md bg-[#f1f5f9] animate-pulse my-0.5" />
+              ) : (
+                stats.avgPerformance != null ? Math.round(Number(stats.avgPerformance)) : "—"
+              )}
+            </div>
           </div>
           <div className="h-10 w-10 rounded-lg bg-[#e3fcf7] border border-[#abf5d1] flex items-center justify-center text-[#00875a]">
             <Activity className="h-5 w-5" />
@@ -103,7 +118,9 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
         </div>
 
         <div className="mt-4 pt-3 border-t border-[#f1f5f9] flex items-center text-xs">
-          {stats.performanceDiff != null && stats.performanceDiff !== 0 ? (
+          {isLoading ? (
+            <div className="h-4 w-28 rounded bg-[#f1f5f9] animate-pulse" />
+          ) : stats.performanceDiff != null && stats.performanceDiff !== 0 ? (
             stats.performanceDiff > 0 ? (
               <span className="inline-flex items-center gap-1 text-[#00875a] font-semibold font-mono text-[11px]">
                 <TrendingUp className="h-3.5 w-3.5" />
@@ -131,9 +148,13 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
             <p className="text-xs font-semibold text-[#8898aa] uppercase tracking-wider font-sans">
               Monitored Domains
             </p>
-            <p className="text-3xl font-mono font-bold text-[#0a2540] tracking-tight">
-              {stats.activeSites}
-            </p>
+            <div className="text-3xl font-mono font-bold text-[#0a2540] tracking-tight">
+              {isLoading ? (
+                <div className="h-8 w-10 rounded-md bg-[#f1f5f9] animate-pulse my-0.5" />
+              ) : (
+                stats.activeSites
+              )}
+            </div>
           </div>
           <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
             <Globe className="h-5 w-5" />
@@ -141,7 +162,11 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
         </div>
 
         <div className="mt-4 pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#8898aa] font-mono text-[11px]">
-          <span>{stats.activeSites === 1 ? "1 unique domain" : `${stats.activeSites} unique domains`}</span>
+          {isLoading ? (
+            <div className="h-3 w-24 rounded bg-[#f1f5f9] animate-pulse" />
+          ) : (
+            <span>{stats.activeSites === 1 ? "1 unique domain" : `${stats.activeSites} unique domains`}</span>
+          )}
         </div>
       </div>
 
@@ -152,8 +177,10 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
             <p className="text-xs font-semibold text-[#8898aa] uppercase tracking-wider font-sans">
               Avg Load Time (LCP)
             </p>
-            <p className="text-3xl font-mono font-bold text-[#0a2540] tracking-tight">
-              {stats.avgLoadTime != null ? (
+            <div className="text-3xl font-mono font-bold text-[#0a2540] tracking-tight">
+              {isLoading ? (
+                <div className="h-8 w-16 rounded-md bg-[#f1f5f9] animate-pulse my-0.5" />
+              ) : stats.avgLoadTime != null ? (
                 <>
                   {Number(stats.avgLoadTime) % 1 === 0
                     ? stats.avgLoadTime
@@ -163,7 +190,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
               ) : (
                 "—"
               )}
-            </p>
+            </div>
           </div>
           <div className="h-10 w-10 rounded-lg bg-[#fff8e5] border border-[#ffe380] flex items-center justify-center text-[#b76e00]">
             <Clock className="h-5 w-5" />
@@ -171,7 +198,9 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
         </div>
 
         <div className="mt-4 pt-3 border-t border-[#f1f5f9] flex items-center text-xs">
-          {stats.avgLoadTime != null ? (
+          {isLoading ? (
+            <div className="h-4 w-28 rounded bg-[#f1f5f9] animate-pulse" />
+          ) : stats.avgLoadTime != null ? (
             stats.avgLoadTime <= 2.5 ? (
               <span className="inline-flex items-center gap-1 text-[#00875a] font-semibold font-mono text-[11px]">
                 <TrendingDown className="h-3.5 w-3.5" />

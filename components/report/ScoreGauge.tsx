@@ -24,38 +24,13 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
   const clampedScore = Math.max(0, Math.min(100, score || 0));
   const offset = circumference - (clampedScore / 100) * circumference;
 
-  const getScoreData = (val: number) => {
-    if (val >= 90) {
-      return {
-        stroke: "#00875a",
-        badge: "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1]",
-        statusText: "Good",
-        benchmark: "Top 10% Benchmark",
-        dotColor: "bg-[#00875a]",
-        textColor: "text-[#00875a]",
-      };
-    }
-    if (val >= 50) {
-      return {
-        stroke: "#b76e00",
-        badge: "bg-[#fff8e5] text-[#b76e00] border-[#ffe380]",
-        statusText: "Needs Work",
-        benchmark: "Standard Range",
-        dotColor: "bg-[#b76e00]",
-        textColor: "text-[#b76e00]",
-      };
-    }
-    return {
-      stroke: "#de350b",
-      badge: "bg-[#ffebe6] text-[#de350b] border-[#ffbdad]",
-      statusText: "Poor",
-      benchmark: "Below P75 Target",
-      dotColor: "bg-[#de350b]",
-      textColor: "text-[#de350b]",
-    };
+  const getScoreColor = (val: number) => {
+    if (val >= 90) return "#00875a"; // Good (green)
+    if (val >= 50) return "#b76e00"; // Needs work (amber)
+    return "#de350b"; // Poor (red)
   };
 
-  const data = getScoreData(clampedScore);
+  const strokeColor = getScoreColor(clampedScore);
 
   const getIcon = () => {
     switch (label.toLowerCase()) {
@@ -76,28 +51,19 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
     <div
       className={`rounded-xl bg-white border border-[#e3e8ee] p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] hover:border-[#c7cefe] hover:shadow-[0_6px_12px_-2px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between ${className}`}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between w-full">
-        <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-lg bg-[#f0f2ff] border border-[#c7cefe]">
-            {getIcon()}
-          </div>
-          <div>
-            <h3 className="text-sm font-bold text-[#0a2540] font-sans tracking-tight">
-              {label}
-            </h3>
-            {subtitle && (
-              <p className="text-[11px] text-[#8898aa] line-clamp-1">{subtitle}</p>
-            )}
-          </div>
+      {/* Header — clean icon and title without redundant status pills */}
+      <div className="flex items-center gap-2.5 w-full">
+        <div className="p-2 rounded-lg bg-[#f0f2ff] border border-[#c7cefe]">
+          {getIcon()}
         </div>
-
-        <span
-          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${data.badge}`}
-        >
-          <span className={`w-1.5 h-1.5 rounded-full ${data.dotColor}`} />
-          {data.statusText}
-        </span>
+        <div>
+          <h3 className="text-sm font-bold text-[#0a2540] font-sans tracking-tight">
+            {label}
+          </h3>
+          {subtitle && (
+            <p className="text-[11px] text-[#8898aa] line-clamp-1">{subtitle}</p>
+          )}
+        </div>
       </div>
 
       {/* SVG Radial Gauge */}
@@ -123,7 +89,7 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke={data.stroke}
+            stroke={strokeColor}
             strokeWidth={strokeWidth}
             fill="transparent"
             strokeDasharray={circumference}
@@ -144,13 +110,11 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
         </div>
       </div>
 
-      {/* Footer: Benchmark */}
+      {/* Footer: Production Passing Threshold */}
       <div className="w-full pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs">
-        <span className="text-[#8898aa] text-[11px] font-sans">
-          Google Target
-        </span>
-        <span className="font-mono text-[11px] font-semibold text-[#425466]">
-          {data.benchmark}
+        <span className="text-[11px] text-[#8898aa] font-medium">Passing Threshold</span>
+        <span className="text-[11px] font-mono font-bold text-[#0a2540] bg-[#f8fafc] px-2 py-0.5 rounded border border-[#e3e8ee]">
+          90–100 pts
         </span>
       </div>
     </div>
