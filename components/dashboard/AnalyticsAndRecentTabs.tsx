@@ -32,7 +32,6 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
     fetcher,
     {
       fallbackData: initialStats ? { stats: initialStats } : undefined,
-      refreshInterval: 10000,
       revalidateOnFocus: true,
     },
   );

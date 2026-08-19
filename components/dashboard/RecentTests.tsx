@@ -43,7 +43,6 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
     `/api/tests/recent?userId=${user.id}`,
     fetcher,
     {
-      refreshInterval: 5000,
       revalidateOnFocus: true,
       revalidateOnReconnect: true,
     }
