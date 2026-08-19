@@ -27,7 +27,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
   user,
   initialStats,
 }) => {
-  const { data } = useSWR<{ stats: DashboardStats }>(
+  const { data, isLoading: swrLoading } = useSWR<{ stats: DashboardStats }>(
     "/api/dashboard/stats",
     fetcher,
     {
@@ -36,6 +36,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
     },
   );
 
+  const isLoading = !data && !initialStats && swrLoading;
   const stats = data?.stats ||
     initialStats || {
       testsThisMonth: 0,
@@ -151,7 +152,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                   </div>
                   <span
                     className={`font-mono font-bold ${
-                      lcp == null
+                      isLoading || lcp == null
                         ? "text-[#8898aa]"
                         : lcp <= 2.5
                         ? "text-[#00875a]"
@@ -160,13 +161,19 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                         : "text-[#de350b]"
                     }`}
                   >
-                    {lcp != null ? `${Number(lcp).toFixed(1)}s` : "—"}
+                    {isLoading ? (
+                      <span className="inline-block h-4 w-12 rounded bg-[#f1f5f9] animate-pulse" />
+                    ) : lcp != null ? (
+                      `${Number(lcp).toFixed(1)}s`
+                    ) : (
+                      "—"
+                    )}
                   </span>
                 </div>
                 <div className="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${
-                      lcp == null
+                      isLoading || lcp == null
                         ? "bg-[#e3e8ee]"
                         : lcp <= 2.5
                         ? "bg-[#00875a]"
@@ -176,7 +183,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                     }`}
                     style={{
                       width: `${
-                        lcp == null
+                        isLoading || lcp == null
                           ? 0
                           : Math.max(10, Math.min(100, Math.round((2.5 / Math.max(0.5, lcp)) * 100)))
                       }%`,
@@ -184,7 +191,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                   />
                 </div>
                 <div className="flex justify-between text-[10px] font-mono text-[#8898aa]">
-                  <span>{lcp == null ? "No data" : lcp <= 2.5 ? "Good" : lcp <= 4.0 ? "Needs Improvement" : "Poor"}</span>
+                  <span>{isLoading ? "Loading…" : lcp == null ? "No data" : lcp <= 2.5 ? "Good" : lcp <= 4.0 ? "Needs Improvement" : "Poor"}</span>
                   <span>Target: ≤ 2.5s</span>
                 </div>
               </div>
@@ -200,7 +207,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                   </div>
                   <span
                     className={`font-mono font-bold ${
-                      tbt == null
+                      isLoading || tbt == null
                         ? "text-[#8898aa]"
                         : tbt <= 200
                         ? "text-[#00875a]"
@@ -209,13 +216,19 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                         : "text-[#de350b]"
                     }`}
                   >
-                    {tbt != null ? `${Math.round(Number(tbt))}ms` : "—"}
+                    {isLoading ? (
+                      <span className="inline-block h-4 w-12 rounded bg-[#f1f5f9] animate-pulse" />
+                    ) : tbt != null ? (
+                      `${Math.round(Number(tbt))}ms`
+                    ) : (
+                      "—"
+                    )}
                   </span>
                 </div>
                 <div className="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${
-                      tbt == null
+                      isLoading || tbt == null
                         ? "bg-[#e3e8ee]"
                         : tbt <= 200
                         ? "bg-[#00875a]"
@@ -225,7 +238,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                     }`}
                     style={{
                       width: `${
-                        tbt == null
+                        isLoading || tbt == null
                           ? 0
                           : Math.max(10, Math.min(100, Math.round((200 / Math.max(50, tbt)) * 100)))
                       }%`,
@@ -233,7 +246,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                   />
                 </div>
                 <div className="flex justify-between text-[10px] font-mono text-[#8898aa]">
-                  <span>{tbt == null ? "No data" : tbt <= 200 ? "Good" : tbt <= 600 ? "Needs Improvement" : "Poor"}</span>
+                  <span>{isLoading ? "Loading…" : tbt == null ? "No data" : tbt <= 200 ? "Good" : tbt <= 600 ? "Needs Improvement" : "Poor"}</span>
                   <span>Target: ≤ 200ms</span>
                 </div>
               </div>
@@ -249,7 +262,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                   </div>
                   <span
                     className={`font-mono font-bold ${
-                      cls == null
+                      isLoading || cls == null
                         ? "text-[#8898aa]"
                         : cls <= 0.1
                         ? "text-[#00875a]"
@@ -258,7 +271,13 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                         : "text-[#de350b]"
                     }`}
                   >
-                    {cls != null ? Number(cls).toFixed(2) : "—"}
+                    {isLoading ? (
+                      <span className="inline-block h-4 w-12 rounded bg-[#f1f5f9] animate-pulse" />
+                    ) : cls != null ? (
+                      Number(cls).toFixed(2)
+                    ) : (
+                      "—"
+                    )}
                   </span>
                 </div>
                 <div className="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">

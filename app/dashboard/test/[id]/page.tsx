@@ -1,13 +1,41 @@
+import React, { Suspense } from "react";
 import { notFound, redirect } from "next/navigation";
 import getSessionUser from "@/lib/auth";
 import prisma from "@/lib/db";
 import { TestReportView } from "@/components/report/TestReportView";
+import { TestReportSkeleton } from "@/components/report/TestReportSkeleton";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 
 export const dynamic = "force-dynamic";
 
 interface TestPageProps {
   params: Promise<{ id: string }>;
+}
+
+async function AsyncTestReportFetcher({
+  testId,
+  userId,
+}: {
+  testId: number;
+  userId: string;
+}) {
+  const test = await prisma.test.findUnique({
+    where: { id: testId },
+    include: {
+      domain: true,
+    },
+  });
+
+  if (!test) {
+    notFound();
+  }
+
+  // Ensure user owns this test domain
+  if (test.domain.ownerId !== userId) {
+    notFound();
+  }
+
+  return <TestReportView test={test as any} />;
 }
 
 export default async function TestDetailsPage({ params }: TestPageProps) {
@@ -24,25 +52,11 @@ export default async function TestDetailsPage({ params }: TestPageProps) {
     notFound();
   }
 
-  const test = await prisma.test.findUnique({
-    where: { id: testId },
-    include: {
-      domain: true,
-    },
-  });
-
-  if (!test) {
-    notFound();
-  }
-
-  // Ensure user owns this test domain
-  if (test.domain.ownerId !== user.id) {
-    notFound();
-  }
-
   return (
     <div className="w-full max-w-full overflow-x-hidden">
-      <TestReportView test={test as any} />
+      <Suspense fallback={<TestReportSkeleton />}>
+        <AsyncTestReportFetcher testId={testId} userId={user.id} />
+      </Suspense>
     </div>
   );
 }
