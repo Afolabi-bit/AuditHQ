@@ -205,18 +205,20 @@ export async function executeAuditForTest(
     });
 
     console.log(
-      `✅ [DB] Updated test #${testId} with completed PageSpeed audit results`,
+      `[DB] Updated test #${testId} with completed PageSpeed audit results`,
     );
   } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
     console.error(
-      `❌ [DB] Test #${testId} failed during PageSpeed audit:`,
-      error,
+      `[DB] Test #${testId} failed during PageSpeed audit:`,
+      errorMsg,
     );
     await prisma.test
       .update({
         where: { id: testId },
         data: {
           status: "failed",
+          errorMessage: errorMsg,
         },
       })
       .catch((dbErr) => {

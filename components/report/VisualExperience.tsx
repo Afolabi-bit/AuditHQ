@@ -55,19 +55,26 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Filmstrip Carousel */}
         {filmstrip.length > 0 && (
-          <Card className={`border-slate-200 shadow-xs ${fullPageScreenshot ? "lg:col-span-8" : "lg:col-span-12"}`}>
+          <Card
+            className={`border-slate-200 shadow-xs ${fullPageScreenshot ? "lg:col-span-8" : "lg:col-span-12"}`}
+          >
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-700">
                 <span className="flex items-center gap-1.5">
                   <Clock className="h-3.5 w-3.5 text-blue-600" />
                   Loading Progression Timeline
                 </span>
-                <span className="text-slate-400">{filmstrip.length} frames captured</span>
+                <span className="text-slate-400">
+                  {filmstrip.length} frames captured
+                </span>
               </div>
 
               <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-200">
                 {filmstrip.map((frame, index) => (
-                  <div key={index} className="flex-shrink-0 flex flex-col items-center space-y-1.5">
+                  <div
+                    key={index}
+                    className="shrink-0 flex flex-col items-center space-y-1.5"
+                  >
                     <div className="w-28 h-20 bg-slate-100 rounded-lg border border-slate-200 overflow-hidden shadow-2xs hover:border-blue-400 transition-colors">
                       <img
                         src={frame.data}
@@ -88,7 +95,9 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
 
         {/* Full Page Screenshot Thumbnail */}
         {fullPageScreenshot && (
-          <Card className={`border-slate-200 shadow-xs ${filmstrip.length > 0 ? "lg:col-span-4" : "lg:col-span-12"}`}>
+          <Card
+            className={`border-slate-200 shadow-xs ${filmstrip.length > 0 ? "lg:col-span-4" : "lg:col-span-12"}`}
+          >
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-700">
                 <span className="flex items-center gap-1.5">

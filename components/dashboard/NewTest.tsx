@@ -51,10 +51,22 @@ const NewTest = ({ user }: { user: KindeUser }) => {
 
       const res = await req.json();
 
+      if (!req.ok || !res?.data?.testId) {
+        setIsTesting(false);
+        setIsUrlValid({
+          validity: false,
+          message:
+            res?.message ||
+            "Failed to start performance audit. Please check the URL or try again.",
+        });
+        return;
+      }
+
       const testId = res.data.testId;
 
-      // Immediately refresh the tests list to show the new pending test
+      // Immediately refresh the tests list & stats to show the new pending test
       mutate(`/api/tests/recent?userId=${user.id}`);
+      mutate("/api/dashboard/stats");
 
       // Poll for test status every 2 seconds
       let pollInterval: NodeJS.Timeout | null = null;
@@ -69,14 +81,16 @@ const NewTest = ({ user }: { user: KindeUser }) => {
             if (pollInterval) clearInterval(pollInterval);
             setIsTesting(false);
             setUrl(""); // Clear the input field
-            // Refresh the tests list to show updated status
+            // Refresh the tests list and dashboard stats to show updated status
             mutate(`/api/tests/recent?userId=${user.id}`);
+            mutate("/api/dashboard/stats");
             console.log("✅ [CLIENT] Test completed successfully! Full API response & report:", statusData);
           } else if (statusData.status === "failed") {
             if (pollInterval) clearInterval(pollInterval);
             setIsTesting(false);
-            // Refresh the tests list to show failed status
+            // Refresh the tests list and dashboard stats to show failed status
             mutate(`/api/tests/recent?userId=${user.id}`);
+            mutate("/api/dashboard/stats");
             console.log("Test failed - check server logs for details");
           }
           // If status is still "pending", continue polling

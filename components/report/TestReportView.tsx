@@ -8,7 +8,7 @@ import { CoreWebVitalsGrid } from "./CoreWebVitalsGrid";
 import { VisualExperience } from "./VisualExperience";
 import { ReportTabs } from "./ReportTabs";
 import { Card, CardContent } from "../ui/card";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Zap } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 
@@ -16,6 +16,7 @@ interface TestReportViewProps {
   test: {
     id: number;
     status: string;
+    errorMessage?: string | null;
     performanceScore: number | null;
     fcp: number | null;
     lcp: number | null;
@@ -30,9 +31,13 @@ interface TestReportViewProps {
       network: string;
     };
   };
+  isPublic?: boolean;
 }
 
-export const TestReportView: React.FC<TestReportViewProps> = ({ test }) => {
+export const TestReportView: React.FC<TestReportViewProps> = ({
+  test,
+  isPublic = false,
+}) => {
   const parsedReport = useMemo(() => {
     return parseLighthouseReport(test.fullReport);
   }, [test.fullReport]);
@@ -46,15 +51,16 @@ export const TestReportView: React.FC<TestReportViewProps> = ({ test }) => {
             <h2 className="text-lg font-bold text-slate-900">
               {test.status === "pending" ? "Audit In Progress..." : "Audit Failed"}
             </h2>
-            <p className="text-xs text-slate-600">
+            <p className="text-xs text-slate-600 leading-relaxed">
               {test.status === "pending"
-                ? "This test is still being processed by Google PageSpeed Insights. Please refresh in a few moments."
-                : "This audit could not be completed. Check the URL or server logs for details."}
+                ? "This test is currently being processed by Google PageSpeed Insights. Please refresh in a few moments."
+                : test.errorMessage ||
+                  "This audit could not be completed. Check the URL or server logs for details."}
             </p>
             <div className="pt-2">
-              <Link href="/dashboard">
+              <Link href={isPublic ? "/" : "/dashboard"}>
                 <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                  Return to Dashboard
+                  {isPublic ? "Go to AuditHQ Home" : "Return to Dashboard"}
                 </Button>
               </Link>
             </div>
@@ -66,7 +72,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({ test }) => {
 
   return (
     <div className="min-h-screen bg-slate-50/60 pb-16">
-      {/* Top Fixed / Sticky Header */}
+      {/* Top Header with Breadcrumbs & Actions */}
       <ReportHeader
         testId={test.id}
         url={test.domain.url}
@@ -74,6 +80,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({ test }) => {
         network={test.domain.network}
         createdAt={test.createdAt}
         rawReport={test.fullReport}
+        isPublic={isPublic}
       />
 
       {/* Main Report Body */}
@@ -93,6 +100,26 @@ export const TestReportView: React.FC<TestReportViewProps> = ({ test }) => {
 
         {/* 4. Deep-Dive Interactive Tabs */}
         <ReportTabs report={parsedReport} />
+
+        {/* 5. Public Footer CTA Banner (if viewed publicly) */}
+        {isPublic && (
+          <div className="mt-12 bg-linear-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-center text-white space-y-4 print:hidden shadow-md">
+            <h3 className="text-2xl font-bold">
+              Optimize your own website performance with AuditHQ
+            </h3>
+            <p className="text-blue-100 text-sm max-w-xl mx-auto">
+              Run automated Lighthouse cloud audits, track Core Web Vitals over time, and get instant recommendations to build faster web experiences.
+            </p>
+            <div className="pt-2">
+              <Link href="/">
+                <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50 font-semibold shadow-sm">
+                  <Zap className="h-4 w-4 mr-2" />
+                  Run Free Audit Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

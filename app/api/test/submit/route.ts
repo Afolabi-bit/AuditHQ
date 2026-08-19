@@ -1,6 +1,7 @@
 import { submitDomain } from "@/app/utils/actions";
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import getSessionUser from "@/lib/auth";
+import { executeAuditForTest } from "@/lib/pagespeed-runner";
 
 export async function POST(request: Request) {
   try {
@@ -24,6 +25,20 @@ export async function POST(request: Request) {
     };
 
     const result = await submitDomain(data);
+
+    // Keep the serverless runtime alive until the PageSpeed audit finishes and writes to DB
+    after(async () => {
+      try {
+        await executeAuditForTest(
+          result.testId,
+          data.url,
+          data.device,
+          data.network
+        );
+      } catch (err) {
+        console.error(`Background audit error for test #${result.testId}:`, err);
+      }
+    });
 
     return NextResponse.json(
       {

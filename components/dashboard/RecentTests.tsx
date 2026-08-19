@@ -10,7 +10,10 @@ type RecentTestData = {
   id: number;
   createdAt: Date;
   domainId: number;
+  device?: string;
+  network?: string;
   status: string;
+  errorMessage?: string | null;
   performanceScore: number | null;
   fcp: number | null;
   lcp: number | null;
@@ -83,8 +86,14 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
           id={test.id}
           url={test.domain.url}
           status={test.status}
-          date={new Date(test.createdAt).toLocaleDateString()}
-          device={test.domain.device}
+          errorMessage={test.errorMessage}
+          date={new Date(test.createdAt).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+          device={test.device || test.domain.device}
           score={test.performanceScore ?? null}
           fcp={msToSeconds(test.fcp)}
           lcp={msToSeconds(test.lcp)}

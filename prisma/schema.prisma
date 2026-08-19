@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/generated/prisma"
@@ -12,8 +9,9 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
 model User {
-  id        String      @id 
+  id        String   @id 
   email     String   @unique
   name      String?
   createdAt DateTime @default(now())
@@ -21,13 +19,13 @@ model User {
 }
 
 model Domain {
-  id       Int      @id @default(autoincrement())
-  url      String
-  device   String
-  network  String
-  owner    User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId  String
-  tests    Test[]
+  id        Int      @id @default(autoincrement())
+  url       String
+  device    String   @default("desktop")
+  network   String   @default("No Throttling")
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   String
+  tests     Test[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -37,18 +35,21 @@ model Domain {
 }
 
 model Test {
-  id Int @id @default(autoincrement())
-  domain Domain @relation(fields: [domainId], references: [id])
-  domainId Int
-  status    String  @default("pending")
+  id               Int      @id @default(autoincrement())
+  domain           Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domainId         Int
+  device           String   @default("desktop")
+  network          String?  @default("No Throttling")
+  status           String   @default("pending")
+  errorMessage     String?
   performanceScore Int?
-  fcp             Float?
-  lcp             Float?
-  tbt             Float?
-  cls             Float?
-  fullReport      Json?
-  createdAt DateTime @default(now())
+  fcp              Float?
+  lcp              Float?
+  tbt              Float?
+  cls              Float?
+  fullReport       Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
-  @@index([domainId])
+  @@index([domainId, createdAt(sort: Desc)])
 }
-
