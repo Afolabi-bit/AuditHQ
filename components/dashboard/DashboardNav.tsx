@@ -18,7 +18,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
             >
               <Zap className="h-8 w-8 text-blue-600" />
               <span className="text-2xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Zynex
+                AuditHQ
               </span>
             </Link>
           </div>

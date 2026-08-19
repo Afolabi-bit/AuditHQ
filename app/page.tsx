@@ -27,7 +27,7 @@ export default async function LandingPage() {
             <div className="flex items-center space-x-2">
               <Zap className="h-8 w-8 text-blue-600" />
               <span className="text-2xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Zynex
+                AuditHQ
               </span>
             </div>
 
@@ -270,7 +270,7 @@ export default async function LandingPage() {
             Ready to Optimize Your Website?
           </h2>
           <p className="text-xl text-blue-100">
-            Join thousands of developers using Zynex to build faster, better web
+            Join thousands of developers using AuditHQ to build faster, better web
             experiences.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -301,7 +301,7 @@ export default async function LandingPage() {
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <Zap className="h-6 w-6 text-blue-500" />
-                <span className="text-xl font-bold text-white">Zynex</span>
+                <span className="text-xl font-bold text-white">AuditHQ</span>
               </div>
               <p className="text-sm text-gray-400">
                 Performance testing made simple. Build faster websites with
@@ -386,7 +386,7 @@ export default async function LandingPage() {
 
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400">
-              © 2025 Zynex. All rights reserved.
+              © 2025 AuditHQ. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-white transition">

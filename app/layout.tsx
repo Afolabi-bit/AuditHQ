@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zynex - Performance Testing Made Easy",
+  title: "AuditHQ - Performance Testing Made Easy",
   description:
-    "Simplify your performance testing with Zynex. Create, run, and analyze tests effortlessly.",
+    "Simplify your performance testing with AuditHQ. Create, run, and analyze tests effortlessly.",
 };
 
 export default async function RootLayout({
