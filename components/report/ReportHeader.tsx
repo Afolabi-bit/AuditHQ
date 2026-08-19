@@ -13,7 +13,7 @@ import {
   Smartphone,
   Clock,
   Calendar,
-  Sparkles,
+  Activity,
   Zap,
   Loader2,
 } from "lucide-react";
@@ -120,7 +120,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-              <Sparkles className="h-3 w-3 mr-1" />
+              <Activity className="h-3 w-3 mr-1" />
               Lighthouse Cloud Engine
             </span>
             <span className="text-xs text-slate-400">Audit #{testId}</span>

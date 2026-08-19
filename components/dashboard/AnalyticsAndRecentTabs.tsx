@@ -5,7 +5,7 @@ import {
   AlertCircle,
   CheckCircle2,
   Info,
-  Sparkles,
+  Activity,
   TrendingUp,
 } from "lucide-react";
 import {
@@ -126,7 +126,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
           <CardContent>
             {stats.performanceTrends.length === 0 ? (
               <div className="h-56 flex flex-col items-center justify-center text-center text-slate-400 bg-slate-50/50 rounded-xl border border-dashed border-slate-200">
-                <Sparkles className="h-8 w-8 mb-2 text-slate-300" />
+                <Activity className="h-8 w-8 mb-2 text-slate-300" />
                 <p className="text-sm font-medium text-slate-600">
                   No audit history yet
                 </p>

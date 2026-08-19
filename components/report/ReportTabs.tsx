@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Sparkles, HardDrive, Eye, ShieldCheck, Layers } from "lucide-react";
+import { Zap, HardDrive, Eye, ShieldCheck, Layers } from "lucide-react";
 import { ParsedLighthouseReport, formatBytes } from "@/lib/report-parser";
 import { OpportunitiesTab } from "./OpportunitiesTab";
 import { NetworkPayloadTab } from "./NetworkPayloadTab";
@@ -23,7 +23,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
               value="opportunities"
               className="data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-xs px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all"
             >
-              <Sparkles className="h-4 w-4" />
+              <Zap className="h-4 w-4" />
               Opportunities & Savings
               {report.opportunities.length > 0 && (
                 <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-amber-400 text-amber-950 font-extrabold">

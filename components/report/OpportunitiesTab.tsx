@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "../ui/card";
 import {
-  Sparkles,
+  CheckCircle2,
   Clock,
   HardDrive,
   ChevronDown,
@@ -76,7 +76,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
       {filteredOpportunities.length === 0 ? (
         <Card className="border-slate-200 bg-slate-50/50">
           <CardContent className="p-8 text-center text-slate-500 text-sm">
-            <Sparkles className="h-8 w-8 text-emerald-500 mx-auto mb-2" />
+            <CheckCircle2 className="h-8 w-8 text-emerald-500 mx-auto mb-2" />
             <p className="font-semibold text-slate-700">No major issues detected in this category!</p>
             <p className="text-xs text-slate-400 mt-1">Your website is following performance best practices here.</p>
           </CardContent>

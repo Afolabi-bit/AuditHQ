@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Card, CardContent } from "../ui/card";
-import { Activity, Gauge, Sparkles, Layers, Zap, Server, Info } from "lucide-react";
+import { Activity, Gauge, Timer, Layers, Zap, Server, Info } from "lucide-react";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
 
 interface CoreWebVitalsGridProps {
@@ -101,7 +101,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       rating: metrics.speedIndex.rating,
       threshold: "Good: ≤ 3.4s",
       description: "Shows how quickly the contents of a page are visibly populated over time.",
-      icon: <Sparkles className="h-4 w-4 text-blue-600" />,
+      icon: <Timer className="h-4 w-4 text-blue-600" />,
       weight: "10% of Performance",
     },
     {

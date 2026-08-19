@@ -1,80 +1,78 @@
+"use client";
+
 import React from "react";
-import { Button } from "../ui/button";
-import { Settings, User, Zap } from "lucide-react";
+import { Zap, User, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
+import { KindeUser, LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 
 const DashboardNav = ({ user }: { user: KindeUser }) => {
   return (
-    <nav className="bg-white border-b sticky top-0 z-50 shadow-sm">
+    <nav className="bg-surface-0 border-b border-surface-3 sticky top-0 z-50 shadow-xs backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14">
+          {/* Brand Logo & Main Nav */}
           <div className="flex items-center space-x-8">
-            {/* Logo */}
             <Link
-              href="/"
-              className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+              href="/dashboard"
+              className="flex items-center space-x-2.5 group transition-opacity"
             >
-              <Zap className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <div className="h-7 w-7 rounded-lg bg-brand-600 flex items-center justify-center text-white shadow-brand">
+                <Zap className="h-4 w-4 fill-white" />
+              </div>
+              <span className="text-lg font-bold tracking-tight text-text-primary font-sans">
                 AuditHQ
               </span>
             </Link>
-          </div>
 
-          <div className="flex items-center justify-between h-10.5 space-x-4">
-            <div className="hidden md:flex items-center space-x-6 pr-4 h-full  border-r border-gray-200">
+            <div className="hidden sm:flex items-center space-x-1">
               <Link
-                href="/docs"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
+                href="/dashboard"
+                className="px-3 py-1.5 text-xs font-semibold text-brand-600 border-b-2 border-brand-600 rounded-t"
               >
-                Docs
+                Dashboard
               </Link>
             </div>
+          </div>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hidden sm:flex hover:bg-gray-100 "
-              asChild
-            >
-              <Link href="/settings">
-                <Settings className="h-4 w-4 mr-2" />
-                Settings
-              </Link>
-            </Button>
-
-            <div className="flex items-center space-x-3 pl-4 border-l border-gray-200">
-              <div className="text-right hidden lg:block">
-                <p className="text-sm font-medium text-gray-900">
+          {/* Right Actions & User Profile */}
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3 pl-3 border-l border-surface-3">
+              <div className="text-right hidden sm:block leading-tight">
+                <p className="text-xs font-semibold text-text-primary">
                   {user?.given_name} {user?.family_name}
                 </p>
-                <p className="text-xs text-gray-500">{user?.email}</p>
+                <p className="text-[11px] text-text-tertiary font-mono">
+                  {user?.email}
+                </p>
               </div>
 
-              <Link
-                href="/profile"
-                className="rounded-full w-9 h-9 hover:ring-2 hover:ring-blue-500 hover:ring-offset-2 transition-all"
-              >
+              <div className="relative">
                 {user?.picture ? (
-                  <span className="relative w-9 h-9 inline-block rounded-full overflow-hidden ring-1 ring-gray-200">
+                  <span className="relative w-8 h-8 inline-block rounded-full overflow-hidden ring-1 ring-surface-3">
                     <Image
                       src={user.picture}
                       alt={`${user?.given_name || "User"} profile picture`}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      sizes="32px"
                       className="object-cover"
                     />
                   </span>
                 ) : (
-                  <span className="w-9 h-9 rounded-full bg-linear-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-semibold">
+                  <span className="w-8 h-8 rounded-full bg-brand-50 text-brand-600 border border-brand-200 flex items-center justify-center font-bold text-xs">
                     {user?.given_name?.[0]?.toUpperCase() || (
-                      <User className="h-5 w-5" />
+                      <User className="h-4 w-4" />
                     )}
                   </span>
                 )}
-              </Link>
+              </div>
+
+              <LogoutLink
+                className="inline-flex items-center justify-center h-8 w-8 rounded-lg text-text-tertiary hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                title="Sign out"
+              >
+                <LogOut className="h-4 w-4" />
+              </LogoutLink>
             </div>
           </div>
         </div>
