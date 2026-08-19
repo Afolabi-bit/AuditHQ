@@ -29,7 +29,7 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
       return {
         gradientId: `gauge-green-${label.replace(/\s+/g, "-")}`,
         startColor: "#10B981", // emerald-500
-        stopColor: "#059669",  // emerald-600
+        stopColor: "#059669", // emerald-600
         textColor: "text-emerald-600",
         bgColor: "bg-emerald-50",
         badgeBg: "bg-emerald-100 text-emerald-800 border-emerald-200",
@@ -42,7 +42,7 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
       return {
         gradientId: `gauge-amber-${label.replace(/\s+/g, "-")}`,
         startColor: "#F59E0B", // amber-500
-        stopColor: "#D97706",  // amber-600
+        stopColor: "#D97706", // amber-600
         textColor: "text-amber-600",
         bgColor: "bg-amber-50",
         badgeBg: "bg-amber-100 text-amber-800 border-amber-200",
@@ -54,7 +54,7 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
     return {
       gradientId: `gauge-rose-${label.replace(/\s+/g, "-")}`,
       startColor: "#EF4444", // rose-500
-      stopColor: "#DC2626",  // rose-600
+      stopColor: "#DC2626", // rose-600
       textColor: "text-rose-600",
       bgColor: "bg-rose-50",
       badgeBg: "bg-rose-100 text-rose-800 border-rose-200",
@@ -70,7 +70,10 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
     <div
       className={`flex flex-col items-center justify-center p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 ${className}`}
     >
-      <div className="relative flex items-center justify-center" style={{ width: size, height: size }}>
+      <div
+        className="relative flex items-center justify-center"
+        style={{ width: size, height: size }}
+      >
         <svg
           width={size}
           height={size}
@@ -78,12 +81,30 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
           className="transform -rotate-90"
         >
           <defs>
-            <linearGradient id={theme.gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient
+              id={theme.gradientId}
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
               <stop offset="0%" stopColor={theme.startColor} />
               <stop offset="100%" stopColor={theme.stopColor} />
             </linearGradient>
-            <filter id={`glow-${theme.gradientId}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor={theme.startColor} floodOpacity="0.3" />
+            <filter
+              id={`glow-${theme.gradientId}`}
+              x="-20%"
+              y="-20%"
+              width="140%"
+              height="140%"
+            >
+              <feDropShadow
+                dx="0"
+                dy="2"
+                stdDeviation="3"
+                floodColor={theme.startColor}
+                floodOpacity="0.3"
+              />
             </filter>
           </defs>
 
@@ -116,7 +137,9 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
 
         {/* Center Score & Percentage */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className={`text-3xl font-extrabold tracking-tight ${theme.textColor}`}>
+          <span
+            className={`text-3xl font-extrabold tracking-tight ${theme.textColor}`}
+          >
             {clampedScore}
           </span>
           <span className="text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
@@ -134,7 +157,9 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
             {theme.status}
           </span>
         </div>
-        {subtitle && <p className="text-xs text-slate-500 mt-1 max-w-[130px]">{subtitle}</p>}
+        {subtitle && (
+          <p className="text-xs text-slate-500 mt-1 max-w-32.5">{subtitle}</p>
+        )}
       </div>
     </div>
   );

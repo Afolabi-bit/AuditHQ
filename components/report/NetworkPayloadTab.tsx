@@ -3,7 +3,11 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { HardDrive, Globe, ShieldAlert, Cpu, BarChart3 } from "lucide-react";
-import { formatBytes, formatMilliseconds, ParsedLighthouseReport } from "@/lib/report-parser";
+import {
+  formatBytes,
+  formatMilliseconds,
+  ParsedLighthouseReport,
+} from "@/lib/report-parser";
 
 interface NetworkPayloadTabProps {
   resourceSummary: ParsedLighthouseReport["resourceSummary"];
@@ -16,18 +20,63 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
   totalByteWeight,
   thirdParties,
 }) => {
-  const totalRequests = resourceSummary.reduce((acc, cur) => acc + cur.requestCount, 0);
+  const totalRequests = resourceSummary.reduce(
+    (acc, cur) => acc + cur.requestCount,
+    0,
+  );
 
   // Asset type color mapping
   const getResourceColor = (type: string) => {
     switch (type) {
-      case "script": return { bar: "bg-amber-500", text: "text-amber-600", border: "border-amber-200", bg: "bg-amber-50" };
-      case "image": return { bar: "bg-blue-500", text: "text-blue-600", border: "border-blue-200", bg: "bg-blue-50" };
-      case "stylesheet": return { bar: "bg-indigo-500", text: "text-indigo-600", border: "border-indigo-200", bg: "bg-indigo-50" };
-      case "font": return { bar: "bg-purple-500", text: "text-purple-600", border: "border-purple-200", bg: "bg-purple-50" };
-      case "document": return { bar: "bg-emerald-500", text: "text-emerald-600", border: "border-emerald-200", bg: "bg-emerald-50" };
-      case "media": return { bar: "bg-rose-500", text: "text-rose-600", border: "border-rose-200", bg: "bg-rose-50" };
-      default: return { bar: "bg-slate-400", text: "text-slate-600", border: "border-slate-200", bg: "bg-slate-50" };
+      case "script":
+        return {
+          bar: "bg-amber-500",
+          text: "text-amber-600",
+          border: "border-amber-200",
+          bg: "bg-amber-50",
+        };
+      case "image":
+        return {
+          bar: "bg-blue-500",
+          text: "text-blue-600",
+          border: "border-blue-200",
+          bg: "bg-blue-50",
+        };
+      case "stylesheet":
+        return {
+          bar: "bg-indigo-500",
+          text: "text-indigo-600",
+          border: "border-indigo-200",
+          bg: "bg-indigo-50",
+        };
+      case "font":
+        return {
+          bar: "bg-purple-500",
+          text: "text-purple-600",
+          border: "border-purple-200",
+          bg: "bg-purple-50",
+        };
+      case "document":
+        return {
+          bar: "bg-emerald-500",
+          text: "text-emerald-600",
+          border: "border-emerald-200",
+          bg: "bg-emerald-50",
+        };
+      case "media":
+        return {
+          bar: "bg-rose-500",
+          text: "text-rose-600",
+          border: "border-rose-200",
+          bg: "bg-rose-50",
+        };
+      default:
+        return {
+          bar: "bg-slate-400",
+          text: "text-slate-600",
+          border: "border-slate-200",
+          bg: "bg-slate-50",
+        };
     }
   };
 
@@ -38,12 +87,16 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
         <Card className="border-slate-200 shadow-2xs">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500">Total Page Weight</p>
+              <p className="text-xs font-semibold text-slate-500">
+                Total Page Weight
+              </p>
               <p className="text-2xl font-extrabold text-slate-900 mt-1">
                 {formatBytes(totalByteWeight)}
               </p>
               <p className="text-[11px] text-slate-400 mt-0.5">
-                {totalByteWeight <= 1600 * 1024 ? "🟢 Optimal weight (<1.6MB)" : "🟡 Consider reducing payload"}
+                {totalByteWeight <= 1600 * 1024
+                  ? "🟢 Optimal weight (<1.6MB)"
+                  : "🟡 Consider reducing payload"}
               </p>
             </div>
             <div className="p-3 rounded-xl bg-blue-50 text-blue-600">
@@ -55,7 +108,9 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
         <Card className="border-slate-200 shadow-2xs">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500">Total HTTP Requests</p>
+              <p className="text-xs font-semibold text-slate-500">
+                Total HTTP Requests
+              </p>
               <p className="text-2xl font-extrabold text-slate-900 mt-1">
                 {totalRequests}
               </p>
@@ -72,7 +127,9 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
         <Card className="border-slate-200 shadow-2xs">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500">Third-Party Scripts</p>
+              <p className="text-xs font-semibold text-slate-500">
+                Third-Party Scripts
+              </p>
               <p className="text-2xl font-extrabold text-slate-900 mt-1">
                 {thirdParties.length}
               </p>
@@ -112,12 +169,19 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
           <div className="flex flex-wrap items-center gap-4 mt-3 text-xs">
             {resourceSummary.map((res) => {
               const color = getResourceColor(res.resourceType);
-              const pct = ((res.transferSize / totalByteWeight) * 100).toFixed(1);
+              const pct = ((res.transferSize / totalByteWeight) * 100).toFixed(
+                1,
+              );
               return (
-                <div key={res.resourceType} className="flex items-center gap-1.5 font-medium text-slate-600">
+                <div
+                  key={res.resourceType}
+                  className="flex items-center gap-1.5 font-medium text-slate-600"
+                >
                   <span className={`w-2.5 h-2.5 rounded-full ${color.bar}`} />
                   <span>{res.label}:</span>
-                  <span className="font-bold text-slate-900">{formatBytes(res.transferSize)}</span>
+                  <span className="font-bold text-slate-900">
+                    {formatBytes(res.transferSize)}
+                  </span>
                   <span className="text-slate-400">({pct}%)</span>
                 </div>
               );
@@ -190,14 +254,16 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
                 <tbody className="divide-y divide-slate-100">
                   {thirdParties.map((tp, idx) => (
                     <tr key={idx} className="hover:bg-slate-50/60">
-                      <td className="py-3 px-4 font-semibold text-slate-800 truncate max-w-[180px]">
+                      <td className="py-3 px-4 font-semibold text-slate-800 truncate max-w-45">
                         {tp.entity}
                       </td>
                       <td className="py-3 px-4 text-right font-mono text-slate-700">
                         {formatBytes(tp.transferSize)}
                       </td>
                       <td className="py-3 px-4 text-right font-mono text-amber-600 font-semibold">
-                        {tp.blockingTime > 0 ? formatMilliseconds(tp.blockingTime) : "0 ms"}
+                        {tp.blockingTime > 0
+                          ? formatMilliseconds(tp.blockingTime)
+                          : "0 ms"}
                       </td>
                     </tr>
                   ))}

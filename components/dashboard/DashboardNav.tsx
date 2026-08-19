@@ -23,7 +23,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
             </Link>
           </div>
 
-          <div className="flex items-center justify-between h-[42px] space-x-4">
+          <div className="flex items-center justify-between h-10.5 space-x-4">
             <div className="hidden md:flex items-center space-x-6 pr-4 h-full  border-r border-gray-200">
               <Link
                 href="/docs"
