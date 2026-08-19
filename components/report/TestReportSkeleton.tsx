@@ -15,7 +15,7 @@ import {
 
 export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean }) {
   return (
-    <div className="min-h-screen bg-[#f6f9fc] pb-16 w-full max-w-full overflow-x-hidden animate-in fade-in-50 duration-150">
+    <div className="min-h-screen bg-surface-1 pb-16 w-full max-w-full overflow-x-hidden animate-in fade-in-50 duration-150">
       {/* ── 1. Static Report Header Deck (with DB data placeholders) ────── */}
       <div className="bg-white border-b border-[#e3e8ee] px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -40,14 +40,14 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean })
           </div>
 
           <div className="flex items-center gap-2 self-start md:self-auto">
-            <div className="h-9 w-32 rounded-lg bg-[#f0f2ff] border border-[#c7cefe]/60 animate-pulse" />
+            <div className="h-9 w-32 rounded-lg bg-[#f0f2ff] border border-brand-200/60 animate-pulse" />
             <div className="h-9 w-24 rounded-lg bg-white border border-[#e3e8ee] animate-pulse" />
           </div>
         </div>
       </div>
 
       {/* ── 2. Main Body ─────────────────────────────────────────────────── */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 w-full max-w-full overflow-x-hidden min-w-0">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 w-full overflow-x-hidden min-w-0">
         {/* Section 1: 4 Score Gauges */}
         <section className="space-y-4">
           {/* Section Header */}
@@ -57,7 +57,7 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean })
                 <h2 className="text-base font-extrabold text-[#0a2540] tracking-tight font-sans">
                   Core Performance Audit
                 </h2>
-                <div className="h-5 w-36 rounded-full bg-[#f0f2ff] border border-[#c7cefe]/50 animate-pulse" />
+                <div className="h-5 w-36 rounded-full bg-[#f0f2ff] border border-brand-200/50 animate-pulse" />
               </div>
               <p className="text-xs text-[#425466]">
                 Multi-dimensional evaluation based on official Google Lighthouse 12.0 scoring algorithms
@@ -94,7 +94,7 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean })
               >
                 {/* Header */}
                 <div className="flex items-center gap-2.5 w-full">
-                  <div className="p-2 rounded-lg bg-[#f0f2ff] border border-[#c7cefe]">
+                  <div className="p-2 rounded-lg bg-[#f0f2ff] border border-brand-200">
                     {g.icon}
                   </div>
                   <div>
@@ -155,7 +155,7 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean })
                 <div className="space-y-3.5">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-lg bg-[#f0f2ff] border border-[#c7cefe]">
+                      <div className="p-2 rounded-lg bg-[#f0f2ff] border border-brand-200">
                         {card.icon}
                       </div>
                       <div>
@@ -164,7 +164,7 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean })
                             {card.acronym}
                           </h4>
                           {card.isCore && (
-                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe]">
+                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-[#f0f2ff] text-[#635bff] border border-brand-200">
                               Core Vital
                             </span>
                           )}

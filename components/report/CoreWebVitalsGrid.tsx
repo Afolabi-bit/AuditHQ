@@ -248,13 +248,13 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
           return (
             <div
               key={card.id}
-              className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_6px_12px_-2px_rgba(50,50,93,0.1)] transition-all duration-200 flex flex-col justify-between group"
+              className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 hover:shadow-[0_6px_12px_-2px_rgba(50,50,93,0.1)] transition-all duration-200 flex flex-col justify-between group"
             >
               <div className="space-y-3.5">
                 {/* Header */}
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-lg bg-[#f0f2ff] border border-[#c7cefe]">
+                    <div className="p-2 rounded-lg bg-[#f0f2ff] border border-brand-200">
                       {card.icon}
                     </div>
                     <div>
@@ -263,7 +263,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
                           {card.acronym}
                         </h4>
                         {card.isCoreVital && (
-                          <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe]">
+                          <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-[#f0f2ff] text-[#635bff] border border-brand-200">
                             Core Vital
                           </span>
                         )}

@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# ⚡ AuditHQ
 
-First, run the development server:
+**Autonomous Web Performance Engineering Console & Lighthouse 12.0 Telemetry Platform**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+[![Next.js](https://img.shields.io/badge/Next.js-16.0-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2-61dafb?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-7.1-2D3748?logo=prisma)](https://www.prisma.io/)
+[![Google Lighthouse](https://img.shields.io/badge/Lighthouse-12.0-F44B21?logo=lighthouse)](https://developer.chrome.com/docs/lighthouse/)
+
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#architecture">Architecture</a> •
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#environment-variables">Environment Variables</a> •
+  <a href="#design-system">Design System</a>
+</p>
+
+</div>
+
+---
+
+## 📌 Overview
+
+**AuditHQ** is a developer-centric web performance platform built to automate **Google Lighthouse 12.0 audits**, continuously track **Core Web Vitals**, and generate executive-grade PDF whitepapers.
+
+Styled with a refined **Stripe-inspired Developer Console aesthetic**, AuditHQ provides immediate visual telemetry without bloated dashboards or sluggish full-page skeleton flickers.
+
+---
+
+## ✨ Key Features
+
+- **⚡ Lighthouse 12.0 Cloud Engine**: Trigger real-time, isolated performance, accessibility, SEO, and security audits with custom device emulation (Mobile & Desktop) and synthetic network throttling.
+- **🎯 Precision Core Web Vitals Telemetry**: Measure Largest Contentful Paint (LCP), Total Blocking Time (TBT), Cumulative Layout Shift (CLS), First Contentful Paint (FCP), Speed Index (SI), and Time to First Byte (TTFB) calibrated to 1 decimal place with 3-tier target spectrum indicators.
+- **📈 Sequential Performance Trajectory**: Track historical performance trends and regression variations across recent audit runs using smooth SVG trajectory curves.
+- **📄 Executive PDF Whitepapers**: Generate vector-sharp, structured multi-page PDF audit reports with dynamic score dials, metric tables, and remediation roadmaps using client-side `jsPDF`.
+- **🔗 Instant Shareable Public Snapshots**: Every audit generates a dedicated read-only public URL (`/report/[id]`) for effortless sharing with clients, agencies, and stakeholders.
+- **⚡ Swift 0ms Navigation**: Built with persistent layout shells, zero-latency top progress bars, and scoped inline skeletons so static UI elements mount instantly without full-page loading flashes.
+- **🔒 Enterprise Auth**: Powered by Kinde Auth for passwordless, secure user sessions.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer              | Technology                                                                         |
+| :----------------- | :--------------------------------------------------------------------------------- |
+| **Framework**      | [Next.js 16 (App Router)](https://nextjs.org/) + [Turbopack](https://turbo.build/) |
+| **UI & Runtime**   | [React 19](https://react.dev/) + [TypeScript 5](https://www.typescriptlang.org/)   |
+| **Styling**        | [Tailwind CSS v4](https://tailwindcss.com/) (Custom Stripe Sail Design Tokens)     |
+| **Data Fetching**  | [SWR](https://swr.vercel.app/) (Event-driven mutation & focus revalidation)        |
+| **Database & ORM** | [Prisma ORM 7.1](https://www.prisma.io/) + PostgreSQL / Neon / MongoDB             |
+| **Authentication** | [Kinde Auth Next.js SDK](https://kinde.com/)                                       |
+| **PDF Engine**     | [jsPDF](https://github.com/parallax/jsPDF)                                         |
+| **Icons & Toasts** | [Lucide React](https://lucide.dev/) + [Sonner](https://sonner.emilkowal.ski/)      |
+
+---
+
+## 🏛️ Project Architecture
+
+```
+├── app/
+│   ├── api/
+│   │   ├── auth/[kindeAuth]/     # Kinde Authentication Endpoints
+│   │   ├── dashboard/stats/       # Dynamic aggregate statistics & telemetry API
+│   │   ├── lighthouse/            # Headless Google PageSpeed / Lighthouse engine
+│   │   ├── test/[id]/status/      # Single-test polling status endpoint
+│   │   ├── test/submit/           # Test submission and job queue handler
+│   │   └── tests/recent/          # Recent domain audits fetcher
+│   ├── dashboard/
+│   │   ├── layout.tsx             # Persistent dashboard navigation shell
+│   │   ├── page.tsx               # Instant-mount dashboard canvas
+│   │   └── test/[id]/page.tsx     # Private audit report view with Suspense streaming
+│   ├── report/[id]/page.tsx       # Public read-only report snapshot view
+│   ├── globals.css                # Stripe Sail tokens & utility variables
+│   ├── layout.tsx                 # Root layout with TopProgressBar & font configurations
+│   └── page.tsx                   # High-contrast Stripe-style landing page
+├── components/
+│   ├── dashboard/                 # Welcome, StatsCards, NewTest, Trajectory, RecentTests
+│   ├── report/                    # ScoreGauge, VitalsGrid, VisualExperience, ReportTabs
+│   └── ui/                        # Button, Input, Tabs, TopProgressBar, Toaster
+├── lib/
+│   ├── auth.ts                    # Kinde session helper
+│   ├── db.ts                      # Prisma client singleton
+│   ├── generate-report-pdf.ts     # Multi-page vector PDF generation engine
+│   └── report-parser.ts           # Strongly-typed Lighthouse LHR extraction & formatting
+└── prisma/
+    └── schema.prisma              # Database schema for Users, Domains, and Tests
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [Node.js](https://nodejs.org/) v18.18+ or v20+
+- [npm](https://www.npmjs.com/) or [pnpm](https://pnpm.io/)
+- A free [Kinde Auth](https://kinde.com/) account
+- A free [Google PageSpeed Insights API key](https://developers.google.com/speed/docs/insights/v5/get-started) (optional but recommended for high rate limits)
 
-## Learn More
+## 🎨 Design System: Stripe Sail Tokens
 
-To learn more about Next.js, take a look at the following resources:
+AuditHQ follows the **Stripe Developer Console** aesthetic:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Canvas**: Cool off-white (`#f6f9fc`)
+- **Surfaces**: Crisp white (`#ffffff`) with hairline borders (`#e3e8ee`)
+- **Typography**: Midnight navy headings (`#0a2540`), slate body (`#425466`), and muted captions (`#8898aa`)
+- **Primary Accent**: Stripe Blurple (`#635bff`) with hover (`#5851ea`) and active (`#4b45d0`) states
+- **Semantic Badges**:
+  - **Good ($\ge 90$)**: Pastel mint (`bg-[#e3fcf7] text-[#00875a] border-[#abf5d1]`)
+  - **Needs Work ($50–89$)**: Pastel amber (`bg-[#fff8e5] text-[#b76e00] border-[#ffe380]`)
+  - **Poor ($< 50$)**: Pastel rose (`bg-[#ffebe6] text-[#de350b] border-[#ffbdad]`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📦 Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Command             | Action                                                 |
+| :------------------ | :----------------------------------------------------- |
+| `npm run dev`       | Starts the Next.js development server with Turbopack   |
+| `npm run build`     | Generates Prisma client and compiles production bundle |
+| `npm run start`     | Starts the optimized production server                 |
+| `npx tsc --noEmit`  | Runs full static TypeScript type-checking              |
+| `npx prisma studio` | Opens interactive GUI database viewer                  |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.

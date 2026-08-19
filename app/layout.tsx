@@ -96,7 +96,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fontSans.variable} ${fontMono.variable} bg-[#f6f9fc] text-[#0a2540] font-sans antialiased min-h-screen selection:bg-[#635bff]/15 selection:text-[#635bff]`}
+        className={`${fontSans.variable} ${fontMono.variable} bg-surface-1 text-[#0a2540] font-sans antialiased min-h-screen selection:bg-[#635bff]/15 selection:text-[#635bff]`}
       >
         <TopProgressBar />
         {children}

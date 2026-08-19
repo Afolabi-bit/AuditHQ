@@ -49,11 +49,11 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
 
   return (
     <div
-      className={`rounded-xl bg-white border border-[#e3e8ee] p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] hover:border-[#c7cefe] hover:shadow-[0_6px_12px_-2px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between ${className}`}
+      className={`rounded-xl bg-white border border-[#e3e8ee] p-5 shadow-sm hover:border-brand-200 hover:shadow-[0_6px_12px_-2px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between ${className}`}
     >
       {/* Header — clean icon and title without redundant status pills */}
       <div className="flex items-center gap-2.5 w-full">
-        <div className="p-2 rounded-lg bg-[#f0f2ff] border border-[#c7cefe]">
+        <div className="p-2 rounded-lg bg-[#f0f2ff] border border-brand-200">
           {getIcon()}
         </div>
         <div>

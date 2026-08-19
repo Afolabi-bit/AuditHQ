@@ -26,7 +26,7 @@ export const CategoryScoreRings: React.FC<CategoryScoreRingsProps> = ({ scores }
             <h2 className="text-base font-extrabold text-[#0a2540] tracking-tight font-sans">
               Core Performance Audit
             </h2>
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#f0f2ff] text-[#635bff] border border-brand-200">
               Composite Index: {avgCategoryScore}/100
             </span>
           </div>

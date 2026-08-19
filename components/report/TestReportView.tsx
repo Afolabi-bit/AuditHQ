@@ -51,7 +51,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
           <div
             className={`h-12 w-12 rounded-xl flex items-center justify-center mx-auto border ${
               isPending
-                ? "bg-[#f0f2ff] text-[#635bff] border-[#c7cefe]"
+                ? "bg-[#f0f2ff] text-[#635bff] border-brand-200"
                 : "bg-[#ffebe6] text-[#de350b] border-[#ffbdad]"
             }`}
           >
@@ -76,7 +76,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             <Link href={isPublic ? "/" : "/dashboard"}>
               <Button
                 size="sm"
-                className="bg-[#635bff] hover:bg-[#5851ea] text-white font-semibold text-xs rounded-lg px-4 h-9 cursor-pointer"
+                className="bg-[#635bff] hover:bg-brand-700 text-white font-semibold text-xs rounded-lg px-4 h-9 cursor-pointer"
               >
                 {isPublic ? "Return to AuditHQ Home" : "Return to Dashboard"}
               </Button>
@@ -88,7 +88,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-[#f6f9fc] pb-16 w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-surface-1 pb-16 w-full max-w-full overflow-x-hidden">
       {/* Top Header with Breadcrumbs & Actions */}
       <ReportHeader
         testId={test.id}
@@ -101,7 +101,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
       />
 
       {/* Main Report Body */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 w-full max-w-full overflow-x-hidden min-w-0">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 w-full overflow-x-hidden min-w-0">
         {/* 1. Category Score Rings (4 Circular SVG Gauges) */}
         <CategoryScoreRings scores={parsedReport.scores} />
 

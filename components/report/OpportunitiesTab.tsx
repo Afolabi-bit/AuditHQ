@@ -108,7 +108,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
             return (
               <div
                 key={opp.id}
-                className="bg-white border border-[#e3e8ee] rounded-xl overflow-hidden shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] transition-all"
+                className="bg-white border border-[#e3e8ee] rounded-xl overflow-hidden shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 transition-all"
               >
                 {/* Header Row */}
                 <button
@@ -117,7 +117,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                   className="w-full p-4.5 sm:p-5 flex items-start justify-between gap-4 text-left cursor-pointer hover:bg-[#f8fafc] transition-colors"
                 >
                   <div className="flex items-start gap-3 flex-1 min-w-0">
-                    <div className="p-2 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] text-[#635bff] shrink-0 mt-0.5">
+                    <div className="p-2 rounded-lg bg-[#f0f2ff] border border-brand-200 text-[#635bff] shrink-0 mt-0.5">
                       <Zap className="h-4 w-4 fill-[#635bff]" />
                     </div>
                     <div className="space-y-1 min-w-0 flex-1">

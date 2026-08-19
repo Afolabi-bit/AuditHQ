@@ -74,7 +74,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
                   key={index}
                   className="shrink-0 flex flex-col items-center space-y-1.5 group"
                 >
-                  <div className="w-28 h-20 bg-[#f8fafc] rounded-lg border border-[#e3e8ee] overflow-hidden group-hover:border-[#c7cefe] transition-all">
+                  <div className="w-28 h-20 bg-[#f8fafc] rounded-lg border border-[#e3e8ee] overflow-hidden group-hover:border-brand-200 transition-all">
                     <img
                       src={frame.data}
                       alt={`Frame captured at ${(frame.timing / 1000).toFixed(1)}s`}

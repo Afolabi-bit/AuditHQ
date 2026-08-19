@@ -50,7 +50,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
               <Eye className="h-3.5 w-3.5" />
               Accessibility & SEO
               {(report.accessibilityIssues.length > 0 || report.seoIssues.length > 0) && (
-                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#f0f2ff] text-[#635bff] font-mono font-bold border border-[#c7cefe]">
+                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#f0f2ff] text-[#635bff] font-mono font-bold border border-brand-200">
                   {report.accessibilityIssues.length + report.seoIssues.length}
                 </span>
               )}

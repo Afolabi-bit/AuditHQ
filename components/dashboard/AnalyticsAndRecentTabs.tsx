@@ -101,7 +101,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       {/* ── Tab 2: Analytics ──────────────────────────────────────────────── */}
       <TabsContent value="analytics" className="space-y-6 pt-1">
         {/* Performance Score Trend Timeline */}
-        <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] transition-all space-y-4">
+        <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 transition-all space-y-4">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
               <h3 className="text-base font-bold text-[#0a2540] flex items-center gap-2 font-sans">
@@ -114,7 +114,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
             </div>
 
             {stats.avgPerformance != null && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe]">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#f0f2ff] text-[#635bff] border border-brand-200">
                 Avg: {stats.avgPerformance}/100
               </span>
             )}
@@ -363,7 +363,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                 return (
                   <div
                     key={idx}
-                    className="flex items-start space-x-3 p-3.5 bg-[#f0f2ff] border border-[#c7cefe] rounded-lg"
+                    className="flex items-start space-x-3 p-3.5 bg-[#f0f2ff] border border-brand-200 rounded-lg"
                   >
                     <Info className="h-4 w-4 text-[#635bff] shrink-0 mt-0.5" />
                     <div>

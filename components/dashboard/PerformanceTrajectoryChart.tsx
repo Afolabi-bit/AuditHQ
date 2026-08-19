@@ -310,7 +310,7 @@ export const PerformanceTrajectoryChart: React.FC<
               top: `${(points[hoveredIdx].y / svgHeight) * 100}%`,
             }}
           >
-            <div className="bg-white border border-[#e3e8ee] rounded-lg p-2.5 shadow-[0_10px_20px_rgba(50,50,93,0.15)] text-xs font-mono space-y-1 min-w-[150px] text-[#0a2540]">
+            <div className="bg-white border border-[#e3e8ee] rounded-lg p-2.5 shadow-[0_10px_20px_rgba(50,50,93,0.15)] text-xs font-mono space-y-1 min-w-37.5 text-[#0a2540]">
               <div className="flex items-center justify-between gap-2 border-b border-[#f1f5f9] pb-1">
                 <span className="text-[10px] text-[#8898aa]">{points[hoveredIdx].date}</span>
                 <span className={`px-1.5 py-0.2 rounded text-[10px] font-bold border ${getPointColor(points[hoveredIdx].score).badge}`}>
@@ -318,7 +318,7 @@ export const PerformanceTrajectoryChart: React.FC<
                 </span>
               </div>
               {points[hoveredIdx].url && (
-                <p className="text-[11px] text-[#635bff] truncate max-w-[180px] font-semibold">
+                <p className="text-[11px] text-[#635bff] truncate max-w-45 font-semibold">
                   {points[hoveredIdx].url}
                 </p>
               )}

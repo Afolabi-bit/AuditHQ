@@ -83,7 +83,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
               <div
                 key={issue.id}
                 className={`bg-white border rounded-xl overflow-hidden transition-all shadow-[0_1px_3px_rgba(50,50,93,0.08)] ${
-                  isExpanded ? "border-[#c7cefe]" : "border-[#e3e8ee] hover:border-[#c7cefe]"
+                  isExpanded ? "border-brand-200" : "border-[#e3e8ee] hover:border-brand-200"
                 }`}
               >
                 <div
@@ -141,7 +141,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
                                 {node.node?.selector || node.selector || "DOM Node"}
                               </div>
                               {(node.node?.snippet || node.snippet) && (
-                                <code className="block text-[#635bff] bg-[#f0f2ff] p-1.5 rounded border border-[#c7cefe] truncate">
+                                <code className="block text-[#635bff] bg-[#f0f2ff] p-1.5 rounded border border-brand-200 truncate">
                                   {node.node?.snippet || node.snippet}
                                 </code>
                               )}

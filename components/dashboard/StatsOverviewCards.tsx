@@ -58,7 +58,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
       {/* 1. Tests This Month */}
-      <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] transition-all flex flex-col justify-between">
+      <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <p className="text-xs font-semibold text-[#8898aa] uppercase tracking-wider font-sans">
@@ -77,7 +77,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
               )}
             </div>
           </div>
-          <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+          <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-brand-200 flex items-center justify-center text-[#635bff]">
             <BarChart3 className="h-5 w-5" />
           </div>
         </div>
@@ -97,7 +97,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
       </div>
 
       {/* 2. Average Performance */}
-      <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] transition-all flex flex-col justify-between">
+      <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <p className="text-xs font-semibold text-[#8898aa] uppercase tracking-wider font-sans">
@@ -141,7 +141,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
       </div>
 
       {/* 3. Active Domains */}
-      <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] transition-all flex flex-col justify-between">
+      <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <p className="text-xs font-semibold text-[#8898aa] uppercase tracking-wider font-sans">
@@ -155,7 +155,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
               )}
             </div>
           </div>
-          <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+          <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-brand-200 flex items-center justify-center text-[#635bff]">
             <Globe className="h-5 w-5" />
           </div>
         </div>
@@ -170,7 +170,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
       </div>
 
       {/* 4. Average Load Time (LCP) */}
-      <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] transition-all flex flex-col justify-between">
+      <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <p className="text-xs font-semibold text-[#8898aa] uppercase tracking-wider font-sans">

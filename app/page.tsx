@@ -32,7 +32,7 @@ export default async function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f6f9fc] text-[#0a2540] selection:bg-[#635bff]/15 selection:text-[#635bff]">
+    <div className="min-h-screen bg-surface-1 text-[#0a2540] selection:bg-[#635bff]/15 selection:text-[#635bff]">
       {/* ── 1. Top Navigation Bar ─────────────────────────────────────────── */}
       <nav className="border-b border-[#e3e8ee] bg-white/90 backdrop-blur-md sticky top-0 z-50 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,7 +81,7 @@ export default async function LandingPage() {
               >
                 Log In
               </LoginLink>
-              <RegisterLink className="inline-flex items-center justify-center gap-1.5 rounded-lg text-sm font-semibold h-9 px-4 text-white bg-[#635bff] hover:bg-[#5851ea] active:bg-[#4b45d0] shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]">
+              <RegisterLink className="inline-flex items-center justify-center gap-1.5 rounded-lg text-sm font-semibold h-9 px-4 text-white bg-[#635bff] hover:bg-brand-700 active:bg-[#4b45d0] shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]">
                 <span>Get Started</span>
                 <ArrowRight className="h-4 w-4" />
               </RegisterLink>
@@ -94,7 +94,7 @@ export default async function LandingPage() {
       <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           {/* Tagline Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#f0f2ff] border border-[#c7cefe] text-[#635bff]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#f0f2ff] border border-brand-200 text-[#635bff]">
             <Activity className="h-3.5 w-3.5" />
             <span>Autonomous Web Performance Intelligence</span>
             <span className="text-[#8898aa]">|</span>
@@ -118,14 +118,14 @@ export default async function LandingPage() {
 
           {/* CTA Group */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-            <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-7 text-white bg-[#635bff] hover:bg-[#5851ea] active:bg-[#4b45d0] shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]">
+            <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-7 text-white bg-[#635bff] hover:bg-brand-700 active:bg-[#4b45d0] shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]">
               <span>Run Audit Free</span>
               <ArrowRight className="h-4 w-4" />
             </RegisterLink>
 
             <a
               href="#bento"
-              className="inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-7 text-[#0a2540] bg-white hover:bg-[#f8fafc] border border-[#e3e8ee] shadow-[0_1px_2px_rgba(50,50,93,0.05)] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-7 text-[#0a2540] bg-white hover:bg-[#f8fafc] border border-[#e3e8ee] shadow-xs transition-colors"
             >
               <span>Explore Features</span>
             </a>
@@ -133,7 +133,7 @@ export default async function LandingPage() {
 
           {/* Telemetry Preview Card */}
           <div className="pt-6 max-w-4xl mx-auto text-left">
-            <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 sm:p-6 shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] space-y-4">
+            <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 sm:p-6 shadow-md space-y-4">
               <div className="flex items-center justify-between border-b border-[#f1f5f9] pb-3 text-xs font-mono">
                 <div className="flex items-center gap-2 text-[#425466]">
                   <span className="w-2 h-2 rounded-full bg-[#00875a]" />
@@ -205,9 +205,9 @@ export default async function LandingPage() {
         {/* 3-Column Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Bento 1: Large Card (2/3 width) */}
-          <div className="md:col-span-2 rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between">
+          <div className="md:col-span-2 rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 hover:shadow-md transition-all flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-brand-200 flex items-center justify-center text-[#635bff]">
                 <Activity className="h-5 w-5" />
               </div>
               <h3 className="text-2xl font-bold text-[#0a2540] tracking-tight font-sans">
@@ -226,9 +226,9 @@ export default async function LandingPage() {
           </div>
 
           {/* Bento 2: Instant Command-Bar Execution */}
-          <div className="rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between">
+          <div className="rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 hover:shadow-md transition-all flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-brand-200 flex items-center justify-center text-[#635bff]">
                 <Terminal className="h-5 w-5" />
               </div>
               <h3 className="text-xl font-bold text-[#0a2540] tracking-tight font-sans">
@@ -246,9 +246,9 @@ export default async function LandingPage() {
           </div>
 
           {/* Bento 3: Client-Ready PDF Reports */}
-          <div className="rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between">
+          <div className="rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 hover:shadow-md transition-all flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-brand-200 flex items-center justify-center text-[#635bff]">
                 <Share2 className="h-5 w-5" />
               </div>
               <h3 className="text-xl font-bold text-[#0a2540] tracking-tight font-sans">
@@ -266,9 +266,9 @@ export default async function LandingPage() {
           </div>
 
           {/* Bento 4: Large Card (2/3 width) */}
-          <div className="md:col-span-2 rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between">
+          <div className="md:col-span-2 rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 hover:shadow-md transition-all flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-brand-200 flex items-center justify-center text-[#635bff]">
                 <Globe className="h-5 w-5" />
               </div>
               <h3 className="text-2xl font-bold text-[#0a2540] tracking-tight font-sans">

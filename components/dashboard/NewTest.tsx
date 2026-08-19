@@ -141,12 +141,12 @@ const NewTest = ({ user }: { user: KindeUser }) => {
   };
 
   return (
-    <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 sm:p-7 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] hover:border-[#c7cefe] transition-all mb-8">
+    <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 sm:p-7 shadow-sm hover:border-brand-200 transition-all mb-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-md bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe] flex items-center justify-center">
+            <div className="h-6 w-6 rounded-md bg-[#f0f2ff] text-[#635bff] border border-brand-200 flex items-center justify-center">
               <Zap className="h-3.5 w-3.5 fill-[#635bff]" />
             </div>
             <h2 className="text-base font-bold text-[#0a2540] font-sans">
@@ -256,7 +256,7 @@ const NewTest = ({ user }: { user: KindeUser }) => {
           <Button
             type="submit"
             disabled={isTesting}
-            className="w-full sm:w-auto h-11 px-7 rounded-lg font-semibold text-sm bg-[#635bff] hover:bg-[#5851ea] active:bg-[#4b45d0] text-white shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto h-11 px-7 rounded-lg font-semibold text-sm bg-[#635bff] hover:bg-brand-700 active:bg-[#4b45d0] text-white shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {isTesting ? (
               <>

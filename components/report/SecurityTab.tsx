@@ -40,7 +40,7 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
               key={check.id}
               className={`rounded-xl p-5 border shadow-[0_1px_3px_rgba(50,50,93,0.08)] transition-all flex flex-col justify-between gap-3 bg-white ${
                 isPassed
-                  ? "border-[#e3e8ee] hover:border-[#c7cefe]"
+                  ? "border-[#e3e8ee] hover:border-brand-200"
                   : "border-[#ffe380] hover:border-[#ffd666]"
               }`}
             >

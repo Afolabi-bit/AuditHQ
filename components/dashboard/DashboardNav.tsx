@@ -8,7 +8,7 @@ import { KindeUser, LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 
 const DashboardNav = ({ user }: { user: KindeUser }) => {
   return (
-    <nav className="bg-white border-b border-[#e3e8ee] sticky top-0 z-50 shadow-[0_1px_2px_rgba(50,50,93,0.05)]">
+    <nav className="bg-white border-b border-[#e3e8ee] sticky top-0 z-50 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-15">
           {/* Brand Logo & Main Nav */}
@@ -17,7 +17,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
               href="/dashboard"
               className="flex items-center space-x-2.5 group transition-opacity"
             >
-              <div className="h-8 w-8 rounded-lg bg-[#635bff] flex items-center justify-center text-white shadow-sm group-hover:bg-[#5851ea] transition-colors">
+              <div className="h-8 w-8 rounded-lg bg-[#635bff] flex items-center justify-center text-white shadow-sm group-hover:bg-brand-700 transition-colors">
                 <Zap className="h-4.5 w-4.5 fill-white" />
               </div>
               <span className="text-lg font-bold tracking-tight text-[#0a2540] font-sans">
@@ -28,7 +28,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
             <div className="hidden sm:flex items-center space-x-1">
               <Link
                 href="/dashboard"
-                className="px-3 py-1.5 text-xs font-semibold text-[#635bff] bg-[#f0f2ff] rounded-md border border-[#c7cefe]/50"
+                className="px-3 py-1.5 text-xs font-semibold text-[#635bff] bg-[#f0f2ff] rounded-md border border-brand-200/50"
               >
                 Console
               </Link>
@@ -59,7 +59,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
                     />
                   </span>
                 ) : (
-                  <span className="w-8 h-8 rounded-full bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe] flex items-center justify-center font-bold text-xs">
+                  <span className="w-8 h-8 rounded-full bg-[#f0f2ff] text-[#635bff] border border-brand-200 flex items-center justify-center font-bold text-xs">
                     {user?.given_name?.[0]?.toUpperCase() || (
                       <User className="h-4 w-4" />
                     )}

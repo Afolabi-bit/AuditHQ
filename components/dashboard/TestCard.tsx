@@ -65,11 +65,11 @@ const TestCard = ({
 
   const cardContent = (
     <div
-      className={`rounded-xl bg-white border p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] transition-all ${
+      className={`rounded-xl bg-white border p-5 shadow-sm transition-all ${
         isCompleted
-          ? "border-[#e3e8ee] hover:border-[#c7cefe] hover:shadow-[0_6px_12px_-2px_rgba(50,50,93,0.1),0_3px_7px_-3px_rgba(0,0,0,0.06)] cursor-pointer group"
+          ? "border-[#e3e8ee] hover:border-brand-200 hover:shadow-md cursor-pointer group"
           : isPending
-          ? "border-[#c7cefe] bg-[#f8fafc]"
+          ? "border-brand-200 bg-[#f8fafc]"
           : "border-[#ffbdad] bg-[#fffbfb]"
       }`}
     >
@@ -81,7 +81,7 @@ const TestCard = ({
               {url}
             </h3>
             {isPending && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe]">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#f0f2ff] text-[#635bff] border border-brand-200">
                 <Loader2 className="h-3 w-3 animate-spin" />
                 Auditing…
               </span>
@@ -121,7 +121,7 @@ const TestCard = ({
 
           {/* Pending State */}
           {isPending && (
-            <div className="flex items-center gap-2 text-xs font-mono text-[#635bff] bg-[#f0f2ff] p-2.5 rounded-lg border border-[#c7cefe]">
+            <div className="flex items-center gap-2 text-xs font-mono text-[#635bff] bg-[#f0f2ff] p-2.5 rounded-lg border border-brand-200">
               <span className="w-2 h-2 rounded-full bg-[#635bff] animate-ping" />
               <span>Lighthouse engine executing render pass and network trace…</span>
             </div>
@@ -160,7 +160,7 @@ const TestCard = ({
 
         {/* Score Badge Box */}
         {isCompleted && (
-          <div className="shrink-0 flex flex-col items-center justify-center p-3 rounded-xl bg-[#f8fafc] border border-[#e3e8ee] min-w-[76px] text-center">
+          <div className="shrink-0 flex flex-col items-center justify-center p-3 rounded-xl bg-[#f8fafc] border border-[#e3e8ee] min-w-19 text-center">
             <span className={`text-3xl font-mono font-bold tracking-tight ${getScoreTextColor(score)}`}>
               {typeof score === "number" ? score : "—"}
             </span>

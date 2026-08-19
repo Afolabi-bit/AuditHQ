@@ -62,7 +62,7 @@ export default async function PublicReportPage({ params }: PublicReportPageProps
   }
 
   return (
-    <div className="min-h-screen bg-[#f6f9fc] flex flex-col justify-between">
+    <div className="min-h-screen bg-surface-1 flex flex-col justify-between">
       {/* ── Top Announcement Banner for Public Viewers ─────────────────────── */}
       <div className="bg-[#0a2540] text-white px-4 py-2.5 text-xs border-b border-[#0a2540]">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
@@ -77,7 +77,7 @@ export default async function PublicReportPage({ params }: PublicReportPageProps
             </span>
             <Link
               href="/"
-              className="inline-flex items-center gap-1 font-semibold text-white bg-[#635bff] hover:bg-[#5851ea] px-3 py-1 rounded-md transition-colors text-[11px] shadow-xs cursor-pointer"
+              className="inline-flex items-center gap-1 font-semibold text-white bg-[#635bff] hover:bg-brand-700 px-3 py-1 rounded-md transition-colors text-[11px] shadow-xs cursor-pointer"
             >
               Run Free Audit
               <ArrowRight className="h-3 w-3" />

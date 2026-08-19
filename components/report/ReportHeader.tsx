@@ -97,7 +97,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   const isDesktop = device?.toLowerCase() === "desktop";
 
   return (
-    <div className="bg-white text-[#0a2540] border-b border-[#e3e8ee] shadow-[0_1px_2px_rgba(50,50,93,0.05)] w-full max-w-full">
+    <div className="bg-white text-[#0a2540] border-b border-[#e3e8ee] shadow-xs w-full max-w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 w-full min-w-0">
         {/* Navigation & Public Indicator */}
         <div className="flex items-center justify-between mb-5 flex-wrap gap-2">
@@ -122,7 +122,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
           )}
 
           <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#f0f2ff] border border-[#c7cefe] text-[#635bff]">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#f0f2ff] border border-brand-200 text-[#635bff]">
               <Activity className="h-3 w-3 mr-1.5 text-[#635bff]" />
               Lighthouse 12 Engine
             </span>
@@ -220,7 +220,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               size="sm"
               onClick={handleExportPdf}
               disabled={isGeneratingPdf}
-              className="bg-[#635bff] hover:bg-[#5851ea] active:bg-[#4b45d0] text-white font-semibold text-xs h-9 px-4 rounded-md shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+              className="bg-[#635bff] hover:bg-brand-700 active:bg-[#4b45d0] text-white font-semibold text-xs h-9 px-4 rounded-md shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer"
             >
               {isGeneratingPdf ? (
                 <>

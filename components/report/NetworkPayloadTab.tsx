@@ -84,7 +84,7 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
                 : "Consider asset compression"}
             </p>
           </div>
-          <div className="p-3 rounded-lg bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe]">
+          <div className="p-3 rounded-lg bg-[#f0f2ff] text-[#635bff] border border-brand-200">
             <HardDrive className="h-5 w-5" />
           </div>
         </div>
