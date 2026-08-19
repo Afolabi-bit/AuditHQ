@@ -54,13 +54,14 @@ This document outlines the architecture, current state, and the systematic imple
 
 ---
 
-### 🔔 Milestone 4: Real-time User Feedback & Notifications
+### 🔔 Milestone 4: Real-time User Feedback & Notifications (✅ Completed)
 *Improve user experience during asynchronous audits.*
 
-- [ ] **Toast Notification System**:
-  - Integrate `sonner` or `react-hot-toast` for real-time alerts when tests are queued, completed, or failed.
-- [ ] **Browser Notifications**:
-  - Optional browser push notifications when long-running background audits complete while the user is on another tab.
+- [x] **Toast Notification System (`sonner`)**:
+  - `toast.loading()` fires immediately when an audit is queued, keeping a persistent spinner.
+  - `toast.success()` fires on completion with the performance score and a "View Report" action button.
+  - `toast.error()` fires on failure, with the diagnostic error message from the server.
+  - `toast.warning()` fires if the 5-minute safety timeout is hit.
 
 ---
 

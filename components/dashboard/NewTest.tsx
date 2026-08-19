@@ -15,6 +15,7 @@ import { Button } from "../ui/button";
 import isValidUrl from "@/app/utils/validateUrl";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { mutate } from "swr";
+import { toast } from "sonner";
 
 const NewTest = ({ user }: { user: KindeUser }) => {
   const [url, setUrl] = useState("");
@@ -35,23 +36,27 @@ const NewTest = ({ user }: { user: KindeUser }) => {
 
     setIsTesting(true);
 
+    // Show queued toast immediately
+    const queuedToastId = toast.loading(`Queuing audit for ${url}…`, {
+      description: "Connecting to Google PageSpeed Insights",
+    });
+
     try {
       const req = await fetch("/api/test/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userID: user.id,
-          url,
-          device,
-          network,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userID: user.id, url, device, network }),
       });
 
       const res = await req.json();
 
       if (!req.ok || !res?.data?.testId) {
+        toast.dismiss(queuedToastId);
+        toast.error("Failed to queue audit", {
+          description:
+            res?.message ||
+            "Could not start the audit. Please check the URL and try again.",
+        });
         setIsTesting(false);
         setIsUrlValid({
           validity: false,
@@ -64,11 +69,17 @@ const NewTest = ({ user }: { user: KindeUser }) => {
 
       const testId = res.data.testId;
 
-      // Immediately refresh the tests list & stats to show the new pending test
+      // Update toast to running state
+      toast.loading("Audit running…", {
+        id: queuedToastId,
+        description: `Lighthouse is analysing ${url}`,
+      });
+
+      // Immediately refresh tests list & stats
       mutate(`/api/tests/recent?userId=${user.id}`);
       mutate("/api/dashboard/stats");
 
-      // Poll for test status every 2 seconds
+      // Poll for completion every 2 seconds
       let pollInterval: NodeJS.Timeout | null = null;
 
       pollInterval = setInterval(async () => {
@@ -76,41 +87,70 @@ const NewTest = ({ user }: { user: KindeUser }) => {
           const statusResponse = await fetch(`/api/test/${testId}/status`);
           const statusData = await statusResponse.json();
 
-          // Check if test is completed or failed
           if (statusData.status === "completed") {
             if (pollInterval) clearInterval(pollInterval);
             setIsTesting(false);
-            setUrl(""); // Clear the input field
-            // Refresh the tests list and dashboard stats to show updated status
+            setUrl("");
+
             mutate(`/api/tests/recent?userId=${user.id}`);
             mutate("/api/dashboard/stats");
-            console.log("✅ [CLIENT] Test completed successfully! Full API response & report:", statusData);
+
+            toast.success("Audit complete!", {
+              id: queuedToastId,
+              description: `Performance score: ${statusData.performanceScore ?? "—"}/100 for ${url}`,
+              action: {
+                label: "View Full Report",
+                onClick: () =>
+                  window.open(`/dashboard/test/${testId}`, "_blank"),
+              },
+              duration: 8000,
+            });
           } else if (statusData.status === "failed") {
             if (pollInterval) clearInterval(pollInterval);
             setIsTesting(false);
-            // Refresh the tests list and dashboard stats to show failed status
+
             mutate(`/api/tests/recent?userId=${user.id}`);
             mutate("/api/dashboard/stats");
-            console.log("Test failed - check server logs for details");
+
+            toast.error("Audit failed", {
+              id: queuedToastId,
+              description:
+                statusData.errorMessage ||
+                "The audit could not be completed. Please check the URL and try again.",
+              duration: 8000,
+            });
           }
-          // If status is still "pending", continue polling
+          // If still pending, keep polling
         } catch (error) {
           console.error("Error polling test status:", error);
           if (pollInterval) clearInterval(pollInterval);
           setIsTesting(false);
+          toast.dismiss(queuedToastId);
+          toast.error("Lost connection to audit", {
+            description: "Unable to retrieve audit status. Please refresh.",
+          });
         }
-      }, 2000); // Poll every 2 seconds
+      }, 2000);
 
-      // Optional: Set a maximum timeout (e.g., 5 minutes)
+      // 5 minute safety timeout
       setTimeout(() => {
         if (pollInterval) {
           clearInterval(pollInterval);
           setIsTesting(false);
-          console.error("Test timeout - took too long");
+          toast.dismiss(queuedToastId);
+          toast.warning("Audit timed out", {
+            description:
+              "The audit took too long to respond. It may still complete in the background.",
+            duration: 8000,
+          });
         }
-      }, 300000); // 5 minutes timeout
+      }, 300000);
     } catch (error) {
       console.error("Error submitting test:", error);
+      toast.dismiss(queuedToastId);
+      toast.error("Network error", {
+        description: "Could not connect to the server. Please try again.",
+      });
       setIsTesting(false);
     }
   };
@@ -156,6 +196,7 @@ const NewTest = ({ user }: { user: KindeUser }) => {
           <div className="md:col-span-2">
             <Label htmlFor="device">Device</Label>
             <select
+              id="device"
               value={device}
               onChange={(e) => setDevice(e.target.value)}
               className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md"
@@ -167,6 +208,7 @@ const NewTest = ({ user }: { user: KindeUser }) => {
           <div className="md:col-span-2">
             <Label htmlFor="network">Network</Label>
             <select
+              id="network"
               value={network}
               onChange={(e) => setNetwork(e.target.value)}
               className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md"
@@ -178,14 +220,15 @@ const NewTest = ({ user }: { user: KindeUser }) => {
           </div>
           <div className="md:col-span-2 flex items-end">
             <Button
-              className={`w-full bg-blue-600 hover:bg-blue-700  ${
-                isTesting ? "cursor-not-allowed " : "cursor-pointer "
+              className={`w-full bg-blue-600 hover:bg-blue-700 ${
+                isTesting ? "cursor-not-allowed opacity-75" : "cursor-pointer"
               }`}
+              disabled={isTesting}
             >
               {isTesting ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Testing...
+                  Auditing...
                 </>
               ) : (
                 <>

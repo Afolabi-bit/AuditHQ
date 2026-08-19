@@ -4,6 +4,7 @@ import "./globals.css";
 import getSessionUser from "@/lib/auth";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { syncUserToDatabase } from "./utils/actions";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,14 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster
+          position="bottom-right"
+          richColors
+          closeButton
+          toastOptions={{
+            duration: 5000,
+          }}
+        />
       </body>
     </html>
   );
