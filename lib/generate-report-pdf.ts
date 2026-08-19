@@ -75,7 +75,7 @@ function drawVectorGauge(
 }
 
 export async function generateReportPDF(
-  testId: number,
+  testId: string | number,
   url: string,
   device: string,
   network: string | undefined,

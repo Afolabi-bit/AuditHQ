@@ -19,7 +19,7 @@ model User {
 }
 
 model Domain {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   url       String
   device    String   @default("desktop")
   network   String   @default("No Throttling")
@@ -35,9 +35,9 @@ model Domain {
 }
 
 model Test {
-  id               Int      @id @default(autoincrement())
+  id               String   @id @default(cuid())
   domain           Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
-  domainId         Int
+  domainId         String
   device           String   @default("desktop")
   network          String?  @default("No Throttling")
   status           String   @default("pending")

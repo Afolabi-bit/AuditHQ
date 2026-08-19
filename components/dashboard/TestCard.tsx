@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 
 interface TestCardProps {
-  id: number;
+  id: string | number;
   url: string;
   status: string;
   date: string;

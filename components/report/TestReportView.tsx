@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 
 interface TestReportViewProps {
   test: {
-    id: number;
+    id: string | number;
     status: string;
     errorMessage?: string | null;
     performanceScore: number | null;
@@ -25,7 +25,7 @@ interface TestReportViewProps {
     fullReport: any;
     createdAt: Date | string;
     domain: {
-      id: number;
+      id: string | number;
       url: string;
       device: string;
       network: string;

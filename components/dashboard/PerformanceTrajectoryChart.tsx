@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 interface TrendPoint {
-  id?: number;
+  id?: string | number;
   date: string;
   time?: string;
   url?: string;

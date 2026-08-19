@@ -27,7 +27,7 @@ export async function syncUserToDatabase(user: KindeUser) {
  * Cancels any pending tests for a specific domain.
  * Scoped to a single domain to avoid corrupting other users' data.
  */
-async function cancelPendingTestsForDomain(domainId: number) {
+async function cancelPendingTestsForDomain(domainId: string) {
   await prisma.test.updateMany({
     where: {
       domainId: domainId,
@@ -113,7 +113,7 @@ export async function submitDomain(data: Domain) {
   }
 }
 
-export async function getTestStatus(id: number) {
+export async function getTestStatus(id: string) {
   try {
     const test = await prisma.test.findUnique({
       where: {
@@ -156,7 +156,7 @@ export interface DashboardStats {
   avgLoadTime: number | null;
   loadTimeDiff: number | null;
   performanceTrends: {
-    id?: number;
+    id?: string | number;
     date: string;
     time?: string;
     url?: string;

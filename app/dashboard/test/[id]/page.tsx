@@ -16,7 +16,7 @@ async function AsyncTestReportFetcher({
   testId,
   userId,
 }: {
-  testId: number;
+  testId: string;
   userId: string;
 }) {
   const test = await prisma.test.findUnique({
@@ -46,16 +46,15 @@ export default async function TestDetailsPage({ params }: TestPageProps) {
   }
 
   const { id } = await params;
-  const testId = parseInt(id, 10);
 
-  if (isNaN(testId)) {
+  if (!id) {
     notFound();
   }
 
   return (
     <div className="w-full max-w-full overflow-x-hidden">
       <Suspense fallback={<TestReportSkeleton />}>
-        <AsyncTestReportFetcher testId={testId} userId={user.id} />
+        <AsyncTestReportFetcher testId={id} userId={user.id} />
       </Suspense>
     </div>
   );

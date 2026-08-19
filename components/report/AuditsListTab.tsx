@@ -9,6 +9,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { FormattedDescription } from "./FormattedDescription";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
 
 interface AuditsListTabProps {
@@ -98,9 +99,11 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
                       <h4 className="text-sm font-bold text-[#0a2540] font-sans">
                         {issue.title}
                       </h4>
-                      <p className="text-xs text-[#425466] line-clamp-1">
-                        {issue.description}
-                      </p>
+                      <FormattedDescription
+                        text={issue.description}
+                        className="text-xs text-[#425466] line-clamp-1 block"
+                        isTruncatedPreview={true}
+                      />
                     </div>
                   </div>
 
@@ -122,9 +125,10 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
 
                 {isExpanded && (
                   <div className="p-5 border-t border-[#f1f5f9] bg-[#f8fafc] space-y-4 text-xs">
-                    <p className="text-xs text-[#425466] leading-relaxed">
-                      {issue.description}
-                    </p>
+                    <FormattedDescription
+                      text={issue.description}
+                      className="text-xs text-[#425466] leading-relaxed"
+                    />
 
                     {items && items.length > 0 && (
                       <div className="space-y-2">

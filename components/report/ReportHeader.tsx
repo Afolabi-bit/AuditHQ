@@ -22,7 +22,7 @@ import { Button } from "../ui/button";
 import { generateReportPDF } from "@/lib/generate-report-pdf";
 
 interface ReportHeaderProps {
-  testId: number;
+  testId: string | number;
   url: string;
   device: string;
   network?: string;

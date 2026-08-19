@@ -212,21 +212,33 @@ export function parseLighthouseReport(lhr: any): ParsedLighthouseReport {
   for (const [key, audit] of Object.entries<any>(audits)) {
     if (!audit || typeof audit !== "object") continue;
 
-    const isFailedOrWarning = audit.score != null && audit.score < 0.9;
+    const savingsMs = audit.details?.overallSavingsMs || audit.metricSavings?.LCP || audit.metricSavings?.FCP || 0;
+    const savingsBytes = audit.details?.overallSavingsBytes || 0;
+    const hasActionableSavings = savingsMs > 0 || savingsBytes > 0;
+    const isFailingScore = audit.score != null && audit.score < 0.9;
     const isOpportunityKey = opportunityAuditKeys.includes(key);
 
-    if (isOpportunityKey && (isFailedOrWarning || audit.details?.overallSavingsMs || audit.details?.overallSavingsBytes)) {
+    // Only include real bottlenecks (exclude passed audits that scored 100% with no savings)
+    if (isOpportunityKey && (isFailingScore || hasActionableSavings) && audit.score !== 1) {
       opportunities.push({
         id: key,
         title: audit.title || key,
         description: audit.description || "",
         score: audit.score,
         displayValue: audit.displayValue,
-        overallSavingsMs: audit.details?.overallSavingsMs || audit.metricSavings?.LCP || audit.metricSavings?.FCP,
-        overallSavingsBytes: audit.details?.overallSavingsBytes,
+        overallSavingsMs: savingsMs > 0 ? savingsMs : undefined,
+        overallSavingsBytes: savingsBytes > 0 ? savingsBytes : undefined,
         items: audit.details?.items?.slice(0, 10),
       });
-    } else if (isFailedOrWarning && audit.details?.type === "table") {
+    } else if (
+      !isOpportunityKey &&
+      audit.score != null &&
+      audit.score < 0.9 &&
+      audit.score !== 1 &&
+      audit.details?.type === "table" &&
+      Array.isArray(audit.details?.items) &&
+      audit.details.items.length > 0
+    ) {
       diagnostics.push({
         id: key,
         title: audit.title || key,

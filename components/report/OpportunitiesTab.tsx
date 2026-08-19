@@ -10,6 +10,7 @@ import {
   AlertTriangle,
   Zap,
 } from "lucide-react";
+import { FormattedDescription } from "./FormattedDescription";
 import { formatBytes, formatMilliseconds, ParsedLighthouseReport } from "@/lib/report-parser";
 
 interface OpportunitiesTabProps {
@@ -53,7 +54,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
     }
     return {
       label: "Low Impact",
-      badge: "bg-[#f0f2ff] text-[#635bff] border-[#c7cefe]",
+      badge: "bg-[#f0f2ff] text-[#635bff] border-brand-200",
     };
   };
 
@@ -129,9 +130,11 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                           {impact.label}
                         </span>
                       </div>
-                      <p className="text-xs text-[#425466] line-clamp-1">
-                        {opp.description}
-                      </p>
+                      <FormattedDescription
+                        text={opp.description}
+                        className="text-xs text-[#425466] line-clamp-1 block"
+                        isTruncatedPreview={true}
+                      />
                     </div>
                   </div>
 
@@ -163,9 +166,10 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                 {/* Expanded Details */}
                 {isExpanded && (
                   <div className="p-5 border-t border-[#f1f5f9] bg-[#f8fafc] space-y-4 text-xs">
-                    <p className="text-xs text-[#425466] leading-relaxed">
-                      {opp.description}
-                    </p>
+                    <FormattedDescription
+                      text={opp.description}
+                      className="text-xs text-[#425466] leading-relaxed"
+                    />
 
                     {/* Table of Offending Resources */}
                     {opp.items && opp.items.length > 0 && (

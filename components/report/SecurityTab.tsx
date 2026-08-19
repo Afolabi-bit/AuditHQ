@@ -3,6 +3,7 @@
 import React from "react";
 import { ShieldCheck, CheckCircle2, AlertTriangle } from "lucide-react";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
+import { FormattedDescription } from "./FormattedDescription";
 
 interface SecurityTabProps {
   securityChecks: ParsedLighthouseReport["securityChecks"];
@@ -76,9 +77,10 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
                   </span>
                 </div>
 
-                <p className="text-xs text-[#425466] leading-relaxed line-clamp-2">
-                  {check.description.replace(/\[(.*?)\]\(.*?\)/g, "$1")}
-                </p>
+                <FormattedDescription
+                  text={check.description}
+                  className="text-xs text-[#425466] leading-relaxed"
+                />
               </div>
             </div>
           );

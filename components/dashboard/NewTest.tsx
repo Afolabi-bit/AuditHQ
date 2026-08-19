@@ -41,8 +41,8 @@ const NewTest = ({ user }: { user: KindeUser }) => {
     setUrl(normalizedTargetUrl);
     setIsTesting(true);
 
-    const queuedToastId = toast.loading(`Queuing audit for ${normalizedTargetUrl}…`, {
-      description: "Connecting to Google Lighthouse Cloud Engine",
+    const queuedToastId = toast.loading(`Auditing ${normalizedTargetUrl}…`, {
+      description: "Executing Google Lighthouse 12.0 cloud evaluation",
     });
 
     try {
@@ -59,96 +59,43 @@ const NewTest = ({ user }: { user: KindeUser }) => {
 
       const res = await req.json();
 
-      if (!req.ok || !res?.data?.testId) {
-        toast.dismiss(queuedToastId);
-        toast.error("Failed to queue audit", {
+      if (!req.ok || !res?.data?.testId || res?.data?.status === "failed") {
+        toast.error("Audit failed", {
+          id: queuedToastId,
           description:
             res?.message ||
-            "Could not start the audit. Please check the URL and try again.",
+            "Lighthouse could not complete this audit. Please check the URL and try again.",
         });
         setIsTesting(false);
-        setIsUrlValid({
-          validity: false,
-          message:
-            res?.message ||
-            "Failed to start performance audit. Please check the URL or try again.",
-        });
         return;
       }
 
       const testId = res.data.testId;
+      const score = res.data.performanceScore;
 
-      toast.loading("Audit running…", {
+      // Force synchronous cache revalidation
+      await Promise.all([
+        mutate(`/api/tests/recent?userId=${user.id}`),
+        mutate("/api/dashboard/stats"),
+      ]);
+
+      setIsTesting(false);
+      setUrl("");
+
+      toast.success("Audit complete!", {
         id: queuedToastId,
-        description: `Lighthouse is analysing ${url}`,
+        description: `Performance score: ${score ?? "—"}/100 for ${normalizedTargetUrl}`,
+        action: {
+          label: "View Full Report",
+          onClick: () =>
+            (window.location.href = `/dashboard/test/${testId}`),
+        },
       });
-
-      mutate(`/api/tests/recent?userId=${user.id}`);
-      mutate("/api/dashboard/stats");
-
-      let pollInterval: NodeJS.Timeout | null = null;
-
-      pollInterval = setInterval(async () => {
-        try {
-          const statusResponse = await fetch(`/api/test/${testId}/status`);
-          const statusData = await statusResponse.json();
-
-          if (statusData.status === "completed") {
-            if (pollInterval) clearInterval(pollInterval);
-            setIsTesting(false);
-            setUrl("");
-
-            // Synchronously update recent tests and stats cache
-            await Promise.all([
-              mutate(`/api/tests/recent?userId=${user.id}`),
-              mutate("/api/dashboard/stats"),
-            ]);
-
-            toast.success("Audit complete!", {
-              id: queuedToastId,
-              description: `Performance score: ${statusData.performanceScore ?? "—"}/100 for ${url}`,
-              action: {
-                label: "View Full Report",
-                onClick: () =>
-                  (window.location.href = `/dashboard/test/${testId}`),
-              },
-            });
-          } else if (statusData.status === "failed") {
-            if (pollInterval) clearInterval(pollInterval);
-            setIsTesting(false);
-
-            await Promise.all([
-              mutate(`/api/tests/recent?userId=${user.id}`),
-              mutate("/api/dashboard/stats"),
-            ]);
-
-            toast.error("Audit failed", {
-              id: queuedToastId,
-              description:
-                statusData.errorMessage ||
-                "Lighthouse encountered an error analysing this page.",
-            });
-          }
-        } catch (err) {
-          console.error("Polling status error:", err);
-        }
-      }, 3000);
-
-      setTimeout(() => {
-        if (pollInterval) {
-          clearInterval(pollInterval);
-          setIsTesting(false);
-          toast.error("Audit timed out", {
-            id: queuedToastId,
-            description: "The test took too long. Please try again.",
-          });
-        }
-      }, 300000);
     } catch (error) {
       console.error("Error submitting test:", error);
-      toast.dismiss(queuedToastId);
-      toast.error("Network error", {
-        description: "Could not connect to the server. Please try again.",
+      toast.error("Connection error", {
+        id: queuedToastId,
+        description: "Could not connect to the audit engine. Please try again.",
       });
       setIsTesting(false);
     }

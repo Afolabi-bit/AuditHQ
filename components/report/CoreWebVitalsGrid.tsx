@@ -248,7 +248,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
           return (
             <div
               key={card.id}
-              className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 hover:shadow-[0_6px_12px_-2px_rgba(50,50,93,0.1)] transition-all duration-200 flex flex-col justify-between group"
+              className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
             >
               <div className="space-y-3.5">
                 {/* Header */}

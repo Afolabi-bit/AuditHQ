@@ -8,12 +8,18 @@ import { OpportunitiesTab } from "./OpportunitiesTab";
 import { NetworkPayloadTab } from "./NetworkPayloadTab";
 import { AuditsListTab } from "./AuditsListTab";
 import { SecurityTab } from "./SecurityTab";
+import { DiagnosticsTab } from "./DiagnosticsTab";
 
 interface ReportTabsProps {
   report: ParsedLighthouseReport;
 }
 
 export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
+  const totalA11yAndSeo = report.accessibilityIssues.length + report.seoIssues.length;
+  const securityWarnings = report.securityChecks.filter(
+    (c) => c.score != null && c.score < 1
+  );
+
   return (
     <section className="space-y-4 pt-2 w-full max-w-full min-w-0">
       <Tabs defaultValue="opportunities" className="space-y-6 w-full min-w-0">
@@ -25,11 +31,11 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
             >
               <Zap className="h-3.5 w-3.5 fill-[#635bff]" />
               Opportunities
-              {report.opportunities.length > 0 && (
+              {report.opportunities.length > 0 ? (
                 <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#fff8e5] text-[#b76e00] font-mono font-bold border border-[#ffe380]">
                   {report.opportunities.length}
                 </span>
-              )}
+              ) : null}
             </TabsTrigger>
 
             <TabsTrigger
@@ -49,11 +55,11 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
             >
               <Eye className="h-3.5 w-3.5" />
               Accessibility & SEO
-              {(report.accessibilityIssues.length > 0 || report.seoIssues.length > 0) && (
-                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#f0f2ff] text-[#635bff] font-mono font-bold border border-brand-200">
-                  {report.accessibilityIssues.length + report.seoIssues.length}
+              {totalA11yAndSeo > 0 ? (
+                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#ffebe6] text-[#de350b] font-mono font-bold border border-[#ffbdad]">
+                  {totalA11yAndSeo}
                 </span>
-              )}
+              ) : null}
             </TabsTrigger>
 
             <TabsTrigger
@@ -62,6 +68,11 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
             >
               <ShieldCheck className="h-3.5 w-3.5" />
               Security
+              {securityWarnings.length > 0 ? (
+                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#fff8e5] text-[#b76e00] font-mono font-bold border border-[#ffe380]">
+                  {securityWarnings.length}
+                </span>
+              ) : null}
             </TabsTrigger>
 
             <TabsTrigger
@@ -69,7 +80,12 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
               className="data-[state=active]:bg-white data-[state=active]:text-[#635bff] data-[state=active]:shadow-xs px-3.5 py-2 rounded-md font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer font-sans"
             >
               <Layers className="h-3.5 w-3.5" />
-              Diagnostics ({report.diagnostics.length})
+              Diagnostics
+              {report.diagnostics.length > 0 ? (
+                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#f0f2ff] text-[#635bff] font-mono font-bold border border-brand-200">
+                  {report.diagnostics.length}
+                </span>
+              ) : null}
             </TabsTrigger>
           </TabsList>
         </div>
@@ -106,10 +122,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
 
         {/* Tab 5: Full Diagnostics List */}
         <TabsContent value="diagnostics" className="space-y-4">
-          <OpportunitiesTab
-            opportunities={[]}
-            diagnostics={report.diagnostics}
-          />
+          <DiagnosticsTab diagnostics={report.diagnostics} />
         </TabsContent>
       </Tabs>
     </section>

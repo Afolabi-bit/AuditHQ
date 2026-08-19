@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getTestStatus } from "@/app/utils/actions";
 import getSessionUser from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -18,12 +20,11 @@ export async function GET(
 
     const { id } = await params;
 
-    const testId = parseInt(id);
-    if (isNaN(testId)) {
+    if (!id) {
       return NextResponse.json({ error: "Invalid test ID" }, { status: 400 });
     }
 
-    const test = await getTestStatus(testId);
+    const test = await getTestStatus(id);
 
     if (!test) {
       return NextResponse.json({ error: "Test not found" }, { status: 404 });

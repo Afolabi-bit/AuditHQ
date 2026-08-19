@@ -6,9 +6,9 @@ import useSWR from "swr";
 
 // Define the type for the data returned from the API
 type RecentTestData = {
-  id: number;
+  id: string;
   createdAt: Date;
-  domainId: number;
+  domainId: string;
   device?: string;
   network?: string;
   status: string;
@@ -19,7 +19,7 @@ type RecentTestData = {
   tbt: number | null;
   cls: number | null;
   domain: {
-    id: number;
+    id: string;
     createdAt: Date;
     url: string;
     device: string;
@@ -43,16 +43,10 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
     `/api/tests/recent?userId=${user.id}`,
     fetcher,
     {
-      // Only refresh every 2s if there is an active pending test; otherwise 0 (idle)
-      refreshInterval: (latestData) => {
-        const tests = latestData?.tests || [];
-        const hasPending = tests.some((t: RecentTestData) => t.status === "pending");
-        return hasPending ? 2000 : 0;
-      },
       revalidateOnFocus: true,
       revalidateOnReconnect: true,
       dedupingInterval: 500,
-    }
+    },
   );
 
   if (isLoading) {
@@ -61,7 +55,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
         {[1, 2].map((i) => (
           <div
             key={i}
-            className="rounded-xl bg-white border border-[#e3e8ee] p-4.5 flex items-center justify-between shadow-sm h-[84px]"
+            className="rounded-xl bg-white border border-[#e3e8ee] p-4.5 flex items-center justify-between shadow-sm h-21"
           >
             <div className="space-y-2 flex-1 max-w-md">
               <div className="flex items-center gap-2">

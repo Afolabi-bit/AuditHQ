@@ -5,7 +5,7 @@ import { TestReportView } from "@/components/report/TestReportView";
 import { TestReportSkeleton } from "@/components/report/TestReportSkeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Zap, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -17,14 +17,13 @@ export async function generateMetadata({
   params,
 }: PublicReportPageProps): Promise<Metadata> {
   const { id } = await params;
-  const testId = parseInt(id, 10);
 
-  if (isNaN(testId)) {
+  if (!id) {
     return { title: "Audit Report - AuditHQ" };
   }
 
   const test = await prisma.test.findUnique({
-    where: { id: testId },
+    where: { id },
     include: { domain: true },
   });
 
@@ -38,7 +37,7 @@ export async function generateMetadata({
   };
 }
 
-async function AsyncPublicReportFetcher({ testId }: { testId: number }) {
+async function AsyncPublicReportFetcher({ testId }: { testId: string }) {
   const test = await prisma.test.findUnique({
     where: { id: testId },
     include: {
@@ -55,9 +54,8 @@ async function AsyncPublicReportFetcher({ testId }: { testId: number }) {
 
 export default async function PublicReportPage({ params }: PublicReportPageProps) {
   const { id } = await params;
-  const testId = parseInt(id, 10);
 
-  if (isNaN(testId)) {
+  if (!id) {
     notFound();
   }
 
@@ -89,7 +87,7 @@ export default async function PublicReportPage({ params }: PublicReportPageProps
       {/* ── Main Report Content with Scoped Dynamic Skeletons ──────────────── */}
       <main className="flex-1 pb-16">
         <Suspense fallback={<TestReportSkeleton isPublic={true} />}>
-          <AsyncPublicReportFetcher testId={testId} />
+          <AsyncPublicReportFetcher testId={id} />
         </Suspense>
       </main>
     </div>

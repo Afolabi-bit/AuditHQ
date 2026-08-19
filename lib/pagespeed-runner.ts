@@ -179,7 +179,7 @@ export async function runPageSpeedAudit(
  * Updates test status to 'completed' or 'failed' upon completion.
  */
 export async function executeAuditForTest(
-  testId: number,
+  testId: string,
   url: string,
   device: string,
   network?: string,
