@@ -8,8 +8,6 @@ import {
   XCircle,
   ChevronDown,
   ChevronUp,
-  Code2,
-  Layers,
 } from "lucide-react";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
 
@@ -30,16 +28,16 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
   return (
     <div className="space-y-5">
       {/* Section Selector */}
-      <div className="flex items-center gap-2.5 border-b border-surface-3 pb-3">
+      <div className="flex items-center gap-2 border-b border-[#e3e8ee] pb-3">
         <button
           onClick={() => {
             setSection("a11y");
             setExpandedId(null);
           }}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer font-sans ${
+          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer font-sans ${
             section === "a11y"
-              ? "bg-brand-600 text-white shadow-brand"
-              : "bg-surface-1 text-text-secondary hover:bg-surface-2 border border-surface-3"
+              ? "bg-[#635bff] text-white shadow-xs"
+              : "bg-white text-[#425466] hover:bg-[#f8fafc] border border-[#e3e8ee]"
           }`}
         >
           <Eye className="h-4 w-4" />
@@ -51,27 +49,27 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
             setSection("seo");
             setExpandedId(null);
           }}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer font-sans ${
+          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer font-sans ${
             section === "seo"
-              ? "bg-brand-600 text-white shadow-brand"
-              : "bg-surface-1 text-text-secondary hover:bg-surface-2 border border-surface-3"
+              ? "bg-[#635bff] text-white shadow-xs"
+              : "bg-white text-[#425466] hover:bg-[#f8fafc] border border-[#e3e8ee]"
           }`}
         >
           <Search className="h-4 w-4" />
-          SEO & Crawlability Audits ({seoIssues.length})
+          SEO & Crawlability ({seoIssues.length})
         </button>
       </div>
 
       {/* Issues List */}
       {activeIssues.length === 0 ? (
-        <div className="bg-surface-0 border border-surface-3 rounded-2xl p-10 text-center space-y-2 shadow-xs">
-          <div className="h-10 w-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200">
+        <div className="bg-white border border-[#e3e8ee] rounded-xl p-10 text-center space-y-2 shadow-[0_1px_3px_rgba(50,50,93,0.08)]">
+          <div className="h-10 w-10 rounded-full bg-[#e3fcf7] text-[#00875a] flex items-center justify-center mx-auto border border-[#abf5d1]">
             <CheckCircle2 className="h-6 w-6" />
           </div>
-          <h4 className="text-sm font-bold text-text-primary font-sans">
+          <h4 className="text-sm font-bold text-[#0a2540] font-sans">
             All {section === "a11y" ? "Accessibility" : "SEO"} checks passed!
           </h4>
-          <p className="text-xs text-text-secondary max-w-md mx-auto">
+          <p className="text-xs text-[#8898aa] max-w-md mx-auto">
             Your website meets Google's standard accessibility contrast and search crawler indexability requirements.
           </p>
         </div>
@@ -79,59 +77,79 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
         <div className="space-y-3">
           {activeIssues.map((issue) => {
             const isExpanded = expandedId === issue.id;
+            const items = "items" in issue && Array.isArray(issue.items) ? issue.items : undefined;
+
             return (
               <div
                 key={issue.id}
-                className={`bg-surface-0 border rounded-2xl overflow-hidden transition-all duration-200 shadow-xs ${
-                  isExpanded ? "border-brand-300 shadow-sm" : "border-surface-3 hover:border-brand-200"
+                className={`bg-white border rounded-xl overflow-hidden transition-all shadow-[0_1px_3px_rgba(50,50,93,0.08)] ${
+                  isExpanded ? "border-[#c7cefe]" : "border-[#e3e8ee] hover:border-[#c7cefe]"
                 }`}
               >
                 <div
                   onClick={() => setExpandedId(isExpanded ? null : issue.id)}
-                  className="p-4 sm:p-5 flex items-center justify-between cursor-pointer hover:bg-surface-1/40 transition-colors gap-4"
+                  className="p-4 sm:p-5 flex items-center justify-between cursor-pointer hover:bg-[#f8fafc] transition-colors gap-4"
                 >
-                  <div className="flex items-start gap-3.5 flex-1 min-w-0">
-                    <div className="mt-0.5 p-1.5 rounded-lg bg-rose-50 text-rose-600 border border-rose-200 shrink-0">
+                  <div className="flex items-start gap-3 flex-1 min-w-0">
+                    <div className="mt-0.5 p-1.5 rounded-md bg-[#ffebe6] text-[#de350b] border border-[#ffbdad] shrink-0">
                       <XCircle className="h-4 w-4" />
                     </div>
                     <div className="space-y-1 flex-1 min-w-0">
-                      <h4 className="text-sm font-bold text-text-primary font-sans">
+                      <h4 className="text-sm font-bold text-[#0a2540] font-sans">
                         {issue.title}
                       </h4>
-                      <p className="text-xs text-text-secondary line-clamp-1">
-                        {issue.description.replace(/\[(.*?)\]\(.*?\)/g, "$1")}
+                      <p className="text-xs text-[#425466] line-clamp-1">
+                        {issue.description}
                       </p>
                     </div>
                   </div>
 
-                  <div className="text-text-tertiary p-1 rounded-lg hover:bg-surface-2 transition-colors shrink-0">
-                    {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                  <div className="flex items-center gap-3 shrink-0">
+                    {items && items.length > 0 && (
+                      <span className="text-[11px] font-mono text-[#8898aa] bg-[#f8fafc] px-2 py-0.5 rounded border border-[#e3e8ee]">
+                        {items.length} nodes
+                      </span>
+                    )}
+                    <div className="p-1 rounded bg-[#f8fafc] border border-[#e3e8ee] text-[#8898aa]">
+                      {isExpanded ? (
+                        <ChevronUp className="h-4 w-4" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4" />
+                      )}
+                    </div>
                   </div>
                 </div>
 
                 {isExpanded && (
-                  <div className="px-5 py-4 border-t border-surface-3 bg-surface-1/50 text-xs space-y-3.5">
-                    <p className="text-text-secondary leading-relaxed font-sans">
-                      {issue.description.replace(/\[(.*?)\]\((.*?)\)/g, "$1")}
+                  <div className="p-5 border-t border-[#f1f5f9] bg-[#f8fafc] space-y-4 text-xs">
+                    <p className="text-xs text-[#425466] leading-relaxed">
+                      {issue.description}
                     </p>
 
-                    {(issue as any).items && (issue as any).items.length > 0 && (
-                      <div className="p-3.5 rounded-xl bg-surface-0 border border-surface-3 space-y-2.5">
-                        <p className="text-[11px] font-bold text-text-primary font-mono uppercase tracking-wider flex items-center gap-1.5">
-                          <Code2 className="h-3.5 w-3.5 text-brand-600" />
-                          Offending DOM Selectors / HTML Nodes
+                    {items && items.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="font-bold text-[#0a2540] uppercase tracking-wider text-[11px]">
+                          Failing Elements ({items.length})
                         </p>
-                        <div className="space-y-2 font-mono text-[11px] text-text-secondary">
-                          {(issue as any).items.map((nodeItem: any, nIdx: number) => (
+                        <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+                          {items.map((node: any, nIdx: number) => (
                             <div
                               key={nIdx}
-                              className="p-2.5 rounded-lg bg-surface-1 border border-surface-3 break-all text-text-primary"
+                              className="p-3 bg-white rounded-lg border border-[#e3e8ee] space-y-1 font-mono text-[11px]"
                             >
-                              <code>
-                                {nodeItem.node?.snippet ||
-                                  nodeItem.node?.selector ||
-                                  JSON.stringify(nodeItem)}
-                              </code>
+                              <div className="text-[#0a2540] font-semibold">
+                                {node.node?.selector || node.selector || "DOM Node"}
+                              </div>
+                              {(node.node?.snippet || node.snippet) && (
+                                <code className="block text-[#635bff] bg-[#f0f2ff] p-1.5 rounded border border-[#c7cefe] truncate">
+                                  {node.node?.snippet || node.snippet}
+                                </code>
+                              )}
+                              {node.node?.explanation && (
+                                <p className="text-[#8898aa] font-sans text-xs">
+                                  {node.node.explanation}
+                                </p>
+                              )}
                             </div>
                           ))}
                         </div>

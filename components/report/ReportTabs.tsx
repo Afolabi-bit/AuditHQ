@@ -17,16 +17,16 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
   return (
     <section className="space-y-4 pt-2 w-full max-w-full min-w-0">
       <Tabs defaultValue="opportunities" className="space-y-6 w-full min-w-0">
-        <div className="border-b border-surface-3 pb-2 w-full overflow-x-auto">
-          <TabsList className="bg-transparent p-0 h-auto gap-2 flex-wrap max-w-full">
+        <div className="border-b border-[#e3e8ee] pb-2 w-full overflow-x-auto">
+          <TabsList className="bg-[#f1f5f9] p-1 rounded-lg border border-[#e3e8ee] h-auto gap-1 flex-wrap max-w-full">
             <TabsTrigger
               value="opportunities"
-              className="data-[state=active]:bg-brand-600 data-[state=active]:text-white data-[state=active]:shadow-brand px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer font-sans"
+              className="data-[state=active]:bg-white data-[state=active]:text-[#635bff] data-[state=active]:shadow-xs px-3.5 py-2 rounded-md font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer font-sans"
             >
-              <Zap className="h-4 w-4 fill-current" />
-              Opportunities & Savings
+              <Zap className="h-3.5 w-3.5 fill-[#635bff]" />
+              Opportunities
               {report.opportunities.length > 0 && (
-                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-amber-400 text-amber-950 font-mono font-extrabold">
+                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#fff8e5] text-[#b76e00] font-mono font-bold border border-[#ffe380]">
                   {report.opportunities.length}
                 </span>
               )}
@@ -34,23 +34,23 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
 
             <TabsTrigger
               value="network"
-              className="data-[state=active]:bg-brand-600 data-[state=active]:text-white data-[state=active]:shadow-brand px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer font-sans"
+              className="data-[state=active]:bg-white data-[state=active]:text-[#635bff] data-[state=active]:shadow-xs px-3.5 py-2 rounded-md font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer font-sans"
             >
-              <HardDrive className="h-4 w-4" />
+              <HardDrive className="h-3.5 w-3.5" />
               Network & Payload
-              <span className="ml-1 text-[11px] font-mono opacity-85">
+              <span className="ml-1 text-[11px] font-mono text-[#8898aa]">
                 ({formatBytes(report.totalByteWeight)})
               </span>
             </TabsTrigger>
 
             <TabsTrigger
               value="audits"
-              className="data-[state=active]:bg-brand-600 data-[state=active]:text-white data-[state=active]:shadow-brand px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer font-sans"
+              className="data-[state=active]:bg-white data-[state=active]:text-[#635bff] data-[state=active]:shadow-xs px-3.5 py-2 rounded-md font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer font-sans"
             >
-              <Eye className="h-4 w-4" />
+              <Eye className="h-3.5 w-3.5" />
               Accessibility & SEO
               {(report.accessibilityIssues.length > 0 || report.seoIssues.length > 0) && (
-                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-surface-2 data-[state=active]:bg-white/20 text-text-primary data-[state=active]:text-white font-mono font-bold">
+                <span className="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-[#f0f2ff] text-[#635bff] font-mono font-bold border border-[#c7cefe]">
                   {report.accessibilityIssues.length + report.seoIssues.length}
                 </span>
               )}
@@ -58,17 +58,17 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({ report }) => {
 
             <TabsTrigger
               value="security"
-              className="data-[state=active]:bg-brand-600 data-[state=active]:text-white data-[state=active]:shadow-brand px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer font-sans"
+              className="data-[state=active]:bg-white data-[state=active]:text-[#635bff] data-[state=active]:shadow-xs px-3.5 py-2 rounded-md font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer font-sans"
             >
-              <ShieldCheck className="h-4 w-4" />
-              Security & Best Practices
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Security
             </TabsTrigger>
 
             <TabsTrigger
               value="diagnostics"
-              className="data-[state=active]:bg-brand-600 data-[state=active]:text-white data-[state=active]:shadow-brand px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer font-sans"
+              className="data-[state=active]:bg-white data-[state=active]:text-[#635bff] data-[state=active]:shadow-xs px-3.5 py-2 rounded-md font-semibold text-xs flex items-center gap-1.5 transition-all cursor-pointer font-sans"
             >
-              <Layers className="h-4 w-4" />
+              <Layers className="h-3.5 w-3.5" />
               Diagnostics ({report.diagnostics.length})
             </TabsTrigger>
           </TabsList>

@@ -133,13 +133,13 @@ export function parseLighthouseReport(lhr: any): ParsedLighthouseReport {
   const metrics = {
     fcp: {
       value: fcpVal,
-      displayValue: audits["first-contentful-paint"]?.displayValue || (fcpVal ? `${(fcpVal / 1000).toFixed(2)} s` : "—"),
+      displayValue: audits["first-contentful-paint"]?.displayValue || (fcpVal ? `${(fcpVal / 1000).toFixed(1)} s` : "—"),
       score: audits["first-contentful-paint"]?.score ?? null,
       rating: getMetricRating("fcp", fcpVal),
     },
     lcp: {
       value: lcpVal,
-      displayValue: audits["largest-contentful-paint"]?.displayValue || (lcpVal ? `${(lcpVal / 1000).toFixed(2)} s` : "—"),
+      displayValue: audits["largest-contentful-paint"]?.displayValue || (lcpVal ? `${(lcpVal / 1000).toFixed(1)} s` : "—"),
       score: audits["largest-contentful-paint"]?.score ?? null,
       rating: getMetricRating("lcp", lcpVal),
     },
@@ -151,13 +151,13 @@ export function parseLighthouseReport(lhr: any): ParsedLighthouseReport {
     },
     cls: {
       value: clsVal,
-      displayValue: audits["cumulative-layout-shift"]?.displayValue || (clsVal != null ? clsVal.toFixed(3) : "—"),
+      displayValue: audits["cumulative-layout-shift"]?.displayValue || (clsVal != null ? clsVal.toFixed(2) : "—"),
       score: audits["cumulative-layout-shift"]?.score ?? null,
       rating: getMetricRating("cls", clsVal),
     },
     speedIndex: {
       value: siVal,
-      displayValue: audits["speed-index"]?.displayValue || (siVal ? `${(siVal / 1000).toFixed(2)} s` : "—"),
+      displayValue: audits["speed-index"]?.displayValue || (siVal ? `${(siVal / 1000).toFixed(1)} s` : "—"),
       score: audits["speed-index"]?.score ?? null,
       rating: getMetricRating("speedIndex", siVal),
     },

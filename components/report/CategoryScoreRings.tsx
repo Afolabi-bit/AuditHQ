@@ -2,7 +2,6 @@
 
 import React from "react";
 import { ScoreGauge } from "./ScoreGauge";
-import { Gauge, ShieldCheck, Zap } from "lucide-react";
 
 interface CategoryScoreRingsProps {
   scores: {
@@ -20,34 +19,34 @@ export const CategoryScoreRings: React.FC<CategoryScoreRingsProps> = ({ scores }
 
   return (
     <section className="space-y-4">
-      {/* Section Header with Executive Health Indicator */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0 border border-surface-3/80 rounded-2xl p-4.5 px-6 shadow-xs">
+      {/* Section Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-[#e3e8ee] rounded-xl p-4 px-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)]">
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
-            <h2 className="text-base font-extrabold text-text-primary tracking-tight font-sans">
+            <h2 className="text-base font-extrabold text-[#0a2540] tracking-tight font-sans">
               Core Performance Audit
             </h2>
-            <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-brand-50 text-brand-600 border border-brand-200">
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe]">
               Composite Index: {avgCategoryScore}/100
             </span>
           </div>
-          <p className="text-xs text-text-secondary">
+          <p className="text-xs text-[#425466]">
             Multi-dimensional evaluation based on official Google Lighthouse 12.0 scoring algorithms
           </p>
         </div>
 
         {/* Legend */}
-        <div className="flex items-center gap-4 text-xs font-medium text-text-secondary">
+        <div className="flex items-center gap-4 text-xs font-medium text-[#425466]">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+            <span className="w-2 h-2 rounded-full bg-[#00875a]" />
             90–100 Good
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
+            <span className="w-2 h-2 rounded-full bg-[#b76e00]" />
             50–89 Needs Work
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+            <span className="w-2 h-2 rounded-full bg-[#de350b]" />
             0–49 Poor
           </span>
         </div>

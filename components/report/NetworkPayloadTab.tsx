@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { HardDrive, Globe, BarChart3, Layers, Zap } from "lucide-react";
+import { HardDrive, Globe, BarChart3 } from "lucide-react";
 import {
   formatBytes,
   formatMilliseconds,
@@ -24,50 +24,43 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
     0,
   );
 
-  // Asset type color mapping
   const getResourceColor = (type: string) => {
     switch (type.toLowerCase()) {
       case "script":
         return {
-          bar: "bg-amber-500",
-          text: "text-amber-600",
-          bg: "bg-amber-500/10",
+          bar: "bg-[#b76e00]",
+          text: "text-[#b76e00]",
+          bg: "bg-[#fff8e5]",
         };
       case "image":
         return {
-          bar: "bg-blue-500",
-          text: "text-blue-600",
-          bg: "bg-blue-500/10",
+          bar: "bg-[#00875a]",
+          text: "text-[#00875a]",
+          bg: "bg-[#e3fcf7]",
         };
       case "stylesheet":
         return {
-          bar: "bg-indigo-500",
-          text: "text-indigo-600",
-          bg: "bg-indigo-500/10",
+          bar: "bg-[#635bff]",
+          text: "text-[#635bff]",
+          bg: "bg-[#f0f2ff]",
         };
       case "font":
         return {
-          bar: "bg-purple-500",
-          text: "text-purple-600",
-          bg: "bg-purple-500/10",
+          bar: "bg-[#8b5cf6]",
+          text: "text-[#8b5cf6]",
+          bg: "bg-[#f5f3ff]",
         };
       case "document":
         return {
-          bar: "bg-emerald-500",
-          text: "text-emerald-600",
-          bg: "bg-emerald-500/10",
-        };
-      case "media":
-        return {
-          bar: "bg-rose-500",
-          text: "text-rose-600",
-          bg: "bg-rose-500/10",
+          bar: "bg-[#0284c7]",
+          text: "text-[#0284c7]",
+          bg: "bg-[#f0f9ff]",
         };
       default:
         return {
-          bar: "bg-slate-400",
-          text: "text-slate-600",
-          bg: "bg-slate-500/10",
+          bar: "bg-[#8898aa]",
+          text: "text-[#8898aa]",
+          bg: "bg-[#f1f5f9]",
         };
     }
   };
@@ -77,141 +70,148 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
       {/* Top 3 Stat Highlights */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Page Weight */}
-        <div className="bg-surface-0 border border-surface-3 rounded-2xl p-5 shadow-xs flex items-center justify-between">
+        <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08)] flex items-center justify-between">
           <div className="space-y-1">
-            <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-mono">
+            <p className="text-xs font-bold text-[#8898aa] uppercase tracking-wider font-mono">
               Total Page Weight
             </p>
-            <p className="text-2xl sm:text-3xl font-mono font-black text-text-primary">
+            <p className="text-2xl sm:text-3xl font-mono font-bold text-[#0a2540]">
               {formatBytes(totalByteWeight)}
             </p>
-            <p className="text-[11px] font-sans text-text-secondary">
+            <p className="text-[11px] font-sans text-[#425466]">
               {totalByteWeight <= 1600 * 1024
                 ? "Optimal payload (<1.6MB target)"
                 : "Consider asset compression"}
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-brand-50 text-brand-600 border border-brand-200">
+          <div className="p-3 rounded-lg bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe]">
             <HardDrive className="h-5 w-5" />
           </div>
         </div>
 
         {/* Total Requests */}
-        <div className="bg-surface-0 border border-surface-3 rounded-2xl p-5 shadow-xs flex items-center justify-between">
+        <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08)] flex items-center justify-between">
           <div className="space-y-1">
-            <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-mono">
-              HTTP Requests
+            <p className="text-xs font-bold text-[#8898aa] uppercase tracking-wider font-mono">
+              Network Requests
             </p>
-            <p className="text-2xl sm:text-3xl font-mono font-black text-text-primary">
+            <p className="text-2xl sm:text-3xl font-mono font-bold text-[#0a2540]">
               {totalRequests}
             </p>
-            <p className="text-[11px] font-sans text-text-secondary">
-              Across {resourceSummary.length} resource categories
+            <p className="text-[11px] font-sans text-[#425466]">
+              {totalRequests <= 50 ? "Minimal HTTP requests" : "Consider asset bundling"}
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-purple-50 text-purple-600 border border-purple-200">
+          <div className="p-3 rounded-lg bg-[#e3fcf7] text-[#00875a] border border-[#abf5d1]">
             <BarChart3 className="h-5 w-5" />
           </div>
         </div>
 
-        {/* Third-Party Scripts */}
-        <div className="bg-surface-0 border border-surface-3 rounded-2xl p-5 shadow-xs flex items-center justify-between">
+        {/* Third-Party Payloads */}
+        <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-[0_1px_3px_rgba(50,50,93,0.08)] flex items-center justify-between">
           <div className="space-y-1">
-            <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-mono">
-              Third-Party Scripts
+            <p className="text-xs font-bold text-[#8898aa] uppercase tracking-wider font-mono">
+              Third-Party Entities
             </p>
-            <p className="text-2xl sm:text-3xl font-mono font-black text-text-primary">
+            <p className="text-2xl sm:text-3xl font-mono font-bold text-[#0a2540]">
               {thirdParties.length}
             </p>
-            <p className="text-[11px] font-sans text-text-secondary">
-              External tracking & telemetry vendors
+            <p className="text-[11px] font-sans text-[#425466]">
+              External scripts & analytics
             </p>
           </div>
-          <div className="p-3 rounded-xl bg-amber-50 text-amber-600 border border-amber-200">
+          <div className="p-3 rounded-lg bg-[#fff8e5] text-[#b76e00] border border-[#ffe380]">
             <Globe className="h-5 w-5" />
           </div>
         </div>
       </div>
 
-      {/* Multi-segment Distribution Bar */}
-      {totalByteWeight > 0 && (
-        <div className="bg-surface-0 border border-surface-3 rounded-2xl p-5 shadow-xs space-y-3.5">
-          <div className="flex items-center justify-between">
-            <h4 className="text-xs font-bold text-text-primary uppercase tracking-wider font-mono">
-              Bandwidth Distribution by Resource Type
-            </h4>
-            <span className="text-xs font-mono text-text-tertiary">
-              100% Normalized
-            </span>
-          </div>
+      {/* Asset Type Breakdown */}
+      <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)] space-y-4">
+        <h4 className="text-sm font-bold text-[#0a2540] font-sans">
+          Resource Type Breakdown
+        </h4>
 
-          <div className="h-3.5 w-full bg-surface-2 rounded-full overflow-hidden flex shadow-inner">
-            {resourceSummary.map((res) => {
-              const pct = (res.transferSize / totalByteWeight) * 100;
-              if (pct < 1) return null;
-              const color = getResourceColor(res.resourceType);
-              return (
-                <div
-                  key={res.resourceType}
-                  style={{ width: `${pct}%` }}
-                  className={`${color.bar} transition-all`}
-                  title={`${res.label}: ${formatBytes(res.transferSize)} (${pct.toFixed(1)}%)`}
-                />
-              );
-            })}
-          </div>
-
-          <div className="flex flex-wrap items-center gap-4 pt-1 text-xs">
-            {resourceSummary.map((res) => {
-              const color = getResourceColor(res.resourceType);
-              const pct = ((res.transferSize / totalByteWeight) * 100).toFixed(1);
-              return (
-                <div
-                  key={res.resourceType}
-                  className="flex items-center gap-1.5 font-sans text-text-secondary"
-                >
-                  <span className={`w-2.5 h-2.5 rounded-full ${color.bar}`} />
-                  <span className="font-semibold text-text-primary">{res.label}:</span>
-                  <span className="font-mono font-bold text-text-primary">
-                    {formatBytes(res.transferSize)}
-                  </span>
-                  <span className="text-text-tertiary font-mono">({pct}%)</span>
-                </div>
-              );
-            })}
-          </div>
+        {/* Segmented Bar */}
+        <div className="h-3 w-full bg-[#f1f5f9] rounded-full overflow-hidden flex">
+          {resourceSummary.map((res, idx) => {
+            const percent = totalByteWeight > 0 ? (res.transferSize / totalByteWeight) * 100 : 0;
+            const color = getResourceColor(res.resourceType);
+            return (
+              <div
+                key={idx}
+                className={`h-full ${color.bar}`}
+                style={{ width: `${percent}%` }}
+                title={`${res.label}: ${formatBytes(res.transferSize)} (${percent.toFixed(1)}%)`}
+              />
+            );
+          })}
         </div>
-      )}
 
-      {/* Tables Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        {/* Resource Breakdown Table */}
-        <div className="bg-surface-0 border border-surface-3 rounded-2xl overflow-hidden shadow-xs lg:col-span-6 flex flex-col justify-between">
-          <div className="py-3.5 px-5 border-b border-surface-3 bg-surface-1/40">
-            <h4 className="text-sm font-bold text-text-primary font-sans">
-              Payload Breakdown by Asset Type
-            </h4>
-          </div>
-          <div className="p-0 overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-surface-1 text-text-secondary font-mono font-semibold border-b border-surface-3">
-                <tr>
-                  <th className="py-2.5 px-4">Resource Type</th>
-                  <th className="py-2.5 px-4 text-center">Requests</th>
-                  <th className="py-2.5 px-4 text-right">Transfer Size</th>
+        {/* Table of Resource Types */}
+        <div className="border border-[#e3e8ee] rounded-lg overflow-x-auto">
+          <table className="w-full text-left border-collapse text-xs font-mono">
+            <thead>
+              <tr className="bg-[#f8fafc] border-b border-[#e3e8ee] text-[#8898aa] text-[11px]">
+                <th className="p-2.5 px-3">Resource Type</th>
+                <th className="p-2.5 px-3 text-right">Requests</th>
+                <th className="p-2.5 px-3 text-right">Transfer Size</th>
+                <th className="p-2.5 px-3 text-right">% of Total</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#f1f5f9]">
+              {resourceSummary.map((res, idx) => {
+                const percent = totalByteWeight > 0 ? ((res.transferSize / totalByteWeight) * 100).toFixed(1) : "0";
+                const color = getResourceColor(res.resourceType);
+                return (
+                  <tr key={idx} className="hover:bg-[#f8fafc]">
+                    <td className="p-2.5 px-3 font-sans font-semibold text-[#0a2540] flex items-center gap-2">
+                      <span className={`w-2.5 h-2.5 rounded-full ${color.bar}`} />
+                      {res.label}
+                    </td>
+                    <td className="p-2.5 px-3 text-right text-[#8898aa]">
+                      {res.requestCount}
+                    </td>
+                    <td className="p-2.5 px-3 text-right font-bold text-[#0a2540]">
+                      {formatBytes(res.transferSize)}
+                    </td>
+                    <td className="p-2.5 px-3 text-right text-[#8898aa]">
+                      {percent}%
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Third Parties List */}
+      {thirdParties.length > 0 && (
+        <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)] space-y-3">
+          <h4 className="text-sm font-bold text-[#0a2540] font-sans">
+            Third-Party Code Impact ({thirdParties.length})
+          </h4>
+          <div className="border border-[#e3e8ee] rounded-lg overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs font-mono">
+              <thead>
+                <tr className="bg-[#f8fafc] border-b border-[#e3e8ee] text-[#8898aa] text-[11px]">
+                  <th className="p-2.5 px-3">Third-Party Entity</th>
+                  <th className="p-2.5 px-3 text-right">Transfer Size</th>
+                  <th className="p-2.5 px-3 text-right">Blocking Time</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-surface-2">
-                {resourceSummary.map((item) => (
-                  <tr key={item.resourceType} className="hover:bg-surface-1/50 transition-colors">
-                    <td className="py-3 px-4 font-semibold text-text-primary font-sans">
-                      {item.label}
+              <tbody className="divide-y divide-[#f1f5f9]">
+                {thirdParties.map((tp, idx) => (
+                  <tr key={idx} className="hover:bg-[#f8fafc]">
+                    <td className="p-2.5 px-3 font-sans font-semibold text-[#0a2540]">
+                      {tp.entity}
                     </td>
-                    <td className="py-3 px-4 text-center text-text-secondary font-mono">
-                      {item.requestCount}
+                    <td className="p-2.5 px-3 text-right text-[#8898aa]">
+                      {formatBytes(tp.transferSize)}
                     </td>
-                    <td className="py-3 px-4 text-right font-bold text-text-primary font-mono">
-                      {formatBytes(item.transferSize)}
+                    <td className="p-2.5 px-3 text-right text-[#b76e00] font-bold">
+                      {tp.blockingTime > 0 ? formatMilliseconds(tp.blockingTime) : "0ms"}
                     </td>
                   </tr>
                 ))}
@@ -219,51 +219,7 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
             </table>
           </div>
         </div>
-
-        {/* Third-Party Scripts Breakdown */}
-        <div className="bg-surface-0 border border-surface-3 rounded-2xl overflow-hidden shadow-xs lg:col-span-6 flex flex-col justify-between">
-          <div className="py-3.5 px-5 border-b border-surface-3 bg-surface-1/40 flex items-center justify-between">
-            <h4 className="text-sm font-bold text-text-primary font-sans">
-              Third-Party Vendor Overhead
-            </h4>
-            <span className="text-xs font-mono text-text-tertiary">
-              {thirdParties.length} vendors detected
-            </span>
-          </div>
-          <div className="p-0 overflow-x-auto">
-            {thirdParties.length === 0 ? (
-              <div className="p-8 text-center text-text-secondary text-xs font-sans">
-                No third-party scripts detected. Zero external blocking overhead!
-              </div>
-            ) : (
-              <table className="w-full text-left text-xs">
-                <thead className="bg-surface-1 text-text-secondary font-mono font-semibold border-b border-surface-3">
-                  <tr>
-                    <th className="py-2.5 px-4">Provider / Vendor</th>
-                    <th className="py-2.5 px-4 text-right">Transfer Size</th>
-                    <th className="py-2.5 px-4 text-right">Blocking Time</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-surface-2 font-mono">
-                  {thirdParties.map((tp, idx) => (
-                    <tr key={idx} className="hover:bg-surface-1/50 transition-colors">
-                      <td className="py-3 px-4 font-semibold text-text-primary font-sans">
-                        {tp.entity}
-                      </td>
-                      <td className="py-3 px-4 text-right text-text-secondary">
-                        {formatBytes(tp.transferSize)}
-                      </td>
-                      <td className="py-3 px-4 text-right text-rose-600 font-bold">
-                        {formatMilliseconds(tp.blockingTime)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

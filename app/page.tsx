@@ -12,6 +12,8 @@ import {
   Terminal,
   Gauge,
   Layers,
+  Cpu,
+  Globe,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -30,47 +32,47 @@ export default async function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface-1 text-text-primary selection:bg-brand-600 selection:text-white">
+    <div className="min-h-screen bg-[#f6f9fc] text-[#0a2540] selection:bg-[#635bff]/15 selection:text-[#635bff]">
       {/* ── 1. Top Navigation Bar ─────────────────────────────────────────── */}
-      <nav className="border-b border-brand-200/40 bg-white/75 backdrop-blur-xl sticky top-0 z-50 transition-all">
+      <nav className="border-b border-[#e3e8ee] bg-white/90 backdrop-blur-md sticky top-0 z-50 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Brand Logo */}
             <div className="flex items-center space-x-3">
-              <div className="h-9 w-9 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-brand">
-                <Zap className="h-5 w-5 fill-white" />
+              <div className="h-8.5 w-8.5 rounded-lg bg-[#635bff] flex items-center justify-center text-white shadow-sm">
+                <Zap className="h-4.5 w-4.5 fill-white" />
               </div>
-              <span className="text-xl font-extrabold tracking-tight text-text-primary font-sans">
+              <span className="text-xl font-extrabold tracking-tight text-[#0a2540] font-sans">
                 AuditHQ
               </span>
             </div>
 
             {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-text-secondary">
+            <div className="hidden md:flex items-center space-x-8 text-sm font-semibold text-[#425466]">
               <a
                 href="#features"
-                className="hover:text-brand-600 transition-colors"
+                className="hover:text-[#635bff] transition-colors"
               >
                 Features
               </a>
               <a
                 href="#how-it-works"
-                className="hover:text-brand-600 transition-colors"
+                className="hover:text-[#635bff] transition-colors"
               >
                 How It Works
               </a>
               <a
                 href="#bento"
-                className="hover:text-brand-600 transition-colors"
+                className="hover:text-[#635bff] transition-colors"
               >
-                Engine Architecture
+                Architecture
               </a>
             </div>
 
             {/* CTAs */}
             <div className="flex items-center space-x-3">
               <LoginLink
-                className={`text-sm font-medium text-text-secondary hover:text-text-primary ${buttonVariants(
+                className={`text-sm font-semibold text-[#425466] hover:text-[#0a2540] ${buttonVariants(
                   {
                     variant: "ghost",
                     size: "sm",
@@ -79,8 +81,8 @@ export default async function LandingPage() {
               >
                 Log In
               </LoginLink>
-              <RegisterLink className="inline-flex items-center justify-center gap-1.5 rounded-lg text-sm font-semibold h-9 px-4 text-white bg-brand-600 hover:bg-brand-700 shadow-brand transition-all hover:scale-[1.02] active:scale-[0.98]">
-                Sign Up Free
+              <RegisterLink className="inline-flex items-center justify-center gap-1.5 rounded-lg text-sm font-semibold h-9 px-4 text-white bg-[#635bff] hover:bg-[#5851ea] active:bg-[#4b45d0] shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]">
+                <span>Get Started</span>
                 <ArrowRight className="h-4 w-4" />
               </RegisterLink>
             </div>
@@ -88,71 +90,95 @@ export default async function LandingPage() {
         </div>
       </nav>
 
-      {/* ── 2. Dark Hero Section with Animated Mesh Gradient ─────────────── */}
-      <section className="relative overflow-hidden bg-[hsl(222,47%,8%)] text-white pt-24 pb-28 sm:pt-32 sm:pb-36">
-        {/* Ambient Gradient Mesh Blobs */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-180 h-120 bg-brand-600/20 blur-[130px] rounded-full animate-mesh-1" />
-          <div className="absolute top-48 -left-20 w-105 h-90 bg-indigo-600/15 blur-[120px] rounded-full animate-mesh-2" />
-          <div className="absolute bottom-0 right-10 w-130 h-80 bg-emerald-500/10 blur-[140px] rounded-full" />
-          {/* Subtle Grid Overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#33415512_1px,transparent_1px),linear-gradient(to_bottom,#33415512_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-        </div>
-
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+      {/* ── 2. Stripe Hero Section ────────────────────────────────────────── */}
+      <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           {/* Tagline Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-white/5 border border-white/10 text-brand-200 backdrop-blur-md">
-            <Activity className="h-3.5 w-3.5 text-brand-500" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#f0f2ff] border border-[#c7cefe] text-[#635bff]">
+            <Activity className="h-3.5 w-3.5" />
             <span>Autonomous Web Performance Intelligence</span>
+            <span className="text-[#8898aa]">|</span>
+            <span className="font-mono text-[11px] text-[#425466]">Lighthouse 12.0</span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-black tracking-tight font-sans leading-[1.08]">
+          <h1 className="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight font-sans leading-[1.1] text-[#0a2540]">
             Automate Your{" "}
-            <span className="bg-linear-to-r from-blue-400 via-brand-500 to-indigo-300 bg-clip-text text-transparent">
-              Lighthouse
+            <span className="text-[#635bff]">
+              Lighthouse Audits
             </span>{" "}
-            Audits <br className="hidden sm:inline" />
+            <br className="hidden sm:inline" />
             at Production Scale
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg sm:text-xl text-[#94A3B8] max-w-2xl mx-auto font-normal leading-relaxed">
-            Run automated Google Lighthouse audits in the cloud. Continuously
-            measure Core Web Vitals, identify performance bottlenecks, and
-            export executive-ready reports in seconds.
+          <p className="text-lg sm:text-xl text-[#425466] max-w-2xl mx-auto font-normal leading-relaxed">
+            Run automated Google Lighthouse audits in the cloud. Continuously measure Core Web Vitals, identify performance bottlenecks, and export executive whitepapers in seconds.
           </p>
 
           {/* CTA Group */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-            <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-xl text-base font-semibold h-13 px-8 text-slate-950 bg-white hover:bg-slate-100 shadow-brand transition-all hover:scale-[1.02] active:scale-[0.98]">
-              Run Audit Free
-              <Zap className="h-4 w-4 fill-slate-950 text-slate-950" />
+            <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-7 text-white bg-[#635bff] hover:bg-[#5851ea] active:bg-[#4b45d0] shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]">
+              <span>Run Audit Free</span>
+              <ArrowRight className="h-4 w-4" />
             </RegisterLink>
 
-            <Link
-              href="/login"
-              className="inline-flex items-center justify-center gap-2 rounded-xl text-base font-medium h-13 px-7 text-slate-300 bg-white/5 hover:bg-white/10 border border-white/10 backdrop-blur-md transition-colors"
+            <a
+              href="#bento"
+              className="inline-flex items-center justify-center gap-2 rounded-lg text-base font-semibold h-12 px-7 text-[#0a2540] bg-white hover:bg-[#f8fafc] border border-[#e3e8ee] shadow-[0_1px_2px_rgba(50,50,93,0.05)] transition-colors"
             >
-              View Demo Report
-              <ArrowRight className="h-4 w-4 text-slate-400" />
-            </Link>
+              <span>Explore Features</span>
+            </a>
+          </div>
+
+          {/* Telemetry Preview Card */}
+          <div className="pt-6 max-w-4xl mx-auto text-left">
+            <div className="bg-white border border-[#e3e8ee] rounded-xl p-5 sm:p-6 shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1),0_2px_4px_-1px_rgba(0,0,0,0.06)] space-y-4">
+              <div className="flex items-center justify-between border-b border-[#f1f5f9] pb-3 text-xs font-mono">
+                <div className="flex items-center gap-2 text-[#425466]">
+                  <span className="w-2 h-2 rounded-full bg-[#00875a]" />
+                  <span className="font-semibold">Target: https://swiftaudithq.vercel.app</span>
+                </div>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#e3fcf7] text-[#00875a] border border-[#abf5d1]">
+                  Audit Complete
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+                <div className="p-3 bg-[#f8fafc] rounded-lg border border-[#e3e8ee]">
+                  <p className="text-[10px] text-[#8898aa] uppercase font-semibold">Performance</p>
+                  <p className="text-2xl font-bold text-[#00875a] mt-0.5">99/100</p>
+                </div>
+                <div className="p-3 bg-[#f8fafc] rounded-lg border border-[#e3e8ee]">
+                  <p className="text-[10px] text-[#8898aa] uppercase font-semibold">LCP (Load)</p>
+                  <p className="text-2xl font-bold text-[#0a2540] mt-0.5">0.8s</p>
+                </div>
+                <div className="p-3 bg-[#f8fafc] rounded-lg border border-[#e3e8ee]">
+                  <p className="text-[10px] text-[#8898aa] uppercase font-semibold">TBT (Block)</p>
+                  <p className="text-2xl font-bold text-[#0a2540] mt-0.5">0ms</p>
+                </div>
+                <div className="p-3 bg-[#f8fafc] rounded-lg border border-[#e3e8ee]">
+                  <p className="text-[10px] text-[#8898aa] uppercase font-semibold">CLS (Shift)</p>
+                  <p className="text-2xl font-bold text-[#0a2540] mt-0.5">0.00</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Social Proof Monospace Strip */}
-          <div className="pt-8 flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-[11px] font-mono tracking-widest text-slate-400 uppercase">
+          <div className="pt-6 flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-[11px] font-mono tracking-widest text-[#8898aa] uppercase">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+              <CheckCircle2 className="h-3.5 w-3.5 text-[#00875a]" />
               2,400+ AUDITS EXECUTED
             </span>
-            <span className="text-slate-700 hidden sm:inline">·</span>
+            <span className="text-[#e3e8ee] hidden sm:inline">·</span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-              POWERED BY GOOGLE LIGHTHOUSE
+              <CheckCircle2 className="h-3.5 w-3.5 text-[#00875a]" />
+              POWERED BY LIGHTHOUSE 12.0
             </span>
-            <span className="text-slate-700 hidden sm:inline">·</span>
+            <span className="text-[#e3e8ee] hidden sm:inline">·</span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+              <CheckCircle2 className="h-3.5 w-3.5 text-[#00875a]" />
               ZERO SIGNUP FRICTION
             </span>
           </div>
@@ -162,155 +188,104 @@ export default async function LandingPage() {
       {/* ── 3. Bento Grid Section ─────────────────────────────────────────── */}
       <section
         id="bento"
-        className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <div className="text-center space-y-3 mb-16">
-          <p className="text-xs font-mono font-semibold tracking-widest text-brand-600 uppercase">
-            Precision Architecture
+        <div className="text-center space-y-3 mb-14">
+          <p className="text-xs font-mono font-semibold tracking-widest text-[#635bff] uppercase">
+            Engine Architecture
           </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary font-sans">
-            Built for High-Velocity Engineering Teams
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0a2540] font-sans">
+            Built for Modern Engineering Teams
           </h2>
-          <p className="text-base text-text-secondary max-w-2xl mx-auto">
-            Everything required to debug load times, improve SEO rankings, and
-            deliver instant-loading web experiences.
+          <p className="text-base text-[#425466] max-w-2xl mx-auto">
+            Everything required to debug load times, improve SEO rankings, and deliver instant-loading web experiences.
           </p>
         </div>
 
         {/* 3-Column Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Bento 1: Large Card (2/3 width) — Live Lighthouse Engine */}
-          <div className="md:col-span-2 rounded-2xl bg-surface-0 border border-surface-3 p-8 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all flex flex-col justify-between group">
+          {/* Bento 1: Large Card (2/3 width) */}
+          <div className="md:col-span-2 rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="h-11 w-11 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center text-brand-600">
-                <Activity className="h-6 w-6" />
+              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+                <Activity className="h-5 w-5" />
               </div>
-              <h3 className="text-2xl font-bold text-text-primary tracking-tight font-sans">
+              <h3 className="text-2xl font-bold text-[#0a2540] tracking-tight font-sans">
                 Real-Time Lighthouse Cloud Engine
               </h3>
-              <p className="text-sm text-text-secondary leading-relaxed max-w-xl">
-                Audit any production domain through Google&apos;s headless
-                auditing nodes with custom device emulation (Mobile Moto G4 /
-                Desktop Chrome) and synthetic network throttling.
+              <p className="text-sm text-[#425466] leading-relaxed max-w-xl">
+                Audit any production domain through isolated cloud nodes with custom device emulation (Mobile / Desktop) and synthetic network throttling.
               </p>
             </div>
 
-            {/* Live Visualization Mockup */}
-            <div className="mt-8 rounded-xl bg-surface-1 border border-surface-3 p-5 space-y-4 font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-surface-3 pb-3">
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-text-primary font-semibold">
-                    https://swiftaudithq.vercel.app
-                  </span>
-                </div>
-                <span className="text-brand-600 font-semibold uppercase text-[10px] tracking-wider bg-brand-50 px-2 py-0.5 rounded border border-brand-100">
-                  Audit Completed
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-                <div className="p-2.5 rounded-lg bg-surface-0 border border-surface-3">
-                  <p className="text-[10px] text-text-tertiary uppercase">
-                    Performance
-                  </p>
-                  <p className="text-lg font-bold text-score-good">98/100</p>
-                </div>
-                <div className="p-2.5 rounded-lg bg-surface-0 border border-surface-3">
-                  <p className="text-[10px] text-text-tertiary uppercase">
-                    LCP (Load)
-                  </p>
-                  <p className="text-lg font-bold text-score-good">1.1s</p>
-                </div>
-                <div className="p-2.5 rounded-lg bg-surface-0 border border-surface-3">
-                  <p className="text-[10px] text-text-tertiary uppercase">
-                    CLS (Shift)
-                  </p>
-                  <p className="text-lg font-bold text-score-good">0.00</p>
-                </div>
-                <div className="p-2.5 rounded-lg bg-surface-0 border border-surface-3">
-                  <p className="text-[10px] text-text-tertiary uppercase">
-                    TBT (Block)
-                  </p>
-                  <p className="text-lg font-bold text-score-good">0ms</p>
-                </div>
-              </div>
+            <div className="mt-8 rounded-lg bg-[#f8fafc] border border-[#e3e8ee] p-4 font-mono text-xs space-y-2 text-[#425466]">
+              <div className="text-[#00875a]">✔ DOM Navigation & Layout tree resolved in 420ms</div>
+              <div className="text-[#0a2540]">✔ Largest Contentful Paint (LCP) triggered at 0.82s</div>
+              <div className="text-[#8898aa]">✔ Cumulative Layout Shift (CLS) measured: 0.000</div>
             </div>
           </div>
 
           {/* Bento 2: Instant Command-Bar Execution */}
-          <div className="rounded-2xl bg-surface-0 border border-surface-3 p-8 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all flex flex-col justify-between">
+          <div className="rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="h-11 w-11 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
-                <Terminal className="h-6 w-6" />
+              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+                <Terminal className="h-5 w-5" />
               </div>
-              <h3 className="text-xl font-bold text-text-primary tracking-tight font-sans">
-                One URL, Instant Execution
+              <h3 className="text-xl font-bold text-[#0a2540] tracking-tight font-sans">
+                Instant Execution
               </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Paste any URL and select device throttling settings. Our
-                background runtime executes without rate limit drops.
+              <p className="text-sm text-[#425466] leading-relaxed">
+                Paste any URL and fire tests through background Next.js workers with zero rate-limit drops.
               </p>
             </div>
 
-            {/* Input simulation */}
-            <div className="mt-6 rounded-xl bg-slate-900 p-3.5 font-mono text-xs text-slate-300 space-y-1.5 border border-slate-800">
-              <div className="flex items-center gap-1.5 text-slate-400">
-                <span className="text-emerald-400">❯</span>
-                <span>audithq run https://stripe.com</span>
-                <span className="inline-block w-1.5 h-3.5 bg-brand-500 animate-pulse ml-0.5" />
-              </div>
-              <p className="text-[11px] text-slate-400">
-                ✔ Lighthouse 12.0 node initialized
-              </p>
+            <div className="mt-6 rounded-lg bg-[#f8fafc] p-3 font-mono text-xs text-[#0a2540] border border-[#e3e8ee]">
+              <span className="text-[#635bff]">POST</span> /api/test/submit
+              <div className="text-[11px] text-[#00875a] mt-1">202 Accepted · Queued</div>
             </div>
           </div>
 
           {/* Bento 3: Client-Ready PDF Reports */}
-          <div className="rounded-2xl bg-surface-0 border border-surface-3 p-8 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all flex flex-col justify-between">
+          <div className="rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="h-11 w-11 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
-                <Share2 className="h-6 w-6" />
+              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+                <Share2 className="h-5 w-5" />
               </div>
-              <h3 className="text-xl font-bold text-text-primary tracking-tight font-sans">
-                Executive PDF Documents
+              <h3 className="text-xl font-bold text-[#0a2540] tracking-tight font-sans">
+                Executive PDF Reports
               </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Download structured, client-ready performance audits with score
-                badges, Core Web Vitals tables, and quantified time savings.
+              <p className="text-sm text-[#425466] leading-relaxed">
+                Generate structured, vector-sharp PDF whitepapers with category score gauges and remediation lists.
               </p>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-surface-2 flex items-center text-xs font-semibold text-brand-600 gap-1.5">
-              <span>Vector Score Gauges & Quick Wins</span>
+            <div className="mt-6 pt-4 border-t border-[#f1f5f9] flex items-center text-xs font-semibold text-[#635bff] gap-1.5">
+              <span>Vector Score Gauges</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </div>
           </div>
 
-          {/* Bento 4: Large Card (2/3 width) — Shareable Public Reports */}
-          <div className="md:col-span-2 rounded-2xl bg-surface-0 border border-surface-3 p-8 shadow-xs hover:shadow-sm hover:border-brand-200 transition-all flex flex-col justify-between">
+          {/* Bento 4: Large Card (2/3 width) */}
+          <div className="md:col-span-2 rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-[#c7cefe] hover:shadow-[0_4px_6px_-1px_rgba(50,50,93,0.1)] transition-all flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="h-11 w-11 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
-                <ExternalLink className="h-6 w-6" />
+              <div className="h-10 w-10 rounded-lg bg-[#f0f2ff] border border-[#c7cefe] flex items-center justify-center text-[#635bff]">
+                <Globe className="h-5 w-5" />
               </div>
-              <h3 className="text-2xl font-bold text-text-primary tracking-tight font-sans">
+              <h3 className="text-2xl font-bold text-[#0a2540] tracking-tight font-sans">
                 Instant Shareable Public URLs
               </h3>
-              <p className="text-sm text-text-secondary leading-relaxed max-w-xl">
+              <p className="text-sm text-[#425466] leading-relaxed max-w-xl">
                 Every test generates a dedicated read-only public URL at{" "}
-                <code className="font-mono text-xs bg-surface-2 px-1.5 py-0.5 rounded text-text-primary">
+                <code className="font-mono text-xs bg-[#f1f5f9] px-1.5 py-0.5 rounded text-[#0a2540] border border-[#e3e8ee]">
                   /report/[id]
                 </code>{" "}
-                that you can share with stakeholders, agencies, and engineering
-                teammates with zero login barrier.
+                that you can share with stakeholders, agencies, and engineering teammates.
               </p>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-surface-2 flex items-center justify-between text-xs text-text-secondary">
-              <span className="font-mono">
-                No authentication required for client viewers
-              </span>
-              <span className="font-semibold text-brand-600">
+            <div className="mt-6 pt-4 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#8898aa]">
+              <span className="font-mono">Zero login friction for guest viewers</span>
+              <span className="font-semibold text-[#635bff]">
                 Explore Public Reports →
               </span>
             </div>
@@ -321,103 +296,93 @@ export default async function LandingPage() {
       {/* ── 4. How It Works: 3-Step Horizontal Timeline ──────────────────── */}
       <section
         id="how-it-works"
-        className="py-24 bg-surface-0 border-y border-surface-3"
+        className="py-20 bg-white border-y border-[#e3e8ee]"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-3 mb-16">
-            <p className="text-xs font-mono font-semibold tracking-widest text-brand-600 uppercase">
+          <div className="text-center space-y-3 mb-14">
+            <p className="text-xs font-mono font-semibold tracking-widest text-[#635bff] uppercase">
               Three-Step Workflow
             </p>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text-primary font-sans">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0a2540] font-sans">
               From URL to Optimization Roadmap in Seconds
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Step 1 */}
-            <div className="relative p-7 rounded-2xl bg-surface-1 border border-surface-3 space-y-4">
-              <div className="h-12 w-12 rounded-xl bg-brand-600 text-white flex items-center justify-center font-mono font-bold text-lg shadow-brand">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-7 rounded-xl bg-[#f8fafc] border border-[#e3e8ee] space-y-4">
+              <div className="h-11 w-11 rounded-lg bg-[#635bff] text-white flex items-center justify-center font-mono font-bold text-base shadow-sm">
                 01
               </div>
-              <h3 className="text-lg font-bold text-text-primary font-sans">
+              <h3 className="text-lg font-bold text-[#0a2540] font-sans">
                 Enter Your Website URL
               </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Paste any live URL and select your testing preferences — Desktop
-                or Mobile emulation, with synthetic network throttling.
+              <p className="text-sm text-[#425466] leading-relaxed">
+                Paste any live URL and select testing parameters — Desktop or Mobile emulation, with synthetic network throttling.
               </p>
             </div>
 
-            {/* Step 2 */}
-            <div className="relative p-7 rounded-2xl bg-surface-1 border border-surface-3 space-y-4">
-              <div className="h-12 w-12 rounded-xl bg-brand-600 text-white flex items-center justify-center font-mono font-bold text-lg shadow-brand">
+            <div className="p-7 rounded-xl bg-[#f8fafc] border border-[#e3e8ee] space-y-4">
+              <div className="h-11 w-11 rounded-lg bg-[#635bff] text-white flex items-center justify-center font-mono font-bold text-base shadow-sm">
                 02
               </div>
-              <h3 className="text-lg font-bold text-text-primary font-sans">
+              <h3 className="text-lg font-bold text-[#0a2540] font-sans">
                 Cloud Lighthouse Analysis
               </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Headless auditing workers execute the full Lighthouse 12 suite,
-                measuring FCP, LCP, TBT, CLS, render blocking, and image
-                payloads.
+              <p className="text-sm text-[#425466] leading-relaxed">
+                Headless auditing workers execute the full Lighthouse 12 suite, measuring FCP, LCP, TBT, CLS, and image payloads.
               </p>
             </div>
 
-            {/* Step 3 */}
-            <div className="relative p-7 rounded-2xl bg-surface-1 border border-surface-3 space-y-4">
-              <div className="h-12 w-12 rounded-xl bg-brand-600 text-white flex items-center justify-center font-mono font-bold text-lg shadow-brand">
+            <div className="p-7 rounded-xl bg-[#f8fafc] border border-[#e3e8ee] space-y-4">
+              <div className="h-11 w-11 rounded-lg bg-[#635bff] text-white flex items-center justify-center font-mono font-bold text-base shadow-sm">
                 03
               </div>
-              <h3 className="text-lg font-bold text-text-primary font-sans">
+              <h3 className="text-lg font-bold text-[#0a2540] font-sans">
                 Take Action & Share
               </h3>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Review quantified time-saving opportunities, download structured
-                PDF reports, and track your performance improvements over time.
+              <p className="text-sm text-[#425466] leading-relaxed">
+                Review quantified time-saving opportunities, download structured PDF reports, and track improvements over time.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── 5. High-Impact CTA Section ────────────────────────────────────── */}
-      <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-87.5 bg-brand-600/20 blur-[140px] rounded-full" />
-        </div>
-
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight font-sans">
-            Ready to Accelerate Your Web Performance?
-          </h2>
-          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto">
-            Free forever tier includes 100 audits/month. No credit card
-            required.
-          </p>
-          <div className="pt-2 flex justify-center">
-            <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-xl text-base font-semibold h-13 px-8 text-slate-950 bg-white hover:bg-slate-100 shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98]">
-              Create Free Account
-              <Zap className="h-4 w-4 fill-slate-950 text-slate-950" />
-            </RegisterLink>
+      {/* ── 5. High-Impact Stripe CTA Section ────────────────────────────── */}
+      <section className="py-20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-[#635bff] rounded-2xl p-10 sm:p-14 text-center text-white space-y-6 shadow-xl">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-sans">
+              Ready to Accelerate Your Web Performance?
+            </h2>
+            <p className="text-base sm:text-lg text-white/85 max-w-xl mx-auto">
+              Free forever tier includes 100 audits/month. No credit card required.
+            </p>
+            <div className="pt-2 flex justify-center">
+              <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-lg text-base font-bold h-12 px-8 text-[#635bff] bg-white hover:bg-[#f0f2ff] shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]">
+                <span>Create Free Account</span>
+                <ArrowRight className="h-4 w-4" />
+              </RegisterLink>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── 6. Clean Minimal Footer ───────────────────────────────────────── */}
-      <footer className="bg-surface-0 border-t border-surface-3 text-text-secondary py-12 text-sm">
+      {/* ── 6. Minimal Footer ─────────────────────────────────────────────── */}
+      <footer className="bg-white border-t border-[#e3e8ee] text-[#425466] py-12 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2.5">
-            <div className="h-6 w-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+            <div className="h-6 w-6 rounded-md bg-[#635bff] flex items-center justify-center text-white">
               <Zap className="h-3.5 w-3.5 fill-white" />
             </div>
-            <span className="font-bold text-text-primary">AuditHQ</span>
-            <span className="text-text-tertiary">·</span>
-            <span className="text-xs text-text-tertiary">
+            <span className="font-bold text-[#0a2540]">AuditHQ</span>
+            <span className="text-[#8898aa]">·</span>
+            <span className="text-xs text-[#8898aa]">
               © {new Date().getFullYear()} All rights reserved.
             </span>
           </div>
 
-          <div className="flex items-center space-x-6 text-xs text-text-tertiary">
+          <div className="flex items-center space-x-6 text-xs text-[#8898aa] font-mono">
             <span>Powered by Google Lighthouse</span>
             <span>·</span>
             <span>Next.js 16</span>

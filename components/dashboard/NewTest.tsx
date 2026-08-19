@@ -98,9 +98,8 @@ const NewTest = ({ user }: { user: KindeUser }) => {
               action: {
                 label: "View Full Report",
                 onClick: () =>
-                  window.open(`/dashboard/test/${testId}`, "_blank"),
+                  (window.location.href = `/dashboard/test/${testId}`),
               },
-              duration: 8000,
             });
           } else if (statusData.status === "failed") {
             if (pollInterval) clearInterval(pollInterval);
@@ -113,30 +112,21 @@ const NewTest = ({ user }: { user: KindeUser }) => {
               id: queuedToastId,
               description:
                 statusData.errorMessage ||
-                "The audit could not be completed. Please check the URL and try again.",
-              duration: 8000,
+                "Lighthouse encountered an error analysing this page.",
             });
           }
-        } catch (error) {
-          console.error("Error polling test status:", error);
-          if (pollInterval) clearInterval(pollInterval);
-          setIsTesting(false);
-          toast.dismiss(queuedToastId);
-          toast.error("Lost connection to audit", {
-            description: "Unable to retrieve audit status. Please refresh.",
-          });
+        } catch (err) {
+          console.error("Polling status error:", err);
         }
-      }, 2000);
+      }, 3000);
 
       setTimeout(() => {
         if (pollInterval) {
           clearInterval(pollInterval);
           setIsTesting(false);
-          toast.dismiss(queuedToastId);
-          toast.warning("Audit timed out", {
-            description:
-              "The audit took too long to respond. It may still complete in the background.",
-            duration: 8000,
+          toast.error("Audit timed out", {
+            id: queuedToastId,
+            description: "The test took too long. Please try again.",
           });
         }
       }, 300000);
@@ -151,25 +141,25 @@ const NewTest = ({ user }: { user: KindeUser }) => {
   };
 
   return (
-    <div className="bg-surface-0 border border-surface-3 rounded-2xl p-6 sm:p-7 shadow-xs hover:border-brand-200 transition-all mb-8">
+    <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 sm:p-7 shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_1px_rgba(0,0,0,0.04)] hover:border-[#c7cefe] transition-all mb-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-md bg-brand-50 text-brand-600 flex items-center justify-center">
-              <Zap className="h-3.5 w-3.5 fill-brand-600" />
+            <div className="h-6 w-6 rounded-md bg-[#f0f2ff] text-[#635bff] border border-[#c7cefe] flex items-center justify-center">
+              <Zap className="h-3.5 w-3.5 fill-[#635bff]" />
             </div>
-            <h2 className="text-base font-bold text-text-primary font-sans">
+            <h2 className="text-base font-bold text-[#0a2540] font-sans">
               Run New Performance Audit
             </h2>
           </div>
-          <p className="text-xs text-text-secondary">
+          <p className="text-xs text-[#425466]">
             Execute headless Lighthouse evaluation with device & network throttling
           </p>
         </div>
 
-        <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-text-tertiary bg-surface-1 border border-surface-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+        <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-[#00875a] bg-[#e3fcf7] border border-[#abf5d1]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#00875a]" />
           Engine Ready
         </span>
       </div>
@@ -179,11 +169,11 @@ const NewTest = ({ user }: { user: KindeUser }) => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
           {/* URL Input */}
           <div className="md:col-span-6 space-y-1.5">
-            <Label htmlFor="url" className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <Label htmlFor="url" className="text-xs font-semibold text-[#425466] uppercase tracking-wider">
               Website URL
             </Label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-text-tertiary">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8898aa]">
                 <Globe className="h-4 w-4" />
               </div>
               <Input
@@ -193,29 +183,29 @@ const NewTest = ({ user }: { user: KindeUser }) => {
                 placeholder="https://example.com"
                 onChange={(e) => setUrl(e.target.value)}
                 onClick={() => setIsUrlValid({ validity: true, message: "" })}
-                className={`pl-9.5 h-11 text-sm bg-surface-1/60 border-surface-3 focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all font-mono ${
-                  !isUrlValid.validity ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/20" : ""
+                className={`pl-9.5 h-11 text-sm bg-white border-[#e3e8ee] text-[#0a2540] placeholder:text-[#8898aa] focus:bg-white focus:border-[#635bff] focus:ring-2 focus:ring-[#635bff]/20 rounded-lg transition-all font-mono ${
+                  !isUrlValid.validity ? "border-[#de350b] focus:border-[#de350b] focus:ring-[#de350b]/20" : ""
                 }`}
               />
             </div>
             {!isUrlValid.validity && (
-              <p className="text-xs text-rose-600 font-medium">{isUrlValid.message}</p>
+              <p className="text-xs text-[#de350b] font-medium">{isUrlValid.message}</p>
             )}
           </div>
 
           {/* Device Selection */}
           <div className="md:col-span-3 space-y-1.5">
-            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <Label className="text-xs font-semibold text-[#425466] uppercase tracking-wider">
               Device Profile
             </Label>
-            <div className="grid grid-cols-2 gap-1.5 p-1 bg-surface-1 rounded-xl border border-surface-3 h-11 items-center">
+            <div className="grid grid-cols-2 gap-1.5 p-1 bg-[#f8fafc] rounded-lg border border-[#e3e8ee] h-11 items-center">
               <button
                 type="button"
                 onClick={() => setDevice("Desktop")}
-                className={`h-8.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                className={`h-8.5 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Desktop"
-                    ? "bg-surface-0 text-brand-600 shadow-xs border border-surface-3"
-                    : "text-text-secondary hover:text-text-primary"
+                    ? "bg-white text-[#635bff] shadow-[0_1px_2px_rgba(50,50,93,0.08)] border border-[#e3e8ee]"
+                    : "text-[#425466] hover:text-[#0a2540]"
                 }`}
               >
                 <Monitor className="h-3.5 w-3.5" />
@@ -224,10 +214,10 @@ const NewTest = ({ user }: { user: KindeUser }) => {
               <button
                 type="button"
                 onClick={() => setDevice("Mobile")}
-                className={`h-8.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
+                className={`h-8.5 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Mobile"
-                    ? "bg-surface-0 text-brand-600 shadow-xs border border-surface-3"
-                    : "text-text-secondary hover:text-text-primary"
+                    ? "bg-white text-[#635bff] shadow-[0_1px_2px_rgba(50,50,93,0.08)] border border-[#e3e8ee]"
+                    : "text-[#425466] hover:text-[#0a2540]"
                 }`}
               >
                 <Smartphone className="h-3.5 w-3.5" />
@@ -238,19 +228,19 @@ const NewTest = ({ user }: { user: KindeUser }) => {
 
           {/* Network Throttling */}
           <div className="md:col-span-3 space-y-1.5">
-            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+            <Label className="text-xs font-semibold text-[#425466] uppercase tracking-wider">
               Network
             </Label>
-            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1 rounded-xl border border-surface-3 h-11 items-center">
+            <div className="grid grid-cols-3 gap-1 p-1 bg-[#f8fafc] rounded-lg border border-[#e3e8ee] h-11 items-center">
               {["No Throttling", "4G", "3G"].map((net) => (
                 <button
                   key={net}
                   type="button"
                   onClick={() => setNetwork(net)}
-                  className={`h-8.5 rounded-lg text-[11px] font-semibold flex items-center justify-center transition-all truncate px-1 ${
+                  className={`h-8.5 rounded-md text-[11px] font-semibold flex items-center justify-center transition-all truncate px-1 cursor-pointer ${
                     network === net
-                      ? "bg-surface-0 text-brand-600 shadow-xs border border-surface-3"
-                      : "text-text-secondary hover:text-text-primary"
+                      ? "bg-white text-[#635bff] shadow-[0_1px_2px_rgba(50,50,93,0.08)] border border-[#e3e8ee]"
+                      : "text-[#425466] hover:text-[#0a2540]"
                   }`}
                   title={net}
                 >
@@ -266,7 +256,7 @@ const NewTest = ({ user }: { user: KindeUser }) => {
           <Button
             type="submit"
             disabled={isTesting}
-            className="w-full sm:w-auto h-11 px-7 rounded-xl font-semibold text-sm bg-brand-600 hover:bg-brand-700 text-white shadow-brand transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto h-11 px-7 rounded-lg font-semibold text-sm bg-[#635bff] hover:bg-[#5851ea] active:bg-[#4b45d0] text-white shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {isTesting ? (
               <>

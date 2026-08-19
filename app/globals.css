@@ -4,261 +4,174 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: var(--font-sans), Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Brand Colors ("Audit Blue") */
-  --color-brand-50: var(--brand-50);
-  --color-brand-100: var(--brand-100);
-  --color-brand-200: var(--brand-200);
-  --color-brand-500: var(--brand-500);
-  --color-brand-600: var(--brand-600);
-  --color-brand-700: var(--brand-700);
-  --color-brand-900: var(--brand-900);
+  /* Stripe Blurple Brand Scale */
+  --color-brand-50: #f0f2ff;
+  --color-brand-100: #e0e4ff;
+  --color-brand-200: #c7cefe;
+  --color-brand-500: #7b73ff;
+  --color-brand-600: #635bff; /* Signature Stripe Blurple */
+  --color-brand-700: #5851ea;
+  --color-brand-900: #1a1768;
 
-  /* Semantic Score Colors */
-  --color-score-good: var(--score-good);
-  --color-score-warn: var(--score-warn);
-  --color-score-poor: var(--score-poor);
-  --color-score-neutral: var(--score-neutral);
+  /* Stripe Semantic Score Scales */
+  --color-score-good: #00875a;  /* Clean Teal/Emerald */
+  --color-score-warn: #b76e00;  /* Clean Amber */
+  --color-score-poor: #de350b;  /* Clean Coral/Red */
+  --color-score-neutral: #8898aa;
 
-  /* Surface scale */
-  --color-surface-0: var(--surface-0);
-  --color-surface-1: var(--surface-1);
-  --color-surface-2: var(--surface-2);
-  --color-surface-3: var(--surface-3);
+  /* Stripe Surface Scale */
+  --color-surface-0: #ffffff; /* Pure White Card Container */
+  --color-surface-1: #f6f9fc; /* Cool Grey Canvas */
+  --color-surface-2: #f1f5f9; /* Table Header / Hover fill */
+  --color-surface-3: #e3e8ee; /* Hairline Border */
 
-  /* Text scale */
-  --color-text-primary: var(--text-primary);
-  --color-text-secondary: var(--text-secondary);
-  --color-text-tertiary: var(--text-tertiary);
+  /* Stripe Typography Colors */
+  --color-text-primary: #0a2540;   /* Midnight Navy */
+  --color-text-secondary: #425466; /* Clear Slate */
+  --color-text-tertiary: #8898aa;  /* Muted metadata */
 
   /* Standard Component Tokens */
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  --color-card: #ffffff;
+  --color-card-foreground: #0a2540;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0a2540;
+  --color-primary: #635bff;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #0a2540;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #425466;
+  --color-accent: #f0f2ff;
+  --color-accent-foreground: #635bff;
+  --color-destructive: #de350b;
+  --color-border: #e3e8ee;
+  --color-input: #e3e8ee;
+  --color-ring: #635bff;
 
   /* Charts */
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-
-  /* Sidebar */
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --color-chart-1: #635bff;
+  --color-chart-2: #00875a;
+  --color-chart-3: #b76e00;
+  --color-chart-4: #8b5cf6;
+  --color-chart-5: #de350b;
 
   /* Radii */
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
 
-  /* Shadows */
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow-md: var(--shadow-md);
-  --shadow-brand: var(--shadow-brand);
+  /* Stripe Elevation Shadows */
+  --shadow-xs: 0 1px 2px rgba(50, 50, 93, 0.05);
+  --shadow-sm: 0 1px 3px rgba(50, 50, 93, 0.08), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(50, 50, 93, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 20px -3px rgba(50, 50, 93, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+  --shadow-brand: 0 2px 5px rgba(99, 91, 255, 0.25);
 }
 
 :root {
-  /* 1.1 Typography */
-  --font-inter: "Inter", system-ui, sans-serif;
-  --font-jetbrains-mono: "JetBrains Mono", monospace;
+  --background: #f6f9fc;
+  --foreground: #0a2540;
+  --card: #ffffff;
+  --card-foreground: #0a2540;
+  --popover: #ffffff;
+  --popover-foreground: #0a2540;
+  --primary: #635bff;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0a2540;
+  --muted: #f1f5f9;
+  --muted-foreground: #425466;
+  --accent: #f0f2ff;
+  --accent-foreground: #635bff;
+  --destructive: #de350b;
+  --border: #e3e8ee;
+  --input: #e3e8ee;
+  --ring: #635bff;
 
-  /* 1.2 Color Palette — Primary "Audit Blue" */
-  --brand-50: hsl(221, 100%, 97%);
-  --brand-100: hsl(221, 96%, 93%);
-  --brand-200: hsl(221, 91%, 84%);
-  --brand-500: hsl(221, 83%, 58%);
-  --brand-600: hsl(221, 83%, 53%);
-  --brand-700: hsl(221, 80%, 45%);
-  --brand-900: hsl(221, 72%, 22%);
+  /* Brand Scale */
+  --brand-50: #f0f2ff;
+  --brand-100: #e0e4ff;
+  --brand-200: #c7cefe;
+  --brand-500: #7b73ff;
+  --brand-600: #635bff;
+  --brand-700: #5851ea;
+  --brand-900: #1a1768;
 
-  /* Semantic Score Colors */
-  --score-good: hsl(142, 71%, 40%);
-  --score-warn: hsl(32, 95%, 44%);
-  --score-poor: hsl(0, 72%, 51%);
-  --score-neutral: hsl(215, 20%, 65%);
+  /* Score Scales */
+  --score-good: #00875a;
+  --score-warn: #b76e00;
+  --score-poor: #de350b;
+  --score-neutral: #8898aa;
 
-  /* Neutral Surface Scale */
-  --surface-0: hsl(0, 0%, 100%);
-  --surface-1: hsl(220, 14%, 98%);
-  --surface-2: hsl(220, 13%, 95%);
-  --surface-3: hsl(215, 14%, 89%);
-  --text-primary: hsl(222, 47%, 11%);
-  --text-secondary: hsl(215, 16%, 47%);
-  --text-tertiary: hsl(215, 16%, 65%);
+  /* Surfaces */
+  --surface-0: #ffffff;
+  --surface-1: #f6f9fc;
+  --surface-2: #f1f5f9;
+  --surface-3: #e3e8ee;
 
-  /* 1.3 Spacing & Radius System */
-  --radius: 0.625rem;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  /* Text */
+  --text-primary: #0a2540;
+  --text-secondary: #425466;
+  --text-tertiary: #8898aa;
 
-  /* 1.4 Shadow System */
-  --shadow-xs: 0 1px 2px hsl(222 47% 11% / 4%);
-  --shadow-sm: 0 2px 8px hsl(222 47% 11% / 8%);
-  --shadow-md: 0 8px 24px hsl(222 47% 11% / 10%), 0 2px 4px hsl(222 47% 11% / 6%);
-  --shadow-brand: 0 4px 16px hsl(221 83% 53% / 25%);
-
-  /* Base & Component mappings */
-  --background: hsl(0, 0%, 100%);
-  --foreground: hsl(222, 47%, 11%);
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(222, 47%, 11%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(222, 47%, 11%);
-  --primary: hsl(221, 83%, 53%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(220, 13%, 95%);
-  --secondary-foreground: hsl(222, 47%, 11%);
-  --muted: hsl(220, 13%, 95%);
-  --muted-foreground: hsl(215, 16%, 47%);
-  --accent: hsl(221, 100%, 97%);
-  --accent-foreground: hsl(221, 83%, 53%);
-  --destructive: hsl(0, 72%, 51%);
-  --border: hsl(215, 14%, 89%);
-  --input: hsl(215, 14%, 89%);
-  --ring: hsl(221, 83%, 53%);
-
-  /* Charts */
-  --chart-1: hsl(221, 83%, 53%);
-  --chart-2: hsl(142, 71%, 40%);
-  --chart-3: hsl(32, 95%, 44%);
-  --chart-4: hsl(280, 65%, 60%);
-  --chart-5: hsl(340, 75%, 55%);
-
-  /* Sidebar */
-  --sidebar: hsl(220, 14%, 98%);
-  --sidebar-foreground: hsl(222, 47%, 11%);
-  --sidebar-primary: hsl(221, 83%, 53%);
-  --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(221, 100%, 97%);
-  --sidebar-accent-foreground: hsl(221, 83%, 53%);
-  --sidebar-border: hsl(215, 14%, 89%);
-  --sidebar-ring: hsl(221, 83%, 53%);
-}
-
-.dark {
-  --brand-50: hsl(221, 50%, 12%);
-  --brand-100: hsl(221, 50%, 18%);
-  --brand-200: hsl(221, 55%, 28%);
-  --brand-500: hsl(221, 83%, 58%);
-  --brand-600: hsl(221, 83%, 53%);
-  --brand-700: hsl(221, 80%, 45%);
-  --brand-900: hsl(221, 100%, 94%);
-
-  --score-good: hsl(142, 71%, 45%);
-  --score-warn: hsl(32, 95%, 50%);
-  --score-poor: hsl(0, 72%, 55%);
-  --score-neutral: hsl(215, 20%, 50%);
-
-  --surface-0: hsl(222, 47%, 9%);
-  --surface-1: hsl(222, 47%, 6%);
-  --surface-2: hsl(222, 47%, 13%);
-  --surface-3: hsl(222, 40%, 18%);
-  --text-primary: hsl(210, 40%, 98%);
-  --text-secondary: hsl(215, 20%, 65%);
-  --text-tertiary: hsl(215, 15%, 45%);
-
-  --background: hsl(222, 47%, 7%);
-  --foreground: hsl(210, 40%, 98%);
-  --card: hsl(222, 47%, 9%);
-  --card-foreground: hsl(210, 40%, 98%);
-  --popover: hsl(222, 47%, 9%);
-  --popover-foreground: hsl(210, 40%, 98%);
-  --primary: hsl(221, 83%, 53%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(222, 47%, 13%);
-  --secondary-foreground: hsl(210, 40%, 98%);
-  --muted: hsl(222, 47%, 13%);
-  --muted-foreground: hsl(215, 20%, 65%);
-  --accent: hsl(221, 50%, 15%);
-  --accent-foreground: hsl(210, 40%, 98%);
-  --destructive: hsl(0, 72%, 55%);
-  --border: hsl(222, 40%, 18%);
-  --input: hsl(222, 40%, 18%);
-  --ring: hsl(221, 83%, 53%);
-
-  --chart-1: hsl(221, 83%, 60%);
-  --chart-2: hsl(142, 71%, 45%);
-  --chart-3: hsl(32, 95%, 50%);
-  --chart-4: hsl(280, 65%, 65%);
-  --chart-5: hsl(340, 75%, 60%);
-
-  --sidebar: hsl(222, 47%, 9%);
-  --sidebar-foreground: hsl(210, 40%, 98%);
-  --sidebar-primary: hsl(221, 83%, 53%);
-  --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(221, 50%, 15%);
-  --sidebar-accent-foreground: hsl(210, 40%, 98%);
-  --sidebar-border: hsl(222, 40%, 18%);
-  --sidebar-ring: hsl(221, 83%, 53%);
+  --chart-1: #635bff;
+  --chart-2: #00875a;
+  --chart-3: #b76e00;
+  --chart-4: #8b5cf6;
+  --chart-5: #de350b;
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-[#e3e8ee] outline-ring/40;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    background-color: #f6f9fc;
+    color: #0a2540;
   }
 }
 
-@keyframes mesh-blob-1 {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.95);
-  }
+/* Stripe Card & Badge Utilities */
+.stripe-card {
+  background-color: #ffffff;
+  border: 1px solid #e3e8ee;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.08), 0 1px 1px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes mesh-blob-2 {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(-40px, 40px) scale(1.15);
-  }
-  66% {
-    transform: translate(25px, -30px) scale(0.9);
-  }
+.stripe-card:hover {
+  border-color: #c7cefe;
+  box-shadow: 0 6px 12px -2px rgba(50, 50, 93, 0.1), 0 3px 7px -3px rgba(0, 0, 0, 0.06);
 }
 
-.animate-mesh-1 {
-  animation: mesh-blob-1 12s ease-in-out infinite;
+.stripe-badge-good {
+  background-color: #e3fcf7;
+  color: #00875a;
+  border: 1px solid #abf5d1;
 }
 
-.animate-mesh-2 {
-  animation: mesh-blob-2 15s ease-in-out infinite;
+.stripe-badge-warn {
+  background-color: #fff8e5;
+  color: #b76e00;
+  border: 1px solid #ffe380;
 }
 
+.stripe-badge-poor {
+  background-color: #ffebe6;
+  color: #de350b;
+  border: 1px solid #ffbdad;
+}
+
+.stripe-badge-neutral {
+  background-color: #f1f5f9;
+  color: #425466;
+  border: 1px solid #e3e8ee;
+}

@@ -86,7 +86,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-surface-1 pb-16 w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-[#f6f9fc] pb-16 w-full max-w-full overflow-x-hidden">
       {/* Top Header with Breadcrumbs & Actions */}
       <ReportHeader
         testId={test.id}
@@ -118,17 +118,17 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
         {/* 5. Public Footer CTA Banner (if viewed publicly) */}
         {isPublic && (
-          <div className="mt-12 bg-linear-to-r from-brand-600 to-indigo-600 rounded-2xl p-8 text-center text-white space-y-4 print:hidden shadow-md">
+          <div className="mt-12 bg-[#635bff] rounded-xl p-8 text-center text-white space-y-4 print:hidden shadow-md">
             <h3 className="text-2xl font-bold">
               Optimize your website performance with AuditHQ
             </h3>
-            <p className="text-blue-100 text-sm max-w-xl mx-auto">
+            <p className="text-white/85 text-sm max-w-xl mx-auto">
               Run automated Lighthouse cloud audits, track Core Web Vitals over time, and get instant recommendations to build faster web experiences.
             </p>
             <div className="pt-2">
               <Link href="/">
-                <Button size="lg" className="bg-white text-brand-700 hover:bg-blue-50 font-semibold shadow-sm">
-                  <Zap className="h-4 w-4 mr-2 fill-brand-700" />
+                <Button size="lg" className="bg-white text-[#635bff] hover:bg-[#f0f2ff] font-bold shadow-sm rounded-lg cursor-pointer">
+                  <Zap className="h-4 w-4 mr-2 fill-[#635bff]" />
                   Run Free Audit Now
                 </Button>
               </Link>
