@@ -8,7 +8,6 @@ import {
   TrendingUp,
   Gauge,
   Layers,
-  Sparkles,
 } from "lucide-react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import RecentTests from "./RecentTests";
@@ -350,8 +349,8 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                 ))
               ) : (
                 <div className="py-10 text-center text-xs text-text-tertiary font-mono space-y-2">
-                  <div className="h-10 w-10 rounded-full bg-surface-1 border border-border flex items-center justify-center mx-auto text-text-tertiary">
-                    <Sparkles className="h-5 w-5" />
+                  <div className="h-10 w-10 rounded-full bg-surface-1 border border-border flex items-center justify-center mx-auto text-emerald-500">
+                    <CheckCircle2 className="h-5 w-5" />
                   </div>
                   <p>No systemic performance regressions detected.</p>
                   <p className="text-[11px]">Run more audits to generate strategic diagnostic insights.</p>

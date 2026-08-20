@@ -9,7 +9,7 @@ import {
   AlertTriangle,
   Minus,
   Layers,
-  Sparkles,
+  HardDrive,
 } from "lucide-react";
 import { ComparisonReport } from "@/lib/comparison/types";
 
@@ -190,7 +190,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
         <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
           <div className="flex items-center justify-between text-xs text-text-tertiary">
             <span className="font-semibold text-text-primary font-sans">Weight Shift</span>
-            <Sparkles className="h-4 w-4 text-brand-500" />
+            <HardDrive className="h-4 w-4 text-brand-500" />
           </div>
           <p
             className={`text-xl sm:text-2xl font-mono font-extrabold ${

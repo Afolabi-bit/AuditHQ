@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Film, Eye, Clock, Maximize2, X, Globe, Sparkles } from "lucide-react";
+import { Film, Eye, Clock, Maximize2, X, Globe } from "lucide-react";
 import { SynchronizedFrame } from "@/lib/comparison/types";
 
 interface SynchronizedFilmstripProps {
@@ -137,7 +137,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
         </div>
 
         <p className="text-[11px] text-text-tertiary font-mono text-center sm:text-left flex items-center gap-1.5 pt-2 border-t border-border/60">
-          <Sparkles className="h-3.5 w-3.5 text-brand-500" />
+          <Eye className="h-3.5 w-3.5 text-brand-500" />
           Click any frame to inspect the high-resolution rendering difference side-by-side.
         </p>
       </div>

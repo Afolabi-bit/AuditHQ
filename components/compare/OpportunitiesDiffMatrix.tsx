@@ -7,7 +7,6 @@ import {
   TrendingDown,
   TrendingUp,
   Minus,
-  Sparkles,
   Zap,
 } from "lucide-react";
 import { OpportunityTransition, OpportunityState } from "@/lib/comparison/types";
@@ -66,7 +65,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
           <h2 className="text-lg sm:text-xl font-bold text-text-primary font-sans flex items-center gap-2.5">
-            <Sparkles className="h-5 w-5 text-brand-500" />
+            <Zap className="h-5 w-5 text-brand-500" />
             Lighthouse Opportunities Transition Matrix
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
