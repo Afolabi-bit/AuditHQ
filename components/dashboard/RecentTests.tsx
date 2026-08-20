@@ -3,11 +3,12 @@
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import TestCard from "./TestCard";
 import useSWR from "swr";
+import { useAppStore, toStoredTest } from "@/lib/store/useAppStore";
 
 // Define the type for the data returned from the API
 type RecentTestData = {
   id: string;
-  createdAt: Date;
+  createdAt: Date | string;
   domainId: string;
   device?: string;
   network?: string;
@@ -20,12 +21,12 @@ type RecentTestData = {
   cls: number | null;
   domain: {
     id: string;
-    createdAt: Date;
+    createdAt: Date | string;
     url: string;
     device: string;
     network: string;
     ownerId: string;
-    updatedAt: Date;
+    updatedAt: Date | string;
   };
 };
 
@@ -39,17 +40,32 @@ const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
 
 const RecentTests = ({ user }: { user: KindeUser }) => {
+  const tests = useAppStore((state) => state.tests);
+  const testsOrder = useAppStore((state) => state.testsOrder);
+  const storedList = testsOrder.map((id) => tests[id]).filter(Boolean);
+  const isFresh = useAppStore.getState().isTestsFresh(120_000);
+
   const { data, error, isLoading } = useSWR(
     `/api/tests/recent?userId=${user.id}`,
     fetcher,
     {
-      revalidateOnFocus: true,
-      revalidateOnReconnect: true,
-      dedupingInterval: 500,
+      revalidateOnFocus: false, // Don't query database on tab switches
+      revalidateOnReconnect: false,
+      dedupingInterval: 120_000, // 2-minute deduplication window
+      revalidateIfStale: !isFresh,
+      onSuccess: (freshData) => {
+        if (freshData?.tests) {
+          useAppStore.getState().setTests(freshData.tests.map(toStoredTest));
+        }
+      },
     },
   );
 
-  if (isLoading) {
+  // Use store as instant cache while SWR is loading
+  const displayTests: RecentTestData[] = data?.tests ?? (storedList.length > 0 ? (storedList as any) : []);
+  const showSkeleton = isLoading && storedList.length === 0;
+
+  if (showSkeleton) {
     return (
       <div className="space-y-3">
         {[1, 2].map((i) => (
@@ -71,7 +87,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
     );
   }
 
-  if (error) {
+  if (error && storedList.length === 0) {
     return (
       <div className="text-center py-8 text-destructive font-mono text-xs">
         Failed to load tests. Please try refreshing.
@@ -79,9 +95,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
     );
   }
 
-  const tests: RecentTestData[] = data?.tests || [];
-
-  if (tests.length === 0) {
+  if (displayTests.length === 0) {
     return (
       <div className="text-center py-8 text-text-tertiary font-mono text-xs bg-surface-0 border border-border rounded-xl p-8 shadow-xs">
         No audits found. Run your first audit using the command bar above!
@@ -91,7 +105,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 
   return (
     <div className="space-y-3">
-      {tests.map((test) => {
+      {displayTests.map((test) => {
         const rawLcp = test.lcp;
         const rawFcp = test.fcp;
         const rawTbt = test.tbt;

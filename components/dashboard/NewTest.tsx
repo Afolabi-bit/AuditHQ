@@ -16,6 +16,7 @@ import { normalizeAndValidateUrl } from "@/app/utils/validateUrl";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { mutate } from "swr";
 import { toast } from "sonner";
+import { useAppStore, toStoredTest } from "@/lib/store/useAppStore";
 
 const NewTest = ({ user }: { user: KindeUser }) => {
   const [url, setUrl] = useState("");
@@ -23,6 +24,7 @@ const NewTest = ({ user }: { user: KindeUser }) => {
   const [network, setNetwork] = useState("No Throttling");
   const [isUrlValid, setIsUrlValid] = useState({ validity: true, message: "" });
   const [isTesting, setIsTesting] = useState(false);
+  const { upsertTest, setStats } = useAppStore();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -72,7 +74,33 @@ const NewTest = ({ user }: { user: KindeUser }) => {
       const testId = res.data.testId;
       const score = res.data.performanceScore;
 
-      // Force synchronous cache revalidation
+      // Instantly push the new test into the store so RecentTests shows it immediately
+      if (res.data) {
+        upsertTest(toStoredTest({
+          id: testId,
+          createdAt: new Date(),
+          domainId: res.data.domainId || "",
+          device,
+          network,
+          status: "completed",
+          performanceScore: score ?? null,
+          fcp: res.data.fcp ?? null,
+          lcp: res.data.lcp ?? null,
+          tbt: res.data.tbt ?? null,
+          cls: res.data.cls ?? null,
+          domain: {
+            id: res.data.domainId || "",
+            url: normalizedTargetUrl,
+            device,
+            network,
+            ownerId: user.id,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        }));
+      }
+
+      // Background revalidation to sync with server
       await Promise.all([
         mutate(`/api/tests/recent?userId=${user.id}`),
         mutate("/api/dashboard/stats"),

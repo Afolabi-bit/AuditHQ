@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { parseLighthouseReport } from "@/lib/report-parser";
 import { ReportHeader } from "./ReportHeader";
 import { CategoryScoreRings } from "./CategoryScoreRings";
@@ -11,6 +11,7 @@ import { AiInsightsCard } from "./AiInsightsCard";
 import { AlertCircle, Zap, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { useAppStore, toStoredTest } from "@/lib/store/useAppStore";
 
 interface TestReportViewProps {
   test: {
@@ -39,6 +40,16 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
   test,
   isPublic = false,
 }) => {
+  // Sync loaded test & AI summary into Zustand localStorage store
+  useEffect(() => {
+    if (test.status === "completed") {
+      useAppStore.getState().upsertTest(toStoredTest(test));
+      if (test.aiSummary) {
+        useAppStore.getState().setAiSummaryOnce(String(test.id), test.aiSummary);
+      }
+    }
+  }, [test.id, test.status, test.aiSummary]);
+
   const parsedReport = useMemo(() => {
     return parseLighthouseReport(test.fullReport);
   }, [test.fullReport]);

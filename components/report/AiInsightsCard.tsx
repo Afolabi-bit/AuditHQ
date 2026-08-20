@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { AiSummaryData } from "@/lib/ai/schema";
 import { Button } from "@/components/ui/button";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 interface AiInsightsCardProps {
   testId: string | number;
@@ -30,11 +31,20 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
   initialSummary = null,
   isPublic = false,
 }) => {
-  const [summary, setSummary] = useState<AiSummaryData | null>(initialSummary);
-  const [loading, setLoading] = useState<boolean>(!initialSummary);
+  // Priority: initialSummary (SSR) > store > null
+  const storedSummary = useAppStore.getState().getAiSummary(String(testId));
+  const resolvedInitial = initialSummary ?? storedSummary ?? null;
+
+  const [summary, setSummary] = useState<AiSummaryData | null>(resolvedInitial);
+  const [loading, setLoading] = useState<boolean>(!resolvedInitial);
   const [error, setError] = useState<string | null>(null);
   const [expandedFixIndex, setExpandedFixIndex] = useState<number | null>(0);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  const setSummaryAndCache = (s: AiSummaryData) => {
+    setSummary(s);
+    useAppStore.getState().setAiSummaryOnce(String(testId), s);
+  };
 
   const fetchOrGenerateSummary = async () => {
     setLoading(true);
@@ -46,7 +56,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
       if (getRes.ok) {
         const getData = await getRes.json();
         if (getData.summary) {
-          setSummary(getData.summary);
+          setSummaryAndCache(getData.summary);
           return;
         }
       }
@@ -64,7 +74,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
       const postData = await postRes.json();
       if (postData.summary) {
-        setSummary(postData.summary);
+        setSummaryAndCache(postData.summary);
       }
     } catch (err: any) {
       console.error("AI Insights Error:", err);
