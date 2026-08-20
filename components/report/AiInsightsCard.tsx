@@ -32,49 +32,51 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 }) => {
   const [summary, setSummary] = useState<AiSummaryData | null>(initialSummary);
   const [loading, setLoading] = useState<boolean>(!initialSummary);
-  const [generating, setGenerating] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [expandedFixIndex, setExpandedFixIndex] = useState<number | null>(0);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  const fetchOrGenerateSummary = async (force = false) => {
-    if (force) {
-      setGenerating(true);
-    } else {
-      setLoading(true);
-    }
+  const fetchOrGenerateSummary = async () => {
+    setLoading(true);
     setError(null);
 
     try {
-      const res = await fetch(`/api/test/${testId}/ai-summary`, {
+      // Step 1: try a cheap DB-only GET first
+      const getRes = await fetch(`/api/test/${testId}/ai-summary`);
+      if (getRes.ok) {
+        const getData = await getRes.json();
+        if (getData.summary) {
+          setSummary(getData.summary);
+          return;
+        }
+      }
+
+      // Step 2: nothing in DB yet — generate once via POST
+      const postRes = await fetch(`/api/test/${testId}/ai-summary`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ force }),
+        headers: { "Content-Type": "application/json" },
       });
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
+      if (!postRes.ok) {
+        const data = await postRes.json().catch(() => ({}));
         throw new Error(data.error || "Failed to generate AI insights");
       }
 
-      const data = await res.json();
-      if (data.summary) {
-        setSummary(data.summary);
+      const postData = await postRes.json();
+      if (postData.summary) {
+        setSummary(postData.summary);
       }
     } catch (err: any) {
       console.error("AI Insights Error:", err);
       setError(err?.message || "Failed to load AI insights.");
     } finally {
       setLoading(false);
-      setGenerating(false);
     }
   };
 
   useEffect(() => {
     if (!summary) {
-      fetchOrGenerateSummary(false);
+      fetchOrGenerateSummary();
     }
   }, [testId]);
 
@@ -135,14 +137,26 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
   }
 
   const sanitizeErrorMessage = (msg: string | null): string => {
-    if (!msg) return "Unable to generate AI performance diagnostics at this moment.";
-    if (msg.includes("API key") || msg.includes("GOOGLE_GENERATIVE_AI_API_KEY")) {
+    if (!msg)
+      return "Unable to generate AI performance diagnostics at this moment.";
+    if (
+      msg.includes("API key") ||
+      msg.includes("GOOGLE_GENERATIVE_AI_API_KEY")
+    ) {
       return "Google AI API key is missing or invalid in environment settings.";
     }
-    if (msg.includes("quota") || msg.includes("rate") || msg.includes("RESOURCE_EXHAUSTED")) {
+    if (
+      msg.includes("quota") ||
+      msg.includes("rate") ||
+      msg.includes("RESOURCE_EXHAUSTED")
+    ) {
       return "AI service quota reached. Please wait a few seconds and retry.";
     }
-    if (msg.includes("prisma") || msg.includes("invocation") || msg.includes("Invalid")) {
+    if (
+      msg.includes("prisma") ||
+      msg.includes("invocation") ||
+      msg.includes("Invalid")
+    ) {
       return "Database cache sync issue. Please retry analysis.";
     }
     // Truncate any overly long stack trace
@@ -170,14 +184,14 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
           <Button
             size="sm"
             variant="outline"
-            onClick={() => fetchOrGenerateSummary(true)}
-            disabled={generating}
+            onClick={() => fetchOrGenerateSummary()}
+            disabled={loading}
             className="cursor-pointer text-xs"
           >
             <RefreshCw
-              className={`h-3.5 w-3.5 mr-1.5 ${generating ? "animate-spin" : ""}`}
+              className={`h-3.5 w-3.5 mr-1.5 ${loading ? "animate-spin" : ""}`}
             />
-            {generating ? "Analyzing..." : "Retry Analysis"}
+            {loading ? "Analyzing..." : "Retry Analysis"}
           </Button>
         </div>
       </div>
@@ -205,7 +219,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                 </h2>
                 <span
                   className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${getVerdictStyle(
-                    summary.verdict
+                    summary.verdict,
                   )}`}
                 >
                   {summary.verdict}
@@ -236,8 +250,12 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
               <Clock className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-[10px] uppercase font-bold text-text-tertiary">Potential Speed Gain</p>
-              <p className="text-base font-extrabold text-score-good">{summary.estimatedImpact.timeSavedFormatted}</p>
+              <p className="text-[10px] uppercase font-bold text-text-tertiary">
+                Potential Speed Gain
+              </p>
+              <p className="text-base font-extrabold text-score-good">
+                {summary.estimatedImpact.timeSavedFormatted}
+              </p>
             </div>
           </div>
 
@@ -246,8 +264,12 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
               <TrendingUp className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-[10px] uppercase font-bold text-text-tertiary">Conversion Impact</p>
-              <p className="text-base font-extrabold text-text-primary">{summary.estimatedImpact.conversionLift}</p>
+              <p className="text-[10px] uppercase font-bold text-text-tertiary">
+                Conversion Impact
+              </p>
+              <p className="text-base font-extrabold text-text-primary">
+                {summary.estimatedImpact.conversionLift}
+              </p>
             </div>
           </div>
 
@@ -256,8 +278,12 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
               <Layers className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-[10px] uppercase font-bold text-text-tertiary">Action Items</p>
-              <p className="text-base font-extrabold text-text-primary">{summary.priorityFixes.length} Priority Fixes</p>
+              <p className="text-[10px] uppercase font-bold text-text-tertiary">
+                Action Items
+              </p>
+              <p className="text-base font-extrabold text-text-primary">
+                {summary.priorityFixes.length} Priority Fixes
+              </p>
             </div>
           </div>
         </div>
@@ -290,7 +316,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                       </span>
                       <span
                         className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${getUrgencyBadge(
-                          fix.urgency
+                          fix.urgency,
                         )}`}
                       >
                         {fix.urgency}
@@ -317,12 +343,20 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                     <div className="p-4 pt-0 border-t border-border/60 bg-surface-0/60 space-y-3.5">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3 text-xs">
                         <div className="p-3 bg-surface-1 rounded-lg border border-border space-y-1">
-                          <p className="font-bold text-text-tertiary uppercase text-[10px]">Root Cause</p>
-                          <p className="text-text-secondary leading-relaxed">{fix.problem}</p>
+                          <p className="font-bold text-text-tertiary uppercase text-[10px]">
+                            Root Cause
+                          </p>
+                          <p className="text-text-secondary leading-relaxed">
+                            {fix.problem}
+                          </p>
                         </div>
                         <div className="p-3 bg-surface-1 rounded-lg border border-border space-y-1">
-                          <p className="font-bold text-brand-500 uppercase text-[10px]">Remediation Plan</p>
-                          <p className="text-text-secondary leading-relaxed">{fix.solution}</p>
+                          <p className="font-bold text-brand-500 uppercase text-[10px]">
+                            Remediation Plan
+                          </p>
+                          <p className="text-text-secondary leading-relaxed">
+                            {fix.solution}
+                          </p>
                         </div>
                       </div>
 
@@ -340,7 +374,9 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                               {copiedIndex === idx ? (
                                 <>
                                   <Check className="h-3.5 w-3.5 text-score-good" />
-                                  <span className="text-score-good">Copied!</span>
+                                  <span className="text-score-good">
+                                    Copied!
+                                  </span>
                                 </>
                               ) : (
                                 <>

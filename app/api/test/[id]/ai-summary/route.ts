@@ -42,10 +42,19 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const body = await req.json().catch(() => ({}));
-    const forceRefresh = body?.force === true;
 
-    const summary = await getOrGenerateAiSummary(id, forceRefresh);
+    // Strict Cache Check: if already in DB, return immediately
+    const existing = await prisma.test.findUnique({
+      where: { id },
+      select: { aiSummary: true },
+    });
+
+    if (existing?.aiSummary) {
+      return NextResponse.json({ summary: existing.aiSummary, cached: true });
+    }
+
+    // Otherwise generate and persist ONCE
+    const summary = await getOrGenerateAiSummary(id);
 
     if (!summary) {
       return NextResponse.json(
@@ -54,7 +63,7 @@ export async function POST(
       );
     }
 
-    return NextResponse.json({ summary, cached: true });
+    return NextResponse.json({ summary, cached: false });
   } catch (error: any) {
     console.error("AI Generation Error:", error);
     

@@ -5,12 +5,11 @@ import { aiSummarySchema, AiSummaryData } from "./schema";
 import { parseLighthouseReport } from "@/lib/report-parser";
 
 /**
- * Generates and caches an AI summary for a completed test in PostgreSQL.
- * If already cached and not forced, returns the cached summary immediately.
+ * Generates and permanently caches an AI summary for a completed test in PostgreSQL.
+ * If already cached in the database, returns the stored summary immediately and NEVER invokes the LLM.
  */
 export async function getOrGenerateAiSummary(
-  testId: string,
-  force = false
+  testId: string
 ): Promise<AiSummaryData | null> {
   const test = await prisma.test.findUnique({
     where: { id: testId },
@@ -29,11 +28,12 @@ export async function getOrGenerateAiSummary(
     return null;
   }
 
-  // Return DB cache if available
-  if (test.aiSummary && !force) {
+  // ── 1. Strict DB Cache Check: If exists, return immediately with zero LLM execution ──
+  if (test.aiSummary) {
     return test.aiSummary as unknown as AiSummaryData;
   }
 
+  // ── 2. First-Time Generation ──
   const parsed = parseLighthouseReport(test.fullReport);
 
   const topOpportunities = parsed.opportunities
@@ -105,16 +105,13 @@ ${JSON.stringify(topDiagnostics, null, 2)}
     prompt: userPrompt,
   });
 
-  try {
-    await prisma.test.update({
-      where: { id: test.id },
-      data: {
-        aiSummary: object as any,
-      },
-    });
-  } catch (err) {
-    console.warn("Could not cache AI summary in DB:", err);
-  }
+  // ── 3. Permanently save into database ──
+  await prisma.test.update({
+    where: { id: test.id },
+    data: {
+      aiSummary: object as any,
+    },
+  });
 
   return object;
 }
