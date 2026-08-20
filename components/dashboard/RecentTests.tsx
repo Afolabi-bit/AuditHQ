@@ -55,16 +55,16 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
         {[1, 2].map((i) => (
           <div
             key={i}
-            className="rounded-xl bg-white border border-[#e3e8ee] p-4.5 flex items-center justify-between shadow-sm h-21"
+            className="rounded-xl bg-surface-0 border border-border p-4.5 flex items-center justify-between shadow-xs h-21"
           >
             <div className="space-y-2 flex-1 max-w-md">
               <div className="flex items-center gap-2">
-                <div className="h-4 w-48 rounded bg-[#f1f5f9] animate-pulse" />
-                <div className="h-4 w-16 rounded-full bg-[#f1f5f9] animate-pulse" />
+                <div className="h-4 w-48 rounded bg-surface-2 animate-pulse" />
+                <div className="h-4 w-16 rounded-full bg-surface-2 animate-pulse" />
               </div>
-              <div className="h-3 w-32 rounded bg-[#f1f5f9] animate-pulse" />
+              <div className="h-3 w-32 rounded bg-surface-2 animate-pulse" />
             </div>
-            <div className="h-12 w-16 rounded-xl bg-[#f1f5f9] animate-pulse" />
+            <div className="h-12 w-16 rounded-xl bg-surface-2 animate-pulse" />
           </div>
         ))}
       </div>
@@ -73,7 +73,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 
   if (error) {
     return (
-      <div className="text-center py-8 text-red-500 font-mono text-xs">
+      <div className="text-center py-8 text-destructive font-mono text-xs">
         Failed to load tests. Please try refreshing.
       </div>
     );
@@ -83,7 +83,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 
   if (tests.length === 0) {
     return (
-      <div className="text-center py-8 text-[#8898aa] font-mono text-xs bg-white border border-[#e3e8ee] rounded-xl p-8 shadow-xs">
+      <div className="text-center py-8 text-text-tertiary font-mono text-xs bg-surface-0 border border-border rounded-xl p-8 shadow-xs">
         No audits found. Run your first audit using the command bar above!
       </div>
     );

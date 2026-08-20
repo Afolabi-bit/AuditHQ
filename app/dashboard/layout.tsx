@@ -16,7 +16,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-surface-1 text-[#0a2540]">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Persistent Top Navigation — renders once, stays mounted on all page transitions */}
       <DashboardNav user={user} />
       {children}

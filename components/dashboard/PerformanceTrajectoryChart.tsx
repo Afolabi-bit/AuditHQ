@@ -19,7 +19,7 @@ interface TrendPoint {
 
 interface PerformanceTrajectoryChartProps {
   data: TrendPoint[];
-  avgScore: number | null;
+  avgScore?: number | null;
 }
 
 function getPointColor(score: number): {
@@ -32,7 +32,7 @@ function getPointColor(score: number): {
     return {
       stroke: "#00875a",
       fill: "rgba(0, 135, 90, 0.15)",
-      badge: "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1]",
+      badge: "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30",
       label: "Good (90-100)",
     };
   }
@@ -40,31 +40,31 @@ function getPointColor(score: number): {
     return {
       stroke: "#b76e00",
       fill: "rgba(183, 110, 0, 0.15)",
-      badge: "bg-[#fff8e5] text-[#b76e00] border-[#ffe380]",
+      badge: "bg-[#fff8e5] text-[#b76e00] border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30",
       label: "Needs Work (50-89)",
     };
   }
   return {
     stroke: "#de350b",
     fill: "rgba(222, 53, 11, 0.15)",
-    badge: "bg-[#ffebe6] text-[#de350b] border-[#ffbdad]",
+    badge: "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30",
     label: "Poor (<50)",
   };
 }
 
 export const PerformanceTrajectoryChart: React.FC<
   PerformanceTrajectoryChartProps
-> = ({ data, avgScore }) => {
+> = ({ data }) => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   if (!data || data.length === 0) {
     return (
-      <div className="h-60 flex flex-col items-center justify-center text-center text-[#8898aa] bg-white rounded-xl border border-dashed border-[#e3e8ee]">
-        <Activity className="h-8 w-8 mb-2 text-[#8898aa]" />
-        <p className="text-xs font-bold text-[#425466] font-sans">
+      <div className="h-60 flex flex-col items-center justify-center text-center text-text-tertiary bg-surface-1/40 rounded-xl border border-dashed border-border">
+        <Activity className="h-8 w-8 mb-2 text-text-tertiary" />
+        <p className="text-xs font-bold text-text-primary font-sans">
           No audit trajectory recorded yet
         </p>
-        <p className="text-[11px] text-[#8898aa] mt-0.5 max-w-sm">
+        <p className="text-[11px] text-text-tertiary mt-0.5 max-w-sm">
           Run tests above to generate chronological performance trend lines and variation tracking.
         </p>
       </div>
@@ -124,6 +124,24 @@ export const PerformanceTrajectoryChart: React.FC<
   const y50 = paddingTop + ((100 - 50) / 100) * plotHeight;
   const y100 = paddingTop;
 
+  // Smart boundary collision detection for the active tooltip
+  const activePt = hoveredIdx !== null ? points[hoveredIdx] : null;
+  const isNearLeft = activePt ? activePt.x / svgWidth < 0.22 : false;
+  const isNearRight = activePt ? activePt.x / svgWidth > 0.78 : false;
+  const isNearTop = activePt ? activePt.y / svgHeight < 0.4 : false;
+
+  const getTransformClasses = () => {
+    const xClass = isNearLeft
+      ? "translate-x-0"
+      : isNearRight
+      ? "-translate-x-full"
+      : "-translate-x-1/2";
+    const yClass = isNearTop
+      ? "translate-y-3"
+      : "-translate-y-full -translate-y-3";
+    return `${xClass} ${yClass}`;
+  };
+
   return (
     <div className="space-y-4">
       {/* Header Info */}
@@ -131,17 +149,17 @@ export const PerformanceTrajectoryChart: React.FC<
         <div className="flex items-center gap-3">
           {delta !== 0 ? (
             delta > 0 ? (
-              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-[#00875a] bg-[#e3fcf7] px-2.5 py-1 rounded-md border border-[#abf5d1]">
+              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-score-good bg-[#e3fcf7] px-2.5 py-1 rounded-md border border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30">
                 <TrendingUp className="h-3.5 w-3.5" />+{delta} pts trajectory
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-[#de350b] bg-[#ffebe6] px-2.5 py-1 rounded-md border border-[#ffbdad]">
+              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-score-poor bg-[#ffebe6] px-2.5 py-1 rounded-md border border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30">
                 <TrendingDown className="h-3.5 w-3.5" />
                 {delta} pts trajectory
               </span>
             )
           ) : (
-            <span className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-[#425466] bg-[#f1f5f9] px-2.5 py-1 rounded-md border border-[#e3e8ee]">
+            <span className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-text-secondary bg-surface-1 px-2.5 py-1 rounded-md border border-border">
               <Minus className="h-3.5 w-3.5" />
               Consistent Performance
             </span>
@@ -149,29 +167,29 @@ export const PerformanceTrajectoryChart: React.FC<
         </div>
 
         {/* Legend Reference */}
-        <div className="flex items-center gap-3 text-[11px] font-mono text-[#8898aa]">
+        <div className="flex items-center gap-3 text-[11px] font-mono text-text-tertiary">
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#00875a]" /> ≥90 Good
+            <span className="w-2 h-2 rounded-full bg-score-good" /> ≥90 Good
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#b76e00]" /> 50-89 Warn
+            <span className="w-2 h-2 rounded-full bg-score-warn" /> 50-89 Warn
           </span>
           <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded-full bg-[#de350b]" /> &lt;50 Poor
+            <span className="w-2 h-2 rounded-full bg-score-poor" /> &lt;50 Poor
           </span>
         </div>
       </div>
 
-      {/* SVG Canvas Container */}
-      <div className="relative bg-white border border-[#e3e8ee] rounded-xl p-4 overflow-hidden shadow-[0_1px_3px_rgba(50,50,93,0.08)]">
+      {/* SVG Canvas Container with overflow-visible to prevent tooltip clipping */}
+      <div className="relative bg-surface-1/40 dark:bg-surface-1/60 border border-border/80 rounded-xl p-4 overflow-visible shadow-xs">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
           className="w-full h-auto overflow-visible select-none"
         >
           <defs>
             <linearGradient id="stripeTrajectoryGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#635bff" stopOpacity="0.16" />
-              <stop offset="80%" stopColor="#635bff" stopOpacity="0.02" />
+              <stop offset="0%" stopColor="#635bff" stopOpacity="0.25" />
+              <stop offset="80%" stopColor="#635bff" stopOpacity="0.04" />
               <stop offset="100%" stopColor="#635bff" stopOpacity="0.0" />
             </linearGradient>
           </defs>
@@ -182,14 +200,15 @@ export const PerformanceTrajectoryChart: React.FC<
             y1={y100}
             x2={svgWidth - paddingRight}
             y2={y100}
-            stroke="#f1f5f9"
+            stroke="currentColor"
             strokeDasharray="4 4"
+            className="text-border dark:text-white/10"
           />
           <text
             x={paddingLeft - 10}
             y={y100 + 3.5}
             textAnchor="end"
-            className="text-[10px] fill-[#8898aa] font-mono"
+            className="text-[10px] fill-text-tertiary font-mono"
           >
             100
           </text>
@@ -200,14 +219,15 @@ export const PerformanceTrajectoryChart: React.FC<
             y1={y90}
             x2={svgWidth - paddingRight}
             y2={y90}
-            stroke="#abf5d1"
+            stroke="currentColor"
             strokeDasharray="4 4"
+            className="text-[#abf5d1] dark:text-[#00875a]/30"
           />
           <text
             x={paddingLeft - 10}
             y={y90 + 3.5}
             textAnchor="end"
-            className="text-[10px] fill-[#00875a] font-mono font-semibold"
+            className="text-[10px] fill-score-good font-mono font-semibold"
           >
             90
           </text>
@@ -218,14 +238,15 @@ export const PerformanceTrajectoryChart: React.FC<
             y1={y50}
             x2={svgWidth - paddingRight}
             y2={y50}
-            stroke="#ffe380"
+            stroke="currentColor"
             strokeDasharray="4 4"
+            className="text-[#ffe380] dark:text-[#b76e00]/30"
           />
           <text
             x={paddingLeft - 10}
             y={y50 + 3.5}
             textAnchor="end"
-            className="text-[10px] fill-[#b76e00] font-mono font-semibold"
+            className="text-[10px] fill-score-warn font-mono font-semibold"
           >
             50
           </text>
@@ -236,13 +257,14 @@ export const PerformanceTrajectoryChart: React.FC<
             y1={y0}
             x2={svgWidth - paddingRight}
             y2={y0}
-            stroke="#e3e8ee"
+            stroke="currentColor"
+            className="text-border"
           />
           <text
             x={paddingLeft - 10}
             y={y0 + 3.5}
             textAnchor="end"
-            className="text-[10px] fill-[#8898aa] font-mono"
+            className="text-[10px] fill-text-tertiary font-mono"
           >
             0
           </text>
@@ -260,10 +282,11 @@ export const PerformanceTrajectoryChart: React.FC<
           <path
             d={linePath}
             fill="none"
-            stroke="#635bff"
+            stroke="currentColor"
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className="text-brand-500"
           />
 
           {/* Interactive Marker Circles */}
@@ -278,9 +301,10 @@ export const PerformanceTrajectoryChart: React.FC<
                     y1={y100}
                     x2={p.x}
                     y2={y0}
-                    stroke="#635bff"
+                    stroke="currentColor"
                     strokeWidth="1.5"
                     strokeDasharray="3 3"
+                    className="text-brand-500"
                     opacity="0.6"
                   />
                 )}
@@ -289,10 +313,8 @@ export const PerformanceTrajectoryChart: React.FC<
                   cx={p.x}
                   cy={p.y}
                   r={isHovered ? 6 : 4}
-                  fill="#635bff"
-                  stroke="#ffffff"
+                  className="cursor-pointer transition-all duration-150 fill-brand-500 stroke-surface-0"
                   strokeWidth={2}
-                  className="cursor-pointer transition-all duration-150"
                   onMouseEnter={() => setHoveredIdx(idx)}
                   onMouseLeave={() => setHoveredIdx(null)}
                 />
@@ -301,25 +323,27 @@ export const PerformanceTrajectoryChart: React.FC<
           })}
         </svg>
 
-        {/* Hover Tooltip */}
-        {hoveredIdx !== null && points[hoveredIdx] && (
+        {/* Hover Tooltip with Smart Boundary Collision Placement */}
+        {activePt && (
           <div
-            className="absolute z-20 pointer-events-none transition-all duration-150 transform -translate-x-1/2 -translate-y-full"
+            className={`absolute z-30 pointer-events-none transition-all duration-150 transform ${getTransformClasses()}`}
             style={{
-              left: `${(points[hoveredIdx].x / svgWidth) * 100}%`,
-              top: `${(points[hoveredIdx].y / svgHeight) * 100}%`,
+              left: `${(activePt.x / svgWidth) * 100}%`,
+              top: `${(activePt.y / svgHeight) * 100}%`,
             }}
           >
-            <div className="bg-white border border-[#e3e8ee] rounded-lg p-2.5 shadow-[0_10px_20px_rgba(50,50,93,0.15)] text-xs font-mono space-y-1 min-w-37.5 text-[#0a2540]">
-              <div className="flex items-center justify-between gap-2 border-b border-[#f1f5f9] pb-1">
-                <span className="text-[10px] text-[#8898aa]">{points[hoveredIdx].date}</span>
-                <span className={`px-1.5 py-0.2 rounded text-[10px] font-bold border ${getPointColor(points[hoveredIdx].score).badge}`}>
-                  {points[hoveredIdx].score}/100
+            <div className="bg-surface-0/95 backdrop-blur-xs border border-border rounded-xl p-3 shadow-2xl text-xs font-mono space-y-1.5 min-w-[170px] max-w-[240px] text-text-primary ring-1 ring-black/5 dark:ring-white/10">
+              <div className="flex items-center justify-between gap-2 border-b border-border pb-1.5">
+                <span className="text-[11px] font-sans font-medium text-text-secondary">
+                  {activePt.date}
+                </span>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${getPointColor(activePt.score).badge}`}>
+                  {activePt.score}/100
                 </span>
               </div>
-              {points[hoveredIdx].url && (
-                <p className="text-[11px] text-[#635bff] truncate max-w-45 font-semibold">
-                  {points[hoveredIdx].url}
+              {activePt.url && (
+                <p className="text-xs text-brand-500 truncate block font-sans font-semibold" title={activePt.url}>
+                  {activePt.url}
                 </p>
               )}
             </div>

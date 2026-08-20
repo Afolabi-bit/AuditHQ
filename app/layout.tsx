@@ -6,6 +6,7 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { syncUserToDatabase } from "./utils/actions";
 import { Toaster } from "sonner";
 import { TopProgressBar } from "@/components/ui/TopProgressBar";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const fontSans = Inter({
   variable: "--font-sans",
@@ -94,21 +95,27 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} bg-surface-1 text-[#0a2540] font-sans antialiased min-h-screen selection:bg-[#635bff]/15 selection:text-[#635bff]`}
+        className={`${fontSans.variable} ${fontMono.variable} bg-background text-foreground font-sans antialiased min-h-screen selection:bg-brand-600/20 selection:text-brand-500`}
       >
-        <TopProgressBar />
-        {children}
-        <Toaster
-          position="bottom-right"
-          theme="light"
-          closeButton
-          toastOptions={{
-            duration: 5000,
-            className: "bg-white text-[#0a2540] border border-[#e3e8ee] shadow-xl rounded-lg font-sans text-sm",
-          }}
-        />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TopProgressBar />
+          {children}
+          <Toaster
+            position="bottom-right"
+            closeButton
+            toastOptions={{
+              duration: 5000,
+              className: "bg-surface-0 text-text-primary border border-border shadow-xl rounded-lg font-sans text-sm",
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

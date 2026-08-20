@@ -1,14 +1,13 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import React, { useState, FormEvent } from "react";
 import {
-  Loader2,
-  Zap,
   Globe,
   Monitor,
   Smartphone,
-  Wifi,
-  Play,
+  Zap,
+  Loader2,
+  ArrowRight,
 } from "lucide-react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -102,25 +101,25 @@ const NewTest = ({ user }: { user: KindeUser }) => {
   };
 
   return (
-    <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 sm:p-7 shadow-sm hover:border-brand-200 transition-all mb-8">
+    <div className="bg-surface-0 border border-border rounded-xl p-6 sm:p-7 shadow-sm hover:border-brand-200 transition-all mb-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-md bg-[#f0f2ff] text-[#635bff] border border-brand-200 flex items-center justify-center">
-              <Zap className="h-3.5 w-3.5 fill-[#635bff]" />
+            <div className="h-6 w-6 rounded-md bg-brand-50 text-brand-500 border border-brand-200 flex items-center justify-center">
+              <Zap className="h-3.5 w-3.5 fill-brand-500" />
             </div>
-            <h2 className="text-base font-bold text-[#0a2540] font-sans">
+            <h2 className="text-base font-bold text-text-primary font-sans">
               Run New Performance Audit
             </h2>
           </div>
-          <p className="text-xs text-[#425466]">
+          <p className="text-xs text-text-secondary">
             Execute headless Lighthouse evaluation with device & network throttling
           </p>
         </div>
 
-        <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-[#00875a] bg-[#e3fcf7] border border-[#abf5d1]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00875a]" />
+        <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-score-good bg-[#e3fcf7] border border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30">
+          <span className="w-1.5 h-1.5 rounded-full bg-score-good" />
           Engine Ready
         </span>
       </div>
@@ -130,11 +129,11 @@ const NewTest = ({ user }: { user: KindeUser }) => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
           {/* URL Input */}
           <div className="md:col-span-6 space-y-1.5">
-            <Label htmlFor="url" className="text-xs font-semibold text-[#425466] uppercase tracking-wider">
+            <Label htmlFor="url" className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Website URL
             </Label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#8898aa]">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-text-tertiary">
                 <Globe className="h-4 w-4" />
               </div>
               <Input
@@ -148,29 +147,29 @@ const NewTest = ({ user }: { user: KindeUser }) => {
                 placeholder="example.com, www.example.com, or https://…"
                 onChange={(e) => setUrl(e.target.value)}
                 onClick={() => setIsUrlValid({ validity: true, message: "" })}
-                className={`pl-9.5 h-11 text-sm bg-white border-[#e3e8ee] text-[#0a2540] placeholder:text-[#8898aa] focus:bg-white focus:border-[#635bff] focus:ring-2 focus:ring-[#635bff]/20 rounded-lg transition-all font-mono ${
-                  !isUrlValid.validity ? "border-[#de350b] focus:border-[#de350b] focus:ring-[#de350b]/20" : ""
+                className={`pl-9.5 h-11 text-sm bg-surface-0 border-border text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-lg transition-all font-mono ${
+                  !isUrlValid.validity ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""
                 }`}
               />
             </div>
             {!isUrlValid.validity && (
-              <p className="text-xs text-[#de350b] font-medium">{isUrlValid.message}</p>
+              <p className="text-xs text-destructive font-medium">{isUrlValid.message}</p>
             )}
           </div>
 
           {/* Device Selection */}
           <div className="md:col-span-3 space-y-1.5">
-            <Label className="text-xs font-semibold text-[#425466] uppercase tracking-wider">
+            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Device Profile
             </Label>
-            <div className="grid grid-cols-2 gap-1.5 p-1 bg-[#f8fafc] rounded-lg border border-[#e3e8ee] h-11 items-center">
+            <div className="grid grid-cols-2 gap-1.5 p-1 bg-surface-1 rounded-lg border border-border h-11 items-center">
               <button
                 type="button"
                 onClick={() => setDevice("Desktop")}
                 className={`h-8.5 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Desktop"
-                    ? "bg-white text-[#635bff] shadow-[0_1px_2px_rgba(50,50,93,0.08)] border border-[#e3e8ee]"
-                    : "text-[#425466] hover:text-[#0a2540]"
+                    ? "bg-surface-0 text-brand-500 shadow-xs border border-border"
+                    : "text-text-secondary hover:text-text-primary"
                 }`}
               >
                 <Monitor className="h-3.5 w-3.5" />
@@ -181,8 +180,8 @@ const NewTest = ({ user }: { user: KindeUser }) => {
                 onClick={() => setDevice("Mobile")}
                 className={`h-8.5 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Mobile"
-                    ? "bg-white text-[#635bff] shadow-[0_1px_2px_rgba(50,50,93,0.08)] border border-[#e3e8ee]"
-                    : "text-[#425466] hover:text-[#0a2540]"
+                    ? "bg-surface-0 text-brand-500 shadow-xs border border-border"
+                    : "text-text-secondary hover:text-text-primary"
                 }`}
               >
                 <Smartphone className="h-3.5 w-3.5" />
@@ -193,10 +192,10 @@ const NewTest = ({ user }: { user: KindeUser }) => {
 
           {/* Network Throttling */}
           <div className="md:col-span-3 space-y-1.5">
-            <Label className="text-xs font-semibold text-[#425466] uppercase tracking-wider">
+            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Network
             </Label>
-            <div className="grid grid-cols-3 gap-1 p-1 bg-[#f8fafc] rounded-lg border border-[#e3e8ee] h-11 items-center">
+            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1 rounded-lg border border-border h-11 items-center">
               {["No Throttling", "4G", "3G"].map((net) => (
                 <button
                   key={net}
@@ -204,8 +203,8 @@ const NewTest = ({ user }: { user: KindeUser }) => {
                   onClick={() => setNetwork(net)}
                   className={`h-8.5 rounded-md text-[11px] font-semibold flex items-center justify-center transition-all truncate px-1 cursor-pointer ${
                     network === net
-                      ? "bg-white text-[#635bff] shadow-[0_1px_2px_rgba(50,50,93,0.08)] border border-[#e3e8ee]"
-                      : "text-[#425466] hover:text-[#0a2540]"
+                      ? "bg-surface-0 text-brand-500 shadow-xs border border-border"
+                      : "text-text-secondary hover:text-text-primary"
                   }`}
                   title={net}
                 >
@@ -221,17 +220,17 @@ const NewTest = ({ user }: { user: KindeUser }) => {
           <Button
             type="submit"
             disabled={isTesting}
-            className="w-full sm:w-auto h-11 px-7 rounded-lg font-semibold text-sm bg-[#635bff] hover:bg-brand-700 active:bg-[#4b45d0] text-white shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-lg px-5 h-10 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
             {isTesting ? (
               <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin text-white" />
-                Executing Audit Engine…
+                <Loader2 className="h-4 w-4 animate-spin text-white" />
+                Executing Lighthouse Audit…
               </>
             ) : (
               <>
-                <Play className="h-4 w-4 mr-2 fill-white" />
                 Start Performance Audit
+                <ArrowRight className="h-3.5 w-3.5" />
               </>
             )}
           </Button>

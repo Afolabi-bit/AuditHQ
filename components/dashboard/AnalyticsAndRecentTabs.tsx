@@ -5,7 +5,6 @@ import {
   AlertCircle,
   CheckCircle2,
   Info,
-  Activity,
   TrendingUp,
   Gauge,
   Layers,
@@ -58,25 +57,25 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
   return (
     <Tabs defaultValue="recent" className="space-y-6 mt-8">
       {/* Tab Navigation Pill Bar */}
-      <div className="flex items-center justify-between border-b border-[#e3e8ee] pb-3">
-        <TabsList className="bg-[#f1f5f9] p-1 rounded-lg border border-[#e3e8ee] h-10">
+      <div className="flex items-center justify-between border-b border-border pb-3">
+        <TabsList className="bg-surface-1 p-1 rounded-lg border border-border h-10">
           <TabsTrigger
             value="recent"
-            className="data-[state=active]:bg-white data-[state=active]:text-[#635bff] data-[state=active]:shadow-xs px-4 py-1.5 rounded-md text-xs font-semibold transition-all font-sans cursor-pointer"
+            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-500 data-[state=active]:shadow-xs px-4 py-1.5 rounded-md text-xs font-semibold transition-all font-sans cursor-pointer text-text-secondary hover:text-text-primary"
           >
             Recent Audits
           </TabsTrigger>
           <TabsTrigger
             value="analytics"
-            className="data-[state=active]:bg-white data-[state=active]:text-[#635bff] data-[state=active]:shadow-xs px-4 py-1.5 rounded-md text-xs font-semibold transition-all font-sans cursor-pointer"
+            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-500 data-[state=active]:shadow-xs px-4 py-1.5 rounded-md text-xs font-semibold transition-all font-sans cursor-pointer text-text-secondary hover:text-text-primary"
           >
             Performance Analytics
           </TabsTrigger>
         </TabsList>
 
-        <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-[#8898aa] font-mono">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00875a] animate-pulse" />
-          Live Polling Active
+        <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-text-tertiary font-mono">
+          <span className="w-1.5 h-1.5 rounded-full bg-score-good animate-pulse" />
+          Live Telemetry Active
         </span>
       </div>
 
@@ -84,10 +83,10 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       <TabsContent value="recent" className="space-y-4 pt-1">
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
-            <h2 className="text-lg font-bold text-[#0a2540] font-sans">
+            <h2 className="text-lg font-bold text-text-primary font-sans">
               Recent Audits
             </h2>
-            <p className="text-xs text-[#425466]">
+            <p className="text-xs text-text-secondary">
               Chronological feed of automated Lighthouse test runs
             </p>
           </div>
@@ -101,20 +100,20 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       {/* ── Tab 2: Analytics ──────────────────────────────────────────────── */}
       <TabsContent value="analytics" className="space-y-6 pt-1">
         {/* Performance Score Trend Timeline */}
-        <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)] hover:border-brand-200 transition-all space-y-4">
+        <div className="bg-surface-0 border border-border rounded-xl p-6 shadow-xs hover:border-brand-200 transition-all space-y-4">
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <h3 className="text-base font-bold text-[#0a2540] flex items-center gap-2 font-sans">
-                <TrendingUp className="h-4 w-4 text-[#635bff]" />
+              <h3 className="text-base font-bold text-text-primary flex items-center gap-2 font-sans">
+                <TrendingUp className="h-4 w-4 text-brand-500" />
                 Performance Score Trajectory
               </h3>
-              <p className="text-xs text-[#425466]">
+              <p className="text-xs text-text-secondary">
                 Sequential score distribution and variation tracking across recent audit executions
               </p>
             </div>
 
             {stats.avgPerformance != null && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#f0f2ff] text-[#635bff] border border-brand-200">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200">
                 Avg: {stats.avgPerformance}/100
               </span>
             )}
@@ -129,13 +128,13 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
         {/* Core Web Vitals & Optimization Priorities Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Core Web Vitals Means */}
-          <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)] space-y-6">
+          <div className="bg-surface-0 border border-border rounded-xl p-6 shadow-xs space-y-6">
             <div className="space-y-0.5">
-              <h3 className="text-base font-bold text-[#0a2540] font-sans flex items-center gap-2">
-                <Gauge className="h-4 w-4 text-[#00875a]" />
+              <h3 className="text-base font-bold text-text-primary font-sans flex items-center gap-2">
+                <Gauge className="h-4 w-4 text-score-good" />
                 Core Web Vitals Aggregates
               </h3>
-              <p className="text-xs text-[#425466]">
+              <p className="text-xs text-text-secondary">
                 Mean user experience metrics across all audited endpoints
               </p>
             </div>
@@ -145,24 +144,24 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="font-semibold text-[#0a2540] font-sans">
+                    <span className="font-semibold text-text-primary font-sans">
                       Largest Contentful Paint (LCP)
                     </span>
-                    <p className="text-[11px] text-[#8898aa]">Main content rendering speed</p>
+                    <p className="text-[11px] text-text-tertiary">Main content rendering speed</p>
                   </div>
                   <span
                     className={`font-mono font-bold ${
                       isLoading || lcp == null
-                        ? "text-[#8898aa]"
+                        ? "text-text-tertiary"
                         : lcp <= 2.5
-                        ? "text-[#00875a]"
+                        ? "text-score-good"
                         : lcp <= 4.0
-                        ? "text-[#b76e00]"
-                        : "text-[#de350b]"
+                        ? "text-score-warn"
+                        : "text-score-poor"
                     }`}
                   >
                     {isLoading ? (
-                      <span className="inline-block h-4 w-12 rounded bg-[#f1f5f9] animate-pulse" />
+                      <span className="inline-block h-4 w-12 rounded bg-surface-2 animate-pulse" />
                     ) : lcp != null ? (
                       `${Number(lcp).toFixed(1)}s`
                     ) : (
@@ -170,16 +169,16 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                     )}
                   </span>
                 </div>
-                <div className="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${
                       isLoading || lcp == null
-                        ? "bg-[#e3e8ee]"
+                        ? "bg-surface-3"
                         : lcp <= 2.5
-                        ? "bg-[#00875a]"
+                        ? "bg-score-good"
                         : lcp <= 4.0
-                        ? "bg-[#b76e00]"
-                        : "bg-[#de350b]"
+                        ? "bg-score-warn"
+                        : "bg-score-poor"
                     }`}
                     style={{
                       width: `${
@@ -190,7 +189,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                     }}
                   />
                 </div>
-                <div className="flex justify-between text-[10px] font-mono text-[#8898aa]">
+                <div className="flex justify-between text-[10px] font-mono text-text-tertiary">
                   <span>{isLoading ? "Loading…" : lcp == null ? "No data" : lcp <= 2.5 ? "Good" : lcp <= 4.0 ? "Needs Improvement" : "Poor"}</span>
                   <span>Target: ≤ 2.5s</span>
                 </div>
@@ -200,24 +199,24 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="font-semibold text-[#0a2540] font-sans">
+                    <span className="font-semibold text-text-primary font-sans">
                       Total Blocking Time (TBT)
                     </span>
-                    <p className="text-[11px] text-[#8898aa]">Main thread responsiveness</p>
+                    <p className="text-[11px] text-text-tertiary">Main thread responsiveness</p>
                   </div>
                   <span
                     className={`font-mono font-bold ${
                       isLoading || tbt == null
-                        ? "text-[#8898aa]"
+                        ? "text-text-tertiary"
                         : tbt <= 200
-                        ? "text-[#00875a]"
+                        ? "text-score-good"
                         : tbt <= 600
-                        ? "text-[#b76e00]"
-                        : "text-[#de350b]"
+                        ? "text-score-warn"
+                        : "text-score-poor"
                     }`}
                   >
                     {isLoading ? (
-                      <span className="inline-block h-4 w-12 rounded bg-[#f1f5f9] animate-pulse" />
+                      <span className="inline-block h-4 w-12 rounded bg-surface-2 animate-pulse" />
                     ) : tbt != null ? (
                       `${Math.round(Number(tbt))}ms`
                     ) : (
@@ -225,16 +224,16 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                     )}
                   </span>
                 </div>
-                <div className="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${
                       isLoading || tbt == null
-                        ? "bg-[#e3e8ee]"
+                        ? "bg-surface-3"
                         : tbt <= 200
-                        ? "bg-[#00875a]"
+                        ? "bg-score-good"
                         : tbt <= 600
-                        ? "bg-[#b76e00]"
-                        : "bg-[#de350b]"
+                        ? "bg-score-warn"
+                        : "bg-score-poor"
                     }`}
                     style={{
                       width: `${
@@ -245,7 +244,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                     }}
                   />
                 </div>
-                <div className="flex justify-between text-[10px] font-mono text-[#8898aa]">
+                <div className="flex justify-between text-[10px] font-mono text-text-tertiary">
                   <span>{isLoading ? "Loading…" : tbt == null ? "No data" : tbt <= 200 ? "Good" : tbt <= 600 ? "Needs Improvement" : "Poor"}</span>
                   <span>Target: ≤ 200ms</span>
                 </div>
@@ -255,24 +254,24 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
               <div className="space-y-1.5">
                 <div className="flex justify-between items-center text-xs">
                   <div>
-                    <span className="font-semibold text-[#0a2540] font-sans">
+                    <span className="font-semibold text-text-primary font-sans">
                       Cumulative Layout Shift (CLS)
                     </span>
-                    <p className="text-[11px] text-[#8898aa]">Visual stability index</p>
+                    <p className="text-[11px] text-text-tertiary">Visual stability index</p>
                   </div>
                   <span
                     className={`font-mono font-bold ${
                       isLoading || cls == null
-                        ? "text-[#8898aa]"
+                        ? "text-text-tertiary"
                         : cls <= 0.1
-                        ? "text-[#00875a]"
+                        ? "text-score-good"
                         : cls <= 0.25
-                        ? "text-[#b76e00]"
-                        : "text-[#de350b]"
+                        ? "text-score-warn"
+                        : "text-score-poor"
                     }`}
                   >
                     {isLoading ? (
-                      <span className="inline-block h-4 w-12 rounded bg-[#f1f5f9] animate-pulse" />
+                      <span className="inline-block h-4 w-12 rounded bg-surface-2 animate-pulse" />
                     ) : cls != null ? (
                       Number(cls).toFixed(2)
                     ) : (
@@ -280,16 +279,16 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                     )}
                   </span>
                 </div>
-                <div className="h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${
                       cls == null
-                        ? "bg-[#e3e8ee]"
+                        ? "bg-surface-3"
                         : cls <= 0.1
-                        ? "bg-[#00875a]"
+                        ? "bg-score-good"
                         : cls <= 0.25
-                        ? "bg-[#b76e00]"
-                        : "bg-[#de350b]"
+                        ? "bg-score-warn"
+                        : "bg-score-poor"
                     }`}
                     style={{
                       width: `${
@@ -300,7 +299,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                     }}
                   />
                 </div>
-                <div className="flex justify-between text-[10px] font-mono text-[#8898aa]">
+                <div className="flex justify-between text-[10px] font-mono text-text-tertiary">
                   <span>{cls == null ? "No data" : cls <= 0.1 ? "Good" : cls <= 0.25 ? "Needs Improvement" : "Poor"}</span>
                   <span>Target: ≤ 0.1</span>
                 </div>
@@ -309,13 +308,13 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
           </div>
 
           {/* Actionable Priorities */}
-          <div className="bg-white border border-[#e3e8ee] rounded-xl p-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)] flex flex-col justify-between space-y-4">
+          <div className="bg-surface-0 border border-border rounded-xl p-6 shadow-xs flex flex-col justify-between space-y-4">
             <div className="space-y-0.5">
-              <h3 className="text-base font-bold text-[#0a2540] font-sans flex items-center gap-2">
-                <Layers className="h-4 w-4 text-[#635bff]" />
+              <h3 className="text-base font-bold text-text-primary font-sans flex items-center gap-2">
+                <Layers className="h-4 w-4 text-brand-500" />
                 Optimization Priorities
               </h3>
-              <p className="text-xs text-[#425466]">
+              <p className="text-xs text-text-secondary">
                 Actionable recommendations synthesized from aggregated audit passes
               </p>
             </div>
@@ -326,14 +325,14 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                   return (
                     <div
                       key={idx}
-                      className="flex items-start space-x-3 p-3.5 bg-[#fff8e5] border border-[#ffe380] rounded-lg"
+                      className="flex items-start space-x-3 p-3.5 bg-[#fff8e5] border border-[#ffe380] dark:bg-[#b76e00]/15 dark:border-[#b76e00]/30 rounded-lg"
                     >
-                      <AlertCircle className="h-4 w-4 text-[#b76e00] shrink-0 mt-0.5" />
+                      <AlertCircle className="h-4 w-4 text-score-warn shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs font-bold text-[#b76e00] font-sans">
+                        <p className="text-xs font-bold text-score-warn font-sans">
                           {rec.title}
                         </p>
-                        <p className="text-[11px] text-[#8898aa] mt-0.5 leading-relaxed">
+                        <p className="text-[11px] text-text-tertiary mt-0.5 leading-relaxed">
                           {rec.description}
                         </p>
                       </div>
@@ -345,14 +344,14 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                   return (
                     <div
                       key={idx}
-                      className="flex items-start space-x-3 p-3.5 bg-[#e3fcf7] border border-[#abf5d1] rounded-lg"
+                      className="flex items-start space-x-3 p-3.5 bg-[#e3fcf7] border border-[#abf5d1] dark:bg-[#00875a]/15 dark:border-[#00875a]/30 rounded-lg"
                     >
-                      <CheckCircle2 className="h-4 w-4 text-[#00875a] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="h-4 w-4 text-score-good shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs font-bold text-[#00875a] font-sans">
+                        <p className="text-xs font-bold text-score-good font-sans">
                           {rec.title}
                         </p>
-                        <p className="text-[11px] text-[#8898aa] mt-0.5 leading-relaxed">
+                        <p className="text-[11px] text-text-tertiary mt-0.5 leading-relaxed">
                           {rec.description}
                         </p>
                       </div>
@@ -363,14 +362,14 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                 return (
                   <div
                     key={idx}
-                    className="flex items-start space-x-3 p-3.5 bg-[#f0f2ff] border border-brand-200 rounded-lg"
+                    className="flex items-start space-x-3 p-3.5 bg-brand-50 border border-brand-200 rounded-lg"
                   >
-                    <Info className="h-4 w-4 text-[#635bff] shrink-0 mt-0.5" />
+                    <Info className="h-4 w-4 text-brand-500 shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-xs font-bold text-[#635bff] font-sans">
+                      <p className="text-xs font-bold text-brand-500 font-sans">
                         {rec.title}
                       </p>
-                      <p className="text-[11px] text-[#8898aa] mt-0.5 leading-relaxed">
+                      <p className="text-[11px] text-text-tertiary mt-0.5 leading-relaxed">
                         {rec.description}
                       </p>
                     </div>

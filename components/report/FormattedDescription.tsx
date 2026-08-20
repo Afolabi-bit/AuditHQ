@@ -14,7 +14,7 @@ interface FormattedDescriptionProps {
  */
 export const FormattedDescription: React.FC<FormattedDescriptionProps> = ({
   text,
-  className = "text-xs text-[#425466] leading-relaxed",
+  className = "text-xs text-text-secondary leading-relaxed",
   isTruncatedPreview = false,
 }) => {
   if (!text) return null;
@@ -49,7 +49,7 @@ export const FormattedDescription: React.FC<FormattedDescriptionProps> = ({
         target="_blank"
         rel="noopener noreferrer"
         onClick={(e) => e.stopPropagation()}
-        className="inline-flex items-center gap-0.5 text-[#635bff] hover:text-brand-700 font-semibold underline underline-offset-2 hover:opacity-90 transition-all mx-0.5"
+        className="inline-flex items-center gap-0.5 text-brand-500 hover:text-brand-600 font-semibold underline underline-offset-2 hover:opacity-90 transition-all mx-0.5"
       >
         <span>{linkText}</span>
         <ExternalLink className="h-3 w-3 inline shrink-0" />

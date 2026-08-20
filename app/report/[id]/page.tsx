@@ -60,22 +60,22 @@ export default async function PublicReportPage({ params }: PublicReportPageProps
   }
 
   return (
-    <div className="min-h-screen bg-surface-1 flex flex-col justify-between">
+    <div className="min-h-screen bg-background text-foreground flex flex-col justify-between">
       {/* ── Top Announcement Banner for Public Viewers ─────────────────────── */}
-      <div className="bg-[#0a2540] text-white px-4 py-2.5 text-xs border-b border-[#0a2540]">
+      <div className="bg-surface-0 text-text-primary px-4 py-2.5 text-xs border-b border-border">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 font-mono">
-            <span className="flex h-2 w-2 rounded-full bg-[#00875a] animate-pulse" />
+            <span className="flex h-2 w-2 rounded-full bg-score-good animate-pulse" />
             <span>Public AuditHQ Snapshot · Read-Only View</span>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-white/80 hidden md:inline">
+            <span className="text-text-secondary hidden md:inline">
               Want to audit your own website and track performance history?
             </span>
             <Link
               href="/"
-              className="inline-flex items-center gap-1 font-semibold text-white bg-[#635bff] hover:bg-brand-700 px-3 py-1 rounded-md transition-colors text-[11px] shadow-xs cursor-pointer"
+              className="inline-flex items-center gap-1 font-semibold text-white bg-brand-600 hover:bg-brand-700 px-3 py-1 rounded-md transition-colors text-[11px] shadow-xs cursor-pointer"
             >
               Run Free Audit
               <ArrowRight className="h-3 w-3" />

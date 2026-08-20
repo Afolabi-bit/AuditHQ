@@ -97,16 +97,16 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   const isDesktop = device?.toLowerCase() === "desktop";
 
   return (
-    <div className="bg-white text-[#0a2540] border-b border-[#e3e8ee] shadow-xs w-full max-w-full">
+    <div className="bg-surface-0 text-text-primary border-b border-border shadow-xs w-full max-w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 w-full min-w-0">
         {/* Navigation & Public Indicator */}
         <div className="flex items-center justify-between mb-5 flex-wrap gap-2">
           {isPublic ? (
             <Link
               href="/"
-              className="inline-flex items-center text-xs font-semibold text-[#425466] hover:text-[#0a2540] transition-colors gap-2 group"
+              className="inline-flex items-center text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors gap-2 group"
             >
-              <div className="h-6 w-6 rounded-md bg-[#635bff] flex items-center justify-center text-white">
+              <div className="h-6 w-6 rounded-md bg-brand-600 flex items-center justify-center text-white">
                 <Zap className="h-3.5 w-3.5 fill-white" />
               </div>
               <span className="font-bold tracking-tight">AuditHQ Public Report</span>
@@ -114,7 +114,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
           ) : (
             <Link
               href="/dashboard"
-              className="inline-flex items-center text-xs font-semibold text-[#425466] hover:text-[#0a2540] transition-colors group"
+              className="inline-flex items-center text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors group"
             >
               <ArrowLeft className="h-3.5 w-3.5 mr-1.5 transform group-hover:-translate-x-1 transition-transform" />
               Back to Dashboard
@@ -122,11 +122,11 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
           )}
 
           <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#f0f2ff] border border-brand-200 text-[#635bff]">
-              <Activity className="h-3 w-3 mr-1.5 text-[#635bff]" />
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-brand-50 border border-brand-200 text-brand-500">
+              <Activity className="h-3 w-3 mr-1.5 text-brand-500" />
               Lighthouse 12 Engine
             </span>
-            <span className="text-[11px] font-mono text-[#8898aa]">Audit #{testId}</span>
+            <span className="text-[11px] font-mono text-text-tertiary">Audit #{testId}</span>
           </div>
         </div>
 
@@ -134,18 +134,18 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 min-w-0 w-full">
           <div className="space-y-3 max-w-3xl min-w-0 flex-1">
             <div className="space-y-1">
-              <p className="text-[11px] font-mono uppercase tracking-widest text-[#635bff] font-bold">
+              <p className="text-[11px] font-mono uppercase tracking-widest text-brand-500 font-bold">
                 Audited Endpoint
               </p>
               <div className="flex items-center gap-2.5">
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0a2540] tracking-tight font-mono break-all">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight font-mono break-all">
                   {url}
                 </h1>
                 <a
                   href={url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-[#8898aa] hover:text-[#635bff] transition-colors shrink-0"
+                  className="text-text-tertiary hover:text-brand-500 transition-colors shrink-0"
                   title="Open live website in new tab"
                 >
                   <ExternalLink className="h-4 w-4" />
@@ -154,28 +154,28 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
             </div>
 
             {/* Metadata Pills */}
-            <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-[#425466]">
-              <span className="inline-flex items-center gap-1.5 bg-[#f8fafc] border border-[#e3e8ee] px-2.5 py-1 rounded-md">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-text-secondary">
+              <span className="inline-flex items-center gap-1.5 bg-surface-1 border border-border px-2.5 py-1 rounded-md">
                 {isDesktop ? (
-                  <Monitor className="h-3.5 w-3.5 text-[#635bff]" />
+                  <Monitor className="h-3.5 w-3.5 text-brand-500" />
                 ) : (
-                  <Smartphone className="h-3.5 w-3.5 text-[#635bff]" />
+                  <Smartphone className="h-3.5 w-3.5 text-brand-500" />
                 )}
                 {isDesktop ? "Desktop Chrome" : "Mobile Moto G4"}
               </span>
 
               {network && (
-                <span className="inline-flex items-center gap-1 bg-[#f8fafc] border border-[#e3e8ee] px-2.5 py-1 rounded-md">
+                <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2.5 py-1 rounded-md">
                   Network: {network}
                 </span>
               )}
 
-              <span className="inline-flex items-center gap-1 bg-[#f8fafc] border border-[#e3e8ee] px-2.5 py-1 rounded-md text-[#8898aa]">
+              <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2.5 py-1 rounded-md text-text-tertiary">
                 <Calendar className="h-3 w-3" />
                 {formattedDate}
               </span>
 
-              <span className="inline-flex items-center gap-1 bg-[#f8fafc] border border-[#e3e8ee] px-2.5 py-1 rounded-md text-[#8898aa]">
+              <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2.5 py-1 rounded-md text-text-tertiary">
                 <Clock className="h-3 w-3" />
                 {formattedTime}
               </span>
@@ -189,16 +189,16 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleCopyShareLink}
-              className="bg-white hover:bg-[#f8fafc] text-[#425466] border-[#e3e8ee] h-9 rounded-md font-semibold text-xs transition-colors cursor-pointer"
+              className="bg-surface-0 hover:bg-surface-2 text-text-secondary hover:text-text-primary border-border h-9 rounded-md font-semibold text-xs transition-colors cursor-pointer"
             >
               {copied ? (
                 <>
-                  <Check className="h-3.5 w-3.5 mr-1.5 text-[#00875a]" />
+                  <Check className="h-3.5 w-3.5 mr-1.5 text-score-good" />
                   Link Copied!
                 </>
               ) : (
                 <>
-                  <Share2 className="h-3.5 w-3.5 mr-1.5 text-[#8898aa]" />
+                  <Share2 className="h-3.5 w-3.5 mr-1.5 text-text-tertiary" />
                   Share Report
                 </>
               )}
@@ -209,9 +209,9 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleExportJson}
-              className="bg-white hover:bg-[#f8fafc] text-[#425466] border-[#e3e8ee] h-9 rounded-md font-semibold text-xs transition-colors cursor-pointer"
+              className="bg-surface-0 hover:bg-surface-2 text-text-secondary hover:text-text-primary border-border h-9 rounded-md font-semibold text-xs transition-colors cursor-pointer"
             >
-              <FileCode className="h-3.5 w-3.5 mr-1.5 text-[#8898aa]" />
+              <FileCode className="h-3.5 w-3.5 mr-1.5 text-text-tertiary" />
               JSON
             </Button>
 
@@ -220,7 +220,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               size="sm"
               onClick={handleExportPdf}
               disabled={isGeneratingPdf}
-              className="bg-[#635bff] hover:bg-brand-700 active:bg-[#4b45d0] text-white font-semibold text-xs h-9 px-4 rounded-md shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer"
+              className="bg-brand-600 hover:bg-brand-700 active:bg-brand-900 text-white font-semibold text-xs h-9 px-4 rounded-md shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer"
             >
               {isGeneratingPdf ? (
                 <>
@@ -238,15 +238,15 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
             {/* Context Navigation CTA */}
             {isPublic ? (
               <Link href="/">
-                <Button size="sm" className="bg-[#0a2540] hover:bg-[#1a385c] text-white font-semibold text-xs h-9 px-4 rounded-md shadow-xs transition-all cursor-pointer">
+                <Button size="sm" className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs h-9 px-4 rounded-md shadow-xs transition-all cursor-pointer">
                   <Zap className="h-3.5 w-3.5 mr-1.5 fill-white" />
                   Audit Your Site Free
                 </Button>
               </Link>
             ) : (
               <Link href="/dashboard">
-                <Button size="sm" className="bg-[#0a2540] hover:bg-[#1a385c] text-white font-semibold text-xs h-9 px-4 rounded-md shadow-xs transition-all cursor-pointer">
-                  <RotateCw className="h-3.5 w-3.5 mr-1.5" />
+                <Button size="sm" className="bg-surface-2 hover:bg-surface-3 text-text-primary border border-border font-semibold text-xs h-9 px-4 rounded-md shadow-xs transition-all cursor-pointer">
+                  <RotateCw className="h-3.5 w-3.5 mr-1.5 text-text-secondary" />
                   New Audit
                 </Button>
               </Link>

@@ -16,19 +16,19 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-[#e3e8ee] rounded-xl p-4.5 px-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0 border border-border rounded-xl p-4.5 px-6 shadow-xs">
         <div className="space-y-0.5">
-          <h3 className="text-base font-bold text-[#0a2540] flex items-center gap-2 font-sans">
-            <ShieldCheck className="h-4 w-4 text-[#635bff]" />
+          <h3 className="text-base font-bold text-text-primary flex items-center gap-2 font-sans">
+            <ShieldCheck className="h-4 w-4 text-brand-500" />
             Security & Best Practices Audit
           </h3>
-          <p className="text-xs text-[#425466]">
+          <p className="text-xs text-text-secondary">
             HTTPS enforcement, TLS configuration, CSP protections, and vulnerability checks
           </p>
         </div>
 
-        <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#e3fcf7] text-[#00875a] border border-[#abf5d1]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00875a]" />
+        <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#e3fcf7] text-[#00875a] border border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30">
+          <span className="w-1.5 h-1.5 rounded-full bg-score-good" />
           {passedCount} of {securityChecks.length} checks passing
         </span>
       </div>
@@ -39,10 +39,10 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
           return (
             <div
               key={check.id}
-              className={`rounded-xl p-5 border shadow-[0_1px_3px_rgba(50,50,93,0.08)] transition-all flex flex-col justify-between gap-3 bg-white ${
+              className={`rounded-xl p-5 border shadow-xs transition-all flex flex-col justify-between gap-3 bg-surface-0 ${
                 isPassed
-                  ? "border-[#e3e8ee] hover:border-brand-200"
-                  : "border-[#ffe380] hover:border-[#ffd666]"
+                  ? "border-border hover:border-brand-200"
+                  : "border-score-warn/40 hover:border-score-warn"
               }`}
             >
               <div className="space-y-2">
@@ -51,8 +51,8 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
                     <div
                       className={`p-2 rounded-lg border ${
                         isPassed
-                          ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1]"
-                          : "bg-[#fff8e5] text-[#b76e00] border-[#ffe380]"
+                          ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30"
+                          : "bg-[#fff8e5] text-[#b76e00] border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30"
                       }`}
                     >
                       {isPassed ? (
@@ -61,7 +61,7 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
                         <AlertTriangle className="h-4 w-4" />
                       )}
                     </div>
-                    <h4 className="text-sm font-bold text-[#0a2540] font-sans leading-tight">
+                    <h4 className="text-sm font-bold text-text-primary font-sans leading-tight">
                       {check.title}
                     </h4>
                   </div>
@@ -69,8 +69,8 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
                   <span
                     className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border shrink-0 ${
                       isPassed
-                        ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1]"
-                        : "bg-[#fff8e5] text-[#b76e00] border-[#ffe380]"
+                        ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30"
+                        : "bg-[#fff8e5] text-[#b76e00] border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30"
                     }`}
                   >
                     {isPassed ? "Compliant" : "Warning"}
@@ -79,7 +79,7 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
 
                 <FormattedDescription
                   text={check.description}
-                  className="text-xs text-[#425466] leading-relaxed"
+                  className="text-xs text-text-secondary leading-relaxed"
                 />
               </div>
             </div>

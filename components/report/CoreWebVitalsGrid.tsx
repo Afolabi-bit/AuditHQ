@@ -31,23 +31,23 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
     switch (rating) {
       case "good":
         return {
-          pill: "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1]",
-          text: "text-[#00875a]",
-          dot: "bg-[#00875a]",
+          pill: "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30",
+          text: "text-score-good",
+          dot: "bg-[#00875a] dark:bg-[#4de7b4]",
           label: "Good",
         };
       case "needs-improvement":
         return {
-          pill: "bg-[#fff8e5] text-[#b76e00] border-[#ffe380]",
-          text: "text-[#b76e00]",
-          dot: "bg-[#b76e00]",
+          pill: "bg-[#fff8e5] text-[#b76e00] border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30",
+          text: "text-score-warn",
+          dot: "bg-[#b76e00] dark:bg-[#ffc400]",
           label: "Needs Work",
         };
       case "poor":
         return {
-          pill: "bg-[#ffebe6] text-[#de350b] border-[#ffbdad]",
-          text: "text-[#de350b]",
-          dot: "bg-[#de350b]",
+          pill: "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30",
+          text: "text-score-poor",
+          dot: "bg-[#de350b] dark:bg-[#ff7452]",
           label: "Poor",
         };
     }
@@ -99,15 +99,15 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       const parsed = parseFloat(rawDisplay.replace(/,/g, "").trim());
       if (!isNaN(parsed)) return { num: parsed.toFixed(2), unit: "" };
     }
-    return { num: "0.00", unit: "" };
+    return { num: "—", unit: "" };
   };
 
-  const lcpParts = formatSeconds(metrics.lcp.displayValue, metrics.lcp.value);
-  const fcpParts = formatSeconds(metrics.fcp.displayValue, metrics.fcp.value);
-  const siParts = formatSeconds(metrics.speedIndex.displayValue, metrics.speedIndex.value);
-  const tbtParts = formatMilliseconds(metrics.tbt.displayValue, metrics.tbt.value);
-  const ttfbParts = formatMilliseconds(metrics.ttfb.displayValue, metrics.ttfb.value);
-  const clsParts = formatCls(metrics.cls.displayValue, metrics.cls.value);
+  const lcpParsed = formatSeconds(metrics.lcp.displayValue, metrics.lcp.value);
+  const fcpParsed = formatSeconds(metrics.fcp.displayValue, metrics.fcp.value);
+  const tbtParsed = formatMilliseconds(metrics.tbt.displayValue, metrics.tbt.value);
+  const clsParsed = formatCls(metrics.cls.displayValue, metrics.cls.value);
+  const siParsed = formatSeconds(metrics.speedIndex?.displayValue || "", metrics.speedIndex?.value || null);
+  const ttfbParsed = formatMilliseconds(metrics.ttfb?.displayValue || "", metrics.ttfb?.value || null);
 
   const cards: MetricCardConfig[] = [
     {
@@ -116,14 +116,14 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       acronym: "LCP",
       value: metrics.lcp.value,
       displayValue: metrics.lcp.displayValue,
-      rawValueFormatted: lcpParts.num,
-      unit: lcpParts.unit,
+      unit: lcpParsed.unit,
+      rawValueFormatted: lcpParsed.num,
       rating: metrics.lcp.rating,
       target: "≤ 2.5s",
       goodMax: 2500,
       warnMax: 4000,
-      description: "Measures loading performance. Marks when the main content of the page has likely loaded.",
-      icon: <Activity className="h-4 w-4 text-[#635bff]" />,
+      description: "Measures render time of the largest visible content element on the screen.",
+      icon: <Layers className="h-4 w-4 text-brand-500" />,
       weight: "25% Weight",
       isCoreVital: true,
     },
@@ -133,14 +133,14 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       acronym: "TBT",
       value: metrics.tbt.value,
       displayValue: metrics.tbt.displayValue,
-      rawValueFormatted: tbtParts.num,
-      unit: tbtParts.unit,
+      unit: tbtParsed.unit,
+      rawValueFormatted: tbtParsed.num,
       rating: metrics.tbt.rating,
       target: "≤ 200ms",
       goodMax: 200,
       warnMax: 600,
-      description: "Measures user responsiveness and main-thread execution delays between FCP and TTI.",
-      icon: <Gauge className="h-4 w-4 text-[#635bff]" />,
+      description: "Sum of time between FCP and Time to Interactive where CPU tasks blocked input.",
+      icon: <Timer className="h-4 w-4 text-brand-500" />,
       weight: "30% Weight",
       isCoreVital: true,
     },
@@ -150,14 +150,14 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       acronym: "CLS",
       value: metrics.cls.value,
       displayValue: metrics.cls.displayValue,
-      rawValueFormatted: clsParts.num,
-      unit: clsParts.unit,
+      unit: clsParsed.unit,
+      rawValueFormatted: clsParsed.num,
       rating: metrics.cls.rating,
-      target: "≤ 0.1",
+      target: "≤ 0.10",
       goodMax: 0.1,
       warnMax: 0.25,
-      description: "Measures visual stability. Quantifies unexpected layout shifts during initial render.",
-      icon: <Layers className="h-4 w-4 text-[#635bff]" />,
+      description: "Quantifies unexpected visual layout movements that disrupt user reading flow.",
+      icon: <Activity className="h-4 w-4 text-brand-500" />,
       weight: "25% Weight",
       isCoreVital: true,
     },
@@ -167,31 +167,31 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       acronym: "FCP",
       value: metrics.fcp.value,
       displayValue: metrics.fcp.displayValue,
-      rawValueFormatted: fcpParts.num,
-      unit: fcpParts.unit,
+      unit: fcpParsed.unit,
+      rawValueFormatted: fcpParsed.num,
       rating: metrics.fcp.rating,
       target: "≤ 1.8s",
       goodMax: 1800,
       warnMax: 3000,
-      description: "Marks the time at which the browser renders the first DOM content (text, image, svg).",
-      icon: <Zap className="h-4 w-4 text-[#635bff]" />,
+      description: "Marks the time when the browser first renders any text, image, or canvas element.",
+      icon: <Zap className="h-4 w-4 text-brand-500" />,
       weight: "10% Weight",
       isCoreVital: false,
     },
     {
-      id: "speedIndex",
+      id: "si",
       name: "Speed Index",
       acronym: "SI",
-      value: metrics.speedIndex.value,
-      displayValue: metrics.speedIndex.displayValue,
-      rawValueFormatted: siParts.num,
-      unit: siParts.unit,
-      rating: metrics.speedIndex.rating,
+      value: metrics.speedIndex?.value || null,
+      displayValue: metrics.speedIndex?.displayValue || "—",
+      unit: siParsed.unit,
+      rawValueFormatted: siParsed.num,
+      rating: metrics.speedIndex?.rating || "good",
       target: "≤ 3.4s",
       goodMax: 3400,
       warnMax: 5800,
-      description: "Measures how quickly contents are visibly populated during page progression.",
-      icon: <Timer className="h-4 w-4 text-[#635bff]" />,
+      description: "Measures how quickly the visual contents of a page are populated.",
+      icon: <Gauge className="h-4 w-4 text-brand-500" />,
       weight: "10% Weight",
       isCoreVital: false,
     },
@@ -199,44 +199,60 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       id: "ttfb",
       name: "Time to First Byte",
       acronym: "TTFB",
-      value: metrics.ttfb.value,
-      displayValue: metrics.ttfb.displayValue,
-      rawValueFormatted: ttfbParts.num,
-      unit: ttfbParts.unit,
-      rating: metrics.ttfb.rating,
+      value: metrics.ttfb?.value || null,
+      displayValue: metrics.ttfb?.displayValue || "—",
+      unit: ttfbParsed.unit,
+      rawValueFormatted: ttfbParsed.num,
+      rating: metrics.ttfb?.rating || "good",
       target: "≤ 800ms",
       goodMax: 800,
       warnMax: 1800,
-      description: "Measures server responsiveness and TLS connection overhead for initial request.",
-      icon: <Server className="h-4 w-4 text-[#635bff]" />,
+      description: "Measures origin server response responsiveness and SSL handshake speed.",
+      icon: <Server className="h-4 w-4 text-brand-500" />,
       weight: "Diagnostic",
       isCoreVital: false,
     },
   ];
 
+  // Helper to compute pin percentage position on 3-zone bar
   const computePinPercentage = (val: number | null, goodMax: number, warnMax: number) => {
-    if (val == null || val <= 0) return 12;
+    if (val == null || isNaN(val)) return 15;
     if (val <= goodMax) {
-      return Math.max(6, Math.min(30, (val / goodMax) * 33));
+      return (val / goodMax) * 33.3;
+    } else if (val <= warnMax) {
+      return 33.3 + ((val - goodMax) / (warnMax - goodMax)) * 33.3;
+    } else {
+      const overRatio = Math.min(1, (val - warnMax) / (warnMax * 1.5));
+      return 66.6 + overRatio * 33.3;
     }
-    if (val <= warnMax) {
-      const ratio = (val - goodMax) / (warnMax - goodMax);
-      return 33 + ratio * 33;
-    }
-    return Math.min(94, 66 + ((val - warnMax) / warnMax) * 28);
   };
 
   return (
     <section className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-          <h3 className="text-base font-bold text-[#0a2540] flex items-center gap-2 font-sans">
-            <Activity className="h-4 w-4 text-[#635bff]" />
-            Core Web Vitals & Diagnostic Timings
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h3 className="text-base font-bold text-text-primary font-sans">
+            Core Web Vitals & Diagnostics
           </h3>
-          <p className="text-xs text-[#425466]">
-            Official Google Search performance benchmarks calibrated for desktop and mobile environments
+          <p className="text-xs text-text-secondary">
+            Standard Google Lighthouse 12.0 performance metrics and official ranking thresholds
           </p>
+        </div>
+
+        <div className="flex items-center gap-3 text-xs font-mono text-text-tertiary">
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-score-good" />
+            Good
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-score-warn" />
+            Needs Work
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-score-poor" />
+            Poor
+          </span>
         </div>
       </div>
 
@@ -248,27 +264,27 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
           return (
             <div
               key={card.id}
-              className="bg-white border border-[#e3e8ee] rounded-xl p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
+              className="bg-surface-0 border border-border rounded-xl p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
             >
               <div className="space-y-3.5">
                 {/* Header */}
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-lg bg-[#f0f2ff] border border-brand-200">
+                    <div className="p-2 rounded-lg bg-brand-50 border border-brand-200">
                       {card.icon}
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <h4 className="text-sm font-bold text-[#0a2540] font-sans">
+                        <h4 className="text-sm font-bold text-text-primary font-sans">
                           {card.acronym}
                         </h4>
                         {card.isCoreVital && (
-                          <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-[#f0f2ff] text-[#635bff] border border-brand-200">
+                          <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-brand-50 text-brand-500 border border-brand-200">
                             Core Vital
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-[#8898aa] line-clamp-1">
+                      <p className="text-xs text-text-tertiary line-clamp-1">
                         {card.name}
                       </p>
                     </div>
@@ -289,23 +305,23 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
                       {card.rawValueFormatted}
                     </span>
                     {card.unit && (
-                      <span className="text-sm font-semibold text-[#8898aa]">
+                      <span className="text-sm font-semibold text-text-tertiary">
                         {card.unit}
                       </span>
                     )}
                   </div>
 
-                  <span className="text-xs font-mono text-[#8898aa] bg-[#f8fafc] px-2 py-0.5 rounded-md border border-[#e3e8ee]">
+                  <span className="text-xs font-mono text-text-tertiary bg-surface-1 px-2 py-0.5 rounded-md border border-border">
                     Target: {card.target}
                   </span>
                 </div>
 
                 {/* 3-Zone Threshold Spectrum Bar */}
                 <div className="space-y-1">
-                  <div className="relative h-1.5 w-full bg-[#f1f5f9] rounded-full overflow-hidden flex">
-                    <div className="w-1/3 h-full bg-[#abf5d1]" />
-                    <div className="w-1/3 h-full bg-[#ffe380]" />
-                    <div className="w-1/3 h-full bg-[#ffbdad]" />
+                  <div className="relative h-1.5 w-full bg-surface-2 rounded-full overflow-hidden flex">
+                    <div className="w-1/3 h-full bg-[#abf5d1] dark:bg-[#00875a]/40" />
+                    <div className="w-1/3 h-full bg-[#ffe380] dark:bg-[#b76e00]/40" />
+                    <div className="w-1/3 h-full bg-[#ffbdad] dark:bg-[#de350b]/40" />
                   </div>
 
                   {/* Marker Pin */}
@@ -314,21 +330,21 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
                       className="absolute top-0 transform -translate-x-1/2 -mt-2 transition-all duration-500"
                       style={{ left: `${pinPercent}%` }}
                     >
-                      <div className="w-2 h-2 bg-[#0a2540] border-2 border-white rounded-full shadow-xs" />
+                      <div className="w-2 h-2 bg-text-primary border-2 border-surface-0 rounded-full shadow-xs" />
                     </div>
                   </div>
                 </div>
 
                 {/* Metric Summary */}
-                <p className="text-xs text-[#425466] leading-relaxed line-clamp-2">
+                <p className="text-xs text-text-secondary leading-relaxed line-clamp-2">
                   {card.description}
                 </p>
               </div>
 
               {/* Footer Weight */}
-              <div className="mt-4 pt-3 border-t border-[#f1f5f9] flex items-center justify-between text-xs text-[#8898aa]">
+              <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs text-text-tertiary">
                 <span className="font-medium">Lighthouse Weight</span>
-                <span className="font-semibold text-[#0a2540] font-mono">{card.weight}</span>
+                <span className="font-semibold text-text-primary font-mono">{card.weight}</span>
               </div>
             </div>
           );

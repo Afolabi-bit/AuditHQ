@@ -29,7 +29,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
   return (
     <div className="space-y-5">
       {/* Section Selector */}
-      <div className="flex items-center gap-2 border-b border-[#e3e8ee] pb-3">
+      <div className="flex items-center gap-2 border-b border-border pb-3">
         <button
           onClick={() => {
             setSection("a11y");
@@ -37,8 +37,8 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
           }}
           className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer font-sans ${
             section === "a11y"
-              ? "bg-[#635bff] text-white shadow-xs"
-              : "bg-white text-[#425466] hover:bg-[#f8fafc] border border-[#e3e8ee]"
+              ? "bg-brand-600 text-white shadow-xs"
+              : "bg-surface-0 text-text-secondary hover:text-text-primary hover:bg-surface-2 border border-border"
           }`}
         >
           <Eye className="h-4 w-4" />
@@ -52,8 +52,8 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
           }}
           className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer font-sans ${
             section === "seo"
-              ? "bg-[#635bff] text-white shadow-xs"
-              : "bg-white text-[#425466] hover:bg-[#f8fafc] border border-[#e3e8ee]"
+              ? "bg-brand-600 text-white shadow-xs"
+              : "bg-surface-0 text-text-secondary hover:text-text-primary hover:bg-surface-2 border border-border"
           }`}
         >
           <Search className="h-4 w-4" />
@@ -63,14 +63,14 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
 
       {/* Issues List */}
       {activeIssues.length === 0 ? (
-        <div className="bg-white border border-[#e3e8ee] rounded-xl p-10 text-center space-y-2 shadow-[0_1px_3px_rgba(50,50,93,0.08)]">
-          <div className="h-10 w-10 rounded-full bg-[#e3fcf7] text-[#00875a] flex items-center justify-center mx-auto border border-[#abf5d1]">
+        <div className="bg-surface-0 border border-border rounded-xl p-10 text-center space-y-2 shadow-xs">
+          <div className="h-10 w-10 rounded-full bg-score-good/10 text-score-good flex items-center justify-center mx-auto border border-score-good/30">
             <CheckCircle2 className="h-6 w-6" />
           </div>
-          <h4 className="text-sm font-bold text-[#0a2540] font-sans">
+          <h4 className="text-sm font-bold text-text-primary font-sans">
             All {section === "a11y" ? "Accessibility" : "SEO"} checks passed!
           </h4>
-          <p className="text-xs text-[#8898aa] max-w-md mx-auto">
+          <p className="text-xs text-text-tertiary max-w-md mx-auto">
             Your website meets Google's standard accessibility contrast and search crawler indexability requirements.
           </p>
         </div>
@@ -83,25 +83,25 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
             return (
               <div
                 key={issue.id}
-                className={`bg-white border rounded-xl overflow-hidden transition-all shadow-[0_1px_3px_rgba(50,50,93,0.08)] ${
-                  isExpanded ? "border-brand-200" : "border-[#e3e8ee] hover:border-brand-200"
+                className={`bg-surface-0 border rounded-xl overflow-hidden transition-all shadow-xs ${
+                  isExpanded ? "border-brand-200" : "border-border hover:border-brand-200"
                 }`}
               >
                 <div
                   onClick={() => setExpandedId(isExpanded ? null : issue.id)}
-                  className="p-4 sm:p-5 flex items-center justify-between cursor-pointer hover:bg-[#f8fafc] transition-colors gap-4"
+                  className="p-4 sm:p-5 flex items-center justify-between cursor-pointer hover:bg-surface-2 transition-colors gap-4"
                 >
                   <div className="flex items-start gap-3 flex-1 min-w-0">
-                    <div className="mt-0.5 p-1.5 rounded-md bg-[#ffebe6] text-[#de350b] border border-[#ffbdad] shrink-0">
+                    <div className="mt-0.5 p-1.5 rounded-md bg-[#ffebe6] text-[#de350b] border border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30 shrink-0">
                       <XCircle className="h-4 w-4" />
                     </div>
                     <div className="space-y-1 flex-1 min-w-0">
-                      <h4 className="text-sm font-bold text-[#0a2540] font-sans">
+                      <h4 className="text-sm font-bold text-text-primary font-sans">
                         {issue.title}
                       </h4>
                       <FormattedDescription
                         text={issue.description}
-                        className="text-xs text-[#425466] line-clamp-1 block"
+                        className="text-xs text-text-secondary line-clamp-1 block"
                         isTruncatedPreview={true}
                       />
                     </div>
@@ -109,11 +109,11 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
 
                   <div className="flex items-center gap-3 shrink-0">
                     {items && items.length > 0 && (
-                      <span className="text-[11px] font-mono text-[#8898aa] bg-[#f8fafc] px-2 py-0.5 rounded border border-[#e3e8ee]">
+                      <span className="text-[11px] font-mono text-text-tertiary bg-surface-1 px-2 py-0.5 rounded border border-border">
                         {items.length} nodes
                       </span>
                     )}
-                    <div className="p-1 rounded bg-[#f8fafc] border border-[#e3e8ee] text-[#8898aa]">
+                    <div className="p-1 rounded bg-surface-1 border border-border text-text-tertiary">
                       {isExpanded ? (
                         <ChevronUp className="h-4 w-4" />
                       ) : (
@@ -124,33 +124,33 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
                 </div>
 
                 {isExpanded && (
-                  <div className="p-5 border-t border-[#f1f5f9] bg-[#f8fafc] space-y-4 text-xs">
+                  <div className="p-5 border-t border-border bg-surface-1 space-y-4 text-xs">
                     <FormattedDescription
                       text={issue.description}
-                      className="text-xs text-[#425466] leading-relaxed"
+                      className="text-xs text-text-secondary leading-relaxed"
                     />
 
                     {items && items.length > 0 && (
                       <div className="space-y-2">
-                        <p className="font-bold text-[#0a2540] uppercase tracking-wider text-[11px]">
+                        <p className="font-bold text-text-primary uppercase tracking-wider text-[11px] font-sans">
                           Failing Elements ({items.length})
                         </p>
                         <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
                           {items.map((node: any, nIdx: number) => (
                             <div
                               key={nIdx}
-                              className="p-3 bg-white rounded-lg border border-[#e3e8ee] space-y-1 font-mono text-[11px]"
+                              className="p-3 bg-surface-0 rounded-lg border border-border space-y-1 font-mono text-[11px]"
                             >
-                              <div className="text-[#0a2540] font-semibold">
+                              <div className="text-text-primary font-semibold">
                                 {node.node?.selector || node.selector || "DOM Node"}
                               </div>
                               {(node.node?.snippet || node.snippet) && (
-                                <code className="block text-[#635bff] bg-[#f0f2ff] p-1.5 rounded border border-brand-200 truncate">
+                                <code className="block text-brand-500 bg-brand-50 p-1.5 rounded border border-brand-200 truncate">
                                   {node.node?.snippet || node.snippet}
                                 </code>
                               )}
                               {node.node?.explanation && (
-                                <p className="text-[#8898aa] font-sans text-xs">
+                                <p className="text-text-tertiary font-sans text-xs">
                                   {node.node.explanation}
                                 </p>
                               )}

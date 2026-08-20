@@ -20,33 +20,33 @@ export const CategoryScoreRings: React.FC<CategoryScoreRingsProps> = ({ scores }
   return (
     <section className="space-y-4">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-[#e3e8ee] rounded-xl p-4 px-6 shadow-[0_1px_3px_rgba(50,50,93,0.08)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0 border border-border rounded-xl p-4 px-6 shadow-xs">
         <div className="space-y-0.5">
           <div className="flex items-center gap-2">
-            <h2 className="text-base font-extrabold text-[#0a2540] tracking-tight font-sans">
+            <h2 className="text-base font-extrabold text-text-primary tracking-tight font-sans">
               Core Performance Audit
             </h2>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#f0f2ff] text-[#635bff] border border-brand-200">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200">
               Composite Index: {avgCategoryScore}/100
             </span>
           </div>
-          <p className="text-xs text-[#425466]">
+          <p className="text-xs text-text-secondary">
             Multi-dimensional evaluation based on official Google Lighthouse 12.0 scoring algorithms
           </p>
         </div>
 
         {/* Legend */}
-        <div className="flex items-center gap-4 text-xs font-medium text-[#425466]">
+        <div className="flex items-center gap-4 text-xs font-medium text-text-secondary">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#00875a]" />
+            <span className="w-2 h-2 rounded-full bg-score-good" />
             90–100 Good
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#b76e00]" />
+            <span className="w-2 h-2 rounded-full bg-score-warn" />
             50–89 Needs Work
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#de350b]" />
+            <span className="w-2 h-2 rounded-full bg-score-poor" />
             0–49 Poor
           </span>
         </div>

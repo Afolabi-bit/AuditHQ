@@ -7,7 +7,6 @@ import { CategoryScoreRings } from "./CategoryScoreRings";
 import { CoreWebVitalsGrid } from "./CoreWebVitalsGrid";
 import { VisualExperience } from "./VisualExperience";
 import { ReportTabs } from "./ReportTabs";
-import { Card, CardContent } from "../ui/card";
 import { AlertCircle, Zap, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -47,12 +46,12 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center w-full max-w-full">
-        <div className="max-w-md w-full rounded-xl bg-white border border-[#e3e8ee] p-8 shadow-[0_1px_3px_rgba(50,50,93,0.08)] space-y-4">
+        <div className="max-w-md w-full rounded-xl bg-surface-0 border border-border p-8 shadow-xs space-y-4">
           <div
             className={`h-12 w-12 rounded-xl flex items-center justify-center mx-auto border ${
               isPending
-                ? "bg-[#f0f2ff] text-[#635bff] border-brand-200"
-                : "bg-[#ffebe6] text-[#de350b] border-[#ffbdad]"
+                ? "bg-brand-50 text-brand-500 border-brand-200"
+                : "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30"
             }`}
           >
             {isPending ? (
@@ -62,10 +61,10 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             )}
           </div>
           <div className="space-y-1">
-            <h2 className="text-base font-bold text-[#0a2540] font-sans">
+            <h2 className="text-base font-bold text-text-primary font-sans">
               {isPending ? "Cloud Audit in Progress..." : "Audit Encountered an Issue"}
             </h2>
-            <p className="text-xs text-[#425466] leading-relaxed">
+            <p className="text-xs text-text-secondary leading-relaxed">
               {isPending
                 ? "Lighthouse 12.0 is executing mobile/desktop simulations. This page will update automatically."
                 : test.errorMessage ||
@@ -76,7 +75,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             <Link href={isPublic ? "/" : "/dashboard"}>
               <Button
                 size="sm"
-                className="bg-[#635bff] hover:bg-brand-700 text-white font-semibold text-xs rounded-lg px-4 h-9 cursor-pointer"
+                className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-lg px-4 h-9 cursor-pointer"
               >
                 {isPublic ? "Return to AuditHQ Home" : "Return to Dashboard"}
               </Button>
@@ -88,7 +87,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-surface-1 pb-16 w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground pb-16 w-full max-w-full overflow-x-hidden">
       {/* Top Header with Breadcrumbs & Actions */}
       <ReportHeader
         testId={test.id}
@@ -120,17 +119,17 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
         {/* 5. Public Footer CTA Banner (if viewed publicly) */}
         {isPublic && (
-          <div className="mt-12 bg-[#635bff] rounded-xl p-8 text-center text-white space-y-4 print:hidden shadow-md">
-            <h3 className="text-2xl font-bold font-sans">
+          <div className="mt-12 bg-gradient-to-br from-brand-600 to-brand-700 dark:from-[#1e1b38] dark:to-surface-0 dark:border dark:border-brand-500/30 rounded-2xl p-8 text-center text-white space-y-4 print:hidden shadow-xl">
+            <h3 className="text-2xl font-bold font-sans text-white dark:text-text-primary">
               Optimize your website performance with AuditHQ
             </h3>
-            <p className="text-white/85 text-sm max-w-xl mx-auto">
+            <p className="text-white/90 dark:text-text-secondary text-sm max-w-xl mx-auto">
               Run automated Lighthouse cloud audits, track Core Web Vitals over time, and get instant recommendations to build faster web experiences.
             </p>
             <div className="pt-2">
               <Link href="/">
-                <Button size="lg" className="bg-white text-[#635bff] hover:bg-[#f0f2ff] font-bold shadow-sm rounded-lg cursor-pointer">
-                  <Zap className="h-4 w-4 mr-2 fill-[#635bff]" />
+                <Button size="lg" className="bg-white text-zinc-950 hover:bg-zinc-100 dark:bg-brand-500 dark:text-white dark:hover:bg-brand-600 font-extrabold shadow-md rounded-lg cursor-pointer">
+                  <Zap className="h-4 w-4 mr-2 fill-current" />
                   Run Free Audit Now
                 </Button>
               </Link>
