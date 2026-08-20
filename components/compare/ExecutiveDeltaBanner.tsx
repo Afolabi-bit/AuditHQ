@@ -39,20 +39,20 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
     if (raw > 0) {
       return {
         bg: "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/25 dark:text-[#4de7b4] dark:border-[#00875a]/40",
-        icon: <TrendingUp className="h-5 w-5 shrink-0" />,
+        icon: <TrendingUp className="h-6 w-6 shrink-0" />,
         text: `+${raw} pts`,
       };
     }
     if (raw < 0) {
       return {
         bg: "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/25 dark:text-[#ff7452] dark:border-[#de350b]/40",
-        icon: <TrendingDown className="h-5 w-5 shrink-0" />,
+        icon: <TrendingDown className="h-6 w-6 shrink-0" />,
         text: `${raw} pts`,
       };
     }
     return {
       bg: "bg-surface-2 text-text-tertiary border-border",
-      icon: <Minus className="h-5 w-5 shrink-0" />,
+      icon: <Minus className="h-6 w-6 shrink-0" />,
       text: "0 pts",
     };
   };
@@ -60,13 +60,13 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
   const badge = getScoreDeltaBadge();
 
   return (
-    <div className={`rounded-2xl border p-6 sm:p-7 shadow-xs space-y-6 transition-all ${getContainerStyle()}`}>
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+    <div className={`rounded-2xl border p-7 sm:p-9 shadow-xs space-y-8 transition-all ${getContainerStyle()}`}>
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
         {/* Left: Overall Verdict Title & Subtitle */}
-        <div className="space-y-2 max-w-2xl">
-          <div className="flex items-center gap-2">
+        <div className="space-y-3 max-w-2xl">
+          <div className="flex items-center gap-2.5">
             <span
-              className={`px-3 py-1 rounded-full text-xs font-bold font-mono uppercase tracking-wider border flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold font-mono uppercase tracking-wider border flex items-center gap-2 shadow-2xs ${
                 isPositive
                   ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/25 dark:text-[#4de7b4] dark:border-[#00875a]/40"
                   : isNegative
@@ -75,158 +75,137 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
               }`}
             >
               {isPositive ? (
-                <Zap className="h-3.5 w-3.5 fill-current" />
+                <Zap className="h-4 w-4 fill-current" />
               ) : isNegative ? (
-                <AlertTriangle className="h-3.5 w-3.5" />
+                <AlertTriangle className="h-4 w-4" />
               ) : (
-                <Minus className="h-3.5 w-3.5" />
+                <Minus className="h-4 w-4" />
               )}
               {overallVerdict.badge}
             </span>
-            <span className="text-xs font-semibold text-text-tertiary">
+            <span className="text-xs font-semibold text-text-tertiary font-mono">
               Comparative Analysis
             </span>
           </div>
 
-          <h1 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight font-sans">
+          <h2 className="text-2xl sm:text-3xl lg:text-3.5xl font-extrabold text-text-primary tracking-tight font-sans">
             {overallVerdict.title}
-          </h1>
+          </h2>
 
-          <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+          <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-normal">
             {overallVerdict.subtitle}
           </p>
         </div>
 
-        {/* Right: Net Score Shift Hero Card */}
-        <div className="flex items-center gap-4 bg-surface-0/80 dark:bg-surface-0 backdrop-blur-sm p-4 sm:p-5 rounded-xl border border-border shrink-0">
-          <div className="space-y-0.5">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-text-tertiary font-sans">
-              Score Delta
-            </p>
-            <div className="flex items-center gap-2">
-              <span className="text-3xl sm:text-4xl font-extrabold font-mono text-text-primary tracking-tight">
-                {report.base.score}
-              </span>
-              <span className="text-text-tertiary text-lg font-light">→</span>
-              <span
-                className={`text-3xl sm:text-4xl font-extrabold font-mono tracking-tight ${
-                  (scoreDelta.delta ?? 0) > 0
-                    ? "text-score-good"
-                    : (scoreDelta.delta ?? 0) < 0
-                    ? "text-score-poor"
-                    : "text-text-primary"
-                }`}
-              >
-                {report.target.score}
-              </span>
-            </div>
-          </div>
+        {/* Right: Score Shift Hero Box */}
+        <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3.5 shrink-0 bg-surface-0/80 p-5 rounded-2xl border border-border/80 shadow-2xs">
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-text-tertiary">
+            Net Performance Shift
+          </span>
 
           <div
-            className={`px-3 py-2 rounded-xl border flex items-center gap-1.5 font-mono font-bold text-sm sm:text-base ${badge.bg}`}
+            className={`flex items-center gap-2 px-5 py-3 rounded-xl border text-2xl sm:text-3xl font-mono font-extrabold shadow-sm ${badge.bg}`}
           >
             {badge.icon}
-            {badge.text}
+            <span>{badge.text}</span>
+          </div>
+
+          <div className="flex items-center gap-2 font-mono text-xs text-text-tertiary">
+            <span>Base: {report.base.score ?? "—"}/100</span>
+            <span>➔</span>
+            <span className="text-text-primary font-bold">Target: {report.target.score ?? "—"}/100</span>
           </div>
         </div>
       </div>
 
-      {/* 4 Key Performance Highlights Pills */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-border/60">
-        {/* LCP Speed Gain */}
-        <div className="p-3 bg-surface-0/60 rounded-xl border border-border/80 space-y-1">
-          <div className="flex items-center gap-1.5 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            <Clock className="h-3.5 w-3.5" />
-            LCP Render Delta
+      {/* 4 Quick Impact Highlight Pills */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 pt-2">
+        {/* 1. LCP Delta */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
+          <div className="flex items-center justify-between text-xs text-text-tertiary">
+            <span className="font-semibold text-text-primary font-sans">LCP Delta</span>
+            <Clock className="h-4 w-4 text-brand-500" />
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span
-              className={`text-lg font-extrabold font-mono ${
-                metrics.lcp.status === "improved"
-                  ? "text-score-good"
-                  : metrics.lcp.status === "regressed"
-                  ? "text-score-poor"
-                  : "text-text-primary"
-              }`}
-            >
-              {metrics.lcp.deltaDisplay}
-            </span>
-            <span className="text-[11px] text-text-tertiary font-mono">
-              ({metrics.lcp.targetDisplay})
-            </span>
-          </div>
+          <p
+            className={`text-xl sm:text-2xl font-mono font-extrabold ${
+              metrics.lcp.status === "improved"
+                ? "text-score-good"
+                : metrics.lcp.status === "regressed"
+                ? "text-score-poor"
+                : "text-text-primary"
+            }`}
+          >
+            {metrics.lcp.deltaDisplay}
+          </p>
+          <p className="text-xs text-text-secondary font-mono">
+            {metrics.lcp.baseDisplay} ➔ {metrics.lcp.targetDisplay}
+          </p>
         </div>
 
-        {/* TBT Main Thread */}
-        <div className="p-3 bg-surface-0/60 rounded-xl border border-border/80 space-y-1">
-          <div className="flex items-center gap-1.5 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            <Zap className="h-3.5 w-3.5" />
-            TBT Blocking Delta
+        {/* 2. TBT Delta */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
+          <div className="flex items-center justify-between text-xs text-text-tertiary">
+            <span className="font-semibold text-text-primary font-sans">TBT Delta</span>
+            <Zap className="h-4 w-4 text-brand-500" />
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span
-              className={`text-lg font-extrabold font-mono ${
-                metrics.tbt.status === "improved"
-                  ? "text-score-good"
-                  : metrics.tbt.status === "regressed"
-                  ? "text-score-poor"
-                  : "text-text-primary"
-              }`}
-            >
-              {metrics.tbt.deltaDisplay}
-            </span>
-            <span className="text-[11px] text-text-tertiary font-mono">
-              ({metrics.tbt.targetDisplay})
-            </span>
-          </div>
+          <p
+            className={`text-xl sm:text-2xl font-mono font-extrabold ${
+              metrics.tbt.status === "improved"
+                ? "text-score-good"
+                : metrics.tbt.status === "regressed"
+                ? "text-score-poor"
+                : "text-text-primary"
+            }`}
+          >
+            {metrics.tbt.deltaDisplay}
+          </p>
+          <p className="text-xs text-text-secondary font-mono">
+            {metrics.tbt.baseDisplay} ➔ {metrics.tbt.targetDisplay}
+          </p>
         </div>
 
-        {/* Cumulative Layout Shift */}
-        <div className="p-3 bg-surface-0/60 rounded-xl border border-border/80 space-y-1">
-          <div className="flex items-center gap-1.5 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            <Layers className="h-3.5 w-3.5" />
-            CLS Visual Stability
+        {/* 3. CLS Delta */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
+          <div className="flex items-center justify-between text-xs text-text-tertiary">
+            <span className="font-semibold text-text-primary font-sans">CLS Delta</span>
+            <Layers className="h-4 w-4 text-brand-500" />
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span
-              className={`text-lg font-extrabold font-mono ${
-                metrics.cls.status === "improved"
-                  ? "text-score-good"
-                  : metrics.cls.status === "regressed"
-                  ? "text-score-poor"
-                  : "text-text-primary"
-              }`}
-            >
-              {metrics.cls.deltaDisplay}
-            </span>
-            <span className="text-[11px] text-text-tertiary font-mono">
-              ({metrics.cls.targetDisplay})
-            </span>
-          </div>
+          <p
+            className={`text-xl sm:text-2xl font-mono font-extrabold ${
+              metrics.cls.status === "improved"
+                ? "text-score-good"
+                : metrics.cls.status === "regressed"
+                ? "text-score-poor"
+                : "text-text-primary"
+            }`}
+          >
+            {metrics.cls.deltaDisplay}
+          </p>
+          <p className="text-xs text-text-secondary font-mono">
+            {metrics.cls.baseDisplay} ➔ {metrics.cls.targetDisplay}
+          </p>
         </div>
 
-        {/* Total Page Weight */}
-        <div className="p-3 bg-surface-0/60 rounded-xl border border-border/80 space-y-1">
-          <div className="flex items-center gap-1.5 text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
-            <Sparkles className="h-3.5 w-3.5" />
-            Transfer Size Delta
+        {/* 4. Total Byte Shift */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
+          <div className="flex items-center justify-between text-xs text-text-tertiary">
+            <span className="font-semibold text-text-primary font-sans">Weight Shift</span>
+            <Sparkles className="h-4 w-4 text-brand-500" />
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span
-              className={`text-lg font-extrabold font-mono ${
-                totalByteDiff?.status === "improved"
-                  ? "text-score-good"
-                  : totalByteDiff?.status === "regressed"
-                  ? "text-score-poor"
-                  : "text-text-primary"
-              }`}
-            >
-              {totalByteDiff?.deltaFormatted || "0 KB"}
-            </span>
-            <span className="text-[11px] text-text-tertiary font-mono">
-              ({totalByteDiff?.targetFormatted || "0 KB"})
-            </span>
-          </div>
+          <p
+            className={`text-xl sm:text-2xl font-mono font-extrabold ${
+              (totalByteDiff?.deltaBytes ?? 0) < 0
+                ? "text-score-good"
+                : (totalByteDiff?.deltaBytes ?? 0) > 0
+                ? "text-score-poor"
+                : "text-text-primary"
+            }`}
+          >
+            {totalByteDiff ? totalByteDiff.deltaFormatted : "0 KB"}
+          </p>
+          <p className="text-xs text-text-secondary font-mono">
+            {totalByteDiff ? `${totalByteDiff.baseFormatted} ➔ ${totalByteDiff.targetFormatted}` : "No byte data"}
+          </p>
         </div>
       </div>
     </div>

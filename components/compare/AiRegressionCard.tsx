@@ -119,46 +119,47 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
     summary.verdict === "Moderate Improvement";
 
   return (
-    <div className="rounded-2xl border border-brand-500/30 bg-linear-to-br from-brand-500/5 via-surface-0 to-surface-0 p-6 sm:p-7 shadow-xs space-y-5 relative overflow-hidden">
+    <div className="rounded-2xl border border-brand-500/30 bg-linear-to-br from-brand-500/5 via-surface-0 to-surface-0 p-7 sm:p-9 shadow-xs space-y-6 relative overflow-hidden">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-border/70 pb-4">
-        <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl bg-brand-500/10 border border-brand-500/25 flex items-center justify-center text-brand-500 shadow-xs shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/70 pb-5">
+        <div className="flex items-center gap-3.5">
+          <div className="h-10 w-10 rounded-xl bg-brand-500/10 border border-brand-500/25 flex items-center justify-center text-brand-500 shadow-2xs shrink-0">
             <Sparkles className="h-5 w-5" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-text-primary font-sans">
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-lg font-bold text-text-primary font-sans">
                 AI Regression Diagnosis & Changelog
               </h2>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200 uppercase">
+              <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200 uppercase shadow-2xs">
                 Gemini 3.6 Flash
               </span>
             </div>
-            <p className="text-xs text-text-secondary">
+            <p className="text-xs sm:text-sm text-text-secondary mt-0.5">
               Automated comparative telemetry synthesis & root-cause evaluation
             </p>
           </div>
         </div>
 
-        <span
-          className={`px-3 py-1 rounded-full text-xs font-bold font-mono border self-start sm:self-auto ${
-            isImprovement
-              ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/20 dark:text-[#4de7b4] dark:border-[#00875a]/30"
-              : summary.verdict.includes("Regression")
-              ? "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/20 dark:text-[#ff7452] dark:border-[#de350b]/30"
-              : "bg-surface-2 text-text-secondary border-border"
-          }`}
-        >
-          {summary.verdict}
-        </span>
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <span
+            className={`px-3 py-1 rounded-full text-xs font-bold border font-mono shadow-2xs ${
+              isImprovement
+                ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/20 dark:text-[#4de7b4] dark:border-[#00875a]/30"
+                : "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/20 dark:text-[#ff7452] dark:border-[#de350b]/30"
+            }`}
+          >
+            {summary.verdict}
+          </span>
+        </div>
       </div>
 
       {/* Headline & Executive Summary */}
-      <div className="space-y-2">
-        <h3 className="text-sm sm:text-base font-bold text-text-primary font-sans leading-snug">
-          "{summary.headline}"
-        </h3>
+      <div className="p-5 sm:p-6 rounded-xl bg-brand-500/5 border border-brand-500/20 space-y-2.5">
+        <p className="text-sm sm:text-base font-bold text-brand-600 dark:text-brand-400 font-sans flex items-center gap-2">
+          <Zap className="h-4.5 w-4.5 shrink-0 fill-current" />
+          {summary.headline}
+        </p>
         <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
           {summary.executiveSummary}
         </p>

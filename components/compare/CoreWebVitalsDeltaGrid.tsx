@@ -9,7 +9,6 @@ import {
   Layers,
   Activity,
   Gauge,
-  HelpCircle,
 } from "lucide-react";
 import { ComparisonReport, MetricDelta } from "@/lib/comparison/types";
 
@@ -29,65 +28,63 @@ const cwvConfigs: CWVConfig[] = [
   {
     id: "lcp",
     title: "Largest Contentful Paint (LCP)",
-    shortDesc: "Main content rendering speed",
+    shortDesc: "Main viewport content rendering speed",
     targetThreshold: "Target: ≤ 2.5s",
-    icon: <Clock className="h-4 w-4" />,
+    icon: <Clock className="h-4.5 w-4.5" />,
   },
   {
     id: "fcp",
     title: "First Contentful Paint (FCP)",
     shortDesc: "First visual DOM element painted",
     targetThreshold: "Target: ≤ 1.8s",
-    icon: <Activity className="h-4 w-4" />,
+    icon: <Activity className="h-4.5 w-4.5" />,
   },
   {
     id: "tbt",
     title: "Total Blocking Time (TBT)",
     shortDesc: "Main thread script task responsiveness",
     targetThreshold: "Target: ≤ 200ms",
-    icon: <Zap className="h-4 w-4" />,
+    icon: <Zap className="h-4.5 w-4.5" />,
   },
   {
     id: "cls",
     title: "Cumulative Layout Shift (CLS)",
-    shortDesc: "Visual stability and unexpected layout shift",
+    shortDesc: "Visual stability and unexpected layout shifts",
     targetThreshold: "Target: ≤ 0.10",
-    icon: <Layers className="h-4 w-4" />,
+    icon: <Layers className="h-4.5 w-4.5" />,
   },
   {
     id: "speedIndex",
     title: "Speed Index",
     shortDesc: "Visual progression speed during page load",
     targetThreshold: "Target: ≤ 3.4s",
-    icon: <Gauge className="h-4 w-4" />,
+    icon: <Gauge className="h-4.5 w-4.5" />,
   },
   {
     id: "ttfb",
     title: "Time to First Byte (TTFB)",
-    shortDesc: "Server response and network roundtrip time",
+    shortDesc: "Initial server response and TLS handshake latency",
     targetThreshold: "Target: ≤ 800ms",
-    icon: <Clock className="h-4 w-4" />,
+    icon: <Clock className="h-4.5 w-4.5" />,
   },
 ];
 
-export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({
-  metrics,
-}) => {
+export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ metrics }) => {
   return (
-    <section className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-bold text-text-primary font-sans flex items-center gap-2">
+    <section className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="space-y-1">
+          <h2 className="text-lg sm:text-xl font-bold text-text-primary font-sans flex items-center gap-2.5">
             <Gauge className="h-5 w-5 text-brand-500" />
             Core Web Vitals & Diagnostic Metrics Comparison
           </h2>
-          <p className="text-xs text-text-secondary">
+          <p className="text-xs sm:text-sm text-text-secondary">
             Comparative performance telemetry measured across identical synthetic conditions
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
         {cwvConfigs.map((cfg) => {
           const item: MetricDelta = metrics[cfg.id];
           const isImproved = item.status === "improved";
@@ -96,31 +93,31 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({
           return (
             <div
               key={cfg.id}
-              className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs space-y-4 hover:border-brand-200 transition-all flex flex-col justify-between"
+              className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs space-y-5 hover:border-brand-200 hover:shadow-md transition-all flex flex-col justify-between"
             >
               {/* Header */}
-              <div className="flex items-start justify-between gap-2">
-                <div className="space-y-0.5">
-                  <p className="text-xs font-bold text-text-primary font-sans flex items-center gap-1.5">
+              <div className="flex items-start justify-between gap-3">
+                <div className="space-y-1">
+                  <p className="text-sm font-bold text-text-primary font-sans">
                     {cfg.title}
                   </p>
-                  <p className="text-[11px] text-text-tertiary">
+                  <p className="text-xs text-text-tertiary">
                     {cfg.shortDesc}
                   </p>
                 </div>
-                <div className="h-8 w-8 rounded-lg bg-surface-1 border border-border flex items-center justify-center text-text-secondary shrink-0">
+                <div className="h-9 w-9 rounded-xl bg-surface-1 border border-border flex items-center justify-center text-text-secondary shrink-0 shadow-2xs">
                   {cfg.icon}
                 </div>
               </div>
 
               {/* Side by side Values */}
-              <div className="grid grid-cols-2 gap-2 bg-surface-1 p-3 rounded-lg border border-border/70">
+              <div className="grid grid-cols-2 gap-3 bg-surface-1 p-3.5 rounded-xl border border-border/70">
                 {/* Base Value */}
                 <div className="space-y-0.5">
                   <span className="text-[10px] uppercase font-bold text-text-tertiary font-sans">
                     Base Run
                   </span>
-                  <p className="text-base font-extrabold font-mono text-text-secondary">
+                  <p className="text-base sm:text-lg font-extrabold font-mono text-text-secondary">
                     {item.baseDisplay}
                   </p>
                 </div>
@@ -130,20 +127,20 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({
                   <span className="text-[10px] uppercase font-bold text-text-tertiary font-sans">
                     Target Run
                   </span>
-                  <p className="text-base font-extrabold font-mono text-text-primary">
+                  <p className="text-base sm:text-lg font-extrabold font-mono text-text-primary">
                     {item.targetDisplay}
                   </p>
                 </div>
               </div>
 
               {/* Delta & Percent Shift */}
-              <div className="flex items-center justify-between pt-1 border-t border-border/60 text-xs">
+              <div className="flex items-center justify-between pt-2 border-t border-border/60 text-xs">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[11px] font-semibold text-text-tertiary">
                     Net Delta:
                   </span>
                   <span
-                    className={`inline-flex items-center gap-1 font-mono font-bold px-2 py-0.5 rounded text-[11px] border ${
+                    className={`inline-flex items-center gap-1 font-mono font-bold px-2.5 py-1 rounded-lg text-xs border ${
                       isImproved
                         ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30"
                         : isRegressed
@@ -152,9 +149,9 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({
                     }`}
                   >
                     {isImproved ? (
-                      <TrendingDown className="h-3 w-3" />
+                      <TrendingDown className="h-3.5 w-3.5" />
                     ) : isRegressed ? (
-                      <TrendingUp className="h-3 w-3" />
+                      <TrendingUp className="h-3.5 w-3.5" />
                     ) : null}
                     {item.deltaDisplay}
                     {item.percentChange != null && (
@@ -163,7 +160,7 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({
                   </span>
                 </div>
 
-                <span className="text-[10px] font-mono text-text-tertiary">
+                <span className="text-[11px] font-mono text-text-tertiary">
                   {cfg.targetThreshold}
                 </span>
               </div>

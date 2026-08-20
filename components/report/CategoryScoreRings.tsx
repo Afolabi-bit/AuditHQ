@@ -18,42 +18,42 @@ export const CategoryScoreRings: React.FC<CategoryScoreRingsProps> = ({ scores }
   );
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-6">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0 border border-border rounded-xl p-4 px-6 shadow-xs">
-        <div className="space-y-0.5">
-          <div className="flex items-center gap-2">
-            <h2 className="text-base font-extrabold text-text-primary tracking-tight font-sans">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs">
+        <div className="space-y-1">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h2 className="text-lg sm:text-xl font-extrabold text-text-primary tracking-tight font-sans">
               Core Performance Audit
             </h2>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200 shadow-2xs">
               Composite Index: {avgCategoryScore}/100
             </span>
           </div>
-          <p className="text-xs text-text-secondary">
+          <p className="text-xs sm:text-sm text-text-secondary">
             Multi-dimensional evaluation based on official Google Lighthouse 12.0 scoring algorithms
           </p>
         </div>
 
         {/* Legend */}
-        <div className="flex items-center gap-4 text-xs font-medium text-text-secondary">
+        <div className="flex items-center gap-4 text-xs font-medium text-text-secondary font-mono">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-score-good" />
+            <span className="w-2.5 h-2.5 rounded-full bg-score-good" />
             90–100 Good
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-score-warn" />
+            <span className="w-2.5 h-2.5 rounded-full bg-score-warn" />
             50–89 Needs Work
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-score-poor" />
+            <span className="w-2.5 h-2.5 rounded-full bg-score-poor" />
             0–49 Poor
           </span>
         </div>
       </div>
 
       {/* 4 Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
         <ScoreGauge
           score={scores.performance}
           label="Performance"

@@ -1,103 +1,125 @@
 "use client";
 
-import React, { useState, FormEvent } from "react";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 import {
   Globe,
+  Loader2,
   Monitor,
   Smartphone,
   Zap,
-  Loader2,
-  ArrowRight,
 } from "lucide-react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { normalizeAndValidateUrl } from "@/app/utils/validateUrl";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
-import { mutate } from "swr";
-import { toast } from "sonner";
-import { useAppStore, toStoredTest } from "@/lib/store/useAppStore";
+import { useSWRConfig } from "swr";
+import { useAppStore } from "@/lib/store/useAppStore";
 
-const NewTest = ({ user }: { user: KindeUser }) => {
+interface NewTestProps {
+  user: KindeUser;
+}
+
+const NewTest: React.FC<NewTestProps> = ({ user }) => {
   const [url, setUrl] = useState("");
-  const [device, setDevice] = useState("Desktop");
-  const [network, setNetwork] = useState("No Throttling");
-  const [isUrlValid, setIsUrlValid] = useState({ validity: true, message: "" });
+  const [device, setDevice] = useState<string>("Desktop");
+  const [network, setNetwork] = useState<string>("No Throttling");
   const [isTesting, setIsTesting] = useState(false);
-  const { upsertTest, setStats } = useAppStore();
+  const [isUrlValid, setIsUrlValid] = useState({
+    validity: true,
+    message: "",
+  });
 
-  const handleSubmit = async (e: FormEvent) => {
+  const { mutate } = useSWRConfig();
+
+  const validateUrl = (urlToValidate: string) => {
+    if (!urlToValidate || urlToValidate.trim() === "") {
+      return { validity: false, message: "URL is required" };
+    }
+    const withProtocol = /^https?:\/\//i.test(urlToValidate.trim())
+      ? urlToValidate.trim()
+      : `https://${urlToValidate.trim()}`;
+    const urlPattern =
+      /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$/;
+    if (!urlPattern.test(withProtocol)) {
+      return {
+        validity: false,
+        message: "Please enter a valid domain (e.g., example.com)",
+      };
+    }
+    return { validity: true, message: "" };
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const urlValidation = normalizeAndValidateUrl(url);
-    setIsUrlValid({ validity: urlValidation.validity, message: urlValidation.message });
-
-    if (!urlValidation.validity || !user) {
+    const validation = validateUrl(url);
+    if (!validation.validity) {
+      setIsUrlValid(validation);
       return;
     }
 
-    const normalizedTargetUrl = urlValidation.normalizedUrl;
-
-    // Immediately update input field to show the corrected URL
-    setUrl(normalizedTargetUrl);
+    setIsUrlValid({ validity: true, message: "" });
     setIsTesting(true);
 
-    const queuedToastId = toast.loading(`Auditing ${normalizedTargetUrl}…`, {
-      description: "Executing Google Lighthouse 12.0 cloud evaluation",
+    const queuedToastId = toast.loading("Connecting to cloud audit cluster...", {
+      description: `Target: ${url} (${device})`,
     });
 
     try {
-      const req = await fetch("/api/test/submit", {
+      const response = await fetch("/api/test/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userID: user.id,
-          url: normalizedTargetUrl,
+          url,
           device,
           network,
+          userId: user.id,
         }),
       });
 
-      const res = await req.json();
+      const data = await response.json();
 
-      if (!req.ok || !res?.data?.testId || res?.data?.status === "failed") {
+      if (!response.ok) {
         toast.error("Audit failed", {
           id: queuedToastId,
           description:
-            res?.message ||
-            "Lighthouse could not complete this audit. Please check the URL and try again.",
+            data.message || data.error || "Failed to execute Lighthouse audit.",
         });
         setIsTesting(false);
         return;
       }
 
-      const testId = res.data.testId;
-      const score = res.data.performanceScore;
+      const testId = data.testId || data.id;
+      const score = data.results?.performanceScore ?? data.performanceScore;
+      const normalizedTargetUrl = data.url || url;
 
-      // Instantly push the new test into the store so RecentTests shows it immediately
-      if (res.data) {
-        upsertTest(toStoredTest({
-          id: testId,
-          createdAt: new Date(),
-          domainId: res.data.domainId || "",
-          device,
-          network,
+      // Optimistically push the newly completed test to local Zustand store
+      if (testId) {
+        const dId = String(data.domainId || "d-" + Date.now());
+        useAppStore.getState().upsertTest({
+          id: String(testId),
+          domainId: dId,
           status: "completed",
           performanceScore: score ?? null,
-          fcp: res.data.fcp ?? null,
-          lcp: res.data.lcp ?? null,
-          tbt: res.data.tbt ?? null,
-          cls: res.data.cls ?? null,
+          fcp: data.results?.fcp ?? null,
+          lcp: data.results?.lcp ?? null,
+          tbt: data.results?.tbt ?? null,
+          cls: data.results?.cls ?? null,
+          device,
+          network,
+          errorMessage: null,
+          createdAt: new Date().toISOString(),
           domain: {
-            id: res.data.domainId || "",
+            id: dId,
             url: normalizedTargetUrl,
             device,
             network,
             ownerId: user.id,
-            createdAt: new Date(),
-            updatedAt: new Date(),
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
           },
-        }));
+        });
       }
 
       // Background revalidation to sync with server
@@ -129,40 +151,40 @@ const NewTest = ({ user }: { user: KindeUser }) => {
   };
 
   return (
-    <div className="bg-surface-0 border border-border rounded-xl p-6 sm:p-7 shadow-sm hover:border-brand-200 transition-all mb-8">
+    <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs hover:border-brand-200 transition-all">
       {/* Header */}
-      <div className="flex items-center justify-between mb-5">
-        <div className="space-y-0.5">
-          <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-md bg-brand-50 text-brand-500 border border-brand-200 flex items-center justify-center">
-              <Zap className="h-3.5 w-3.5 fill-brand-500" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2.5">
+            <div className="h-7 w-7 rounded-lg bg-brand-50 text-brand-500 border border-brand-200 flex items-center justify-center shadow-2xs">
+              <Zap className="h-4 w-4 fill-brand-500" />
             </div>
-            <h2 className="text-base font-bold text-text-primary font-sans">
+            <h2 className="text-lg font-bold text-text-primary font-sans">
               Run New Performance Audit
             </h2>
           </div>
-          <p className="text-xs text-text-secondary">
-            Execute headless Lighthouse evaluation with device & network throttling
+          <p className="text-xs sm:text-sm text-text-secondary">
+            Execute headless Lighthouse evaluation with real-world device & network throttling
           </p>
         </div>
 
-        <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono text-score-good bg-[#e3fcf7] border border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30">
-          <span className="w-1.5 h-1.5 rounded-full bg-score-good" />
+        <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono text-score-good bg-[#e3fcf7] border border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30">
+          <span className="w-2 h-2 rounded-full bg-score-good animate-pulse" />
           Engine Ready
         </span>
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} noValidate className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
+      <form onSubmit={handleSubmit} noValidate className="space-y-5">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 items-end">
           {/* URL Input */}
-          <div className="md:col-span-6 space-y-1.5">
-            <Label htmlFor="url" className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+          <div className="md:col-span-6 space-y-2">
+            <Label htmlFor="url" className="text-xs font-bold text-text-secondary uppercase tracking-wider font-sans">
               Website URL
             </Label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-text-tertiary">
-                <Globe className="h-4 w-4" />
+                <Globe className="h-4.5 w-4.5" />
               </div>
               <Input
                 id="url"
@@ -175,7 +197,7 @@ const NewTest = ({ user }: { user: KindeUser }) => {
                 placeholder="example.com, www.example.com, or https://…"
                 onChange={(e) => setUrl(e.target.value)}
                 onClick={() => setIsUrlValid({ validity: true, message: "" })}
-                className={`pl-9.5 h-11 text-sm bg-surface-0 border-border text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-lg transition-all font-mono ${
+                className={`pl-10 h-12 text-sm bg-surface-1 border-border text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all font-mono ${
                   !isUrlValid.validity ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""
                 }`}
               />
@@ -186,52 +208,52 @@ const NewTest = ({ user }: { user: KindeUser }) => {
           </div>
 
           {/* Device Selection */}
-          <div className="md:col-span-3 space-y-1.5">
-            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+          <div className="md:col-span-3 space-y-2">
+            <Label className="text-xs font-bold text-text-secondary uppercase tracking-wider font-sans">
               Device Profile
             </Label>
-            <div className="grid grid-cols-2 gap-1.5 p-1 bg-surface-1 rounded-lg border border-border h-11 items-center">
+            <div className="grid grid-cols-2 gap-1.5 p-1 bg-surface-1 rounded-xl border border-border h-12 items-center">
               <button
                 type="button"
                 onClick={() => setDevice("Desktop")}
-                className={`h-8.5 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                className={`h-9.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Desktop"
-                    ? "bg-surface-0 text-brand-500 shadow-xs border border-border"
+                    ? "bg-surface-0 text-brand-500 shadow-2xs border border-border"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
-                <Monitor className="h-3.5 w-3.5" />
+                <Monitor className="h-4 w-4" />
                 Desktop
               </button>
               <button
                 type="button"
                 onClick={() => setDevice("Mobile")}
-                className={`h-8.5 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                className={`h-9.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Mobile"
-                    ? "bg-surface-0 text-brand-500 shadow-xs border border-border"
+                    ? "bg-surface-0 text-brand-500 shadow-2xs border border-border"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
-                <Smartphone className="h-3.5 w-3.5" />
+                <Smartphone className="h-4 w-4" />
                 Mobile
               </button>
             </div>
           </div>
 
           {/* Network Throttling */}
-          <div className="md:col-span-3 space-y-1.5">
-            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+          <div className="md:col-span-3 space-y-2">
+            <Label className="text-xs font-bold text-text-secondary uppercase tracking-wider font-sans">
               Network
             </Label>
-            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1 rounded-lg border border-border h-11 items-center">
+            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1 rounded-xl border border-border h-12 items-center">
               {["No Throttling", "4G", "3G"].map((net) => (
                 <button
                   key={net}
                   type="button"
                   onClick={() => setNetwork(net)}
-                  className={`h-8.5 rounded-md text-[11px] font-semibold flex items-center justify-center transition-all truncate px-1 cursor-pointer ${
+                  className={`h-9.5 rounded-lg text-xs font-semibold flex items-center justify-center transition-all truncate px-1 cursor-pointer ${
                     network === net
-                      ? "bg-surface-0 text-brand-500 shadow-xs border border-border"
+                      ? "bg-surface-0 text-brand-500 shadow-2xs border border-border"
                       : "text-text-secondary hover:text-text-primary"
                   }`}
                   title={net}
@@ -244,21 +266,21 @@ const NewTest = ({ user }: { user: KindeUser }) => {
         </div>
 
         {/* Submit Action */}
-        <div className="flex justify-end pt-1">
+        <div className="flex justify-end pt-2">
           <Button
             type="submit"
             disabled={isTesting}
-            className="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-lg px-5 h-10 shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+            className="h-11 px-6 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer gap-2"
           >
             {isTesting ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin text-white" />
-                Executing Lighthouse Audit…
+                Auditing in Headless Chromium…
               </>
             ) : (
               <>
-                Start Performance Audit
-                <ArrowRight className="h-3.5 w-3.5" />
+                <Zap className="h-4 w-4 fill-white" />
+                Launch Cloud Audit
               </>
             )}
           </Button>

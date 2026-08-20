@@ -26,24 +26,24 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
   }
 
   return (
-    <section className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <div className="space-y-0.5">
-          <h2 className="text-lg font-bold text-text-primary font-sans flex items-center gap-2">
+    <section className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="space-y-1">
+          <h2 className="text-lg sm:text-xl font-bold text-text-primary font-sans flex items-center gap-2.5">
             <Film className="h-5 w-5 text-brand-500" />
             Synchronized Visual Progression (Filmstrip Diff)
           </h2>
-          <p className="text-xs text-text-secondary">
+          <p className="text-xs sm:text-sm text-text-secondary">
             Side-by-side perceptual timeline comparing rendering progression at identical timestamp intervals
           </p>
         </div>
 
-        <span className="text-[11px] font-mono text-text-tertiary bg-surface-1 px-2.5 py-1 rounded-md border border-border">
+        <span className="text-xs font-mono text-text-tertiary bg-surface-1 px-3 py-1 rounded-lg border border-border shadow-2xs">
           500ms Interpolation Interval
         </span>
       </div>
 
-      <div className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs space-y-5 overflow-hidden">
+      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs space-y-6 overflow-hidden">
         {/* Filmstrip Horizontal Scroller */}
         <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-border">
           <div className="inline-flex flex-col gap-4 min-w-max">

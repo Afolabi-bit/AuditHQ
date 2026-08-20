@@ -62,25 +62,25 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
   const countWorsened = transitions.filter((t) => t.state === "worsened").length;
 
   return (
-    <section className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="space-y-0.5">
-          <h2 className="text-lg font-bold text-text-primary font-sans flex items-center gap-2">
+    <section className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h2 className="text-lg sm:text-xl font-bold text-text-primary font-sans flex items-center gap-2.5">
             <Sparkles className="h-5 w-5 text-brand-500" />
             Lighthouse Opportunities Transition Matrix
           </h2>
-          <p className="text-xs text-text-secondary">
+          <p className="text-xs sm:text-sm text-text-secondary">
             Tracking diagnostic issues resolved, introduced, or modified between audits
           </p>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 p-1 bg-surface-1 rounded-lg border border-border">
+        <div className="flex items-center gap-1.5 p-1.5 bg-surface-1 rounded-xl border border-border">
           <button
             onClick={() => setFilter("all")}
-            className={`px-2.5 py-1 rounded text-xs font-semibold transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               filter === "all"
-                ? "bg-surface-0 text-brand-500 shadow-xs border border-border"
+                ? "bg-surface-0 text-brand-500 shadow-2xs border border-border"
                 : "text-text-secondary hover:text-text-primary"
             }`}
           >
@@ -89,9 +89,9 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {countNew > 0 && (
             <button
               onClick={() => setFilter("new_issue")}
-              className={`px-2.5 py-1 rounded text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 filter === "new_issue"
-                  ? "bg-surface-0 text-score-poor shadow-xs border border-border"
+                  ? "bg-surface-0 text-score-poor shadow-2xs border border-border"
                   : "text-text-secondary hover:text-score-poor"
               }`}
             >
@@ -101,9 +101,9 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {countResolved > 0 && (
             <button
               onClick={() => setFilter("resolved")}
-              className={`px-2.5 py-1 rounded text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 filter === "resolved"
-                  ? "bg-surface-0 text-score-good shadow-xs border border-border"
+                  ? "bg-surface-0 text-score-good shadow-2xs border border-border"
                   : "text-text-secondary hover:text-score-good"
               }`}
             >
@@ -113,9 +113,9 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {countWorsened > 0 && (
             <button
               onClick={() => setFilter("worsened")}
-              className={`px-2.5 py-1 rounded text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 filter === "worsened"
-                  ? "bg-surface-0 text-score-warn shadow-xs border border-border"
+                  ? "bg-surface-0 text-score-warn shadow-2xs border border-border"
                   : "text-text-secondary hover:text-score-warn"
               }`}
             >
@@ -126,21 +126,21 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
       </div>
 
       {filtered.length === 0 ? (
-        <div className="bg-surface-0 border border-border rounded-xl p-8 text-center space-y-2 shadow-xs">
-          <CheckCircle2 className="h-8 w-8 text-score-good mx-auto" />
-          <p className="text-sm font-bold text-text-primary font-sans">
+        <div className="bg-surface-0 border border-border rounded-2xl p-10 text-center space-y-2 shadow-xs">
+          <CheckCircle2 className="h-9 w-9 text-score-good mx-auto" />
+          <p className="text-base font-bold text-text-primary font-sans">
             No diagnostic changes found in this category
           </p>
-          <p className="text-xs text-text-secondary">
+          <p className="text-xs sm:text-sm text-text-secondary">
             Lighthouse opportunity states remained identical across baseline runs.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="bg-surface-0 border border-border rounded-xl p-4.5 shadow-xs space-y-3 hover:border-brand-200 transition-all flex flex-col justify-between"
+              className="bg-surface-0 border border-border rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-brand-200 transition-all flex flex-col justify-between"
             >
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between gap-2">

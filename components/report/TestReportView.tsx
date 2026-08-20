@@ -113,8 +113,8 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
       />
 
       {/* Main Report Body */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 w-full overflow-x-hidden min-w-0">
-        {/* 1. Category Score Rings (4 Circular SVG Gauges) */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 space-y-10 sm:space-y-12 w-full overflow-x-hidden min-w-0">
+        {/* 1. Category Score Rings Hero */}
         <CategoryScoreRings scores={parsedReport.scores} />
 
         {/* 2. Core Web Vitals Metric Cards */}

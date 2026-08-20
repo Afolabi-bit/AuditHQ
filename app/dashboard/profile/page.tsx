@@ -55,7 +55,7 @@ export default async function ProfilePage() {
   const fullName = [user.given_name, user.family_name].filter(Boolean).join(" ") || "AuditHQ Developer";
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 space-y-10 sm:space-y-12">
       {/* ── Breadcrumb & Back Action ────────────────────────────────────────── */}
       <div className="flex items-center justify-between">
         <Link

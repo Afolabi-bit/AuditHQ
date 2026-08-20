@@ -39,27 +39,27 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
   };
 
   return (
-    <section className="space-y-4">
-      <div className="space-y-0.5">
-        <h2 className="text-lg font-bold text-text-primary font-sans flex items-center gap-2">
+    <section className="space-y-6">
+      <div className="space-y-1">
+        <h2 className="text-lg sm:text-xl font-bold text-text-primary font-sans flex items-center gap-2.5">
           <Layers className="h-5 w-5 text-brand-500" />
           Network Resource Payload & Bundle Bloat Analysis
         </h2>
-        <p className="text-xs text-text-secondary">
+        <p className="text-xs sm:text-sm text-text-secondary">
           Transfer weight changes across asset types between base and target executions
         </p>
       </div>
 
-      <div className="bg-surface-0 border border-border rounded-xl shadow-xs overflow-hidden">
+      <div className="bg-surface-0 border border-border rounded-2xl shadow-xs overflow-hidden p-2 sm:p-4">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs">
+          <table className="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
-              <tr className="border-b border-border bg-surface-1 text-text-tertiary font-sans uppercase font-bold text-[10px] tracking-wider">
-                <th className="py-3.5 px-4">Resource Category</th>
-                <th className="py-3.5 px-4 text-right">Base Run</th>
-                <th className="py-3.5 px-4 text-right">Target Run</th>
-                <th className="py-3.5 px-4 text-right">Net Weight Delta</th>
-                <th className="py-3.5 px-4 text-right">Change %</th>
+              <tr className="border-b border-border bg-surface-1/80 text-text-tertiary font-sans uppercase font-bold text-[11px] tracking-wider">
+                <th className="py-4 px-5">Resource Category</th>
+                <th className="py-4 px-5 text-right">Base Run</th>
+                <th className="py-4 px-5 text-right">Target Run</th>
+                <th className="py-4 px-5 text-right">Net Weight Delta</th>
+                <th className="py-4 px-5 text-right">Change %</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border font-mono">

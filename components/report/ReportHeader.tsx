@@ -101,47 +101,47 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 
   return (
     <div className="bg-surface-0 text-text-primary border-b border-border shadow-xs w-full max-w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 w-full min-w-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full min-w-0">
         {/* Navigation & Public Indicator */}
-        <div className="flex items-center justify-between mb-5 flex-wrap gap-2">
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           {isPublic ? (
             <Link
               href="/"
-              className="inline-flex items-center text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors gap-2 group"
+              className="inline-flex items-center text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors gap-2.5 group"
             >
-              <div className="h-6 w-6 rounded-md bg-brand-600 flex items-center justify-center text-white">
-                <Zap className="h-3.5 w-3.5 fill-white" />
+              <div className="h-7 w-7 rounded-lg bg-brand-600 flex items-center justify-center text-white shadow-2xs">
+                <Zap className="h-4 w-4 fill-white" />
               </div>
-              <span className="font-bold tracking-tight">AuditHQ Public Report</span>
+              <span className="font-bold tracking-tight text-sm">AuditHQ Public Report</span>
             </Link>
           ) : (
             <Link
               href="/dashboard"
               className="inline-flex items-center text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors group"
             >
-              <ArrowLeft className="h-3.5 w-3.5 mr-1.5 transform group-hover:-translate-x-1 transition-transform" />
-              Back to Dashboard
+              <ArrowLeft className="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" />
+              Back to Console
             </Link>
           )}
 
-          <div className="flex items-center gap-2.5">
-            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-brand-50 border border-brand-200 text-brand-500">
-              <Activity className="h-3 w-3 mr-1.5 text-brand-500" />
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-semibold bg-brand-50 border border-brand-200 text-brand-500 shadow-2xs">
+              <Activity className="h-3.5 w-3.5 mr-1.5 text-brand-500" />
               Lighthouse 12 Engine
             </span>
-            <span className="text-[11px] font-mono text-text-tertiary">Audit #{testId}</span>
+            <span className="text-xs font-mono text-text-tertiary">Audit #{testId}</span>
           </div>
         </div>
 
         {/* Main Content Row */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 min-w-0 w-full">
-          <div className="space-y-3 max-w-3xl min-w-0 flex-1">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8 min-w-0 w-full">
+          <div className="space-y-3.5 max-w-3xl min-w-0 flex-1">
             <div className="space-y-1">
               <p className="text-[11px] font-mono uppercase tracking-widest text-brand-500 font-bold">
                 Audited Endpoint
               </p>
-              <div className="flex items-center gap-2.5">
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary tracking-tight font-mono break-all">
+              <div className="flex items-center gap-3">
+                <h1 className="text-2xl sm:text-3xl lg:text-3.5xl font-extrabold text-text-primary tracking-tight font-mono break-all">
                   {url}
                 </h1>
                 <a
@@ -151,13 +151,13 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                   className="text-text-tertiary hover:text-brand-500 transition-colors shrink-0"
                   title="Open live website in new tab"
                 >
-                  <ExternalLink className="h-4 w-4" />
+                  <ExternalLink className="h-4.5 w-4.5" />
                 </a>
               </div>
             </div>
 
             {/* Metadata Pills */}
-            <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-text-secondary">
+            <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono text-text-secondary">
               <span className="inline-flex items-center gap-1.5 bg-surface-1 border border-border px-2.5 py-1 rounded-md">
                 {isDesktop ? (
                   <Monitor className="h-3.5 w-3.5 text-brand-500" />

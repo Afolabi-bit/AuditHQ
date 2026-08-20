@@ -16,7 +16,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14 space-y-10 sm:space-y-12">
       {/* 1. Greeting header (instant) */}
       <Welcome user={user} />
 

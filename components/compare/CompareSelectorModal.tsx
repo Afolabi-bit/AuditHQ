@@ -324,7 +324,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                           : "border-border bg-surface-0 text-transparent hover:border-brand-300"
                       }`}
                     >
-                      <Check className="h-3.5 w-3.5 stroke-[3]" />
+                      <Check className="h-3.5 w-3.5 stroke-3" />
                     </div>
                   </div>
                 </div>

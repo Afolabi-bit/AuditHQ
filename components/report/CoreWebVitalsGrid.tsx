@@ -256,7 +256,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
         {cards.map((card) => {
           const theme = getRatingTheme(card.rating);
           const pinPercent = computePinPercentage(card.value, card.goodMax, card.warnMax);
@@ -264,22 +264,22 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
           return (
             <div
               key={card.id}
-              className="bg-surface-0 border border-border rounded-xl p-5 shadow-sm hover:border-brand-200 hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
+              className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:border-brand-200 hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
             >
-              <div className="space-y-3.5">
+              <div className="space-y-4">
                 {/* Header */}
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-lg bg-brand-50 border border-brand-200">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-brand-50 border border-brand-200 text-brand-500 shadow-2xs">
                       {card.icon}
                     </div>
                     <div>
-                      <div className="flex items-center gap-1.5">
-                        <h4 className="text-sm font-bold text-text-primary font-sans">
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-base font-bold text-text-primary font-sans">
                           {card.acronym}
                         </h4>
                         {card.isCoreVital && (
-                          <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-brand-50 text-brand-500 border border-brand-200">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-50 text-brand-500 border border-brand-200">
                             Core Vital
                           </span>
                         )}
@@ -291,9 +291,9 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
                   </div>
 
                   <span
-                    className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold border ${theme.pill}`}
+                    className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold border ${theme.pill}`}
                   >
-                    <span className={`w-1.5 h-1.5 rounded-full ${theme.dot}`} />
+                    <span className={`w-2 h-2 rounded-full ${theme.dot}`} />
                     {theme.label}
                   </span>
                 </div>
@@ -301,7 +301,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
                 {/* Numerical Metric Display */}
                 <div className="pt-1 flex items-baseline justify-between gap-2">
                   <div className="flex items-baseline gap-1">
-                    <span className={`text-3xl font-extrabold tracking-tight font-mono ${theme.text}`}>
+                    <span className={`text-3.5xl sm:text-4xl font-extrabold tracking-tight font-mono ${theme.text}`}>
                       {card.rawValueFormatted}
                     </span>
                     {card.unit && (
@@ -311,14 +311,14 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
                     )}
                   </div>
 
-                  <span className="text-xs font-mono text-text-tertiary bg-surface-1 px-2 py-0.5 rounded-md border border-border">
+                  <span className="text-xs font-mono text-text-tertiary bg-surface-1 px-2.5 py-1 rounded-lg border border-border">
                     Target: {card.target}
                   </span>
                 </div>
 
                 {/* 3-Zone Threshold Spectrum Bar */}
-                <div className="space-y-1">
-                  <div className="relative h-1.5 w-full bg-surface-2 rounded-full overflow-hidden flex">
+                <div className="space-y-1.5 pt-1">
+                  <div className="relative h-2 w-full bg-surface-2 rounded-full overflow-hidden flex">
                     <div className="w-1/3 h-full bg-[#abf5d1] dark:bg-[#00875a]/40" />
                     <div className="w-1/3 h-full bg-[#ffe380] dark:bg-[#b76e00]/40" />
                     <div className="w-1/3 h-full bg-[#ffbdad] dark:bg-[#de350b]/40" />
@@ -327,22 +327,22 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
                   {/* Marker Pin */}
                   <div className="relative w-full h-2">
                     <div
-                      className="absolute top-0 transform -translate-x-1/2 -mt-2 transition-all duration-500"
+                      className="absolute top-0 transform -translate-x-1/2 -mt-2.5 transition-all duration-500"
                       style={{ left: `${pinPercent}%` }}
                     >
-                      <div className="w-2 h-2 bg-text-primary border-2 border-surface-0 rounded-full shadow-xs" />
+                      <div className="w-2.5 h-2.5 bg-text-primary border-2 border-surface-0 rounded-full shadow-xs" />
                     </div>
                   </div>
                 </div>
 
                 {/* Metric Summary */}
-                <p className="text-xs text-text-secondary leading-relaxed line-clamp-2">
+                <p className="text-xs text-text-secondary leading-relaxed line-clamp-2 pt-1">
                   {card.description}
                 </p>
               </div>
 
               {/* Footer Weight */}
-              <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs text-text-tertiary">
+              <div className="mt-5 pt-3.5 border-t border-border flex items-center justify-between text-xs text-text-tertiary">
                 <span className="font-medium">Lighthouse Weight</span>
                 <span className="font-semibold text-text-primary font-mono">{card.weight}</span>
               </div>

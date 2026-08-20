@@ -64,7 +64,7 @@ const TestCard = ({
 
   const cardContent = (
     <div
-      className={`rounded-xl bg-surface-0 border p-5 shadow-xs transition-all ${
+      className={`rounded-2xl bg-surface-0 border p-6 sm:p-7 shadow-xs transition-all ${
         isCompleted
           ? "border-border hover:border-brand-200 hover:shadow-md cursor-pointer group"
           : isPending
@@ -72,39 +72,39 @@ const TestCard = ({
           : "border-destructive/30 bg-destructive/5"
       }`}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex-1 min-w-0">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-5">
+        <div className="flex-1 min-w-0 space-y-3">
           {/* URL & Status Header */}
-          <div className="flex flex-wrap items-center gap-2 mb-1.5">
-            <h3 className="text-base font-bold text-text-primary group-hover:text-brand-500 transition-colors truncate max-w-md font-mono">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <h3 className="text-base sm:text-lg font-bold text-text-primary group-hover:text-brand-500 transition-colors truncate max-w-lg font-mono">
               {url}
             </h3>
             {isPending && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-500 border border-brand-200">
-                <Loader2 className="h-3 w-3 animate-spin" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-500 border border-brand-200">
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
                 Auditing…
               </span>
             )}
             {isFailed && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
-                <XCircle className="h-3 w-3" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                <XCircle className="h-3.5 w-3.5" />
                 Audit Failed
               </span>
             )}
           </div>
 
           {/* Metadata Row */}
-          <div className="flex items-center space-x-3 text-xs text-text-tertiary mb-3 font-mono">
-            <span className="flex items-center gap-1">
-              <Clock className="h-3 w-3 text-text-tertiary" />
+          <div className="flex items-center space-x-3 text-xs text-text-tertiary font-mono">
+            <span className="flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5 text-text-tertiary" />
               {date}
             </span>
-            <span>·</span>
-            <span className="flex items-center gap-1 capitalize">
+            <span>•</span>
+            <span className="flex items-center gap-1.5 capitalize">
               {device?.toLowerCase() === "mobile" ? (
-                <Smartphone className="h-3 w-3 text-text-tertiary" />
+                <Smartphone className="h-3.5 w-3.5 text-text-tertiary" />
               ) : (
-                <Monitor className="h-3 w-3 text-text-tertiary" />
+                <Monitor className="h-3.5 w-3.5 text-text-tertiary" />
               )}
               {device || "Desktop"}
             </span>
@@ -112,7 +112,7 @@ const TestCard = ({
 
           {/* Failure Error Display */}
           {isFailed && errorMessage && (
-            <div className="flex items-start gap-2 text-xs text-destructive bg-destructive/10 p-3 rounded-lg border border-destructive/20 mt-2 font-mono">
+            <div className="flex items-start gap-2.5 text-xs text-destructive bg-destructive/10 p-3.5 rounded-xl border border-destructive/20 mt-2 font-mono">
               <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-destructive" />
               <span>{errorMessage}</span>
             </div>
@@ -120,36 +120,36 @@ const TestCard = ({
 
           {/* Pending State */}
           {isPending && (
-            <div className="flex items-center gap-2 text-xs font-mono text-brand-500 bg-brand-50 p-2.5 rounded-lg border border-brand-200">
-              <span className="w-2 h-2 rounded-full bg-brand-600 animate-ping" />
-              <span>Lighthouse engine executing render pass and network trace…</span>
+            <div className="flex items-center gap-2.5 text-xs font-mono text-brand-500 bg-brand-50 p-3 rounded-xl border border-brand-200">
+              <span className="w-2.5 h-2.5 rounded-full bg-brand-600 animate-ping" />
+              <span>Lighthouse engine executing headless render pass and network trace…</span>
             </div>
           )}
 
           {/* Completed Metrics Grid */}
           {isCompleted && (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 font-mono">
-              <div className="p-2 rounded-lg bg-surface-1 border border-border">
-                <p className="text-[10px] text-text-tertiary uppercase">FCP</p>
-                <p className="text-xs font-bold text-text-primary">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 font-mono">
+              <div className="p-2.5 rounded-xl bg-surface-1 border border-border">
+                <p className="text-[10px] text-text-tertiary uppercase font-sans font-bold">FCP</p>
+                <p className="text-xs sm:text-sm font-bold text-text-primary mt-0.5">
                   {fcp != null ? `${Number(fcp).toFixed(1)}s` : "—"}
                 </p>
               </div>
-              <div className="p-2 rounded-lg bg-surface-1 border border-border">
-                <p className="text-[10px] text-text-tertiary uppercase">LCP</p>
-                <p className="text-xs font-bold text-text-primary">
+              <div className="p-2.5 rounded-xl bg-surface-1 border border-border">
+                <p className="text-[10px] text-text-tertiary uppercase font-sans font-bold">LCP</p>
+                <p className="text-xs sm:text-sm font-bold text-text-primary mt-0.5">
                   {lcp != null ? `${Number(lcp).toFixed(1)}s` : "—"}
                 </p>
               </div>
-              <div className="p-2 rounded-lg bg-surface-1 border border-border">
-                <p className="text-[10px] text-text-tertiary uppercase">TBT</p>
-                <p className="text-xs font-bold text-text-primary">
+              <div className="p-2.5 rounded-xl bg-surface-1 border border-border">
+                <p className="text-[10px] text-text-tertiary uppercase font-sans font-bold">TBT</p>
+                <p className="text-xs sm:text-sm font-bold text-text-primary mt-0.5">
                   {tti != null ? `${Number(tti).toFixed(1)}s` : "—"}
                 </p>
               </div>
-              <div className="p-2 rounded-lg bg-surface-1 border border-border">
-                <p className="text-[10px] text-text-tertiary uppercase">CLS</p>
-                <p className="text-xs font-bold text-text-primary">
+              <div className="p-2.5 rounded-xl bg-surface-1 border border-border">
+                <p className="text-[10px] text-text-tertiary uppercase font-sans font-bold">CLS</p>
+                <p className="text-xs sm:text-sm font-bold text-text-primary mt-0.5">
                   {cls != null ? Number(cls).toFixed(2) : "—"}
                 </p>
               </div>
@@ -159,11 +159,11 @@ const TestCard = ({
 
         {/* Score Badge Box */}
         {isCompleted && (
-          <div className="shrink-0 flex flex-col items-center justify-center p-3 rounded-xl bg-surface-1 border border-border min-w-19 text-center">
-            <span className={`text-3xl font-mono font-bold tracking-tight ${getScoreTextColor(score)}`}>
+          <div className="shrink-0 flex flex-col items-center justify-center p-4 rounded-2xl bg-surface-1 border border-border min-w-22 text-center self-start sm:self-auto">
+            <span className={`text-3.5xl sm:text-4xl font-mono font-bold tracking-tight ${getScoreTextColor(score)}`}>
               {typeof score === "number" ? score : "—"}
             </span>
-            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-1 border ${getScoreBadgeClass(score)}`}>
+            <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mt-1.5 border ${getScoreBadgeClass(score)}`}>
               {getScoreLabel(score)}
             </span>
           </div>
@@ -172,10 +172,10 @@ const TestCard = ({
 
       {/* Footer CTA */}
       {isCompleted && (
-        <div className="mt-3 pt-2.5 border-t border-border flex items-center justify-between text-xs text-text-tertiary font-mono">
+        <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs text-text-tertiary font-mono">
           <span>Audit #{id}</span>
-          <span className="font-semibold text-brand-500 inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform font-sans">
-            View Full Report <ArrowRight className="h-3.5 w-3.5" />
+          <span className="font-semibold text-brand-500 inline-flex items-center gap-1.5 group-hover:translate-x-1 transition-transform font-sans">
+            View Full Report <ArrowRight className="h-4 w-4" />
           </span>
         </div>
       )}
