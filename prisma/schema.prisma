@@ -48,8 +48,10 @@ model Test {
   tbt              Float?
   cls              Float?
   fullReport       Json?
+  aiSummary        Json?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
   @@index([domainId, createdAt(sort: Desc)])
+  @@index([domainId, status, createdAt(sort: Desc)])
 }

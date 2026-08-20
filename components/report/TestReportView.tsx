@@ -1,15 +1,17 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { parseLighthouseReport } from "@/lib/report-parser";
 import { ReportHeader } from "./ReportHeader";
 import { CategoryScoreRings } from "./CategoryScoreRings";
 import { CoreWebVitalsGrid } from "./CoreWebVitalsGrid";
 import { VisualExperience } from "./VisualExperience";
 import { ReportTabs } from "./ReportTabs";
+import { AiInsightsCard } from "./AiInsightsCard";
 import { AlertCircle, Zap, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { useAppStore, toStoredTest } from "@/lib/store/useAppStore";
 
 interface TestReportViewProps {
   test: {
@@ -22,6 +24,7 @@ interface TestReportViewProps {
     tbt: number | null;
     cls: number | null;
     fullReport: any;
+    aiSummary?: any;
     createdAt: Date | string;
     domain: {
       id: string | number;
@@ -37,6 +40,16 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
   test,
   isPublic = false,
 }) => {
+  // Sync loaded test & AI summary into Zustand localStorage store
+  useEffect(() => {
+    if (test.status === "completed") {
+      useAppStore.getState().upsertTest(toStoredTest(test));
+      if (test.aiSummary) {
+        useAppStore.getState().setAiSummaryOnce(String(test.id), test.aiSummary);
+      }
+    }
+  }, [test.id, test.status, test.aiSummary]);
+
   const parsedReport = useMemo(() => {
     return parseLighthouseReport(test.fullReport);
   }, [test.fullReport]);
@@ -107,7 +120,14 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
         {/* 2. Core Web Vitals Metric Cards */}
         <CoreWebVitalsGrid metrics={parsedReport.metrics} />
 
-        {/* 3. Visual Experience (Filmstrip Timeline & Screenshot Preview) */}
+        {/* 3. AI Performance Diagnostics & Executive Summary */}
+        <AiInsightsCard
+          testId={test.id}
+          initialSummary={test.aiSummary}
+          isPublic={isPublic}
+        />
+
+        {/* 4. Visual Experience (Filmstrip Timeline & Screenshot Preview) */}
         <VisualExperience
           filmstrip={parsedReport.filmstrip}
           fullPageScreenshot={parsedReport.fullPageScreenshot}

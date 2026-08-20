@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import useSWR from "swr";
 import { DashboardStats } from "@/app/utils/actions";
+import { useAppStore } from "@/lib/store/useAppStore";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -27,17 +28,29 @@ function getScoreTextColor(score: number | null): string {
 }
 
 const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats }) => {
+  const storedStats = useAppStore((state) => state.stats);
+  const isFresh = useAppStore.getState().isStatsFresh(120_000);
+
   const { data, isLoading: swrLoading } = useSWR<{ stats: DashboardStats }>(
     "/api/dashboard/stats",
     fetcher,
     {
-      fallbackData: initialStats ? { stats: initialStats } : undefined,
-      revalidateOnFocus: true,
+      revalidateOnFocus: false, // Don't query database on tab switches
+      revalidateOnReconnect: false,
+      dedupingInterval: 120_000, // 2-minute deduplication window
+      revalidateIfStale: !isFresh,
+      onSuccess: (freshData) => {
+        if (freshData?.stats) {
+          useAppStore.getState().setStats(freshData.stats);
+        }
+      },
     }
   );
 
-  const isLoading = !data && !initialStats && swrLoading;
-  const stats = data?.stats || initialStats || {
+  const resolvedStats = data?.stats ?? storedStats ?? initialStats;
+  const isLoading = !resolvedStats && swrLoading;
+
+  const stats = resolvedStats ?? {
     testsThisMonth: 0,
     testsLimit: 100,
     avgPerformance: null,
