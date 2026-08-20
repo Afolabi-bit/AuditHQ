@@ -343,7 +343,7 @@ export default async function LandingPage() {
       {/* ── 5. High-Impact CTA Section ────────────────────────────── */}
       <section className="py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-brand-600 via-brand-700 to-indigo-800 dark:from-[#1e1b38] dark:via-surface-0 dark:to-surface-0 dark:border dark:border-brand-500/30 rounded-2xl p-10 sm:p-14 text-center text-white space-y-6 shadow-xl relative overflow-hidden">
+          <div className="bg-linear-to-br from-brand-600 via-brand-700 to-indigo-800 dark:from-[#1e1b38] dark:via-surface-0 dark:to-surface-0 dark:border dark:border-brand-500/30 rounded-2xl p-10 sm:p-14 text-center text-white space-y-6 shadow-xl relative overflow-hidden">
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-sans text-white dark:text-text-primary">
               Ready to Accelerate Your Web Performance?
             </h2>

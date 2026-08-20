@@ -119,7 +119,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
         {/* 5. Public Footer CTA Banner (if viewed publicly) */}
         {isPublic && (
-          <div className="mt-12 bg-gradient-to-br from-brand-600 to-brand-700 dark:from-[#1e1b38] dark:to-surface-0 dark:border dark:border-brand-500/30 rounded-2xl p-8 text-center text-white space-y-4 print:hidden shadow-xl">
+          <div className="mt-12 bg-linear-to-br from-brand-600 to-brand-700 dark:from-[#1e1b38] dark:to-surface-0 dark:border dark:border-brand-500/30 rounded-2xl p-8 text-center text-white space-y-4 print:hidden shadow-xl">
             <h3 className="text-2xl font-bold font-sans text-white dark:text-text-primary">
               Optimize your website performance with AuditHQ
             </h3>

@@ -332,7 +332,7 @@ export const PerformanceTrajectoryChart: React.FC<
               top: `${(activePt.y / svgHeight) * 100}%`,
             }}
           >
-            <div className="bg-surface-0/95 backdrop-blur-xs border border-border rounded-xl p-3 shadow-2xl text-xs font-mono space-y-1.5 min-w-[170px] max-w-[240px] text-text-primary ring-1 ring-black/5 dark:ring-white/10">
+            <div className="bg-surface-0/95 backdrop-blur-xs border border-border rounded-xl p-3 shadow-2xl text-xs font-mono space-y-1.5 min-w-42.5 max-w-60 text-text-primary ring-1 ring-black/5 dark:ring-white/10">
               <div className="flex items-center justify-between gap-2 border-b border-border pb-1.5">
                 <span className="text-[11px] font-sans font-medium text-text-secondary">
                   {activePt.date}
