@@ -1,9 +1,13 @@
 "use client";
 
+import React, { useState } from "react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import TestCard from "./TestCard";
 import useSWR from "swr";
 import { useAppStore, toStoredTest } from "@/lib/store/useAppStore";
+import { ArrowRightLeft, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CompareSelectorModal } from "@/components/compare/CompareSelectorModal";
 
 // Define the type for the data returned from the API
 type RecentTestData = {
@@ -44,6 +48,8 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
   const testsOrder = useAppStore((state) => state.testsOrder);
   const storedList = testsOrder.map((id) => tests[id]).filter(Boolean);
   const isFresh = useAppStore.getState().isTestsFresh(120_000);
+
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
   const { data, error, isLoading } = useSWR(
     `/api/tests/recent?userId=${user.id}`,
@@ -103,39 +109,75 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
     );
   }
 
-  return (
-    <div className="space-y-3">
-      {displayTests.map((test) => {
-        const rawLcp = test.lcp;
-        const rawFcp = test.fcp;
-        const rawTbt = test.tbt;
-        const lcpSeconds = msToSeconds(rawLcp);
-        const fcpSeconds = msToSeconds(rawFcp);
-        const tbtSeconds = msToSeconds(rawTbt);
-        const clsValue = test.cls != null ? Number(test.cls) : null;
+  const completedTests = displayTests.filter((t) => t.status === "completed");
 
-        return (
-          <TestCard
-            key={test.id}
-            id={test.id}
-            url={test.domain?.url || "Unknown URL"}
-            status={test.status}
-            date={new Date(test.createdAt).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
-            device={test.device || test.domain?.device || "Desktop"}
-            errorMessage={test.errorMessage}
-            score={test.performanceScore}
-            fcp={fcpSeconds}
-            lcp={lcpSeconds}
-            tti={tbtSeconds}
-            cls={clsValue}
-            speedIndex={null}
-          />
-        );
-      })}
+  return (
+    <div className="space-y-3.5">
+      {/* Comparison Toolbar */}
+      {completedTests.length >= 2 && (
+        <div className="flex items-center justify-between bg-surface-0 border border-border px-4 py-2.5 rounded-xl text-xs shadow-2xs">
+          <div className="flex items-center gap-2 text-text-secondary">
+            <div className="h-6 w-6 rounded-md bg-brand-50 border border-brand-200 text-brand-500 flex items-center justify-center">
+              <ArrowRightLeft className="h-3.5 w-3.5" />
+            </div>
+            <span className="font-semibold text-text-primary">
+              Audit Regression & Diff Engine
+            </span>
+          </div>
+
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setIsCompareModalOpen(true)}
+            className="h-8 text-xs font-semibold border-border hover:border-brand-300 hover:text-brand-500 cursor-pointer gap-1.5 shadow-2xs"
+          >
+            <ArrowRightLeft className="h-3.5 w-3.5 text-brand-500" />
+            Compare Audits
+          </Button>
+        </div>
+      )}
+
+      {/* Tests Feed */}
+      <div className="space-y-3">
+        {displayTests.map((test) => {
+          const rawLcp = test.lcp;
+          const rawFcp = test.fcp;
+          const rawTbt = test.tbt;
+          const lcpSeconds = msToSeconds(rawLcp);
+          const fcpSeconds = msToSeconds(rawFcp);
+          const tbtSeconds = msToSeconds(rawTbt);
+          const clsValue = test.cls != null ? Number(test.cls) : null;
+
+          return (
+            <TestCard
+              key={test.id}
+              id={test.id}
+              url={test.domain?.url || "Unknown URL"}
+              status={test.status}
+              date={new Date(test.createdAt).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+              device={test.device || test.domain?.device || "Desktop"}
+              errorMessage={test.errorMessage}
+              score={test.performanceScore}
+              fcp={fcpSeconds}
+              lcp={lcpSeconds}
+              tti={tbtSeconds}
+              cls={clsValue}
+              speedIndex={null}
+            />
+          );
+        })}
+      </div>
+
+      {/* Compare Selector Modal */}
+      <CompareSelectorModal
+        isOpen={isCompareModalOpen}
+        onClose={() => setIsCompareModalOpen(false)}
+        isPublic={false}
+      />
     </div>
   );
 };

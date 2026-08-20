@@ -17,9 +17,11 @@ import {
   Zap,
   Loader2,
   FileCode,
+  ArrowRightLeft,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { generateReportPDF } from "@/lib/generate-report-pdf";
+import { CompareSelectorModal } from "@/components/compare/CompareSelectorModal";
 
 interface ReportHeaderProps {
   testId: string | number;
@@ -42,6 +44,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [isCompareOpen, setIsCompareOpen] = useState(false);
 
   const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
     month: "short",
@@ -204,6 +207,18 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               )}
             </Button>
 
+            {/* Compare with Another Audit */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setIsCompareOpen(true)}
+              className="bg-surface-0 hover:bg-surface-2 text-text-secondary hover:text-text-primary border-border h-9 rounded-md font-semibold text-xs transition-colors cursor-pointer gap-1.5"
+              title="Compare this audit against another run"
+            >
+              <ArrowRightLeft className="h-3.5 w-3.5 text-brand-500" />
+              <span>Compare</span>
+            </Button>
+
             {/* Export JSON */}
             <Button
               variant="outline"
@@ -254,6 +269,14 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Compare Modal */}
+      <CompareSelectorModal
+        initialBaseId={String(testId)}
+        isOpen={isCompareOpen}
+        onClose={() => setIsCompareOpen(false)}
+        isPublic={isPublic}
+      />
     </div>
   );
 };
