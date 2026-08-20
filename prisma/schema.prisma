@@ -48,6 +48,7 @@ model Test {
   tbt              Float?
   cls              Float?
   fullReport       Json?
+  aiSummary        Json?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 

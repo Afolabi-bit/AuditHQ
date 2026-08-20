@@ -1,5 +1,6 @@
 import "server-only";
 import prisma from "./db";
+import { getOrGenerateAiSummary } from "./ai/generate-summary";
 
 export interface PageSpeedAuditParams {
   url: string;
@@ -207,6 +208,11 @@ export async function executeAuditForTest(
     console.log(
       `[DB] Updated test #${testId} with completed PageSpeed audit results`,
     );
+
+    // Pre-generate AI summary in the background so it's instantly cached when user opens report
+    getOrGenerateAiSummary(testId).catch((aiErr) => {
+      console.warn(`[AI] Background AI summary generation deferred for #${testId}:`, aiErr);
+    });
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
     console.error(

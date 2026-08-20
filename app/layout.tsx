@@ -4,7 +4,7 @@ import "./globals.css";
 import getSessionUser from "@/lib/auth";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { syncUserToDatabase } from "./utils/actions";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { TopProgressBar } from "@/components/ui/TopProgressBar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
@@ -107,14 +107,7 @@ export default async function RootLayout({
         >
           <TopProgressBar />
           {children}
-          <Toaster
-            position="bottom-right"
-            closeButton
-            toastOptions={{
-              duration: 5000,
-              className: "bg-surface-0 text-text-primary border border-border shadow-xl rounded-lg font-sans text-sm",
-            }}
-          />
+          <Toaster position="bottom-right" closeButton duration={5000} />
         </ThemeProvider>
       </body>
     </html>
