@@ -25,7 +25,7 @@ This engine takes any two historical audit telemetry payloads (from the same dom
 - **Synchronized Frame-by-Frame Filmstrip Player** with visual perceptual diffing.
 - **Resource Payload Breakdown & Bloat Analysis** ($\Delta\text{JS}$, $\Delta\text{CSS}$, $\Delta\text{Images}$, $\Delta\text{Fonts}$).
 - **Opportunities & Diagnostics Matrix** (Audits newly passed, newly failed, or regressed).
-- **AI Regression Explainer** (Powered by Gemini 3.6 Flash to generate stakeholder-ready changelog summaries).
+- **AI Regression Explainer** (Powered by Gemini 3.1 Flash Lite to generate stakeholder-ready changelog summaries).
 
 ---
 
@@ -181,7 +181,7 @@ export interface ComparisonReport {
 ### Phase 2: AI Regression Diagnosis (`lib/ai/compare-summary.ts`)
 
 #### 2.1 Prompt & Schema Specification
-* Model: Google Gemini 3.6 Flash (`@ai-sdk/google`).
+* Model: Google Gemini 3.1 Flash Lite (`@ai-sdk/google`).
 * Input: Metric deltas, resource bloat deltas, resolved/introduced opportunities.
 * Output (Structured JSON via Zod):
   1. `headline`: One-sentence punchy verdict (e.g., *"Deployment cut LCP by 650ms through image WebP compression, but introduced 180ms of new main-thread blocking time"*).

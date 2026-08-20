@@ -132,7 +132,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
                 AI Regression Diagnosis & Changelog
               </h2>
               <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200 uppercase shadow-2xs">
-                Gemini 3.6 Flash
+                Gemini 3.1 Flash Lite
               </span>
             </div>
             <p className="text-xs sm:text-sm text-text-secondary mt-0.5">

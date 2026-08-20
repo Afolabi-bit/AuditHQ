@@ -8,7 +8,7 @@ This document tracks progress, implemented milestones, and actionable next steps
 
 | Milestone | Status | Key Deliverables & Architecture |
 | :--- | :---: | :--- |
-| **🤖 AI Performance Diagnostics & Remediation** | ✅ **Shipped** | Implemented Google Gemini 3.6 Flash diagnostics (`AiInsightsCard`), executive summaries, speed verdicts, quantified time impact (`-1.4s`), and copyable framework code fixes (Next.js `next/image`, `next/script`, `font-display`). Background pre-generation & single-write database cache lock. |
+| **🤖 AI Performance Diagnostics & Remediation** | ✅ **Shipped** | Implemented Google Gemini 3.1 Flash Lite diagnostics (`AiInsightsCard`), executive summaries, speed verdicts, quantified time impact (`-1.4s`), and copyable framework code fixes (Next.js `next/image`, `next/script`, `font-display`). Background pre-generation & single-write database cache lock. |
 | **⚡ Zero-Lag State & Persistence Architecture** | ✅ **Shipped** | Built unified Zustand store (`useAppStore`) with `localStorage` persistence. Synchronous 0ms local hydration across page navigations with SWR background revalidation. |
 | **🗄️ Database & Query Optimization** | ✅ **Shipped** | Cut query payloads by **99.9%** (from 15MB down to ~4KB) via lean column projections on `getRecentTests` and `getDashboardStats`. Added PostgreSQL composite index `@@index([domainId, status, createdAt(sort: Desc)])`. |
 | **🌓 Theme-Aware Micro-Interactions & Copy** | ✅ **Shipped** | Full dark-mode Sonner toast integration, Tailwind CSS v4 semantic palette, sanitized error fallbacks, and developer-focused landing copy. |

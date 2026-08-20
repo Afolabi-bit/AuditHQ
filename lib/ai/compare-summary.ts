@@ -118,7 +118,7 @@ ${JSON.stringify(topTransitions, null, 2)}
 `;
 
   const { object } = await generateObject({
-    model: google("gemini-3.6-flash"),
+    model: google("gemini-3.1-flash-lite"),
     schema: compareAiSummarySchema,
     system: systemPrompt,
     prompt: userPrompt,

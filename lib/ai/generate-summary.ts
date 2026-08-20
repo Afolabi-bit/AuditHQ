@@ -99,7 +99,7 @@ ${JSON.stringify(topDiagnostics, null, 2)}
 `;
 
   const { object } = await generateObject({
-    model: google("gemini-3.6-flash"),
+    model: google("gemini-3.1-flash-lite"),
     schema: aiSummarySchema,
     system: systemPrompt,
     prompt: userPrompt,
