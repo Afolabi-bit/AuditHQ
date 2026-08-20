@@ -24,7 +24,14 @@ export async function generateMetadata({
 
   const test = await prisma.test.findUnique({
     where: { id },
-    include: { domain: true },
+    select: {
+      performanceScore: true,
+      domain: {
+        select: {
+          url: true,
+        },
+      },
+    },
   });
 
   if (!test) {

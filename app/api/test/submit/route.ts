@@ -31,46 +31,29 @@ export async function POST(request: Request) {
     const result = await submitDomain(data);
 
     // 2. Directly and synchronously execute the PageSpeed / Lighthouse audit
-    await executeAuditForTest(
+    const auditResults = await executeAuditForTest(
       result.testId,
       data.url,
       data.device,
       data.network
     );
 
-    // 3. Fetch the finalized test record from DB
-    const completedTest = await prisma.test.findUnique({
-      where: { id: result.testId },
-      select: {
-        id: true,
-        status: true,
-        performanceScore: true,
-        errorMessage: true,
-      },
-    });
-
-    if (completedTest?.status === "failed") {
-      return NextResponse.json(
-        {
-          message: completedTest.errorMessage || "Lighthouse could not audit this page.",
-          data: completedTest,
-        },
-        { status: 422 }
-      );
-    }
-
     return NextResponse.json(
       {
         message: "Audit completed successfully",
         data: {
           testId: result.testId,
-          status: completedTest?.status || "completed",
-          performanceScore: completedTest?.performanceScore,
+          status: "completed",
+          performanceScore: auditResults.performanceScore,
+          fcp: auditResults.fcp,
+          lcp: auditResults.lcp,
+          tbt: auditResults.tbt,
+          cls: auditResults.cls,
         },
       },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in POST /api/test/submit:", error);
 
     if (error instanceof Error) {

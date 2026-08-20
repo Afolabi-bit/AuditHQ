@@ -53,4 +53,5 @@ model Test {
   updatedAt        DateTime @updatedAt
 
   @@index([domainId, createdAt(sort: Desc)])
+  @@index([domainId, status, createdAt(sort: Desc)])
 }

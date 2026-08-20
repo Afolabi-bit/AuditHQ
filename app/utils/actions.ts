@@ -135,10 +135,33 @@ export async function getRecentTests(userID: string) {
           ownerId: userID,
         },
       },
-      include: {
-        domain: true,
+      select: {
+        id: true,
+        createdAt: true,
+        domainId: true,
+        device: true,
+        network: true,
+        status: true,
+        errorMessage: true,
+        performanceScore: true,
+        fcp: true,
+        lcp: true,
+        tbt: true,
+        cls: true,
+        domain: {
+          select: {
+            id: true,
+            createdAt: true,
+            url: true,
+            device: true,
+            network: true,
+            ownerId: true,
+            updatedAt: true,
+          },
+        },
       },
       orderBy: { createdAt: "desc" },
+      take: 50, // Bounded query
     });
     return tests;
   } catch (error) {
@@ -182,7 +205,7 @@ export async function getDashboardStats(
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    // Run parallel count & aggregate queries
+    // Run parallel count & aggregate queries with lean projections
     const [testsThisMonth, activeSites, completedTests] = await Promise.all([
       prisma.test.count({
         where: {
@@ -201,8 +224,19 @@ export async function getDashboardStats(
           status: "completed",
           performanceScore: { not: null },
         },
-        include: {
-          domain: true,
+        select: {
+          id: true,
+          createdAt: true,
+          device: true,
+          performanceScore: true,
+          lcp: true,
+          tbt: true,
+          cls: true,
+          domain: {
+            select: {
+              url: true,
+            },
+          },
         },
         orderBy: { createdAt: "desc" },
         take: 30,

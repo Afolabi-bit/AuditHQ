@@ -213,6 +213,8 @@ export async function executeAuditForTest(
     getOrGenerateAiSummary(testId).catch((aiErr) => {
       console.warn(`[AI] Background AI summary generation deferred for #${testId}:`, aiErr);
     });
+
+    return results;
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
     console.error(
@@ -233,5 +235,6 @@ export async function executeAuditForTest(
           dbErr,
         );
       });
+    throw error;
   }
 }
