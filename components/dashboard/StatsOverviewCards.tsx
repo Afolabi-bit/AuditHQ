@@ -10,6 +10,7 @@ import {
   Minus,
   Activity,
 } from "lucide-react";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import useSWR from "swr";
 import { DashboardStats } from "@/app/utils/actions";
 import { useAppStore } from "@/lib/store/useAppStore";
@@ -17,6 +18,7 @@ import { useAppStore } from "@/lib/store/useAppStore";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 interface StatsOverviewCardsProps {
+  user?: KindeUser;
   initialStats?: DashboardStats | null;
 }
 
@@ -27,9 +29,18 @@ function getScoreTextColor(score: number | null): string {
   return "text-score-poor";
 }
 
-const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats }) => {
+const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialStats }) => {
+  React.useEffect(() => {
+    if (user?.id) {
+      useAppStore.getState().syncUser(user.id);
+    }
+  }, [user?.id]);
+
+  const currentUserId = useAppStore((state) => state.currentUserId);
   const storedStats = useAppStore((state) => state.stats);
-  const isFresh = useAppStore.getState().isStatsFresh(120_000);
+
+  const isUserMatching = !user?.id || currentUserId === user.id;
+  const isFresh = isUserMatching && useAppStore.getState().isStatsFresh(user?.id, 120_000);
 
   const { data, isLoading: swrLoading } = useSWR<{ stats: DashboardStats }>(
     "/api/dashboard/stats",
@@ -41,13 +52,13 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ initialStats })
       revalidateIfStale: !isFresh,
       onSuccess: (freshData) => {
         if (freshData?.stats) {
-          useAppStore.getState().setStats(freshData.stats);
+          useAppStore.getState().setStats(freshData.stats, user?.id);
         }
       },
     }
   );
 
-  const resolvedStats = data?.stats ?? storedStats ?? initialStats;
+  const resolvedStats = data?.stats ?? (isUserMatching ? storedStats : null) ?? initialStats;
   const isLoading = !resolvedStats && swrLoading;
 
   const stats = resolvedStats ?? {

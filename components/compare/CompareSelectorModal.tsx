@@ -31,6 +31,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
   isPublic = false,
 }) => {
   const router = useRouter();
+  const currentUserId = useAppStore((state) => state.currentUserId);
   const tests = useAppStore((state) => state.tests);
   const testsOrder = useAppStore((state) => state.testsOrder);
 
@@ -38,8 +39,14 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
   const completedTests = useMemo(() => {
     return testsOrder
       .map((id) => tests[id])
-      .filter((t): t is StoredTest => Boolean(t && t.status === "completed"));
-  }, [tests, testsOrder]);
+      .filter((t): t is StoredTest => {
+        if (!t || t.status !== "completed") return false;
+        if (!isPublic && currentUserId && t.domain?.ownerId && t.domain.ownerId !== currentUserId) {
+          return false;
+        }
+        return true;
+      });
+  }, [tests, testsOrder, isPublic, currentUserId]);
 
   // Default: Base is second newest, Target is newest
   const defaultTarget = initialTargetId || (completedTests.length > 0 ? completedTests[0]?.id : "");

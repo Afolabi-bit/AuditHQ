@@ -21,7 +21,7 @@ export default async function DashboardPage() {
       <Welcome user={user} />
 
       {/* 2. Stats cards (instant cards, scoped inline number skeletons) */}
-      <StatsOverviewCards />
+      <StatsOverviewCards user={user} />
 
       {/* 3. Audit execution command bar (instant, interactive immediately) */}
       <NewTest user={user} />

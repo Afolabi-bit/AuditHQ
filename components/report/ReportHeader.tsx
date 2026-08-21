@@ -30,6 +30,7 @@ interface ReportHeaderProps {
   network?: string;
   createdAt: string | Date;
   rawReport: any;
+  aiSummary?: any | null;
   isPublic?: boolean;
 }
 
@@ -40,6 +41,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   network,
   createdAt,
   rawReport,
+  aiSummary = null,
   isPublic = false,
 }) => {
   const [copied, setCopied] = useState(false);
@@ -89,7 +91,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   const handleExportPdf = async () => {
     setIsGeneratingPdf(true);
     try {
-      await generateReportPDF(testId, url, device, network, createdAt, rawReport);
+      await generateReportPDF(testId, url, device, network, createdAt, rawReport, aiSummary);
     } catch (e) {
       console.error("PDF generation error:", e);
     } finally {

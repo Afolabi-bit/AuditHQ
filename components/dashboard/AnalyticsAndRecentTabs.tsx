@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import {
   AlertCircle,
@@ -27,8 +28,17 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
   user,
   initialStats,
 }) => {
+  React.useEffect(() => {
+    if (user?.id) {
+      useAppStore.getState().syncUser(user.id);
+    }
+  }, [user?.id]);
+
+  const currentUserId = useAppStore((state) => state.currentUserId);
   const storedStats = useAppStore((state) => state.stats);
-  const isFresh = useAppStore.getState().isStatsFresh(120_000);
+
+  const isUserMatching = !user?.id || currentUserId === user.id;
+  const isFresh = isUserMatching && useAppStore.getState().isStatsFresh(user?.id, 120_000);
 
   const { data, isLoading: swrLoading } = useSWR<{ stats: DashboardStats }>(
     "/api/dashboard/stats",
@@ -40,13 +50,13 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       revalidateIfStale: !isFresh,
       onSuccess: (freshData) => {
         if (freshData?.stats) {
-          useAppStore.getState().setStats(freshData.stats);
+          useAppStore.getState().setStats(freshData.stats, user?.id);
         }
       },
     }
   );
 
-  const resolvedStats = data?.stats ?? storedStats ?? initialStats;
+  const resolvedStats = data?.stats ?? (isUserMatching ? storedStats : null) ?? initialStats;
   const isLoading = !resolvedStats && swrLoading;
 
   const stats = resolvedStats ?? {

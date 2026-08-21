@@ -109,6 +109,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
         network={test.domain.network}
         createdAt={test.createdAt}
         rawReport={test.fullReport}
+        aiSummary={test.aiSummary ?? null}
         isPublic={isPublic}
       />
 

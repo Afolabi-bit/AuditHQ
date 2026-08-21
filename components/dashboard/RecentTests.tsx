@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import TestCard from "./TestCard";
 import useSWR from "swr";
-import { useAppStore, toStoredTest } from "@/lib/store/useAppStore";
+import { useAppStore, toStoredTest, StoredTest } from "@/lib/store/useAppStore";
 import { ArrowRightLeft, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CompareSelectorModal } from "@/components/compare/CompareSelectorModal";
@@ -44,10 +44,26 @@ const fetcher = (url: string) =>
   fetch(url, { cache: "no-store" }).then((res) => res.json());
 
 const RecentTests = ({ user }: { user: KindeUser }) => {
+  // Synchronize active user ID with local store on mount/change
+  React.useEffect(() => {
+    if (user?.id) {
+      useAppStore.getState().syncUser(user.id);
+    }
+  }, [user?.id]);
+
+  const currentUserId = useAppStore((state) => state.currentUserId);
   const tests = useAppStore((state) => state.tests);
   const testsOrder = useAppStore((state) => state.testsOrder);
-  const storedList = testsOrder.map((id) => tests[id]).filter(Boolean);
-  const isFresh = useAppStore.getState().isTestsFresh(120_000);
+
+  // Strictly verify user identity before trusting persisted store
+  const isUserMatching = currentUserId === user.id;
+  const storedList = isUserMatching
+    ? testsOrder
+        .map((id) => tests[id])
+        .filter((t): t is StoredTest => Boolean(t && (!t.domain?.ownerId || t.domain.ownerId === user.id)))
+    : [];
+
+  const isFresh = isUserMatching && useAppStore.getState().isTestsFresh(user.id, 120_000);
 
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
@@ -61,15 +77,15 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
       revalidateIfStale: !isFresh,
       onSuccess: (freshData) => {
         if (freshData?.tests) {
-          useAppStore.getState().setTests(freshData.tests.map(toStoredTest));
+          useAppStore.getState().setTests(freshData.tests.map(toStoredTest), user.id);
         }
       },
     },
   );
 
-  // Use store as instant cache while SWR is loading
-  const displayTests: RecentTestData[] = data?.tests ?? (storedList.length > 0 ? (storedList as any) : []);
-  const showSkeleton = isLoading && storedList.length === 0;
+  // Use store as instant cache ONLY if the user identity matches
+  const displayTests: RecentTestData[] = data?.tests ?? (isUserMatching && storedList.length > 0 ? (storedList as any) : []);
+  const showSkeleton = isLoading && displayTests.length === 0;
 
   if (showSkeleton) {
     return (
