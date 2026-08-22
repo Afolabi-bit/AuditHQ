@@ -261,10 +261,10 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
             </div>
             <div>
               <p className="text-[10px] uppercase font-bold text-text-tertiary">
-                Potential Speed Gain
+                Est. Load Time Reduction
               </p>
               <p className="text-base font-extrabold text-score-good">
-                {summary.estimatedImpact.timeSavedFormatted}
+                {summary.estimatedImpact.timeSavedFormatted.replace(/^[+-]/, "")} Faster
               </p>
             </div>
           </div>
@@ -275,21 +275,21 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
             </div>
             <div>
               <p className="text-[10px] uppercase font-bold text-text-tertiary">
-                Conversion Impact
+                Est. Conversion Lift (ROI)
               </p>
-              <p className="text-base font-extrabold text-text-primary">
+              <p className="text-base font-extrabold text-brand-600 dark:text-brand-400 font-mono">
                 {summary.estimatedImpact.conversionLift}
               </p>
             </div>
           </div>
 
           <div className="p-3.5 bg-surface-1 rounded-xl border border-border flex items-center gap-3">
-            <div className="h-8.5 w-8.5 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
+            <div className="h-8.5 w-8.5 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
               <Layers className="h-4.5 w-4.5" />
             </div>
             <div>
               <p className="text-[10px] uppercase font-bold text-text-tertiary">
-                Action Items
+                Remediation Plan
               </p>
               <p className="text-base font-extrabold text-text-primary">
                 {summary.priorityFixes.length} Priority Fixes

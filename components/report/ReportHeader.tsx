@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -18,9 +18,13 @@ import {
   Loader2,
   FileCode,
   ArrowRightLeft,
+  ChevronDown,
+  FileText,
+  Layers,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import { generateReportPDF } from "@/lib/generate-report-pdf";
+import { generateReportPDF, type PdfReportFormat } from "@/lib/generate-report-pdf";
 import { CompareSelectorModal } from "@/components/compare/CompareSelectorModal";
 
 interface ReportHeaderProps {
@@ -45,8 +49,34 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   isPublic = false,
 }) => {
   const [copied, setCopied] = useState(false);
-  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [activePdfFormat, setActivePdfFormat] = useState<PdfReportFormat | null>(null);
+  const [isPdfMenuOpen, setIsPdfMenuOpen] = useState(false);
   const [isCompareOpen, setIsCompareOpen] = useState(false);
+
+  const pdfMenuRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on click outside or Escape
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (pdfMenuRef.current && !pdfMenuRef.current.contains(e.target as Node)) {
+        setIsPdfMenuOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsPdfMenuOpen(false);
+      }
+    };
+
+    if (isPdfMenuOpen) {
+      document.addEventListener("mousedown", handleOutsideClick);
+      document.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isPdfMenuOpen]);
 
   const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
     month: "short",
@@ -88,18 +118,29 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
     }
   };
 
-  const handleExportPdf = async () => {
-    setIsGeneratingPdf(true);
+  const handleExportPdf = async (format: PdfReportFormat) => {
+    setActivePdfFormat(format);
+    setIsPdfMenuOpen(false);
     try {
-      await generateReportPDF(testId, url, device, network, createdAt, rawReport, aiSummary);
+      await generateReportPDF(
+        testId,
+        url,
+        device,
+        network,
+        createdAt,
+        rawReport,
+        aiSummary,
+        format
+      );
     } catch (e) {
       console.error("PDF generation error:", e);
     } finally {
-      setIsGeneratingPdf(false);
+      setActivePdfFormat(null);
     }
   };
 
   const isDesktop = device?.toLowerCase() === "desktop";
+  const isGeneratingPdf = activePdfFormat !== null;
 
   return (
     <div className="bg-surface-0 text-text-primary border-b border-border shadow-xs w-full max-w-full">
@@ -232,25 +273,93 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               JSON
             </Button>
 
-            {/* Download PDF — Primary Action */}
-            <Button
-              size="sm"
-              onClick={handleExportPdf}
-              disabled={isGeneratingPdf}
-              className="bg-brand-600 hover:bg-brand-700 active:bg-brand-900 text-white font-semibold text-xs h-9 px-4 rounded-md shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer"
-            >
-              {isGeneratingPdf ? (
-                <>
-                  <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin text-white" />
-                  Building PDF…
-                </>
-              ) : (
-                <>
-                  <Download className="h-3.5 w-3.5 mr-1.5 text-white" />
-                  Download PDF
-                </>
+            {/* Download PDF Dropdown Menu */}
+            <div className="relative" ref={pdfMenuRef}>
+              <Button
+                size="sm"
+                onClick={() => setIsPdfMenuOpen((prev) => !prev)}
+                disabled={isGeneratingPdf}
+                className="bg-brand-600 hover:bg-brand-700 active:bg-brand-900 text-white font-semibold text-xs h-9 px-3.5 rounded-md shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer flex items-center gap-1.5"
+              >
+                {isGeneratingPdf ? (
+                  <>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin text-white" />
+                    <span>
+                      {activePdfFormat === "basic" ? "Generating 1-Page..." : "Building Whitepaper..."}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="h-3.5 w-3.5 text-white" />
+                    <span>Download PDF</span>
+                    <ChevronDown
+                      className={`h-3 w-3 transition-transform duration-200 ${
+                        isPdfMenuOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </>
+                )}
+              </Button>
+
+              {/* Floating Options Menu */}
+              {isPdfMenuOpen && (
+                <div className="absolute right-0 mt-2 w-72 rounded-xl bg-surface-0 border border-border shadow-xl z-50 p-1.5 space-y-1 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="px-2.5 py-1.5 border-b border-border/70 mb-1">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-text-tertiary font-sans">
+                      Select PDF Report Format
+                    </p>
+                  </div>
+
+                  {/* Option 1: Basic (1 Page) */}
+                  <button
+                    type="button"
+                    onClick={() => handleExportPdf("basic")}
+                    className="w-full text-left p-2.5 rounded-lg hover:bg-surface-1 transition-colors flex items-start gap-3 cursor-pointer group"
+                  >
+                    <div className="h-8 w-8 rounded-lg bg-brand-50 border border-brand-200 text-brand-600 flex items-center justify-center shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                      <FileText className="h-4 w-4" />
+                    </div>
+                    <div className="space-y-0.5 flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="text-xs font-bold text-text-primary font-sans">
+                          Executive Summary
+                        </span>
+                        <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold uppercase bg-brand-50 text-brand-600 border border-brand-200 shrink-0">
+                          1 Page
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-text-secondary leading-tight">
+                        Quick overview with score HUD, Core Web Vitals & key diagnosis
+                      </p>
+                    </div>
+                  </button>
+
+                  {/* Option 2: Detailed (Multi-Page Whitepaper) */}
+                  <button
+                    type="button"
+                    onClick={() => handleExportPdf("detailed")}
+                    className="w-full text-left p-2.5 rounded-lg hover:bg-surface-1 transition-colors flex items-start gap-3 cursor-pointer group"
+                  >
+                    <div className="h-8 w-8 rounded-lg bg-score-good/10 border border-score-good/30 text-score-good flex items-center justify-center shrink-0 group-hover:bg-score-good group-hover:text-white transition-colors">
+                      <Layers className="h-4 w-4" />
+                    </div>
+                    <div className="space-y-0.5 flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="text-xs font-bold text-text-primary font-sans">
+                          Detailed Whitepaper
+                        </span>
+                        <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold uppercase bg-score-good/10 text-score-good border border-score-good/30 shrink-0">
+                          Full Audit
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-text-secondary leading-tight">
+                        Comprehensive multi-page audit with diagnostics, opportunities & remediation playbook
+                      </p>
+                    </div>
+                  </button>
+                </div>
               )}
-            </Button>
+            </div>
 
             {/* Context Navigation CTA */}
             {isPublic ? (

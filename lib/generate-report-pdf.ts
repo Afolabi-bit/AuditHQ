@@ -4,3 +4,4 @@
  * Call sites import from this path — internal structure is an implementation detail.
  */
 export { generateReportPDF } from "./pdf/index";
+export type { PdfReportFormat } from "./pdf/index";

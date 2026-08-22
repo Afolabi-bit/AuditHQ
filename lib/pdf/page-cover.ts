@@ -221,13 +221,14 @@ export function drawCoverPage({
     // Impact metrics row at bottom of box
     const ibW     = (CONTENT_W - 10) / 3;
     const impactY = y + boxH - 13.5;
-    const timeSavedClean = cleanText(aiSummary.estimatedImpact.timeSavedFormatted);
-    const convLiftClean  = cleanText(aiSummary.estimatedImpact.conversionLift);
+    const rawTimeSaved = cleanText(aiSummary.estimatedImpact.timeSavedFormatted).replace(/^[+-]/, "");
+    const timeSavedDisplay = rawTimeSaved ? `${rawTimeSaved} Faster` : "Optimized";
+    const convLiftClean    = cleanText(aiSummary.estimatedImpact.conversionLift) || "+5-10%";
 
     const metrics = [
-      { value: timeSavedClean, label: "POTENTIAL SPEED GAIN",  color: COLORS.emerald },
-      { value: convLiftClean,  label: "CONVERSION LIFT EST.",  color: COLORS.brand   },
-      { value: String(aiSummary.priorityFixes.length), label: "PRIORITY FIX ACTIONS", color: COLORS.rose },
+      { value: timeSavedDisplay, label: "EST. LOAD TIME REDUCTION",  color: COLORS.emerald },
+      { value: convLiftClean,    label: "EST. CONVERSION LIFT (ROI)", color: COLORS.brand   },
+      { value: `${aiSummary.priorityFixes.length} Actions`, label: "PRIORITY FIX ACTIONS", color: COLORS.rose },
     ];
 
     metrics.forEach((m, i) => {
