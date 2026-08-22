@@ -7,8 +7,8 @@
 import type { ParsedLighthouseReport } from "../report-parser";
 import { formatBytes, formatMilliseconds } from "../report-parser";
 import { COLORS } from "./tokens";
-import { filledRect, filledRoundRect, textColor, hLine, drawStatusPill, drawMiniBar } from "./primitives";
-import { PAGE_W, MARGIN, CONTENT_W, drawFooter, drawSectionDivider, drawPageMiniHeader, trunc } from "./layout";
+import { filledRect, textColor, hLine, drawStatusPill, drawMiniBar } from "./primitives";
+import { PAGE_W, MARGIN, CONTENT_W, drawFooter, drawSectionDivider, drawPageMiniHeader, trunc, cleanText } from "./layout";
 
 interface ResourcesPageArgs {
   doc:               any;
@@ -41,7 +41,7 @@ export function drawResourcesPage({ doc, testId, hostname, parsed, totalPages }:
     y = drawSectionDivider(
       doc, y,
       "RESOURCE PAYLOAD BREAKDOWN",
-      `Total transferred: ${formatBytes(parsed.totalByteWeight)}`
+      `Total transferred: ${cleanText(formatBytes(parsed.totalByteWeight))}`
     );
 
     filledRect(doc, MARGIN, y, CONTENT_W, 7.5, COLORS.slate100);
@@ -51,7 +51,7 @@ export function drawResourcesPage({ doc, testId, hostname, parsed, totalPages }:
     doc.text("RESOURCE TYPE",    MARGIN + 4,                y + 5);
     doc.text("REQUESTS",         MARGIN + CONTENT_W * 0.44, y + 5);
     doc.text("TRANSFER SIZE",    MARGIN + CONTENT_W * 0.58, y + 5);
-    doc.text("SHARE OF PAYLOAD", MARGIN + CONTENT_W * 0.74, y + 5);
+    doc.text("SHARE OF PAYLOAD", MARGIN + CONTENT_W * 0.72, y + 5);
     y += 7.5;
 
     parsed.resourceSummary.forEach((res, idx) => {
@@ -65,7 +65,7 @@ export function drawResourcesPage({ doc, testId, hostname, parsed, totalPages }:
       doc.setFont("helvetica", "bold");
       doc.setFontSize(7);
       textColor(doc, COLORS.ink);
-      doc.text(res.label, MARGIN + 6, y + 6);
+      doc.text(cleanText(res.label), MARGIN + 6, y + 6);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(7);
@@ -74,14 +74,15 @@ export function drawResourcesPage({ doc, testId, hostname, parsed, totalPages }:
 
       doc.setFont("helvetica", "bold");
       textColor(doc, barColor);
-      doc.text(formatBytes(res.transferSize), MARGIN + CONTENT_W * 0.58, y + 6);
+      doc.text(cleanText(formatBytes(res.transferSize)), MARGIN + CONTENT_W * 0.58, y + 6);
 
-      drawMiniBar(doc, MARGIN + CONTENT_W * 0.74, y + 2.8, CONTENT_W * 0.18, 2.8, frac, barColor);
+      // Share bar (placed safely without colliding with percentage text)
+      drawMiniBar(doc, MARGIN + CONTENT_W * 0.72, y + 2.8, CONTENT_W * 0.16, 2.8, frac, barColor);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(6.2);
       textColor(doc, COLORS.muted);
-      doc.text(`${Math.round(frac * 100)}%`, MARGIN + CONTENT_W * 0.93, y + 6, { align: "right" });
+      doc.text(`${Math.round(frac * 100)}%`, MARGIN + CONTENT_W * 0.94, y + 6, { align: "right" });
 
       y += rowH;
     });
@@ -124,11 +125,11 @@ export function drawResourcesPage({ doc, testId, hostname, parsed, totalPages }:
 
       doc.setFont("helvetica", "normal");
       textColor(doc, COLORS.muted);
-      doc.text(formatBytes(tp.transferSize), MARGIN + CONTENT_W * 0.52, y + 6);
+      doc.text(cleanText(formatBytes(tp.transferSize)), MARGIN + CONTENT_W * 0.52, y + 6);
 
       doc.setFont("helvetica", "bold");
       textColor(doc, isHigh ? COLORS.rose : COLORS.muted);
-      doc.text(tp.blockingTime > 0 ? formatMilliseconds(tp.blockingTime) : "—", MARGIN + CONTENT_W * 0.72, y + 6);
+      doc.text(tp.blockingTime > 0 ? cleanText(formatMilliseconds(tp.blockingTime)) : "-", MARGIN + CONTENT_W * 0.72, y + 6);
 
       if (isHigh) {
         drawStatusPill(doc, MARGIN + CONTENT_W * 0.87, y + 1.8, "HIGH IMPACT", COLORS.roseLight, COLORS.rose, 22, 4.8, 5.5);
@@ -170,14 +171,14 @@ export function drawResourcesPage({ doc, testId, hostname, parsed, totalPages }:
         doc.setFont("helvetica", "normal");
         doc.setFontSize(6.5);
         textColor(doc, COLORS.ink);
-        doc.text(trunc(chk.title, 38), MARGIN + 5, y + 6);
+        doc.text(trunc(chk.title, 34), MARGIN + 5, y + 6);
 
         drawStatusPill(doc, MARGIN + halfW - 14, y + 1.8, th.label, th.fill, COLORS.white, 12, 4.8, 5.8);
         y += rowH;
       });
     }
 
-    // SEO column (two-col layout — rendered alongside security block)
+    // SEO column (two-col layout - rendered alongside security block)
     if (hasSeo) {
       const seoY0 = hasSecu ? (y - parsed.securityChecks.slice(0, 6).length * 8.5 - 5.5) : y;
       const seoX  = MARGIN + halfW + 6;
@@ -200,7 +201,7 @@ export function drawResourcesPage({ doc, testId, hostname, parsed, totalPages }:
         doc.setFont("helvetica", "normal");
         doc.setFontSize(6.5);
         textColor(doc, COLORS.ink);
-        doc.text(trunc(issue.title, 38), seoX + 5, ry + 6);
+        doc.text(trunc(issue.title, 34), seoX + 5, ry + 6);
 
         drawStatusPill(doc, seoX + halfW - 14, ry + 1.8, th.label, th.fill, COLORS.white, 12, 4.8, 5.8);
       });

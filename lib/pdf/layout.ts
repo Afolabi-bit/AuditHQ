@@ -1,6 +1,6 @@
 /**
  * lib/pdf/layout.ts
- * Page geometry constants, text utilities, and structural layout helpers
+ * Page geometry constants, text utilities, sanitization helpers, and structural layout elements
  * (page footer, section divider, and running header) shared across all PDF pages.
  */
 
@@ -15,19 +15,43 @@ export const MARGIN    = 15;    // Left/right margin in mm
 export const CONTENT_W = PAGE_W - MARGIN * 2;
 export const FOOTER_H  = 12;
 
-// ─── Text Utilities ──────────────────────────────────────────────────────────
+// ─── Text Utilities & Sanitization ───────────────────────────────────────────
 
-/** Truncates a string to `n` characters, appending "…" if needed. */
-export function trunc(s: string, n: number): string {
-  return s.length > n ? s.slice(0, n - 1) + "…" : s;
+/**
+ * Strips markdown syntax (links, code formatting, bold, italics) into clean plain text.
+ */
+export function cleanText(s: string | null | undefined): string {
+  if (!s) return "";
+  return s
+    // Convert markdown links [text](url) -> text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    // Remove backticks
+    .replace(/`/g, "")
+    // Remove bold/italics markers
+    .replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/g, "$1")
+    // Replace non-standard unicode mathematical symbols with safe ASCII equivalents
+    .replace(/[≤]/g, "<=")
+    .replace(/[≥]/g, ">=")
+    .replace(/[−–—]/g, "-")
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/[…]/g, "...")
+    .trim();
+}
+
+/** Truncates a string cleanly without breaking words abruptly. */
+export function trunc(s: string, maxChars: number): string {
+  const cleaned = cleanText(s);
+  if (cleaned.length <= maxChars) return cleaned;
+  return cleaned.slice(0, maxChars - 3) + "...";
 }
 
 /**
- * Wraps text into lines that fit within `maxW` mm at the given font size.
+ * Wraps clean text into lines that fit within `maxW` mm at the given font size.
  */
 export function wrapText(doc: any, text: string, maxW: number, fontSize: number): string[] {
   doc.setFontSize(fontSize);
-  return doc.splitTextToSize(text, maxW);
+  return doc.splitTextToSize(cleanText(text), maxW);
 }
 
 // ─── Structural Elements ─────────────────────────────────────────────────────

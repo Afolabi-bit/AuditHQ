@@ -12,7 +12,7 @@ import {
   filledRect, filledRoundRect, strokedRoundRect,
   textColor, hLine, drawStatusPill,
 } from "./primitives";
-import { PAGE_W, MARGIN, CONTENT_W, drawFooter, drawSectionDivider, drawPageMiniHeader, trunc, wrapText } from "./layout";
+import { PAGE_W, MARGIN, CONTENT_W, drawFooter, drawSectionDivider, drawPageMiniHeader, trunc, wrapText, cleanText } from "./layout";
 
 interface OppsPageArgs {
   doc:        any;
@@ -24,7 +24,7 @@ interface OppsPageArgs {
   totalPages: number;
 }
 
-/** Maps a 0–1 Lighthouse score to an urgency string. */
+/** Maps a 0-1 Lighthouse score to an urgency string. */
 function urgencyByScore(score: number | null): "High" | "Medium" | "Low" {
   if (score === null) return "Medium";
   if (score < 0.5)  return "High";
@@ -77,42 +77,44 @@ export function drawOpportunitiesPage({
       filledRect(doc, MARGIN, y, CONTENT_W, rowH, idx % 2 === 0 ? COLORS.slate50 : COLORS.white);
       filledRect(doc, MARGIN, y, 2, rowH, ut.fill);
 
+      // Rank
       doc.setFont("helvetica", "bold");
       doc.setFontSize(7);
       textColor(doc, COLORS.muted);
       doc.text(String(idx + 1).padStart(2, "0"), MARGIN + 3.5, y + 7.5);
 
+      // Title & description (cleaned from raw markdown syntax)
       textColor(doc, COLORS.ink);
       doc.text(trunc(opp.title, 42), MARGIN + 10, y + 5.2);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(5.8);
       textColor(doc, COLORS.muted);
-      doc.text(trunc(opp.description, 65), MARGIN + 10, y + 9.5);
+      doc.text(trunc(opp.description, 68), MARGIN + 10, y + 9.5);
 
-      // Time savings
+      // Time savings (safe ASCII minus)
       doc.setFont("helvetica", "bold");
       doc.setFontSize(7.5);
       textColor(doc, COLORS.emerald);
       if (opp.overallSavingsMs && opp.overallSavingsMs > 0) {
-        doc.text(`−${formatMilliseconds(opp.overallSavingsMs)}`, MARGIN + CONTENT_W * 0.62, y + 7.5);
+        doc.text(`-${cleanText(formatMilliseconds(opp.overallSavingsMs))}`, MARGIN + CONTENT_W * 0.62, y + 7.5);
       } else if (opp.displayValue) {
         doc.setFontSize(6.5);
         doc.text(trunc(opp.displayValue, 18), MARGIN + CONTENT_W * 0.62, y + 7.5);
       } else {
         textColor(doc, COLORS.muted);
         doc.setFontSize(6.5);
-        doc.text("—", MARGIN + CONTENT_W * 0.62, y + 7.5);
+        doc.text("-", MARGIN + CONTENT_W * 0.62, y + 7.5);
       }
 
-      // Byte savings
+      // Byte savings (safe ASCII minus)
       doc.setFont("helvetica", "normal");
       doc.setFontSize(6.8);
       textColor(doc, COLORS.muted);
       doc.text(
         opp.overallSavingsBytes && opp.overallSavingsBytes > 0
-          ? `−${formatBytes(opp.overallSavingsBytes)}`
-          : "—",
+          ? `-${cleanText(formatBytes(opp.overallSavingsBytes))}`
+          : "-",
         MARGIN + CONTENT_W * 0.78, y + 7.5
       );
 
@@ -127,7 +129,7 @@ export function drawOpportunitiesPage({
     doc.setFont("helvetica", "bold");
     doc.setFontSize(8);
     textColor(doc, [6, 95, 70]);
-    doc.text("✓  No significant opportunities detected — site is well-optimized!", MARGIN + 6, y + 8.5);
+    doc.text("No significant opportunities detected - site is well-optimized!", MARGIN + 6, y + 8.5);
     y += 13;
   }
 
@@ -137,8 +139,8 @@ export function drawOpportunitiesPage({
   const passedAudits: string[] = [];
   for (const key in (rawReport?.audits || {})) {
     const a = rawReport.audits[key];
-    if (a?.score === 1 && a?.title && a.title.length < 55 && !a.title.includes("…")) {
-      passedAudits.push(a.title);
+    if (a?.score === 1 && a?.title && a.title.length < 55 && !a.title.includes("...")) {
+      passedAudits.push(cleanText(a.title));
       if (passedAudits.length >= 6) break;
     }
   }
@@ -180,7 +182,7 @@ export function drawOpportunitiesPage({
     y = drawSectionDivider(doc, y, "AI-POWERED REMEDIATION PLAYBOOK", "Ranked by ROI · Powered by Google Gemini");
 
     aiSummary.priorityFixes.slice(0, 3).forEach((fix, idx) => {
-      const ut         = urgencyTheme(fix.urgency);
+      const ut            = urgencyTheme(fix.urgency);
       const problemLines  = wrapText(doc, fix.problem,  CONTENT_W / 2 - 10, 6.5);
       const solutionLines = wrapText(doc, fix.solution, CONTENT_W / 2 - 10, 6.5);
       const boxH = 13 + Math.max(problemLines.length, solutionLines.length) * 4.2 + (fix.wastedFormatted ? 5 : 0);
@@ -189,25 +191,38 @@ export function drawOpportunitiesPage({
       strokedRoundRect(doc, MARGIN, y, CONTENT_W, boxH, 2.5, COLORS.border, 0.3);
       filledRect(doc, MARGIN, y, 2.5, boxH, ut.fill);
 
+      // Fix number badge
       doc.setFont("helvetica", "bold");
       doc.setFontSize(6.5);
       textColor(doc, ut.dark);
       doc.text(`FIX ${String(idx + 1).padStart(2, "0")}`, MARGIN + 6, y + 6);
 
+      // Fix title
       doc.setFontSize(8);
       textColor(doc, COLORS.ink);
       doc.text(trunc(fix.title, 56), MARGIN + 20, y + 6);
 
-      drawStatusPill(doc, MARGIN + 20, y + 8.5, fix.category, COLORS.slate100, COLORS.muted, 30, 4.8, 5.8);
-      drawStatusPill(doc, MARGIN + 53, y + 8.5, fix.urgency,  ut.fill, COLORS.white, 16, 4.8, 5.8);
+      // Compute dynamic width for category pill to prevent text collision
+      doc.setFontSize(5.8);
+      doc.setFont("helvetica", "bold");
+      const catTextW = doc.getTextWidth(fix.category);
+      const catPillW = Math.max(22, catTextW + 6);
+
+      drawStatusPill(doc, MARGIN + 20, y + 8.5, fix.category, COLORS.slate100, COLORS.muted, catPillW, 4.8, 5.8);
+
+      // Position urgency pill safely to the right of category pill
+      const urgX = MARGIN + 20 + catPillW + 3;
+      drawStatusPill(doc, urgX, y + 8.5, fix.urgency, ut.fill, COLORS.white, 16, 4.8, 5.8);
 
       if (fix.wastedFormatted) {
+        const wastedX = urgX + 16 + 4;
         doc.setFont("helvetica", "bold");
         doc.setFontSize(6.5);
         textColor(doc, COLORS.emerald);
-        doc.text(fix.wastedFormatted, MARGIN + 72, y + 12);
+        doc.text(cleanText(fix.wastedFormatted), wastedX, y + 12);
       }
 
+      // Two-column layout for Root Cause vs Remediation
       const bodyY = y + 15.5;
       const solX  = MARGIN + CONTENT_W / 2 + 2;
 
@@ -232,15 +247,26 @@ export function drawOpportunitiesPage({
       y += boxH + 4;
     });
 
-    // Key strengths strip
+    // Key strengths strip (word-wrapped to prevent right-edge overflow!)
     if (aiSummary.keyStrengths && aiSummary.keyStrengths.length > 0) {
-      filledRoundRect(doc, MARGIN, y, CONTENT_W, 9.5, 2, COLORS.emeraldLight);
+      const fullStrengthText = cleanText(aiSummary.keyStrengths.join("  ·  "));
+      const strengthLines = wrapText(doc, fullStrengthText, CONTENT_W - 38, 6.2);
+      const strBoxH = Math.max(9.5, 4.5 + strengthLines.length * 3.4);
+
+      filledRoundRect(doc, MARGIN, y, CONTENT_W, strBoxH, 2, COLORS.emeraldLight);
+
       doc.setFont("helvetica", "bold");
       doc.setFontSize(6.5);
       textColor(doc, [6, 95, 70]);
-      doc.text("KEY STRENGTHS:", MARGIN + 5, y + 6.5);
+      doc.text("KEY STRENGTHS:", MARGIN + 5, y + 6);
+
       doc.setFont("helvetica", "normal");
-      doc.text(aiSummary.keyStrengths.join("  ·  "), MARGIN + 32, y + 6.5);
+      doc.setFontSize(6.2);
+      let sy = y + 6;
+      strengthLines.forEach((l: string) => {
+        doc.text(l, MARGIN + 34, sy);
+        sy += 3.4;
+      });
     }
   }
 

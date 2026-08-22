@@ -7,7 +7,7 @@
 import type { ParsedLighthouseReport } from "../report-parser";
 import { COLORS, getRatingTheme } from "./tokens";
 import { filledRect, filledRoundRect, strokedRoundRect, textColor, hLine, drawStatusPill, drawMiniBar } from "./primitives";
-import { PAGE_W, MARGIN, CONTENT_W, drawFooter, drawSectionDivider, drawPageMiniHeader, wrapText } from "./layout";
+import { PAGE_W, MARGIN, CONTENT_W, drawFooter, drawSectionDivider, drawPageMiniHeader, wrapText, cleanText } from "./layout";
 
 interface CWVPageArgs {
   doc:        any;
@@ -25,20 +25,20 @@ export function drawCWVPage({ doc, testId, hostname, parsed, totalPages }: CWVPa
   let y = 18;
   y = drawSectionDivider(doc, y, "CORE WEB VITALS & DIAGNOSTIC BENCHMARKS", "Google Search Ranking Signals · Lighthouse 12.0");
 
-  // ── Metric definitions ────────────────────────────────────────────────────
+  // ── Metric definitions (Standard safe ASCII targets) ──────────────────────
   const cwvMetrics = [
-    { id: "LCP",  name: "Largest Contentful Paint",  data: parsed.metrics.lcp,        target: "≤ 2.5 s",  weight: 0.25, isCore: true  },
-    { id: "TBT",  name: "Total Blocking Time",        data: parsed.metrics.tbt,        target: "≤ 200 ms", weight: 0.30, isCore: true  },
-    { id: "CLS",  name: "Cumulative Layout Shift",    data: parsed.metrics.cls,        target: "≤ 0.10",   weight: 0.25, isCore: true  },
-    { id: "FCP",  name: "First Contentful Paint",     data: parsed.metrics.fcp,        target: "≤ 1.8 s",  weight: 0.10, isCore: false },
-    { id: "SI",   name: "Speed Index",                data: parsed.metrics.speedIndex, target: "≤ 3.4 s",  weight: 0.10, isCore: false },
-    { id: "TTFB", name: "Time to First Byte",         data: parsed.metrics.ttfb,       target: "≤ 800 ms", weight: 0,    isCore: false },
+    { id: "LCP",  name: "Largest Contentful Paint",  data: parsed.metrics.lcp,        target: "<= 2.5 s",  weight: 0.25, isCore: true  },
+    { id: "TBT",  name: "Total Blocking Time",        data: parsed.metrics.tbt,        target: "<= 200 ms", weight: 0.30, isCore: true  },
+    { id: "CLS",  name: "Cumulative Layout Shift",    data: parsed.metrics.cls,        target: "<= 0.10",   weight: 0.25, isCore: true  },
+    { id: "FCP",  name: "First Contentful Paint",     data: parsed.metrics.fcp,        target: "<= 1.8 s",  weight: 0.10, isCore: false },
+    { id: "SI",   name: "Speed Index",                data: parsed.metrics.speedIndex, target: "<= 3.4 s",  weight: 0.10, isCore: false },
+    { id: "TTFB", name: "Time to First Byte",         data: parsed.metrics.ttfb,       target: "<= 800 ms", weight: 0,    isCore: false },
   ];
 
   // ── Column x-positions ────────────────────────────────────────────────────
   const col = {
     id:     MARGIN + 1.5,
-    name:   MARGIN + 16,
+    name:   MARGIN + 15,
     value:  MARGIN + CONTENT_W * 0.44,
     target: MARGIN + CONTENT_W * 0.60,
     weight: MARGIN + CONTENT_W * 0.74,
@@ -67,7 +67,7 @@ export function drawCWVPage({ doc, testId, hostname, parsed, totalPages }: CWVPa
     filledRect(doc, MARGIN, y, CONTENT_W, rowH, idx % 2 === 0 ? COLORS.slate50 : COLORS.white);
     filledRect(doc, MARGIN, y, 2.5, rowH, th.fill);
 
-    // ID cell — highlighted pill for core CWVs, plain text for others
+    // ID cell
     if (m.isCore) {
       filledRoundRect(doc, col.id - 0.5, y + 1.6, 9, 4.5, 0.8, th.light);
       doc.setFont("helvetica", "bold");
@@ -89,7 +89,7 @@ export function drawCWVPage({ doc, testId, hostname, parsed, totalPages }: CWVPa
     doc.setFont("helvetica", "bold");
     doc.setFontSize(7.5);
     textColor(doc, th.fill);
-    doc.text(m.data.displayValue, col.value, y + 6.2);
+    doc.text(cleanText(m.data.displayValue), col.value, y + 6.2);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(6.8);
@@ -120,11 +120,11 @@ export function drawCWVPage({ doc, testId, hostname, parsed, totalPages }: CWVPa
   y = drawSectionDivider(
     doc, y,
     "PERFORMANCE SCORE COMPOSITION",
-    "Weighted contribution of each metric to the 0–100 Performance score"
+    "Weighted contribution of each metric to the 0-100 Performance score"
   );
 
   const scoredMetrics = cwvMetrics.filter(m => m.weight > 0);
-  const barTotalW     = CONTENT_W - 75;
+  const barTotalW     = CONTENT_W - 88; // 180 - 88 = 92mm bar width, avoids overlapping text
 
   scoredMetrics.forEach((m, idx) => {
     const th           = getRatingTheme(m.data.rating);
@@ -142,15 +142,18 @@ export function drawCWVPage({ doc, testId, hostname, parsed, totalPages }: CWVPa
     doc.setFont("helvetica", "normal");
     doc.setFontSize(6.5);
     textColor(doc, COLORS.muted);
-    doc.text(m.name, MARGIN + 16, y + 6.5);
+    doc.text(m.name, MARGIN + 15, y + 6.5);
 
-    drawMiniBar(doc, MARGIN + 75, y + 2.8, barTotalW, 3.8, pct, th.fill, COLORS.border);
+    // Progress bar positioned safely between label and score numbers
+    drawMiniBar(doc, MARGIN + 64, y + 2.8, barTotalW, 3.8, pct, th.fill, COLORS.border);
 
+    // Raw score percentage
     doc.setFont("helvetica", "bold");
     doc.setFontSize(7);
     textColor(doc, th.fill);
-    doc.text(`${Math.round(pct * 100)}`, PAGE_W - MARGIN - 18, y + 6.5);
+    doc.text(`${Math.round(pct * 100)}`, PAGE_W - MARGIN - 20, y + 6.5, { align: "right" });
 
+    // Points contributed to total performance score
     doc.setFont("helvetica", "normal");
     doc.setFontSize(6.2);
     textColor(doc, COLORS.muted);
@@ -170,7 +173,7 @@ export function drawCWVPage({ doc, testId, hostname, parsed, totalPages }: CWVPa
   doc.setFont("helvetica", "bold");
   doc.setFontSize(7.5);
   textColor(doc, [120, 53, 15]);
-  doc.text("IMPORTANT — LAB VS. FIELD DATA", MARGIN + 7, y + 6.5);
+  doc.text("IMPORTANT - LAB VS. FIELD DATA", MARGIN + 7, y + 6.5);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(6.8);
