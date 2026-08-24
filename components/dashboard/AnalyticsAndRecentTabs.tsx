@@ -2,14 +2,7 @@
 
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import {
-  AlertCircle,
-  CheckCircle2,
-  Info,
-  TrendingUp,
-  Gauge,
-  Layers,
-} from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import RecentTests from "./RecentTests";
 import { PerformanceTrajectoryChart } from "./PerformanceTrajectoryChart";
@@ -44,9 +37,9 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
     "/api/dashboard/stats",
     fetcher,
     {
-      revalidateOnFocus: false, // Don't query database on tab switches
+      revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      dedupingInterval: 120_000, // 2-minute deduplication window
+      dedupingInterval: 120_000,
       revalidateIfStale: !isFresh,
       onSuccess: (freshData) => {
         if (freshData?.stats) {
@@ -59,22 +52,24 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
   const resolvedStats = data?.stats ?? (isUserMatching ? storedStats : null) ?? initialStats;
   const isLoading = !resolvedStats && swrLoading;
 
-  const stats = resolvedStats ?? {
+  const stats = resolvedStats || {
     testsThisMonth: 0,
     testsLimit: 100,
+    activeSites: 0,
     avgPerformance: null,
     performanceDiff: null,
-    activeSites: 0,
     avgLoadTime: null,
     loadTimeDiff: null,
     performanceTrends: [],
-    coreWebVitals: { lcp: null, tbt: null, cls: null },
+    coreWebVitals: {
+      lcp: null,
+      tbt: null,
+      cls: null,
+    },
     recommendations: [],
   };
 
-  const lcp = stats.coreWebVitals.lcp;
-  const tbt = stats.coreWebVitals.tbt;
-  const cls = stats.coreWebVitals.cls;
+  const cwv = stats.coreWebVitals || { lcp: null, tbt: null, cls: null };
 
   return (
     <Tabs defaultValue="recent" className="space-y-8">
@@ -94,11 +89,6 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
             Performance Analytics
           </TabsTrigger>
         </TabsList>
-
-        <span className="inline-flex items-center gap-2 text-xs text-text-tertiary font-mono">
-          <span className="w-2 h-2 rounded-full bg-score-good animate-pulse" />
-          Live Telemetry Feed Active
-        </span>
       </div>
 
       {/* ── Tab 1: Recent Tests ────────────────────────────────────────────── */}
@@ -138,234 +128,136 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
           </div>
 
           <PerformanceTrajectoryChart
-            data={stats.performanceTrends}
+            data={(stats.performanceTrends || []).map((t) => ({
+              id: t.id,
+              date: t.date,
+              time: t.time,
+              url: t.url,
+              device: t.device,
+              score: t.score,
+            }))}
             avgScore={stats.avgPerformance}
           />
         </div>
 
-        {/* Core Web Vitals & Optimization Priorities Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-          {/* Core Web Vitals Means */}
-          <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-            <div className="space-y-1">
-              <h3 className="text-base sm:text-lg font-bold text-text-primary font-sans flex items-center gap-2.5">
-                <Gauge className="h-5 w-5 text-score-good" />
-                Core Web Vitals Aggregates
-              </h3>
-              <p className="text-xs sm:text-sm text-text-secondary">
-                Mean user experience metrics across all audited endpoints
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              {/* LCP */}
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-xs sm:text-sm">
-                  <div>
-                    <span className="font-semibold text-text-primary font-sans">
-                      Largest Contentful Paint (LCP)
-                    </span>
-                    <p className="text-[11px] text-text-tertiary">Main viewport paint speed</p>
-                  </div>
-                  <span
-                    className={`font-mono font-bold text-sm ${
-                      isLoading || lcp == null
-                        ? "text-text-tertiary"
-                        : lcp <= 2.5
-                        ? "text-score-good"
-                        : lcp <= 4.0
-                        ? "text-score-warn"
-                        : "text-score-poor"
-                    }`}
-                  >
-                    {isLoading ? (
-                      <span className="inline-block h-4 w-12 rounded bg-surface-2 animate-pulse" />
-                    ) : lcp != null ? (
-                      `${Number(lcp).toFixed(1)}s`
-                    ) : (
-                      "—"
-                    )}
-                  </span>
-                </div>
-                <div className="h-2 w-full bg-surface-2 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      isLoading || lcp == null
-                        ? "bg-surface-3"
-                        : lcp <= 2.5
-                        ? "bg-score-good"
-                        : lcp <= 4.0
-                        ? "bg-score-warn"
-                        : "bg-score-poor"
-                    }`}
-                    style={{
-                      width: `${
-                        isLoading || lcp == null
-                          ? 0
-                          : Math.max(10, Math.min(100, Math.round((2.5 / Math.max(0.5, lcp)) * 100)))
-                      }%`,
-                    }}
-                  />
-                </div>
-                <div className="flex justify-between text-[11px] font-mono text-text-tertiary">
-                  <span>{isLoading ? "Loading…" : lcp == null ? "No data" : lcp <= 2.5 ? "Good" : lcp <= 4.0 ? "Needs Improvement" : "Poor"}</span>
-                  <span>Target: ≤ 2.5s</span>
-                </div>
-              </div>
-
-              {/* TBT */}
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-xs sm:text-sm">
-                  <div>
-                    <span className="font-semibold text-text-primary font-sans">
-                      Total Blocking Time (TBT)
-                    </span>
-                    <p className="text-[11px] text-text-tertiary">Main thread input delay</p>
-                  </div>
-                  <span
-                    className={`font-mono font-bold text-sm ${
-                      isLoading || tbt == null
-                        ? "text-text-tertiary"
-                        : tbt <= 200
-                        ? "text-score-good"
-                        : tbt <= 600
-                        ? "text-score-warn"
-                        : "text-score-poor"
-                    }`}
-                  >
-                    {isLoading ? (
-                      <span className="inline-block h-4 w-12 rounded bg-surface-2 animate-pulse" />
-                    ) : tbt != null ? (
-                      `${Math.round(Number(tbt))}ms`
-                    ) : (
-                      "—"
-                    )}
-                  </span>
-                </div>
-                <div className="h-2 w-full bg-surface-2 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      isLoading || tbt == null
-                        ? "bg-surface-3"
-                        : tbt <= 200
-                        ? "bg-score-good"
-                        : tbt <= 600
-                        ? "bg-score-warn"
-                        : "bg-score-poor"
-                    }`}
-                    style={{
-                      width: `${
-                        isLoading || tbt == null
-                          ? 0
-                          : Math.max(10, Math.min(100, Math.round((200 / Math.max(50, tbt)) * 100)))
-                      }%`,
-                    }}
-                  />
-                </div>
-                <div className="flex justify-between text-[11px] font-mono text-text-tertiary">
-                  <span>{isLoading ? "Loading…" : tbt == null ? "No data" : tbt <= 200 ? "Good" : tbt <= 600 ? "Needs Improvement" : "Poor"}</span>
-                  <span>Target: ≤ 200ms</span>
-                </div>
-              </div>
-
-              {/* CLS */}
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-xs sm:text-sm">
-                  <div>
-                    <span className="font-semibold text-text-primary font-sans">
-                      Cumulative Layout Shift (CLS)
-                    </span>
-                    <p className="text-[11px] text-text-tertiary">Visual layout stability</p>
-                  </div>
-                  <span
-                    className={`font-mono font-bold text-sm ${
-                      isLoading || cls == null
-                        ? "text-text-tertiary"
-                        : cls <= 0.1
-                        ? "text-score-good"
-                        : cls <= 0.25
-                        ? "text-score-warn"
-                        : "text-score-poor"
-                    }`}
-                  >
-                    {isLoading ? (
-                      <span className="inline-block h-4 w-12 rounded bg-surface-2 animate-pulse" />
-                    ) : cls != null ? (
-                      Number(cls).toFixed(3)
-                    ) : (
-                      "—"
-                    )}
-                  </span>
-                </div>
-                <div className="h-2 w-full bg-surface-2 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      isLoading || cls == null
-                        ? "bg-surface-3"
-                        : cls <= 0.1
-                        ? "bg-score-good"
-                        : cls <= 0.25
-                        ? "bg-score-warn"
-                        : "bg-score-poor"
-                    }`}
-                    style={{
-                      width: `${
-                        isLoading || cls == null
-                          ? 0
-                          : Math.max(10, Math.min(100, Math.round((0.1 / Math.max(0.01, cls)) * 100)))
-                      }%`,
-                    }}
-                  />
-                </div>
-                <div className="flex justify-between text-[11px] font-mono text-text-tertiary">
-                  <span>{isLoading ? "Loading…" : cls == null ? "No data" : cls <= 0.1 ? "Good" : cls <= 0.25 ? "Needs Improvement" : "Poor"}</span>
-                  <span>Target: ≤ 0.100</span>
-                </div>
-              </div>
-            </div>
+        {/* Aggregate CWV Metric Insights */}
+        <div className="space-y-4">
+          <div className="space-y-1">
+            <h3 className="text-base sm:text-lg font-bold text-text-primary font-sans">
+              Aggregated Core Web Vitals
+            </h3>
+            <p className="text-xs sm:text-sm text-text-secondary">
+              Weighted averages across all audited domains against Google threshold targets
+            </p>
           </div>
 
-          {/* Strategic Optimization Priorities */}
-          <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-            <div className="space-y-1">
-              <h3 className="text-base sm:text-lg font-bold text-text-primary font-sans flex items-center gap-2.5">
-                <Layers className="h-5 w-5 text-brand-500" />
-                Strategic Recommendations
-              </h3>
-              <p className="text-xs sm:text-sm text-text-secondary">
-                Prioritized interventions based on collective audit telemetry
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* LCP Metric */}
+            <div className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-text-secondary">
+                  Avg Largest Contentful Paint (LCP)
+                </span>
+                <span className="text-[10px] font-mono text-text-tertiary">
+                  Target ≤ 2.5s
+                </span>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <span
+                  className={`text-2xl font-bold font-mono ${
+                    cwv.lcp == null
+                      ? "text-text-tertiary"
+                      : cwv.lcp <= 2.5
+                      ? "text-score-good"
+                      : cwv.lcp <= 4.0
+                      ? "text-score-warn"
+                      : "text-score-poor"
+                  }`}
+                >
+                  {cwv.lcp != null ? `${cwv.lcp}s` : "—"}
+                </span>
+              </div>
+              <p className="text-[11px] text-text-tertiary">
+                {cwv.lcp == null
+                  ? "No telemetry recorded"
+                  : cwv.lcp <= 2.5
+                  ? "✓ Fast viewport visual"
+                  : cwv.lcp <= 4.0
+                  ? "⚠ Needs improvement"
+                  : "✗ Slow visual render"}
               </p>
             </div>
 
-            <div className="space-y-4">
-              {stats.recommendations && stats.recommendations.length > 0 ? (
-                stats.recommendations.slice(0, 3).map((rec, i) => (
-                  <div
-                    key={i}
-                    className="p-4 rounded-xl bg-surface-1 border border-border space-y-1.5"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase font-mono bg-brand-50 text-brand-500 border border-brand-200">
-                        Priority {i + 1}
-                      </span>
-                      <h4 className="text-xs sm:text-sm font-bold text-text-primary font-sans">
-                        {rec.title}
-                      </h4>
-                    </div>
-                    <p className="text-xs text-text-secondary leading-relaxed">
-                      {rec.description}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <div className="py-10 text-center text-xs text-text-tertiary font-mono space-y-2">
-                  <div className="h-10 w-10 rounded-full bg-surface-1 border border-border flex items-center justify-center mx-auto text-emerald-500">
-                    <CheckCircle2 className="h-5 w-5" />
-                  </div>
-                  <p>No systemic performance regressions detected.</p>
-                  <p className="text-[11px]">Run more audits to generate strategic diagnostic insights.</p>
-                </div>
-              )}
+            {/* TBT Metric */}
+            <div className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-text-secondary">
+                  Avg Total Blocking Time (TBT)
+                </span>
+                <span className="text-[10px] font-mono text-text-tertiary">
+                  Target ≤ 200ms
+                </span>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <span
+                  className={`text-2xl font-bold font-mono ${
+                    cwv.tbt == null
+                      ? "text-text-tertiary"
+                      : cwv.tbt <= 200
+                      ? "text-score-good"
+                      : cwv.tbt <= 600
+                      ? "text-score-warn"
+                      : "text-score-poor"
+                  }`}
+                >
+                  {cwv.tbt != null ? `${Math.round(cwv.tbt)}ms` : "—"}
+                </span>
+              </div>
+              <p className="text-[11px] text-text-tertiary">
+                {cwv.tbt == null
+                  ? "No telemetry recorded"
+                  : cwv.tbt <= 200
+                  ? "✓ Main thread responsive"
+                  : cwv.tbt <= 600
+                  ? "⚠ High script latency"
+                  : "✗ Heavy execution blocks"}
+              </p>
+            </div>
+
+            {/* CLS Metric */}
+            <div className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-text-secondary">
+                  Avg Cumulative Layout Shift (CLS)
+                </span>
+                <span className="text-[10px] font-mono text-text-tertiary">
+                  Target ≤ 0.1
+                </span>
+              </div>
+              <div className="flex items-baseline gap-1.5">
+                <span
+                  className={`text-2xl font-bold font-mono ${
+                    cwv.cls == null
+                      ? "text-text-tertiary"
+                      : cwv.cls <= 0.1
+                      ? "text-score-good"
+                      : cwv.cls <= 0.25
+                      ? "text-score-warn"
+                      : "text-score-poor"
+                  }`}
+                >
+                  {cwv.cls != null ? cwv.cls.toFixed(2) : "—"}
+                </span>
+              </div>
+              <p className="text-[11px] text-text-tertiary">
+                {cwv.cls == null
+                  ? "No telemetry recorded"
+                  : cwv.cls <= 0.1
+                  ? "✓ Visual elements stable"
+                  : cwv.cls <= 0.25
+                  ? "⚠ Minor layout shifting"
+                  : "✗ Severe visual shifts"}
+              </p>
             </div>
           </div>
         </div>
