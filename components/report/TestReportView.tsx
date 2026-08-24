@@ -34,6 +34,9 @@ import {
   ExternalLink,
   Monitor,
   Smartphone,
+  ArrowLeft,
+  ArrowRight,
+  RotateCcw,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -64,6 +67,18 @@ interface TestReportViewProps {
   isPublic?: boolean;
 }
 
+const sectionsList: Array<{ id: ReportSectionKey; label: string }> = [
+  { id: "scorecard", label: "Executive Scorecard" },
+  { id: "vitals", label: "Core Web Vitals" },
+  { id: "ai", label: "AI Performance Fixes" },
+  { id: "visual", label: "Visual Filmstrip" },
+  { id: "opportunities", label: "Opportunities & Savings" },
+  { id: "network", label: "Network & Payloads" },
+  { id: "a11y", label: "Accessibility & SEO" },
+  { id: "security", label: "Security Checks" },
+  { id: "diagnostics", label: "Engine Diagnostics" },
+];
+
 export const TestReportView: React.FC<TestReportViewProps> = ({
   test,
   isPublic = false,
@@ -76,6 +91,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
   const [isPdfMenuOpen, setIsPdfMenuOpen] = useState(false);
   const [isCompareOpen, setIsCompareOpen] = useState(false);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const pdfMenuRef = useRef<HTMLDivElement>(null);
 
   // Close PDF dropdown on outside click
@@ -111,6 +127,11 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
     year: "numeric",
   });
   const isDesktop = test.domain.device?.toLowerCase() === "desktop";
+
+  const handleNavigateSection = (key: ReportSectionKey) => {
+    setActiveSection(key);
+    scrollContainerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleCopyShareLink = async () => {
     try {
@@ -243,6 +264,9 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
   };
 
   const activeMeta = sectionTitles[activeSection];
+  const currentIndex = sectionsList.findIndex((s) => s.id === activeSection);
+  const prevSection = currentIndex > 0 ? sectionsList[currentIndex - 1] : null;
+  const nextSection = currentIndex < sectionsList.length - 1 ? sectionsList[currentIndex + 1] : null;
 
   return (
     <div className="h-[calc(100vh-4rem)] w-full flex flex-col lg:flex-row overflow-hidden bg-background text-foreground">
@@ -250,14 +274,17 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
       <ReportCollapsibleSidebar
         report={parsedReport}
         activeSection={activeSection}
-        onSelectSection={(sec) => setActiveSection(sec)}
+        onSelectSection={(sec) => handleNavigateSection(sec)}
         isPublic={isPublic}
         mobileOpen={mobileSidebarOpen}
         onCloseMobile={() => setMobileSidebarOpen(false)}
       />
 
       {/* ── 2. Main Content Viewport ───────────────────────────────────────── */}
-      <div className="flex-1 min-w-0 h-full overflow-y-auto flex flex-col">
+      <div
+        ref={scrollContainerRef}
+        className="flex-1 min-w-0 h-full overflow-y-auto flex flex-col"
+      >
         {/* Mobile Header Bar with Hamburger */}
         <div className="lg:hidden sticky top-0 z-30 bg-surface-0/95 backdrop-blur-md border-b border-border px-4 py-3 flex items-center justify-between shadow-2xs">
           <div className="flex items-center gap-2 min-w-0">
@@ -416,7 +443,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
           </div>
 
           {/* Active Section Content Container */}
-          <div className="space-y-8 pb-12">
+          <div className="space-y-8 pb-4">
             {/* Section 1: Executive Scorecard */}
             {activeSection === "scorecard" && (
               <div className="animate-in fade-in duration-200">
@@ -500,6 +527,54 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                   onInspectItem={(item) => setInspectedItem(item)}
                 />
               </div>
+            )}
+          </div>
+
+          {/* ── 3. Bottom Section Navigation Bar ────────────────────────────── */}
+          <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+            {prevSection ? (
+              <button
+                onClick={() => handleNavigateSection(prevSection.id)}
+                className="w-full sm:w-auto inline-flex items-center gap-3 px-4 py-2.5 rounded-xl border border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group"
+              >
+                <ArrowLeft className="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" />
+                <div className="text-left">
+                  <span className="text-[10px] text-text-tertiary block font-mono">Previous Section</span>
+                  <span className="font-bold text-text-primary">{prevSection.label}</span>
+                </div>
+              </button>
+            ) : (
+              <div className="hidden sm:block" />
+            )}
+
+            <div className="flex items-center gap-2 text-xs text-text-tertiary font-mono">
+              <span className="font-bold text-text-primary">{currentIndex + 1}</span>
+              <span>/</span>
+              <span>{sectionsList.length}</span>
+            </div>
+
+            {nextSection ? (
+              <button
+                onClick={() => handleNavigateSection(nextSection.id)}
+                className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-end gap-3 px-4 py-2.5 rounded-xl border border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group text-right"
+              >
+                <div className="text-right">
+                  <span className="text-[10px] text-text-tertiary block font-mono">Next Section</span>
+                  <span className="font-bold text-text-primary">{nextSection.label}</span>
+                </div>
+                <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform text-brand-600 dark:text-brand-400" />
+              </button>
+            ) : (
+              <button
+                onClick={() => handleNavigateSection("scorecard")}
+                className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-end gap-3 px-4 py-2.5 rounded-xl border border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group text-right"
+              >
+                <div className="text-right">
+                  <span className="text-[10px] text-text-tertiary block font-mono">Completed</span>
+                  <span className="font-bold text-text-primary">Back to Scorecard</span>
+                </div>
+                <RotateCcw className="h-4 w-4 transform group-hover:rotate-180 transition-transform" />
+              </button>
             )}
           </div>
 
