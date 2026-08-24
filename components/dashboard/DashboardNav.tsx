@@ -10,8 +10,9 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 const DashboardNav = ({ user }: { user: KindeUser }) => {
   const pathname = usePathname();
 
-  const isConsole = pathname === "/dashboard" || pathname.startsWith("/dashboard/test");
-  const isProfile = pathname === "/dashboard/profile";
+  const isConsole =
+    pathname === "/dashboard" || pathname.startsWith("/dashboard/test");
+  const isProfile = pathname === "/profile" || pathname.startsWith("/profile");
 
   return (
     <nav className="bg-surface-0/90 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-2xs">
@@ -44,7 +45,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
                 Console
               </Link>
               <Link
-                href="/dashboard/profile"
+                href="/profile"
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap shrink-0 ${
                   isProfile
                     ? "text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30"
@@ -59,7 +60,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
           {/* Right Actions & Profile (Avatar on mobile, Avatar + Name on desktop) */}
           <div className="flex items-center space-x-3 shrink-0">
             <Link
-              href="/dashboard/profile"
+              href="/profile"
               className={`flex items-center space-x-2.5 p-1 sm:p-1.5 sm:pr-3 rounded-xl border transition-all cursor-pointer group shrink-0 ${
                 isProfile
                   ? "bg-brand-50 dark:bg-brand-500/10 border-brand-200 dark:border-brand-500/30 text-brand-600 dark:text-brand-300"
@@ -67,7 +68,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
               }`}
               title="Account Profile & Settings"
             >
-              <div className="text-right hidden sm:block leading-tight max-w-[140px] truncate">
+              <div className="text-right hidden sm:block leading-tight max-w-35 truncate">
                 <p className="text-xs font-semibold text-text-primary group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors truncate">
                   {user?.given_name} {user?.family_name}
                 </p>

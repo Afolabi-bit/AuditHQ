@@ -48,31 +48,59 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
       });
   }, [tests, testsOrder, isPublic, currentUserId]);
 
-  // Default: Base is second newest, Target is newest
-  const defaultTarget = initialTargetId || (completedTests.length > 0 ? completedTests[0]?.id : "");
+  const defaultTarget = initialTargetId || (completedTests.length > 0 ? String(completedTests[0]?.id) : "");
   const defaultBase =
     initialBaseId ||
-    (completedTests.length > 1 ? completedTests[1]?.id : defaultTarget);
+    (completedTests.length > 1 ? String(completedTests[1]?.id) : defaultTarget);
 
-  const [baseId, setBaseId] = useState<string>(defaultBase);
-  const [targetId, setTargetId] = useState<string>(defaultTarget);
+  const [baseId, setBaseId] = useState<string>(String(defaultBase));
+  const [targetId, setTargetId] = useState<string>(String(defaultTarget));
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<"base" | "target">("base");
+  const [activeSlot, setActiveSlot] = useState<"base" | "target">("base");
 
+  // Keep state synced when modal is opened or props change
   useEffect(() => {
-    if (initialBaseId) setBaseId(initialBaseId);
-    if (initialTargetId) setTargetId(initialTargetId);
-  }, [initialBaseId, initialTargetId]);
+    if (isOpen) {
+      if (initialBaseId) setBaseId(String(initialBaseId));
+      if (initialTargetId) setTargetId(String(initialTargetId));
+    }
+  }, [isOpen, initialBaseId, initialTargetId]);
 
   if (!isOpen) return null;
 
-  const baseTest = tests[baseId];
-  const targetTest = tests[targetId];
+  const baseTest =
+    tests[baseId] ||
+    completedTests.find((t) => String(t.id) === String(baseId)) ||
+    null;
+
+  const targetTest =
+    tests[targetId] ||
+    completedTests.find((t) => String(t.id) === String(targetId)) ||
+    null;
 
   const handleSwap = () => {
     const temp = baseId;
     setBaseId(targetId);
     setTargetId(temp);
+  };
+
+  const handleSelect = (id: string | number, slot?: "base" | "target") => {
+    const idStr = String(id);
+    const targetSlot = slot || activeSlot;
+
+    if (targetSlot === "base") {
+      setBaseId(idStr);
+      // Auto-focus target slot next if it's currently empty or same
+      if (!targetId || targetId === idStr) {
+        setActiveSlot("target");
+      }
+    } else {
+      setTargetId(idStr);
+      // If base was empty or same, point back to base
+      if (!baseId || baseId === idStr) {
+        setActiveSlot("base");
+      }
+    }
   };
 
   const handleLaunch = () => {
@@ -88,66 +116,66 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
     return (
       t.domain?.url?.toLowerCase().includes(query) ||
       t.device?.toLowerCase().includes(query) ||
-      t.id.toLowerCase().includes(query)
+      String(t.id).toLowerCase().includes(query)
     );
   });
 
   const getScoreBadge = (score: number | null) => {
     if (score == null) return "bg-surface-2 text-text-tertiary border-border";
-    if (score >= 90) return "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30";
-    if (score >= 50) return "bg-[#fff8e5] text-[#b76e00] border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30";
-    return "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30";
+    if (score >= 90) return "score-badge-good";
+    if (score >= 50) return "score-badge-warn";
+    return "score-badge-poor";
   };
 
-  const isSameTest = baseId && targetId && baseId === targetId;
+  const isSameTest = baseId && targetId && String(baseId) === String(targetId);
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150"
       onClick={onClose}
     >
       <div
-        className="bg-surface-0 border border-border rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-5 max-h-[92vh] flex flex-col"
+        className="bg-surface-0 border border-border rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl flex flex-col max-h-[88vh] h-full overflow-hidden animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-border pb-4 shrink-0">
+        {/* 1. Modal Header */}
+        <div className="flex items-center justify-between border-b border-border pb-3 shrink-0">
           <div className="space-y-0.5">
-            <h3 className="text-base sm:text-lg font-bold text-text-primary font-sans flex items-center gap-2">
-              <ArrowRightLeft className="h-5 w-5 text-brand-500" />
+            <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-center gap-2">
+              <ArrowRightLeft className="h-4.5 w-4.5 text-brand-600 dark:text-brand-400" />
               Compare Audit Runs
             </h3>
             <p className="text-xs text-text-secondary">
-              Select any baseline and target test to evaluate regressions and score deltas
+              Select a baseline and target test to evaluate regressions and score deltas
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="h-8 w-8 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
+            className="h-8 w-8 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer shrink-0"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
-        {/* Selected Pair Preview Card */}
-        <div className="grid grid-cols-1 sm:grid-cols-11 gap-3 items-center bg-surface-1 p-3.5 rounded-xl border border-border shrink-0">
+        {/* 2. Selected Pair Preview Box */}
+        <div className="grid grid-cols-1 sm:grid-cols-11 gap-2 items-center bg-surface-1 p-2.5 rounded-xl border border-border shrink-0 my-3">
           {/* Base Selection Box */}
           <button
             type="button"
-            onClick={() => setActiveTab("base")}
-            className={`sm:col-span-5 p-3 rounded-lg border text-left transition-all cursor-pointer ${
-              activeTab === "base"
+            onClick={() => setActiveSlot("base")}
+            className={`sm:col-span-5 p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
+              activeSlot === "base"
                 ? "bg-surface-0 border-brand-500 shadow-xs ring-1 ring-brand-500/30"
                 : "bg-surface-0/60 border-border hover:bg-surface-0"
             }`}
           >
-            <div className="flex items-center justify-between gap-1 mb-1">
-              <span className="text-[10px] uppercase font-bold text-text-tertiary tracking-wider font-sans">
-                1. Base Run (Baseline)
+            <div className="flex items-center justify-between gap-1 mb-0.5">
+              <span className="text-[10px] uppercase font-bold text-text-tertiary tracking-wider font-mono">
+                1. Base (Baseline)
               </span>
-              {activeTab === "base" && (
-                <span className="h-2 w-2 rounded-full bg-brand-500" />
+              {activeSlot === "base" && (
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
               )}
             </div>
             {baseTest ? (
@@ -155,7 +183,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                 <p className="text-xs font-mono font-bold text-text-primary truncate">
                   {baseTest.domain?.url || "Audit Run"}
                 </p>
-                <div className="flex items-center justify-between text-[11px] font-mono text-text-tertiary">
+                <div className="flex items-center justify-between text-[10px] font-mono text-text-tertiary">
                   <span>{baseTest.device || "Desktop"}</span>
                   <span className="font-bold text-text-primary">
                     {baseTest.performanceScore ?? "—"}/100
@@ -163,39 +191,39 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                 </div>
               </div>
             ) : (
-              <p className="text-xs text-text-tertiary font-mono">Select Base Run below</p>
+              <p className="text-xs text-text-tertiary font-mono">Click a test below to set</p>
             )}
           </button>
 
-          {/* Center Swap Action */}
-          <div className="sm:col-span-1 flex justify-center py-1 sm:py-0">
+          {/* Swap Button */}
+          <div className="sm:col-span-1 flex justify-center py-0.5 sm:py-0">
             <button
               type="button"
               onClick={handleSwap}
               disabled={!baseId || !targetId}
-              className="h-8 w-8 rounded-full bg-surface-0 border border-border shadow-xs hover:border-brand-500 hover:text-brand-500 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group disabled:opacity-40"
+              className="h-7 w-7 rounded-full bg-surface-0 border border-border shadow-xs hover:border-brand-500 hover:text-brand-500 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group disabled:opacity-40"
               title="Swap Base and Target"
             >
-              <ArrowRightLeft className="h-3.5 w-3.5 group-hover:rotate-180 transition-transform duration-300" />
+              <ArrowRightLeft className="h-3 w-3 group-hover:rotate-180 transition-transform duration-300" />
             </button>
           </div>
 
           {/* Target Selection Box */}
           <button
             type="button"
-            onClick={() => setActiveTab("target")}
-            className={`sm:col-span-5 p-3 rounded-lg border text-left transition-all cursor-pointer ${
-              activeTab === "target"
+            onClick={() => setActiveSlot("target")}
+            className={`sm:col-span-5 p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
+              activeSlot === "target"
                 ? "bg-surface-0 border-brand-500 shadow-xs ring-1 ring-brand-500/30"
                 : "bg-surface-0/60 border-border hover:bg-surface-0"
             }`}
           >
-            <div className="flex items-center justify-between gap-1 mb-1">
-              <span className="text-[10px] uppercase font-bold text-text-tertiary tracking-wider font-sans">
-                2. Target Run (Comparison)
+            <div className="flex items-center justify-between gap-1 mb-0.5">
+              <span className="text-[10px] uppercase font-bold text-text-tertiary tracking-wider font-mono">
+                2. Target (Comparison)
               </span>
-              {activeTab === "target" && (
-                <span className="h-2 w-2 rounded-full bg-brand-500" />
+              {activeSlot === "target" && (
+                <span className="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
               )}
             </div>
             {targetTest ? (
@@ -203,7 +231,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                 <p className="text-xs font-mono font-bold text-text-primary truncate">
                   {targetTest.domain?.url || "Audit Run"}
                 </p>
-                <div className="flex items-center justify-between text-[11px] font-mono text-text-tertiary">
+                <div className="flex items-center justify-between text-[10px] font-mono text-text-tertiary">
                   <span>{targetTest.device || "Desktop"}</span>
                   <span className="font-bold text-text-primary">
                     {targetTest.performanceScore ?? "—"}/100
@@ -211,74 +239,68 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                 </div>
               </div>
             ) : (
-              <p className="text-xs text-text-tertiary font-mono">Select Target Run below</p>
+              <p className="text-xs text-text-tertiary font-mono">Click a test below to set</p>
             )}
           </button>
         </div>
 
-        {/* Search & Active Tab Selector */}
-        <div className="space-y-2 shrink-0">
+        {/* 3. Search & Active Slot Instruction */}
+        <div className="space-y-2 shrink-0 mb-2">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-semibold text-text-secondary">
-              Selecting for:{" "}
-              <strong className="text-brand-500 font-sans">
-                {activeTab === "base" ? "1. Base Run (Baseline)" : "2. Target Run (Comparison)"}
+            <span className="text-text-secondary font-medium">
+              Clicking a test selects for:{" "}
+              <strong className="text-brand-600 dark:text-brand-300 font-bold">
+                {activeSlot === "base" ? "1. Base Run (Baseline)" : "2. Target Run (Comparison)"}
               </strong>
             </span>
 
             <span className="text-[11px] font-mono text-text-tertiary">
-              {filteredList.length} completed audits available
+              {filteredList.length} audits
             </span>
           </div>
 
           <div className="relative">
-            <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
+            <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
             <input
               type="text"
               placeholder="Search audits by URL or device..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-1 border border-border rounded-lg pl-9 pr-4 py-2 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
+              className="w-full bg-surface-1 border border-border rounded-lg pl-8 pr-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
             />
           </div>
         </div>
 
-        {/* Audit List */}
-        <div className="space-y-2 overflow-y-auto flex-1 pr-1 min-h-48">
+        {/* 4. Interactive Scrollable Audit List Container */}
+        <div className="flex-1 min-h-0 overflow-y-auto space-y-1.5 pr-1">
           {filteredList.length === 0 ? (
-            <div className="py-12 text-center text-xs text-text-tertiary font-mono space-y-1">
+            <div className="py-10 text-center text-xs text-text-tertiary font-mono space-y-1">
               <p>No matching completed audits found.</p>
-              <p className="text-[11px]">Try adjusting your search query.</p>
+              <p className="text-[11px]">Try running new tests or adjusting your search query.</p>
             </div>
           ) : (
             filteredList.map((testItem) => {
-              const isSelectedForBase = baseId === testItem.id;
-              const isSelectedForTarget = targetId === testItem.id;
+              const idStr = String(testItem.id);
+              const isSelectedForBase = String(baseId) === idStr;
+              const isSelectedForTarget = String(targetId) === idStr;
               const isCurrentActiveSelected =
-                activeTab === "base" ? isSelectedForBase : isSelectedForTarget;
+                activeSlot === "base" ? isSelectedForBase : isSelectedForTarget;
 
               return (
                 <div
                   key={testItem.id}
-                  onClick={() => {
-                    if (activeTab === "base") {
-                      setBaseId(testItem.id);
-                      if (targetId === testItem.id) {
-                        setActiveTab("target");
-                      }
-                    } else {
-                      setTargetId(testItem.id);
-                    }
-                  }}
-                  className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                  onClick={() => handleSelect(testItem.id)}
+                  className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 group ${
                     isCurrentActiveSelected
-                      ? "bg-brand-50/70 dark:bg-brand-500/10 border-brand-500 shadow-xs"
+                      ? "bg-brand-50/60 dark:bg-brand-500/15 border-brand-500 shadow-2xs"
+                      : isSelectedForBase || isSelectedForTarget
+                      ? "bg-surface-1 border-brand-200 dark:border-brand-500/40"
                       : "bg-surface-1 hover:bg-surface-2 border-border text-text-secondary hover:text-text-primary"
                   }`}
                 >
-                  <div className="space-y-1 min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <p className="text-xs font-mono font-bold truncate text-text-primary">
+                  <div className="space-y-0.5 min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <p className="text-xs font-mono font-bold truncate text-text-primary max-w-xs" title={testItem.domain?.url}>
                         {testItem.domain?.url || "Audit Run"}
                       </p>
 
@@ -288,13 +310,13 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                         </span>
                       )}
                       {isSelectedForTarget && (
-                        <span className="px-1.5 py-0.2 rounded text-[9px] font-bold uppercase bg-brand-50 text-brand-500 border border-brand-200 shrink-0">
+                        <span className="px-1.5 py-0.2 rounded text-[9px] font-bold uppercase bg-brand-50 text-brand-600 dark:bg-brand-500/20 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 shrink-0">
                           Target
                         </span>
                       )}
                     </div>
 
-                    <div className="flex items-center gap-2 text-[11px] text-text-tertiary font-mono">
+                    <div className="flex items-center gap-2 text-[10px] text-text-tertiary font-mono">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
                         {new Date(testItem.createdAt).toLocaleDateString("en-US", {
@@ -315,24 +337,44 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 shrink-0">
+                  {/* Actions & Score */}
+                  <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
+                    {/* Direct Quick Slot Buttons on Hover / Focus */}
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => handleSelect(testItem.id, "base")}
+                        className={`px-2 py-1 rounded text-[10px] font-bold font-mono transition-all cursor-pointer ${
+                          isSelectedForBase
+                            ? "bg-brand-600 text-white"
+                            : "bg-surface-0 hover:bg-surface-2 border border-border text-text-secondary hover:text-text-primary"
+                        }`}
+                        title="Set as Base"
+                      >
+                        Base
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleSelect(testItem.id, "target")}
+                        className={`px-2 py-1 rounded text-[10px] font-bold font-mono transition-all cursor-pointer ${
+                          isSelectedForTarget
+                            ? "bg-brand-600 text-white"
+                            : "bg-surface-0 hover:bg-surface-2 border border-border text-text-secondary hover:text-text-primary"
+                        }`}
+                        title="Set as Target"
+                      >
+                        Target
+                      </button>
+                    </div>
+
                     <span
-                      className={`font-mono font-bold text-xs px-2.5 py-1 rounded-md border ${getScoreBadge(
+                      className={`font-mono font-bold text-xs px-2 py-0.5 rounded-full border ${getScoreBadge(
                         testItem.performanceScore
                       )}`}
                     >
                       {testItem.performanceScore ?? "—"}/100
                     </span>
-
-                    <div
-                      className={`h-6 w-6 rounded-full border flex items-center justify-center transition-all ${
-                        isCurrentActiveSelected
-                          ? "bg-brand-500 border-brand-500 text-white"
-                          : "border-border bg-surface-0 text-transparent hover:border-brand-300"
-                      }`}
-                    >
-                      <Check className="h-3.5 w-3.5 stroke-3" />
-                    </div>
                   </div>
                 </div>
               );
@@ -340,18 +382,23 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           )}
         </div>
 
-        {/* Footer Actions */}
-        <div className="pt-3 border-t border-border flex items-center justify-between gap-3 shrink-0">
+        {/* 5. Sticky Footer Action Bar */}
+        <div className="pt-3 mt-2 border-t border-border flex items-center justify-between gap-3 shrink-0">
           <div className="text-xs font-mono">
             {isSameTest && (
-              <span className="text-score-warn font-semibold">
-                ⚠️ Select two different audit runs to compare
+              <span className="text-score-warn font-semibold text-[11px]">
+                ⚠️ Select 2 different audits to compare
               </span>
             )}
           </div>
 
           <div className="flex items-center justify-end gap-2">
-            <Button variant="outline" size="sm" onClick={onClose} className="cursor-pointer">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onClose}
+              className="cursor-pointer h-8 text-xs font-medium border-border"
+            >
               Cancel
             </Button>
 
@@ -359,10 +406,10 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
               size="sm"
               disabled={!baseId || !targetId || Boolean(isSameTest)}
               onClick={handleLaunch}
-              className="bg-brand-600 hover:bg-brand-700 text-white font-semibold cursor-pointer gap-1.5 shadow-xs disabled:opacity-50"
+              className="bg-brand-600 hover:bg-brand-700 text-white font-semibold cursor-pointer gap-1.5 shadow-xs disabled:opacity-40 h-8 text-xs rounded-lg"
             >
               <Zap className="h-3.5 w-3.5 fill-current" />
-              Launch Side-by-Side Comparison
+              Compare Runs
             </Button>
           </div>
         </div>
