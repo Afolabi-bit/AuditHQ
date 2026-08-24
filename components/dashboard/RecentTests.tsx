@@ -5,7 +5,7 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import TestCard from "./TestCard";
 import useSWR from "swr";
 import { useAppStore, toStoredTest, StoredTest } from "@/lib/store/useAppStore";
-import { ArrowRightLeft, Zap } from "lucide-react";
+import { ArrowRightLeft, Sparkles, Inbox } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CompareSelectorModal } from "@/components/compare/CompareSelectorModal";
 
@@ -89,20 +89,24 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 
   if (showSkeleton) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         {[1, 2].map((i) => (
           <div
             key={i}
-            className="rounded-xl bg-surface-0 border border-border p-4.5 flex items-center justify-between shadow-xs h-21"
+            className="rounded-2xl bg-surface-0 border border-border p-6 shadow-xs space-y-4"
           >
-            <div className="space-y-2 flex-1 max-w-md">
-              <div className="flex items-center gap-2">
-                <div className="h-4 w-48 rounded bg-surface-2 animate-pulse" />
-                <div className="h-4 w-16 rounded-full bg-surface-2 animate-pulse" />
+            <div className="flex items-center justify-between">
+              <div className="space-y-2 flex-1 max-w-md">
+                <div className="h-5 w-48 rounded-lg bg-surface-2 animate-pulse" />
+                <div className="h-3.5 w-32 rounded-md bg-surface-2 animate-pulse" />
               </div>
-              <div className="h-3 w-32 rounded bg-surface-2 animate-pulse" />
+              <div className="h-10 w-24 rounded-xl bg-surface-2 animate-pulse" />
             </div>
-            <div className="h-12 w-16 rounded-xl bg-surface-2 animate-pulse" />
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              {[1, 2, 3, 4].map((j) => (
+                <div key={j} className="h-16 rounded-xl bg-surface-1 animate-pulse" />
+              ))}
+            </div>
           </div>
         ))}
       </div>
@@ -111,16 +115,24 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 
   if (error && storedList.length === 0) {
     return (
-      <div className="text-center py-8 text-destructive font-mono text-xs">
-        Failed to load tests. Please try refreshing.
+      <div className="text-center py-10 text-destructive font-mono text-xs bg-destructive/5 border border-destructive/20 rounded-2xl p-6">
+        Failed to load tests. Please try refreshing the page.
       </div>
     );
   }
 
   if (displayTests.length === 0) {
     return (
-      <div className="text-center py-8 text-text-tertiary font-mono text-xs bg-surface-0 border border-border rounded-xl p-8 shadow-xs">
-        No audits found. Run your first audit using the command bar above!
+      <div className="text-center py-12 px-6 bg-surface-0 border border-border rounded-2xl shadow-xs space-y-3">
+        <div className="h-12 w-12 rounded-2xl bg-surface-1 border border-border flex items-center justify-center mx-auto text-text-tertiary">
+          <Inbox className="h-6 w-6" />
+        </div>
+        <div className="space-y-1 max-w-sm mx-auto">
+          <h3 className="text-sm font-semibold text-text-primary">No performance audits yet</h3>
+          <p className="text-xs text-text-secondary">
+            Enter a website URL in the command bar above to generate your first Lighthouse audit and AI diagnostics.
+          </p>
+        </div>
       </div>
     );
   }
@@ -128,33 +140,38 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
   const completedTests = displayTests.filter((t) => t.status === "completed");
 
   return (
-    <div className="space-y-3.5">
+    <div className="space-y-4">
       {/* Comparison Toolbar */}
       {completedTests.length >= 2 && (
-        <div className="flex items-center justify-between bg-surface-0 border border-border px-4 py-2.5 rounded-xl text-xs shadow-2xs">
-          <div className="flex items-center gap-2 text-text-secondary">
-            <div className="h-6 w-6 rounded-md bg-brand-50 border border-brand-200 text-brand-500 flex items-center justify-center">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-surface-0 border border-border px-5 py-3.5 rounded-2xl text-xs shadow-2xs gap-3">
+          <div className="flex items-center gap-2.5 text-text-secondary">
+            <div className="h-7 w-7 rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
               <ArrowRightLeft className="h-3.5 w-3.5" />
             </div>
-            <span className="font-semibold text-text-primary">
-              Audit Regression & Diff Engine
-            </span>
+            <div>
+              <span className="font-semibold text-text-primary block sm:inline">
+                Audit Regression & Diff Engine
+              </span>
+              <span className="text-text-tertiary hidden sm:inline ml-2">
+                Compare performance metrics across dates or environments
+              </span>
+            </div>
           </div>
 
           <Button
             size="sm"
             variant="outline"
             onClick={() => setIsCompareModalOpen(true)}
-            className="h-8 text-xs font-semibold border-border hover:border-brand-300 hover:text-brand-500 cursor-pointer gap-1.5 shadow-2xs"
+            className="h-9 px-4 text-xs font-semibold border-border hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-300 cursor-pointer gap-2 shadow-2xs rounded-xl self-start sm:self-auto"
           >
-            <ArrowRightLeft className="h-3.5 w-3.5 text-brand-500" />
-            Compare Audits
+            <ArrowRightLeft className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
+            Compare 2 Audits
           </Button>
         </div>
       )}
 
       {/* Tests Feed */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         {displayTests.map((test) => {
           const rawLcp = test.lcp;
           const rawFcp = test.fcp;

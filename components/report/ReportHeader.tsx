@@ -20,8 +20,6 @@ import {
   ArrowRightLeft,
   ChevronDown,
   FileText,
-  Layers,
-  Sparkles,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { generateReportPDF, type PdfReportFormat } from "@/lib/generate-report-pdf";
@@ -143,109 +141,98 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   const isGeneratingPdf = activePdfFormat !== null;
 
   return (
-    <div className="bg-surface-0 text-text-primary border-b border-border shadow-xs w-full max-w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full min-w-0">
-        {/* Navigation & Public Indicator */}
-        <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+    <header className="bg-surface-0 text-text-primary border-b border-border shadow-2xs sticky top-0 z-30 transition-colors">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4.5 space-y-3">
+        {/* Top Breadcrumb / Nav Line */}
+        <div className="flex items-center justify-between text-xs">
           {isPublic ? (
             <Link
               href="/"
-              className="inline-flex items-center text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors gap-2.5 group"
+              className="inline-flex items-center text-xs font-bold text-text-secondary hover:text-text-primary transition-colors gap-2"
             >
-              <div className="h-7 w-7 rounded-lg bg-brand-600 flex items-center justify-center text-white shadow-2xs">
-                <Zap className="h-4 w-4 fill-white" />
+              <div className="h-6 w-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+                <Zap className="h-3.5 w-3.5 fill-white" />
               </div>
-              <span className="font-bold tracking-tight text-sm">AuditHQ Public Report</span>
+              <span>AuditHQ Public Report</span>
             </Link>
           ) : (
             <Link
               href="/dashboard"
-              className="inline-flex items-center text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors group"
+              className="inline-flex items-center font-semibold text-text-secondary hover:text-brand-600 dark:hover:text-brand-400 transition-colors gap-1.5"
             >
-              <ArrowLeft className="h-4 w-4 mr-2 transform group-hover:-translate-x-1 transition-transform" />
-              Back to Console
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back to Console</span>
             </Link>
           )}
 
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-mono font-semibold bg-brand-50 border border-brand-200 text-brand-500 shadow-2xs">
-              <Activity className="h-3.5 w-3.5 mr-1.5 text-brand-500" />
-              Lighthouse 12 Engine
+          <div className="flex items-center gap-2 font-mono text-[11px] text-text-tertiary">
+            <span className="px-2 py-0.5 rounded-full bg-surface-1 border border-border">
+              Lighthouse 12.0
             </span>
-            <span className="text-xs font-mono text-text-tertiary">Audit #{testId}</span>
+            <span className="hidden sm:inline">#{String(testId).slice(0, 12)}</span>
           </div>
         </div>
 
-        {/* Main Content Row */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8 min-w-0 w-full">
-          <div className="space-y-3.5 max-w-3xl min-w-0 flex-1">
-            <div className="space-y-1">
-              <p className="text-[11px] font-mono uppercase tracking-widest text-brand-500 font-bold">
-                Audited Endpoint
-              </p>
-              <div className="flex items-center gap-3">
-                <h1 className="text-2xl sm:text-3xl lg:text-3.5xl font-extrabold text-text-primary tracking-tight font-mono break-all">
-                  {url}
-                </h1>
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-text-tertiary hover:text-brand-500 transition-colors shrink-0"
-                  title="Open live website in new tab"
-                >
-                  <ExternalLink className="h-4.5 w-4.5" />
-                </a>
-              </div>
+        {/* Main Content & Actions Row */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-0.5">
+          {/* Endpoint & Tags */}
+          <div className="space-y-1.5 min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg sm:text-xl font-bold text-text-primary tracking-tight truncate max-w-xl">
+                {url}
+              </h1>
+              <a
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-text-tertiary hover:text-brand-600 dark:hover:text-brand-400 transition-colors p-1 rounded-md hover:bg-surface-1 shrink-0"
+                title="Open live URL in new tab"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </a>
             </div>
 
-            {/* Metadata Pills */}
-            <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono text-text-secondary">
-              <span className="inline-flex items-center gap-1.5 bg-surface-1 border border-border px-2.5 py-1 rounded-md">
+            {/* Compact Metadata Chips */}
+            <div className="flex flex-wrap items-center gap-2 text-[11px] text-text-secondary">
+              <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2 py-0.5 rounded-md">
                 {isDesktop ? (
-                  <Monitor className="h-3.5 w-3.5 text-brand-500" />
+                  <Monitor className="h-3 w-3 text-brand-600 dark:text-brand-400" />
                 ) : (
-                  <Smartphone className="h-3.5 w-3.5 text-brand-500" />
+                  <Smartphone className="h-3 w-3 text-brand-600 dark:text-brand-400" />
                 )}
-                {isDesktop ? "Desktop Chrome" : "Mobile Moto G4"}
+                {isDesktop ? "Desktop Chrome" : "Mobile"}
               </span>
 
               {network && (
-                <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2.5 py-1 rounded-md">
-                  Network: {network}
+                <span className="bg-surface-1 border border-border px-2 py-0.5 rounded-md text-text-tertiary">
+                  {network}
                 </span>
               )}
 
-              <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2.5 py-1 rounded-md text-text-tertiary">
-                <Calendar className="h-3 w-3" />
-                {formattedDate}
-              </span>
-
-              <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2.5 py-1 rounded-md text-text-tertiary">
-                <Clock className="h-3 w-3" />
-                {formattedTime}
+              <span className="text-text-tertiary">
+                {formattedDate} • {formattedTime}
               </span>
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-2.5 pt-1 lg:pt-0">
+          {/* Action Buttons Toolbar */}
+          <div className="flex flex-wrap items-center gap-2 pt-1 md:pt-0">
             {/* Share Link */}
             <Button
               variant="outline"
               size="sm"
               onClick={handleCopyShareLink}
-              className="bg-surface-0 hover:bg-surface-2 text-text-secondary hover:text-text-primary border-border h-9 rounded-md font-semibold text-xs transition-colors cursor-pointer"
+              className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer"
             >
               {copied ? (
                 <>
-                  <Check className="h-3.5 w-3.5 mr-1.5 text-score-good" />
-                  Link Copied!
+                  <Check className="h-3.5 w-3.5 mr-1 text-score-good" />
+                  Copied!
                 </>
               ) : (
                 <>
-                  <Share2 className="h-3.5 w-3.5 mr-1.5 text-text-tertiary" />
-                  Share Report
+                  <Share2 className="h-3.5 w-3.5 mr-1 text-text-tertiary" />
+                  Share
                 </>
               )}
             </Button>
@@ -255,10 +242,9 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={() => setIsCompareOpen(true)}
-              className="bg-surface-0 hover:bg-surface-2 text-text-secondary hover:text-text-primary border-border h-9 rounded-md font-semibold text-xs transition-colors cursor-pointer gap-1.5"
-              title="Compare this audit against another run"
+              className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer gap-1"
             >
-              <ArrowRightLeft className="h-3.5 w-3.5 text-brand-500" />
+              <ArrowRightLeft className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
               <span>Compare</span>
             </Button>
 
@@ -267,113 +253,76 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleExportJson}
-              className="bg-surface-0 hover:bg-surface-2 text-text-secondary hover:text-text-primary border-border h-9 rounded-md font-semibold text-xs transition-colors cursor-pointer"
+              className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-2.5 rounded-xl font-semibold text-xs transition-colors cursor-pointer"
+              title="Download raw JSON"
             >
-              <FileCode className="h-3.5 w-3.5 mr-1.5 text-text-tertiary" />
-              JSON
+              <FileCode className="h-3.5 w-3.5 text-text-tertiary" />
             </Button>
 
             {/* Download PDF Dropdown Menu */}
             <div className="relative" ref={pdfMenuRef}>
               <Button
                 size="sm"
-                onClick={() => setIsPdfMenuOpen((prev) => !prev)}
                 disabled={isGeneratingPdf}
-                className="bg-brand-600 hover:bg-brand-700 active:bg-brand-900 text-white font-semibold text-xs h-9 px-3.5 rounded-md shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer flex items-center gap-1.5"
+                onClick={() => setIsPdfMenuOpen(!isPdfMenuOpen)}
+                className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs h-8.5 px-3 rounded-xl shadow-xs cursor-pointer gap-1.5"
               >
                 {isGeneratingPdf ? (
                   <>
-                    <Loader2 className="h-3.5 w-3.5 animate-spin text-white" />
-                    <span>
-                      {activePdfFormat === "basic" ? "Generating 1-Page..." : "Building Whitepaper..."}
-                    </span>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    <span>Rendering…</span>
                   </>
                 ) : (
                   <>
-                    <Download className="h-3.5 w-3.5 text-white" />
-                    <span>Download PDF</span>
-                    <ChevronDown
-                      className={`h-3 w-3 transition-transform duration-200 ${
-                        isPdfMenuOpen ? "rotate-180" : ""
-                      }`}
-                    />
+                    <Download className="h-3.5 w-3.5" />
+                    <span>PDF</span>
+                    <ChevronDown className="h-3 w-3 opacity-70" />
                   </>
                 )}
               </Button>
 
-              {/* Floating Options Menu */}
+              {/* PDF Format Dropdown */}
               {isPdfMenuOpen && (
-                <div className="absolute right-0 mt-2 w-72 rounded-xl bg-surface-0 border border-border shadow-xl z-50 p-1.5 space-y-1 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="px-2.5 py-1.5 border-b border-border/70 mb-1">
-                    <p className="text-[11px] font-bold uppercase tracking-wider text-text-tertiary font-sans">
-                      Select PDF Report Format
-                    </p>
-                  </div>
+                <div className="absolute right-0 mt-1.5 w-64 rounded-2xl bg-surface-0 border border-border shadow-xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <p className="px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-text-tertiary">
+                    Select PDF Format
+                  </p>
 
-                  {/* Option 1: Basic (1 Page) */}
                   <button
-                    type="button"
                     onClick={() => handleExportPdf("basic")}
-                    className="w-full text-left p-2.5 rounded-lg hover:bg-surface-1 transition-colors flex items-start gap-3 cursor-pointer group"
+                    className="w-full px-3.5 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                   >
-                    <div className="h-8 w-8 rounded-lg bg-brand-50 border border-brand-200 text-brand-600 flex items-center justify-center shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors">
-                      <FileText className="h-4 w-4" />
-                    </div>
-                    <div className="space-y-0.5 flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-1">
-                        <span className="text-xs font-bold text-text-primary font-sans">
-                          Executive Summary
-                        </span>
-                        <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold uppercase bg-brand-50 text-brand-600 border border-brand-200 shrink-0">
-                          1 Page
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-text-secondary leading-tight">
-                        Quick overview with score HUD, Core Web Vitals & key diagnosis
-                      </p>
+                    <FileText className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-text-primary">Executive Summary</p>
+                      <p className="text-[11px] text-text-tertiary">1-Page C-level performance briefing</p>
                     </div>
                   </button>
 
-                  {/* Option 2: Detailed (Multi-Page Whitepaper) */}
                   <button
-                    type="button"
                     onClick={() => handleExportPdf("detailed")}
-                    className="w-full text-left p-2.5 rounded-lg hover:bg-surface-1 transition-colors flex items-start gap-3 cursor-pointer group"
+                    className="w-full px-3.5 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                   >
-                    <div className="h-8 w-8 rounded-lg bg-score-good/10 border border-score-good/30 text-score-good flex items-center justify-center shrink-0 group-hover:bg-score-good group-hover:text-white transition-colors">
-                      <Layers className="h-4 w-4" />
-                    </div>
-                    <div className="space-y-0.5 flex-1 min-w-0">
-                      <div className="flex items-center justify-between gap-1">
-                        <span className="text-xs font-bold text-text-primary font-sans">
-                          Detailed Whitepaper
-                        </span>
-                        <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold uppercase bg-score-good/10 text-score-good border border-score-good/30 shrink-0">
-                          Full Audit
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-text-secondary leading-tight">
-                        Comprehensive multi-page audit with diagnostics, opportunities & remediation playbook
-                      </p>
+                    <Download className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold text-text-primary">Full Technical Audit</p>
+                      <p className="text-[11px] text-text-tertiary">Detailed CWVs & payload diagnostics</p>
                     </div>
                   </button>
                 </div>
               )}
             </div>
 
-            {/* Context Navigation CTA */}
-            {isPublic ? (
-              <Link href="/">
-                <Button size="sm" className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs h-9 px-4 rounded-md shadow-xs transition-all cursor-pointer">
-                  <Zap className="h-3.5 w-3.5 mr-1.5 fill-white" />
-                  Audit Your Site Free
-                </Button>
-              </Link>
-            ) : (
+            {/* Run New Audit */}
+            {!isPublic && (
               <Link href="/dashboard">
-                <Button size="sm" className="bg-surface-2 hover:bg-surface-3 text-text-primary border border-border font-semibold text-xs h-9 px-4 rounded-md shadow-xs transition-all cursor-pointer">
-                  <RotateCw className="h-3.5 w-3.5 mr-1.5 text-text-secondary" />
-                  New Audit
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer gap-1"
+                >
+                  <RotateCw className="h-3.5 w-3.5 text-text-tertiary" />
+                  <span className="hidden sm:inline">New Audit</span>
                 </Button>
               </Link>
             )}
@@ -383,11 +332,11 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 
       {/* Compare Modal */}
       <CompareSelectorModal
-        initialBaseId={String(testId)}
         isOpen={isCompareOpen}
+        initialBaseId={String(testId)}
         onClose={() => setIsCompareOpen(false)}
         isPublic={isPublic}
       />
-    </div>
+    </header>
   );
 };

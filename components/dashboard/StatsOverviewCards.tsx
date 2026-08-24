@@ -9,6 +9,7 @@ import {
   TrendingUp,
   Minus,
   Activity,
+  Zap,
 } from "lucide-react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import useSWR from "swr";
@@ -82,38 +83,38 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
       {/* 1. Tests This Month */}
-      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md hover:border-brand-200 transition-all flex flex-col justify-between">
+      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1.5">
-            <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-sans">
+            <p className="text-xs font-semibold text-text-tertiary uppercase tracking-wider">
               Audits This Month
             </p>
-            <div className="text-3xl sm:text-4xl font-mono font-bold text-text-primary tracking-tight">
+            <div className="text-3xl sm:text-4xl font-bold font-mono text-text-primary tracking-tight">
               {isLoading ? (
-                <div className="h-9 w-16 rounded-md bg-surface-2 animate-pulse my-1" />
+                <div className="h-9 w-16 rounded-lg bg-surface-2 animate-pulse my-1" />
               ) : (
                 <>
                   {stats.testsThisMonth}
-                  <span className="text-sm sm:text-base font-normal text-text-tertiary ml-1.5 font-sans">
+                  <span className="text-sm font-normal text-text-tertiary ml-1.5 font-sans">
                     / {stats.testsLimit || 100}
                   </span>
                 </>
               )}
             </div>
           </div>
-          <div className="h-11 w-11 rounded-xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-500 shrink-0">
+          <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
             <BarChart3 className="h-5 w-5" />
           </div>
         </div>
 
         <div className="mt-5 pt-4 border-t border-border/70 space-y-2">
-          <div className="flex justify-between text-xs font-mono text-text-tertiary">
+          <div className="flex justify-between text-xs text-text-tertiary">
             <span>Monthly Quota</span>
             <span className="font-semibold text-text-secondary">{isLoading ? "—" : `${usagePercent}%`}</span>
           </div>
           <div className="h-2 w-full bg-surface-2 rounded-full overflow-hidden">
             <div
-              className="h-full bg-brand-600 rounded-full transition-all duration-500"
+              className="h-full bg-brand-600 dark:bg-brand-500 rounded-full transition-all duration-500"
               style={{ width: `${isLoading ? 0 : usagePercent}%` }}
             />
           </div>
@@ -121,21 +122,21 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
       </div>
 
       {/* 2. Average Performance */}
-      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md hover:border-brand-200 transition-all flex flex-col justify-between">
+      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1.5">
-            <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-sans">
+            <p className="text-xs font-semibold text-text-tertiary uppercase tracking-wider">
               Avg Performance
             </p>
-            <div className={`text-3xl sm:text-4xl font-mono font-bold tracking-tight ${getScoreTextColor(stats.avgPerformance)}`}>
+            <div className={`text-3xl sm:text-4xl font-bold font-mono tracking-tight ${getScoreTextColor(stats.avgPerformance)}`}>
               {isLoading ? (
-                <div className="h-9 w-14 rounded-md bg-surface-2 animate-pulse my-1" />
+                <div className="h-9 w-14 rounded-lg bg-surface-2 animate-pulse my-1" />
               ) : (
                 stats.avgPerformance != null ? Math.round(Number(stats.avgPerformance)) : "—"
               )}
             </div>
           </div>
-          <div className="h-11 w-11 rounded-xl bg-score-good/10 border border-score-good/30 flex items-center justify-center text-score-good shrink-0">
+          <div className="h-10 w-10 rounded-xl bg-score-good/10 text-score-good border border-score-good/20 flex items-center justify-center shrink-0">
             <Activity className="h-5 w-5" />
           </div>
         </div>
@@ -145,77 +146,72 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             <div className="h-4 w-32 rounded bg-surface-2 animate-pulse" />
           ) : stats.performanceDiff != null && stats.performanceDiff !== 0 ? (
             stats.performanceDiff > 0 ? (
-              <span className="inline-flex items-center gap-1.5 text-score-good font-semibold font-mono text-xs">
-                <TrendingUp className="h-4 w-4" />
+              <span className="inline-flex items-center gap-1.5 text-score-good font-semibold text-xs">
+                <TrendingUp className="h-3.5 w-3.5" />
                 +{Number(stats.performanceDiff) % 1 === 0 ? stats.performanceDiff : Number(stats.performanceDiff).toFixed(1)} pts vs earlier
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 text-score-poor font-semibold font-mono text-xs">
-                <TrendingDown className="h-4 w-4" />
+              <span className="inline-flex items-center gap-1.5 text-score-poor font-semibold text-xs">
+                <TrendingDown className="h-3.5 w-3.5" />
                 {Number(stats.performanceDiff) % 1 === 0 ? stats.performanceDiff : Number(stats.performanceDiff).toFixed(1)} pts vs earlier
               </span>
             )
           ) : (
-            <span className="inline-flex items-center gap-1 text-text-tertiary font-mono text-xs">
+            <span className="inline-flex items-center gap-1.5 text-text-tertiary">
               <Minus className="h-3.5 w-3.5" />
-              {stats.avgPerformance != null ? "Baseline calibrated" : "No completed audits"}
+              Stable baseline
             </span>
           )}
         </div>
       </div>
 
-      {/* 3. Active Domains */}
-      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md hover:border-brand-200 transition-all flex flex-col justify-between">
+      {/* 3. Active Monitored Domains */}
+      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1.5">
-            <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-sans">
-              Monitored Domains
+            <p className="text-xs font-semibold text-text-tertiary uppercase tracking-wider">
+              Active Domains
             </p>
-            <div className="text-3xl sm:text-4xl font-mono font-bold text-text-primary tracking-tight">
+            <div className="text-3xl sm:text-4xl font-bold font-mono text-text-primary tracking-tight">
               {isLoading ? (
-                <div className="h-9 w-12 rounded-md bg-surface-2 animate-pulse my-1" />
+                <div className="h-9 w-12 rounded-lg bg-surface-2 animate-pulse my-1" />
               ) : (
                 stats.activeSites
               )}
             </div>
           </div>
-          <div className="h-11 w-11 rounded-xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-500 shrink-0">
+          <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
             <Globe className="h-5 w-5" />
           </div>
         </div>
 
-        <div className="mt-5 pt-4 border-t border-border/70 flex items-center justify-between text-xs text-text-tertiary font-mono">
+        <div className="mt-5 pt-4 border-t border-border/70 flex items-center text-xs text-text-tertiary">
           {isLoading ? (
             <div className="h-4 w-28 rounded bg-surface-2 animate-pulse" />
           ) : (
-            <span>{stats.activeSites === 1 ? "1 unique domain" : `${stats.activeSites} unique domains`}</span>
+            <span>Multi-environment ready</span>
           )}
         </div>
       </div>
 
-      {/* 4. Average Load Time (LCP) */}
-      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md hover:border-brand-200 transition-all flex flex-col justify-between">
+      {/* 4. Avg Page Load Time */}
+      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:shadow-md hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1.5">
-            <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-sans">
-              Avg Load Time (LCP)
+            <p className="text-xs font-semibold text-text-tertiary uppercase tracking-wider">
+              Avg Load Time
             </p>
-            <div className="text-3xl sm:text-4xl font-mono font-bold text-text-primary tracking-tight">
+            <div className="text-3xl sm:text-4xl font-bold font-mono text-text-primary tracking-tight">
               {isLoading ? (
-                <div className="h-9 w-16 rounded-md bg-surface-2 animate-pulse my-1" />
+                <div className="h-9 w-16 rounded-lg bg-surface-2 animate-pulse my-1" />
               ) : stats.avgLoadTime != null ? (
-                <>
-                  {Number(stats.avgLoadTime) % 1 === 0
-                    ? stats.avgLoadTime
-                    : Number(stats.avgLoadTime).toFixed(1)}
-                  <span className="text-lg font-normal text-text-tertiary ml-1">s</span>
-                </>
+                `${(Number(stats.avgLoadTime) / 1000).toFixed(1)}s`
               ) : (
                 "—"
               )}
             </div>
           </div>
-          <div className="h-11 w-11 rounded-xl bg-score-warn/10 border border-score-warn/30 flex items-center justify-center text-score-warn shrink-0">
+          <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
             <Clock className="h-5 w-5" />
           </div>
         </div>
@@ -223,21 +219,22 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
         <div className="mt-5 pt-4 border-t border-border/70 flex items-center text-xs">
           {isLoading ? (
             <div className="h-4 w-32 rounded bg-surface-2 animate-pulse" />
-          ) : stats.avgLoadTime != null ? (
-            stats.avgLoadTime <= 2.5 ? (
-              <span className="inline-flex items-center gap-1.5 text-score-good font-semibold font-mono text-xs">
-                <TrendingDown className="h-4 w-4" />
-                Optimal (&lt;2.5s target)
+          ) : stats.loadTimeDiff != null && stats.loadTimeDiff !== 0 ? (
+            stats.loadTimeDiff < 0 ? (
+              <span className="inline-flex items-center gap-1.5 text-score-good font-semibold text-xs">
+                <TrendingUp className="h-3.5 w-3.5" />
+                {Math.abs(Number(stats.loadTimeDiff))}ms faster
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 text-score-warn font-semibold font-mono text-xs">
-                <TrendingUp className="h-4 w-4" />
-                Needs optimization
+              <span className="inline-flex items-center gap-1.5 text-score-poor font-semibold text-xs">
+                <TrendingDown className="h-3.5 w-3.5" />
+                +{Math.abs(Number(stats.loadTimeDiff))}ms slower
               </span>
             )
           ) : (
-            <span className="text-text-tertiary font-mono text-xs">
-              Target: &lt;2.5s LCP
+            <span className="inline-flex items-center gap-1.5 text-text-tertiary">
+              <Minus className="h-3.5 w-3.5" />
+              Lighthouse simulated LCP
             </span>
           )}
         </div>

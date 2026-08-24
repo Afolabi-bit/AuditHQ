@@ -16,10 +16,14 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Persistent Top Navigation — renders once, stays mounted on all page transitions */}
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
+      {/* Clean, airy top navigation bar */}
       <DashboardNav user={user} />
-      {children}
+
+      {/* Spacious full-width main content canvas */}
+      <div className="flex-1 w-full">
+        {children}
+      </div>
     </div>
   );
 }

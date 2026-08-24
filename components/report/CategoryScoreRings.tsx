@@ -19,41 +19,30 @@ export const CategoryScoreRings: React.FC<CategoryScoreRingsProps> = ({ scores }
 
   return (
     <section className="space-y-6">
-      {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs">
-        <div className="space-y-1">
-          <div className="flex flex-wrap items-center gap-2.5">
-            <h2 className="text-lg sm:text-xl font-extrabold text-text-primary tracking-tight font-sans">
-              Core Performance Audit
-            </h2>
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200 shadow-2xs">
-              Composite Index: {avgCategoryScore}/100
-            </span>
-          </div>
-          <p className="text-xs sm:text-sm text-text-secondary">
-            Multi-dimensional evaluation based on official Google Lighthouse 12.0 scoring algorithms
-          </p>
-        </div>
+      {/* Legend and Composite Score Summary */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-border/60 text-xs">
+        <span className="font-mono text-text-secondary">
+          Average Category Score: <strong className="text-text-primary font-bold">{avgCategoryScore}/100</strong>
+        </span>
 
-        {/* Legend */}
-        <div className="flex items-center gap-4 text-xs font-medium text-text-secondary font-mono">
+        <div className="flex items-center gap-4 text-xs text-text-secondary">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-score-good" />
+            <span className="w-2 h-2 rounded-full bg-score-good" />
             90–100 Good
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-score-warn" />
+            <span className="w-2 h-2 rounded-full bg-score-warn" />
             50–89 Needs Work
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-score-poor" />
+            <span className="w-2 h-2 rounded-full bg-score-poor" />
             0–49 Poor
           </span>
         </div>
       </div>
 
-      {/* 4 Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+      {/* 4 Cards Grid with generous gaps */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <ScoreGauge
           score={scores.performance}
           label="Performance"
@@ -63,19 +52,19 @@ export const CategoryScoreRings: React.FC<CategoryScoreRingsProps> = ({ scores }
         <ScoreGauge
           score={scores.accessibility}
           label="Accessibility"
-          subtitle="A11y compliance & contrast"
+          subtitle="A11y & color contrast"
           categoryKey="accessibility"
         />
         <ScoreGauge
           score={scores.bestPractices}
           label="Best Practices"
-          subtitle="Security & modern standards"
+          subtitle="Security & modern APIs"
           categoryKey="bestPractices"
         />
         <ScoreGauge
           score={scores.seo}
           label="SEO"
-          subtitle="Discoverability & crawling"
+          subtitle="Crawlability & indexing"
           categoryKey="seo"
         />
       </div>

@@ -14,19 +14,19 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
   const isProfile = pathname === "/dashboard/profile";
 
   return (
-    <nav className="bg-surface-0/80 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-xs">
+    <nav className="bg-surface-0/90 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-2xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-15">
-          {/* Brand Logo & Main Nav */}
+        <div className="flex justify-between items-center h-16">
+          {/* Brand Logo & Navigation */}
           <div className="flex items-center space-x-6 sm:space-x-8">
             <Link
               href="/dashboard"
               className="flex items-center space-x-2.5 group transition-opacity"
             >
-              <div className="h-8 w-8 rounded-lg bg-brand-600 flex items-center justify-center text-white shadow-sm group-hover:bg-brand-700 transition-colors">
+              <div className="h-8.5 w-8.5 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-xs group-hover:bg-brand-700 transition-colors">
                 <Zap className="h-4.5 w-4.5 fill-white" />
               </div>
-              <span className="text-lg font-bold tracking-tight text-text-primary font-sans">
+              <span className="text-lg font-bold tracking-tight text-text-primary">
                 AuditHQ
               </span>
             </Link>
@@ -34,20 +34,20 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
             <div className="flex items-center space-x-1">
               <Link
                 href="/dashboard"
-                className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+                className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                   isConsole
-                    ? "text-brand-500 bg-brand-50 border border-brand-200 shadow-xs"
-                    : "text-text-secondary hover:text-text-primary hover:bg-surface-2"
+                    ? "text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30"
+                    : "text-text-secondary hover:text-text-primary hover:bg-surface-1"
                 }`}
               >
                 Console
               </Link>
               <Link
                 href="/dashboard/profile"
-                className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+                className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                   isProfile
-                    ? "text-brand-500 bg-brand-50 border border-brand-200 shadow-xs"
-                    : "text-text-secondary hover:text-text-primary hover:bg-surface-2"
+                    ? "text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30"
+                    : "text-text-secondary hover:text-text-primary hover:bg-surface-1"
                 }`}
               >
                 Profile & Settings
@@ -55,39 +55,39 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
             </div>
           </div>
 
-          {/* Right Actions & Interactive Profile Pill */}
-          <div className="flex items-center space-x-4">
+          {/* Right Actions & Profile */}
+          <div className="flex items-center space-x-3">
             <Link
               href="/dashboard/profile"
-              className={`flex items-center space-x-3 p-1.5 pr-2.5 rounded-xl border transition-all cursor-pointer group ${
+              className={`flex items-center space-x-2.5 p-1.5 sm:pr-3 rounded-xl border transition-all cursor-pointer group ${
                 isProfile
-                  ? "bg-brand-50 border-brand-200 text-brand-500"
-                  : "bg-surface-0 border-transparent hover:border-border hover:bg-surface-2"
+                  ? "bg-brand-50 dark:bg-brand-500/10 border-brand-200 dark:border-brand-500/30 text-brand-600 dark:text-brand-300"
+                  : "bg-surface-0 border-border hover:border-brand-200 hover:bg-surface-1"
               }`}
-              title="View Account Profile"
+              title="Account Profile & Settings"
             >
               <div className="text-right hidden sm:block leading-tight">
-                <p className="text-xs font-semibold text-text-primary group-hover:text-brand-500 transition-colors">
+                <p className="text-xs font-semibold text-text-primary group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                   {user?.given_name} {user?.family_name}
                 </p>
-                <p className="text-[11px] text-text-tertiary font-mono">
+                <p className="text-[11px] text-text-tertiary">
                   {user?.email}
                 </p>
               </div>
 
-              <div className="relative">
+              <div className="relative shrink-0">
                 {user?.picture ? (
-                  <span className="relative w-8 h-8 inline-block rounded-full overflow-hidden ring-1 ring-border group-hover:ring-brand-200 transition-all">
+                  <span className="relative w-8 h-8 inline-block rounded-full overflow-hidden ring-1 ring-border group-hover:ring-brand-300 transition-all">
                     <Image
                       src={user.picture}
-                      alt={`${user?.given_name || "User"} profile picture`}
+                      alt={`${user?.given_name || "User"} avatar`}
                       fill
                       sizes="32px"
                       className="object-cover"
                     />
                   </span>
                 ) : (
-                  <span className="w-8 h-8 rounded-full bg-brand-50 text-brand-500 border border-brand-200 flex items-center justify-center font-bold text-xs group-hover:bg-brand-100 transition-all">
+                  <span className="w-8 h-8 rounded-full bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center font-bold text-xs group-hover:bg-brand-100 transition-all">
                     {user?.given_name?.[0]?.toUpperCase() || (
                       <User className="h-4 w-4" />
                     )}

@@ -7,15 +7,21 @@ import {
   ChevronUp,
   CheckCircle2,
   Activity,
+  SlidersHorizontal,
 } from "lucide-react";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
 import { FormattedDescription } from "./FormattedDescription";
+import { DiagnosticItemDetail } from "./DiagnosticInspectorDrawer";
 
 interface DiagnosticsTabProps {
   diagnostics: ParsedLighthouseReport["diagnostics"];
+  onInspectItem?: (item: DiagnosticItemDetail) => void;
 }
 
-export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({ diagnostics }) => {
+export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
+  diagnostics,
+  onInspectItem,
+}) => {
   const [expandedId, setExpandedId] = useState<string | null>(
     diagnostics[0]?.id || null
   );
@@ -26,9 +32,9 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({ diagnostics }) =
 
   if (!diagnostics || diagnostics.length === 0) {
     return (
-      <div className="bg-surface-0 border border-border rounded-xl p-10 text-center text-text-secondary space-y-2 shadow-xs">
+      <div className="bg-surface-0 border border-border rounded-2xl p-10 text-center text-text-secondary space-y-2 shadow-xs">
         <CheckCircle2 className="h-10 w-10 text-score-good mx-auto" />
-        <h4 className="text-base font-bold text-text-primary font-sans">
+        <h4 className="text-base font-bold text-text-primary">
           All Diagnostic Health Checks Passed
         </h4>
         <p className="text-xs text-text-tertiary max-w-md mx-auto">
@@ -40,24 +46,6 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({ diagnostics }) =
 
   return (
     <div className="space-y-4">
-      {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0 border border-border rounded-xl p-4.5 px-6 shadow-xs">
-        <div className="space-y-0.5">
-          <h3 className="text-base font-bold text-text-primary flex items-center gap-2 font-sans">
-            <Layers className="h-4 w-4 text-brand-500" />
-            Deep Engine Diagnostics
-          </h3>
-          <p className="text-xs text-text-secondary">
-            Technical runtime analysis of DOM complexity, layout shifts, main-thread work, and rendering tasks
-          </p>
-        </div>
-
-        <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1 rounded-full bg-brand-50 text-brand-500 border border-brand-200">
-          <Activity className="h-3.5 w-3.5" />
-          {diagnostics.length} {diagnostics.length === 1 ? "diagnostic" : "diagnostics"} flagged
-        </span>
-      </div>
-
       {/* Diagnostics List */}
       <div className="space-y-3">
         {diagnostics.map((diag) => {
@@ -68,27 +56,34 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({ diagnostics }) =
           return (
             <div
               key={diag.id}
-              className={`bg-surface-0 border rounded-xl overflow-hidden shadow-xs transition-all ${
-                isExpanded ? "border-brand-200" : "border-border hover:border-brand-200"
+              className={`bg-surface-0 border rounded-2xl overflow-hidden shadow-xs transition-all ${
+                isExpanded ? "border-brand-200 dark:border-brand-500/30" : "border-border hover:border-brand-200 dark:hover:border-brand-500/30"
               }`}
             >
-              {/* Header Button */}
-              <button
-                type="button"
+              {/* Header Container (div with role=button to prevent nested button errors) */}
+              <div
+                role="button"
+                tabIndex={0}
                 onClick={() => toggleExpand(diag.id)}
-                className="w-full p-4.5 sm:p-5 flex items-start justify-between gap-4 text-left cursor-pointer hover:bg-surface-2 transition-colors"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleExpand(diag.id);
+                  }
+                }}
+                className="w-full p-4.5 sm:p-5 flex items-start justify-between gap-4 text-left cursor-pointer hover:bg-surface-1 transition-colors select-none"
               >
                 <div className="flex items-start gap-3 flex-1 min-w-0">
-                  <div className="mt-0.5 p-2 rounded-lg bg-brand-50 text-brand-500 border border-brand-200 shrink-0">
+                  <div className="mt-0.5 p-2 rounded-xl bg-surface-1 text-text-secondary border border-border shrink-0 shadow-2xs">
                     <Layers className="h-4 w-4" />
                   </div>
                   <div className="space-y-1 flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="text-sm font-bold text-text-primary font-sans">
+                      <h4 className="text-sm font-bold text-text-primary">
                         {diag.title}
                       </h4>
                       {diag.displayValue && (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#fff8e5] text-[#b76e00] border border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30">
+                        <span className="px-2 py-0.5 rounded-full text-xs font-semibold score-badge-warn">
                           {diag.displayValue}
                         </span>
                       )}
@@ -102,12 +97,28 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({ diagnostics }) =
                 </div>
 
                 <div className="flex items-center gap-3 shrink-0">
-                  {items.length > 0 && (
-                    <span className="text-[11px] font-mono text-text-tertiary bg-surface-1 px-2 py-0.5 rounded border border-border hidden sm:inline">
-                      {items.length} records
-                    </span>
+                  {onInspectItem && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onInspectItem({
+                          id: diag.id,
+                          title: diag.title,
+                          description: diag.description,
+                          displayValue: diag.displayValue,
+                          items: diag.details?.items,
+                        });
+                      }}
+                      className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border text-text-secondary hover:text-brand-600 dark:hover:text-brand-300 transition-colors cursor-pointer"
+                      title="Open in Drawer"
+                    >
+                      <SlidersHorizontal className="h-3 w-3" />
+                      <span>Inspect</span>
+                    </button>
                   )}
-                  <div className="p-1.5 rounded-md bg-surface-1 border border-border text-text-tertiary">
+
+                  <div className="p-1.5 rounded-lg bg-surface-1 border border-border text-text-tertiary">
                     {isExpanded ? (
                       <ChevronUp className="h-4 w-4" />
                     ) : (
@@ -115,7 +126,7 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({ diagnostics }) =
                     )}
                   </div>
                 </div>
-              </button>
+              </div>
 
               {/* Expanded Details */}
               {isExpanded && (
@@ -125,55 +136,57 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({ diagnostics }) =
                     className="text-xs text-text-secondary leading-relaxed"
                   />
 
-                  {/* Diagnostic Data Table */}
-                  {items.length > 0 && (
+                  {items.length > 0 && headings.length > 0 && (
                     <div className="space-y-2">
-                      <p className="font-bold text-text-primary uppercase tracking-wider text-[11px] font-sans">
-                        Diagnostic Data ({items.length})
-                      </p>
-                      <div className="border border-border rounded-lg overflow-x-auto bg-surface-0">
-                        <table className="w-full text-left border-collapse text-xs font-mono">
-                          {headings.length > 0 && (
-                            <thead>
-                              <tr className="bg-surface-1 border-b border-border text-text-tertiary text-[11px]">
-                                {headings.slice(0, 4).map((h, hIdx) => (
-                                  <th key={hIdx} className="p-2.5 px-3">
-                                    {h.text || h.label || h.key || "Metric"}
-                                  </th>
-                                ))}
-                              </tr>
-                            </thead>
-                          )}
-                          <tbody className="divide-y divide-border">
-                            {items.slice(0, 10).map((item, rowIdx) => {
-                              return (
-                                <tr key={rowIdx} className="hover:bg-surface-2">
-                                  {headings.length > 0 ? (
-                                    headings.slice(0, 4).map((h, colIdx) => {
-                                      const key = h.key || Object.keys(item)[colIdx];
-                                      const cellVal = item[key];
-                                      const renderedVal =
-                                        typeof cellVal === "object" && cellVal !== null
-                                          ? cellVal.snippet || cellVal.url || cellVal.text || JSON.stringify(cellVal)
-                                          : String(cellVal ?? "—");
-
-                                      return (
-                                        <td
-                                          key={colIdx}
-                                          className="p-2.5 px-3 truncate max-w-xs text-text-primary"
-                                        >
-                                          {renderedVal}
-                                        </td>
-                                      );
-                                    })
-                                  ) : (
-                                    <td className="p-2.5 px-3 text-text-primary">
-                                      {item.url || item.label || item.statistic || JSON.stringify(item)}
-                                    </td>
-                                  )}
-                                </tr>
-                              );
+                      <div className="flex items-center justify-between">
+                        <p className="font-semibold text-text-primary uppercase tracking-wider text-[11px]">
+                          Report Breakdown ({items.length})
+                        </p>
+                        {onInspectItem && (
+                          <button
+                            onClick={() => onInspectItem({
+                              id: diag.id,
+                              title: diag.title,
+                              description: diag.description,
+                              displayValue: diag.displayValue,
+                              items: diag.details?.items,
                             })}
+                            className="text-xs text-brand-600 dark:text-brand-400 hover:underline font-semibold cursor-pointer"
+                          >
+                            Open in Side Inspector →
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="border border-border rounded-xl overflow-x-auto bg-surface-0">
+                        <table className="w-full text-left border-collapse text-xs font-mono">
+                          <thead>
+                            <tr className="bg-surface-1 border-b border-border text-text-tertiary text-[11px]">
+                              {headings.map((h, hIdx) => (
+                                <th key={hIdx} className="p-2.5 px-3 whitespace-nowrap">
+                                  {h.label || h.text || h.key}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-border">
+                            {items.slice(0, 15).map((row, rIdx) => (
+                              <tr key={rIdx} className="hover:bg-surface-1/50 transition-colors">
+                                {headings.map((h, hIdx) => {
+                                  const cellVal = row[h.key];
+                                  const displayVal =
+                                    typeof cellVal === "object" && cellVal !== null
+                                      ? cellVal.url || cellVal.snippet || JSON.stringify(cellVal)
+                                      : String(cellVal ?? "—");
+
+                                  return (
+                                    <td key={hIdx} className="p-2.5 px-3 max-w-xs truncate text-text-primary">
+                                      {displayVal}
+                                    </td>
+                                  );
+                                })}
+                              </tr>
+                            ))}
                           </tbody>
                         </table>
                       </div>

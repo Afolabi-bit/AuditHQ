@@ -11,6 +11,8 @@ import {
   Monitor,
   Smartphone,
   Zap,
+  Sparkles,
+  Wifi,
 } from "lucide-react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { useSWRConfig } from "swr";
@@ -34,7 +36,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
 
   const validateUrl = (urlToValidate: string) => {
     if (!urlToValidate || urlToValidate.trim() === "") {
-      return { validity: false, message: "URL is required" };
+      return { validity: false, message: "Website URL is required" };
     }
     const withProtocol = /^https?:\/\//i.test(urlToValidate.trim())
       ? urlToValidate.trim()
@@ -44,7 +46,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
     if (!urlPattern.test(withProtocol)) {
       return {
         validity: false,
-        message: "Please enter a valid domain (e.g., example.com)",
+        message: "Please enter a valid URL (e.g., shopify.com or https://example.com)",
       };
     }
     return { validity: true, message: "" };
@@ -62,8 +64,8 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
     setIsUrlValid({ validity: true, message: "" });
     setIsTesting(true);
 
-    const queuedToastId = toast.loading("Connecting to cloud audit cluster...", {
-      description: `Target: ${url} (${device})`,
+    const queuedToastId = toast.loading("Launching Lighthouse cloud audit…", {
+      description: `Analyzing ${url} (${device})`,
     });
 
     try {
@@ -151,35 +153,35 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
   };
 
   return (
-    <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs hover:border-brand-200 transition-all">
+    <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div className="space-y-1">
           <div className="flex items-center gap-2.5">
-            <div className="h-7 w-7 rounded-lg bg-brand-50 text-brand-500 border border-brand-200 flex items-center justify-center shadow-2xs">
-              <Zap className="h-4 w-4 fill-brand-500" />
+            <div className="h-7 w-7 rounded-lg bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30 flex items-center justify-center shadow-2xs">
+              <Zap className="h-4 w-4 fill-current" />
             </div>
-            <h2 className="text-lg font-bold text-text-primary font-sans">
-              Run New Performance Audit
+            <h2 className="text-lg font-bold text-text-primary">
+              Run Performance Audit
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-text-secondary">
-            Execute headless Lighthouse evaluation with real-world device & network throttling
+            Execute headless Lighthouse evaluation with real-world device simulation and network throttling
           </p>
         </div>
 
-        <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono text-score-good bg-[#e3fcf7] border border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30">
+        <span className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold score-badge-good">
           <span className="w-2 h-2 rounded-full bg-score-good animate-pulse" />
-          Engine Ready
+          Cloud Engine Active
         </span>
       </div>
 
       {/* Form */}
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5 items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-end">
           {/* URL Input */}
-          <div className="md:col-span-6 space-y-2">
-            <Label htmlFor="url" className="text-xs font-bold text-text-secondary uppercase tracking-wider font-sans">
+          <div className="lg:col-span-6 space-y-2">
+            <Label htmlFor="url" className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Website URL
             </Label>
             <div className="relative">
@@ -194,10 +196,10 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
                 autoCorrect="off"
                 spellCheck={false}
                 value={url}
-                placeholder="example.com, www.example.com, or https://…"
+                placeholder="example.com, www.brand.com, or https://…"
                 onChange={(e) => setUrl(e.target.value)}
                 onClick={() => setIsUrlValid({ validity: true, message: "" })}
-                className={`pl-10 h-12 text-sm bg-surface-1 border-border text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all font-mono ${
+                className={`pl-10 h-11 text-sm bg-surface-1 border-border text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all ${
                   !isUrlValid.validity ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""
                 }`}
               />
@@ -208,17 +210,17 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
           </div>
 
           {/* Device Selection */}
-          <div className="md:col-span-3 space-y-2">
-            <Label className="text-xs font-bold text-text-secondary uppercase tracking-wider font-sans">
+          <div className="lg:col-span-3 space-y-2">
+            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Device Profile
             </Label>
-            <div className="grid grid-cols-2 gap-1.5 p-1 bg-surface-1 rounded-xl border border-border h-12 items-center">
+            <div className="grid grid-cols-2 gap-1 p-1 bg-surface-1 rounded-xl border border-border h-11 items-center">
               <button
                 type="button"
                 onClick={() => setDevice("Desktop")}
-                className={`h-9.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                className={`h-9 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Desktop"
-                    ? "bg-surface-0 text-brand-500 shadow-2xs border border-border"
+                    ? "bg-surface-0 text-brand-600 dark:text-brand-300 shadow-2xs border border-border"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
@@ -228,9 +230,9 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
               <button
                 type="button"
                 onClick={() => setDevice("Mobile")}
-                className={`h-9.5 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                className={`h-9 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Mobile"
-                    ? "bg-surface-0 text-brand-500 shadow-2xs border border-border"
+                    ? "bg-surface-0 text-brand-600 dark:text-brand-300 shadow-2xs border border-border"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
@@ -241,19 +243,19 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
           </div>
 
           {/* Network Throttling */}
-          <div className="md:col-span-3 space-y-2">
-            <Label className="text-xs font-bold text-text-secondary uppercase tracking-wider font-sans">
-              Network
+          <div className="lg:col-span-3 space-y-2">
+            <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              Network Preset
             </Label>
-            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1 rounded-xl border border-border h-12 items-center">
+            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1 rounded-xl border border-border h-11 items-center">
               {["No Throttling", "4G", "3G"].map((net) => (
                 <button
                   key={net}
                   type="button"
                   onClick={() => setNetwork(net)}
-                  className={`h-9.5 rounded-lg text-xs font-semibold flex items-center justify-center transition-all truncate px-1 cursor-pointer ${
+                  className={`h-9 rounded-lg text-xs font-semibold flex items-center justify-center transition-all truncate px-1 cursor-pointer ${
                     network === net
-                      ? "bg-surface-0 text-brand-500 shadow-2xs border border-border"
+                      ? "bg-surface-0 text-brand-600 dark:text-brand-300 shadow-2xs border border-border"
                       : "text-text-secondary hover:text-text-primary"
                   }`}
                   title={net}
@@ -266,21 +268,24 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
         </div>
 
         {/* Submit Action */}
-        <div className="flex justify-end pt-2">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+          <p className="text-xs text-text-tertiary hidden sm:block">
+            Includes AI Diagnostics & Core Web Vitals breakdown
+          </p>
           <Button
             type="submit"
             disabled={isTesting}
-            className="h-11 px-6 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 cursor-pointer gap-2"
+            className="w-full sm:w-auto h-11 px-7 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs shadow-brand-500/20 transition-all active:scale-[0.99] disabled:opacity-60 cursor-pointer gap-2"
           >
             {isTesting ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin text-white" />
-                Auditing in Headless Chromium…
+                <span>Auditing in Cloud Chromium…</span>
               </>
             ) : (
               <>
                 <Zap className="h-4 w-4 fill-white" />
-                Launch Cloud Audit
+                <span>Launch Cloud Audit</span>
               </>
             )}
           </Button>

@@ -31,29 +31,28 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
     switch (rating) {
       case "good":
         return {
-          pill: "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30",
+          pill: "score-badge-good",
           text: "text-score-good",
-          dot: "bg-[#00875a] dark:bg-[#4de7b4]",
+          dot: "bg-score-good",
           label: "Good",
         };
       case "needs-improvement":
         return {
-          pill: "bg-[#fff8e5] text-[#b76e00] border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30",
+          pill: "score-badge-warn",
           text: "text-score-warn",
-          dot: "bg-[#b76e00] dark:bg-[#ffc400]",
+          dot: "bg-score-warn",
           label: "Needs Work",
         };
       case "poor":
         return {
-          pill: "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30",
+          pill: "score-badge-poor",
           text: "text-score-poor",
-          dot: "bg-[#de350b] dark:bg-[#ff7452]",
+          dot: "bg-score-poor",
           label: "Poor",
         };
     }
   };
 
-  // Format seconds-based metrics (LCP, FCP, Speed Index)
   const formatSeconds = (rawDisplay: string, numericValMs: number | null) => {
     if (numericValMs != null && !isNaN(numericValMs)) {
       const sec = numericValMs / 1000;
@@ -72,7 +71,6 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
     return { num: "—", unit: "s" };
   };
 
-  // Format millisecond-based metrics (TBT, TTFB)
   const formatMilliseconds = (rawDisplay: string, numericValMs: number | null) => {
     if (numericValMs != null && !isNaN(numericValMs)) {
       return { num: Math.round(numericValMs).toString(), unit: "ms" };
@@ -90,7 +88,6 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
     return { num: "—", unit: "ms" };
   };
 
-  // Format unitless CLS (2 decimal places)
   const formatCls = (rawDisplay: string, numericVal: number | null) => {
     if (numericVal != null && !isNaN(numericVal)) {
       return { num: numericVal.toFixed(2), unit: "" };
@@ -99,7 +96,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       const parsed = parseFloat(rawDisplay.replace(/,/g, "").trim());
       if (!isNaN(parsed)) return { num: parsed.toFixed(2), unit: "" };
     }
-    return { num: "—", unit: "" };
+    return { num: "0.00", unit: "" };
   };
 
   const lcpParsed = formatSeconds(metrics.lcp.displayValue, metrics.lcp.value);
@@ -122,8 +119,8 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       target: "≤ 2.5s",
       goodMax: 2500,
       warnMax: 4000,
-      description: "Measures render time of the largest visible content element on the screen.",
-      icon: <Layers className="h-4 w-4 text-brand-500" />,
+      description: "Measures when the main content of the web page is completely rendered.",
+      icon: <Layers className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "25% Weight",
       isCoreVital: true,
     },
@@ -139,8 +136,8 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       target: "≤ 200ms",
       goodMax: 200,
       warnMax: 600,
-      description: "Sum of time between FCP and Time to Interactive where CPU tasks blocked input.",
-      icon: <Timer className="h-4 w-4 text-brand-500" />,
+      description: "Total time where the main thread was blocked from responding to user inputs.",
+      icon: <Timer className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "30% Weight",
       isCoreVital: true,
     },
@@ -156,8 +153,8 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       target: "≤ 0.10",
       goodMax: 0.1,
       warnMax: 0.25,
-      description: "Quantifies unexpected visual layout movements that disrupt user reading flow.",
-      icon: <Activity className="h-4 w-4 text-brand-500" />,
+      description: "Quantifies unexpected visual layout shifts during page loading.",
+      icon: <Activity className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "25% Weight",
       isCoreVital: true,
     },
@@ -173,8 +170,8 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       target: "≤ 1.8s",
       goodMax: 1800,
       warnMax: 3000,
-      description: "Marks the time when the browser first renders any text, image, or canvas element.",
-      icon: <Zap className="h-4 w-4 text-brand-500" />,
+      description: "Time when the browser first renders any text, image, or canvas element.",
+      icon: <Zap className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "10% Weight",
       isCoreVital: false,
     },
@@ -190,8 +187,8 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       target: "≤ 3.4s",
       goodMax: 3400,
       warnMax: 5800,
-      description: "Measures how quickly the visual contents of a page are populated.",
-      icon: <Gauge className="h-4 w-4 text-brand-500" />,
+      description: "Measures how quickly the visual contents of a page are fully populated.",
+      icon: <Gauge className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "10% Weight",
       isCoreVital: false,
     },
@@ -207,14 +204,13 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       target: "≤ 800ms",
       goodMax: 800,
       warnMax: 1800,
-      description: "Measures origin server response responsiveness and SSL handshake speed.",
-      icon: <Server className="h-4 w-4 text-brand-500" />,
+      description: "Measures origin server response time and initial SSL handshake latency.",
+      icon: <Server className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "Diagnostic",
       isCoreVital: false,
     },
   ];
 
-  // Helper to compute pin percentage position on 3-zone bar
   const computePinPercentage = (val: number | null, goodMax: number, warnMax: number) => {
     if (val == null || isNaN(val)) return 15;
     if (val <= goodMax) {
@@ -228,35 +224,8 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
   };
 
   return (
-    <section className="space-y-4">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <div>
-          <h3 className="text-base font-bold text-text-primary font-sans">
-            Core Web Vitals & Diagnostics
-          </h3>
-          <p className="text-xs text-text-secondary">
-            Standard Google Lighthouse 12.0 performance metrics and official ranking thresholds
-          </p>
-        </div>
-
-        <div className="flex items-center gap-3 text-xs font-mono text-text-tertiary">
-          <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-score-good" />
-            Good
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-score-warn" />
-            Needs Work
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-score-poor" />
-            Poor
-          </span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {cards.map((card) => {
           const theme = getRatingTheme(card.rating);
           const pinPercent = computePinPercentage(card.value, card.goodMax, card.warnMax);
@@ -264,92 +233,93 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
           return (
             <div
               key={card.id}
-              className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-7 shadow-xs hover:border-brand-200 hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
+              className="bg-surface-0 border border-border rounded-xl p-5 sm:p-6 shadow-xs flex flex-col justify-between space-y-4"
             >
-              <div className="space-y-4">
-                {/* Header */}
+              <div className="space-y-3.5">
+                {/* Card Top Row */}
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-brand-50 border border-brand-200 text-brand-500 shadow-2xs">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-2 rounded-lg bg-surface-1 border border-border text-brand-600 dark:text-brand-400 shrink-0">
                       {card.icon}
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="text-base font-bold text-text-primary font-sans">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <h4 className="text-sm font-bold text-text-primary">
                           {card.acronym}
                         </h4>
                         {card.isCoreVital && (
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-50 text-brand-500 border border-brand-200">
+                          <span className="px-1.5 py-0.2 rounded text-[10px] font-mono text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30 whitespace-nowrap">
                             Core Vital
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-text-tertiary line-clamp-1">
+                      <p className="text-xs text-text-tertiary truncate">
                         {card.name}
                       </p>
                     </div>
                   </div>
 
+                  {/* Rating Badge: nowrap & shrink-0 to prevent wrapping */}
                   <span
-                    className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold border ${theme.pill}`}
+                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold shrink-0 whitespace-nowrap ${theme.pill}`}
                   >
-                    <span className={`w-2 h-2 rounded-full ${theme.dot}`} />
-                    {theme.label}
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${theme.dot}`} />
+                    <span>{theme.label}</span>
                   </span>
                 </div>
 
-                {/* Numerical Metric Display */}
+                {/* Numerical Value with standard Score Color */}
                 <div className="pt-1 flex items-baseline justify-between gap-2">
                   <div className="flex items-baseline gap-1">
-                    <span className={`text-3.5xl sm:text-4xl font-extrabold tracking-tight font-mono ${theme.text}`}>
+                    <span className={`text-3.5xl font-bold tracking-tight font-mono ${theme.text}`}>
                       {card.rawValueFormatted}
                     </span>
                     {card.unit && (
-                      <span className="text-sm font-semibold text-text-tertiary">
+                      <span className="text-xs font-medium text-text-tertiary">
                         {card.unit}
                       </span>
                     )}
                   </div>
 
-                  <span className="text-xs font-mono text-text-tertiary bg-surface-1 px-2.5 py-1 rounded-lg border border-border">
+                  <span className="text-[11px] text-text-tertiary font-mono">
                     Target: {card.target}
                   </span>
                 </div>
 
                 {/* 3-Zone Threshold Spectrum Bar */}
-                <div className="space-y-1.5 pt-1">
-                  <div className="relative h-2 w-full bg-surface-2 rounded-full overflow-hidden flex">
-                    <div className="w-1/3 h-full bg-[#abf5d1] dark:bg-[#00875a]/40" />
-                    <div className="w-1/3 h-full bg-[#ffe380] dark:bg-[#b76e00]/40" />
-                    <div className="w-1/3 h-full bg-[#ffbdad] dark:bg-[#de350b]/40" />
+                <div className="space-y-1 pt-1">
+                  <div className="relative h-1.5 w-full bg-surface-2 rounded-full overflow-hidden flex">
+                    <div className="w-1/3 h-full bg-emerald-500/30" />
+                    <div className="w-1/3 h-full bg-amber-500/30" />
+                    <div className="w-1/3 h-full bg-rose-500/30" />
                   </div>
 
                   {/* Marker Pin */}
-                  <div className="relative w-full h-2">
+                  <div className="relative w-full h-1.5">
                     <div
-                      className="absolute top-0 transform -translate-x-1/2 -mt-2.5 transition-all duration-500"
+                      className="absolute top-0 transform -translate-x-1/2 -mt-2 transition-all duration-300"
                       style={{ left: `${pinPercent}%` }}
                     >
-                      <div className="w-2.5 h-2.5 bg-text-primary border-2 border-surface-0 rounded-full shadow-xs" />
+                      <div className="w-2 h-2 bg-text-primary border border-surface-0 rounded-full shadow-2xs" />
                     </div>
                   </div>
                 </div>
 
-                {/* Metric Summary */}
-                <p className="text-xs text-text-secondary leading-relaxed line-clamp-2 pt-1">
+                {/* Description */}
+                <p className="text-xs text-text-secondary leading-relaxed pt-0.5">
                   {card.description}
                 </p>
               </div>
 
               {/* Footer Weight */}
-              <div className="mt-5 pt-3.5 border-t border-border flex items-center justify-between text-xs text-text-tertiary">
-                <span className="font-medium">Lighthouse Weight</span>
-                <span className="font-semibold text-text-primary font-mono">{card.weight}</span>
+              <div className="pt-3 border-t border-border flex items-center justify-between text-[11px] text-text-tertiary">
+                <span>Lighthouse Weight</span>
+                <span className="font-mono text-text-secondary">{card.weight}</span>
               </div>
             </div>
           );
         })}
       </div>
-    </section>
+    </div>
   );
 };

@@ -100,46 +100,46 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
     switch (verdict) {
       case "Optimal":
       case "Good":
-        return "bg-score-good/10 text-score-good border-score-good/30";
+        return "score-badge-good";
       case "Needs Attention":
-        return "bg-score-average/10 text-score-average border-score-average/30";
+        return "score-badge-warn";
       case "Critical":
       default:
-        return "bg-score-poor/10 text-score-poor border-score-poor/30";
+        return "score-badge-poor";
     }
   };
 
   const getUrgencyBadge = (urgency: string) => {
     switch (urgency) {
       case "High":
-        return "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20";
+        return "score-badge-poor";
       case "Medium":
-        return "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20";
+        return "score-badge-warn";
       case "Low":
       default:
-        return "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20";
+        return "score-badge-good";
     }
   };
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-brand-500/30 bg-surface-0 p-6 sm:p-8 shadow-md space-y-6 relative overflow-hidden">
+      <div className="rounded-2xl border border-brand-200 dark:border-brand-500/30 bg-surface-0 p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-500 animate-pulse">
-              <Sparkles className="h-5 w-5" />
+            <div className="h-9 w-9 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center animate-pulse">
+              <Sparkles className="h-4.5 w-4.5" />
             </div>
             <div className="space-y-1.5">
-              <div className="h-4 w-48 bg-surface-2 rounded-md animate-pulse" />
-              <div className="h-3 w-32 bg-surface-2 rounded-md animate-pulse" />
+              <div className="h-4 w-48 bg-surface-2 rounded-lg animate-pulse" />
+              <div className="h-3 w-32 bg-surface-2 rounded-lg animate-pulse" />
             </div>
           </div>
         </div>
         <div className="space-y-3">
           <div className="h-16 bg-surface-1 rounded-xl animate-pulse" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="h-24 bg-surface-1 rounded-xl animate-pulse" />
-            <div className="h-24 bg-surface-1 rounded-xl animate-pulse" />
+            <div className="h-20 bg-surface-1 rounded-xl animate-pulse" />
+            <div className="h-20 bg-surface-1 rounded-xl animate-pulse" />
           </div>
         </div>
       </div>
@@ -169,7 +169,6 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
     ) {
       return "Database cache sync issue. Please retry analysis.";
     }
-    // Truncate any overly long stack trace
     if (msg.length > 120) {
       return "Unable to complete AI analysis. Click Retry to attempt again.";
     }
@@ -178,12 +177,12 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
   if (error && !summary) {
     return (
-      <div className="rounded-2xl border border-border bg-surface-0 p-6 shadow-xs text-center space-y-3.5">
+      <div className="rounded-2xl border border-border bg-surface-0 p-6 sm:p-7 shadow-xs text-center space-y-3.5">
         <div className="h-10 w-10 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mx-auto">
           <AlertTriangle className="h-5 w-5" />
         </div>
         <div className="space-y-1">
-          <p className="text-sm font-semibold text-text-primary font-sans">
+          <p className="text-sm font-semibold text-text-primary">
             AI Performance Diagnostic Unavailable
           </p>
           <p className="text-xs text-text-secondary max-w-md mx-auto">
@@ -196,7 +195,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
             variant="outline"
             onClick={() => fetchOrGenerateSummary()}
             disabled={loading}
-            className="cursor-pointer text-xs"
+            className="cursor-pointer text-xs rounded-xl h-9"
           >
             <RefreshCw
               className={`h-3.5 w-3.5 mr-1.5 ${loading ? "animate-spin" : ""}`}
@@ -211,24 +210,24 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
   if (!summary) return null;
 
   return (
-    <section className="rounded-2xl border border-brand-500/30 bg-surface-0 shadow-lg relative overflow-hidden">
+    <section className="rounded-2xl border border-brand-200 dark:border-brand-500/30 bg-surface-0 shadow-xs relative overflow-hidden">
       {/* Subtle Gradient Accent Bar */}
-      <div className="h-1.5 w-full bg-linear-to-r from-brand-600 via-indigo-500 to-purple-600" />
+      <div className="h-1 w-full bg-linear-to-r from-brand-600 via-indigo-500 to-purple-600" />
 
-      <div className="p-6 sm:p-8 space-y-6">
+      <div className="p-6 sm:p-7 space-y-6">
         {/* Top Header Row */}
         <div className="flex items-center justify-between gap-4 border-b border-border pb-5">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-500 shadow-xs">
-              <Sparkles className="h-5 w-5" />
+            <div className="h-9 w-9 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shadow-2xs">
+              <Sparkles className="h-4.5 w-4.5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-lg sm:text-xl font-bold text-text-primary tracking-tight font-sans">
+                <h2 className="text-lg font-bold text-text-primary tracking-tight">
                   AI Performance Diagnostics
                 </h2>
                 <span
-                  className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${getVerdictStyle(
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getVerdictStyle(
                     summary.verdict,
                   )}`}
                 >
@@ -236,15 +235,15 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                 </span>
               </div>
               <p className="text-xs text-text-secondary mt-0.5">
-                Automated engineering analysis and framework-aware code fixes
+                Automated engineering analysis and framework-aware remediation code
               </p>
             </div>
           </div>
         </div>
 
         {/* Executive Summary Box */}
-        <div className="p-4 sm:p-5 rounded-xl bg-brand-500/5 border border-brand-500/20 space-y-2">
-          <p className="text-sm font-bold text-brand-600 dark:text-brand-400 font-sans flex items-center gap-1.5">
+        <div className="p-4 sm:p-5 rounded-2xl bg-brand-50/60 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 space-y-2">
+          <p className="text-sm font-bold text-brand-600 dark:text-brand-300 flex items-center gap-1.5">
             <Zap className="h-4 w-4" />
             {summary.headline}
           </p>
@@ -253,45 +252,45 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
           </p>
         </div>
 
-        {/* Quantified ROI & Impact Metrics */}
+        {/* Quantified Impact Metrics */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-          <div className="p-3.5 bg-surface-1 rounded-xl border border-border flex items-center gap-3">
-            <div className="h-8.5 w-8.5 rounded-lg bg-score-good/10 text-score-good flex items-center justify-center">
+          <div className="p-4 bg-surface-1 rounded-xl border border-border/80 flex items-center gap-3">
+            <div className="h-9 w-9 rounded-xl bg-score-good/10 text-score-good border border-score-good/20 flex items-center justify-center shrink-0">
               <Clock className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-[10px] uppercase font-bold text-text-tertiary">
-                Est. Load Time Reduction
+              <p className="text-[11px] font-semibold text-text-tertiary uppercase">
+                Est. Load Reduction
               </p>
-              <p className="text-base font-extrabold text-score-good">
+              <p className="text-base font-bold text-score-good">
                 {summary.estimatedImpact.timeSavedFormatted.replace(/^[+-]/, "")} Faster
               </p>
             </div>
           </div>
 
-          <div className="p-3.5 bg-surface-1 rounded-xl border border-border flex items-center gap-3">
-            <div className="h-8.5 w-8.5 rounded-lg bg-brand-500/10 text-brand-500 flex items-center justify-center">
+          <div className="p-4 bg-surface-1 rounded-xl border border-border/80 flex items-center gap-3">
+            <div className="h-9 w-9 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
               <TrendingUp className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-[10px] uppercase font-bold text-text-tertiary">
-                Est. Conversion Lift (ROI)
+              <p className="text-[11px] font-semibold text-text-tertiary uppercase">
+                Est. Conversion Lift
               </p>
-              <p className="text-base font-extrabold text-brand-600 dark:text-brand-400 font-mono">
+              <p className="text-base font-bold text-brand-600 dark:text-brand-300 font-mono">
                 {summary.estimatedImpact.conversionLift}
               </p>
             </div>
           </div>
 
-          <div className="p-3.5 bg-surface-1 rounded-xl border border-border flex items-center gap-3">
-            <div className="h-8.5 w-8.5 rounded-lg bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+          <div className="p-4 bg-surface-1 rounded-xl border border-border/80 flex items-center gap-3">
+            <div className="h-9 w-9 rounded-xl bg-surface-2 text-text-secondary border border-border flex items-center justify-center shrink-0">
               <Layers className="h-4.5 w-4.5" />
             </div>
             <div>
-              <p className="text-[10px] uppercase font-bold text-text-tertiary">
+              <p className="text-[11px] font-semibold text-text-tertiary uppercase">
                 Remediation Plan
               </p>
-              <p className="text-base font-extrabold text-text-primary">
+              <p className="text-base font-bold text-text-primary">
                 {summary.priorityFixes.length} Priority Fixes
               </p>
             </div>
@@ -300,42 +299,42 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
         {/* Priority Code Fixes Accordion List */}
         <div className="space-y-3 pt-2">
-          <h3 className="text-xs font-mono font-bold tracking-wider uppercase text-text-secondary">
+          <h3 className="text-xs font-semibold tracking-wider uppercase text-text-tertiary">
             Prioritized Engineering Remediation
           </h3>
 
-          <div className="space-y-2.5">
+          <div className="space-y-3">
             {summary.priorityFixes.map((fix, idx) => {
               const isExpanded = expandedFixIndex === idx;
 
               return (
                 <div
                   key={idx}
-                  className="rounded-xl border border-border bg-surface-1 overflow-hidden transition-all"
+                  className="rounded-2xl border border-border bg-surface-1 overflow-hidden transition-all"
                 >
                   <button
                     onClick={() => setExpandedFixIndex(isExpanded ? null : idx)}
                     className="w-full p-4 text-left flex items-center justify-between gap-3 hover:bg-surface-2/60 transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-2.5 flex-wrap min-w-0">
-                      <span className="font-mono text-xs font-bold text-brand-500 w-5">
+                      <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400 w-5">
                         0{idx + 1}
                       </span>
-                      <span className="text-sm font-bold text-text-primary font-sans truncate">
+                      <span className="text-sm font-bold text-text-primary truncate">
                         {fix.title}
                       </span>
                       <span
-                        className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${getUrgencyBadge(
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${getUrgencyBadge(
                           fix.urgency,
                         )}`}
                       >
                         {fix.urgency}
                       </span>
-                      <span className="text-[11px] font-mono text-text-tertiary bg-surface-2 px-2 py-0.5 rounded border border-border">
+                      <span className="text-xs text-text-tertiary bg-surface-0 px-2 py-0.5 rounded-md border border-border">
                         {fix.category}
                       </span>
                       {fix.wastedFormatted && (
-                        <span className="text-[11px] font-mono font-semibold text-score-good">
+                        <span className="text-xs font-semibold text-score-good">
                           {fix.wastedFormatted}
                         </span>
                       )}
@@ -350,18 +349,18 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                   </button>
 
                   {isExpanded && (
-                    <div className="p-4 pt-0 border-t border-border/60 bg-surface-0/60 space-y-3.5">
+                    <div className="p-4 pt-0 border-t border-border/60 bg-surface-0/70 space-y-3.5">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3 text-xs">
-                        <div className="p-3 bg-surface-1 rounded-lg border border-border space-y-1">
-                          <p className="font-bold text-text-tertiary uppercase text-[10px]">
+                        <div className="p-3.5 bg-surface-1 rounded-xl border border-border space-y-1">
+                          <p className="font-semibold text-text-tertiary uppercase text-[10px]">
                             Root Cause
                           </p>
                           <p className="text-text-secondary leading-relaxed">
                             {fix.problem}
                           </p>
                         </div>
-                        <div className="p-3 bg-surface-1 rounded-lg border border-border space-y-1">
-                          <p className="font-bold text-brand-500 uppercase text-[10px]">
+                        <div className="p-3.5 bg-surface-1 rounded-xl border border-border space-y-1">
+                          <p className="font-semibold text-brand-600 dark:text-brand-400 uppercase text-[10px]">
                             Remediation Plan
                           </p>
                           <p className="text-text-secondary leading-relaxed">
@@ -372,14 +371,14 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
                       {fix.codeSnippet && (
                         <div className="space-y-1.5">
-                          <div className="flex items-center justify-between text-xs font-mono text-text-tertiary">
-                            <span className="flex items-center gap-1.5">
-                              <Code2 className="h-3.5 w-3.5 text-brand-500" />
+                          <div className="flex items-center justify-between text-xs text-text-tertiary">
+                            <span className="flex items-center gap-1.5 font-medium">
+                              <Code2 className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
                               Recommended Code Implementation
                             </span>
                             <button
                               onClick={() => handleCopy(fix.codeSnippet!, idx)}
-                              className="inline-flex items-center gap-1 text-[11px] text-brand-500 hover:text-brand-600 cursor-pointer font-sans font-semibold"
+                              className="inline-flex items-center gap-1 text-xs text-brand-600 dark:text-brand-400 hover:underline cursor-pointer font-semibold"
                             >
                               {copiedIndex === idx ? (
                                 <>
@@ -396,7 +395,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                               )}
                             </button>
                           </div>
-                          <pre className="p-3.5 rounded-lg bg-surface-1 border border-border text-xs font-mono overflow-x-auto text-text-primary leading-relaxed">
+                          <pre className="p-3.5 rounded-xl bg-surface-1 border border-border text-xs font-mono overflow-x-auto text-text-primary leading-relaxed">
                             <code>{fix.codeSnippet}</code>
                           </pre>
                         </div>
@@ -412,13 +411,13 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
         {/* Key Strengths Pills */}
         {summary.keyStrengths && summary.keyStrengths.length > 0 && (
           <div className="pt-2 border-t border-border flex flex-wrap items-center gap-2 text-xs">
-            <span className="font-mono text-text-tertiary text-[11px] uppercase font-bold mr-1">
+            <span className="text-text-tertiary text-[11px] uppercase font-semibold mr-1">
               Passed Checks:
             </span>
             {summary.keyStrengths.map((str, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-score-good/10 text-score-good border border-score-good/20 font-medium text-[11px]"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full score-badge-good font-medium text-xs"
               >
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 {str}
