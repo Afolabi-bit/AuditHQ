@@ -56,6 +56,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
   const [baseId, setBaseId] = useState<string>(String(defaultBase));
   const [targetId, setTargetId] = useState<string>(String(defaultTarget));
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedDomainFilter, setSelectedDomainFilter] = useState<string | null>(null);
   const [activeSlot, setActiveSlot] = useState<"base" | "target">("base");
 
   // Keep state synced when modal is opened or props change
@@ -77,6 +78,13 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
     tests[targetId] ||
     completedTests.find((t) => String(t.id) === String(targetId)) ||
     null;
+
+  const isDomainMismatch =
+    baseTest &&
+    targetTest &&
+    baseTest.domain?.url &&
+    targetTest.domain?.url &&
+    baseTest.domain.url !== targetTest.domain.url;
 
   const handleSwap = () => {
     const temp = baseId;
@@ -111,6 +119,9 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
   };
 
   const filteredList = completedTests.filter((t) => {
+    if (selectedDomainFilter && t.domain?.url !== selectedDomainFilter) {
+      return false;
+    }
     if (!searchQuery.trim()) return true;
     const query = searchQuery.toLowerCase();
     return (
@@ -128,6 +139,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
   };
 
   const isSameTest = baseId && targetId && String(baseId) === String(targetId);
+
 
   return (
     <div
@@ -244,7 +256,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           </button>
         </div>
 
-        {/* 3. Search & Active Slot Instruction */}
+        {/* 3. Search & Domain Filter Deck */}
         <div className="space-y-2 shrink-0 mb-2">
           <div className="flex items-center justify-between text-xs">
             <span className="text-text-secondary font-medium">
@@ -269,6 +281,46 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
               className="w-full bg-surface-1 border border-border rounded-lg pl-8 pr-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
             />
           </div>
+
+          {/* Domain-based quick filter badge */}
+          {baseTest?.domain?.url && (
+            <div className="flex items-center gap-1.5 pt-0.5">
+              <span className="text-[11px] text-text-tertiary">Filter:</span>
+              <button
+                type="button"
+                onClick={() =>
+                  setSelectedDomainFilter(
+                    selectedDomainFilter === baseTest.domain.url
+                      ? null
+                      : baseTest.domain.url
+                  )
+                }
+                className={`text-[11px] font-mono px-2 py-0.5 rounded-md border transition-all cursor-pointer ${
+                  selectedDomainFilter === baseTest.domain.url
+                    ? "bg-brand-50 text-brand-600 border-brand-300 dark:bg-brand-500/20 dark:text-brand-300 dark:border-brand-500/40"
+                    : "bg-surface-1 text-text-secondary border-border hover:bg-surface-2"
+                }`}
+              >
+                Only {baseTest.domain.url}
+              </button>
+
+              {selectedDomainFilter && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedDomainFilter(null)}
+                  className="text-[10px] text-text-tertiary hover:text-text-primary underline cursor-pointer"
+                >
+                  Show all
+                </button>
+              )}
+            </div>
+          )}
+
+          {isDomainMismatch && (
+            <div className="text-[11px] font-mono text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 p-2 rounded-lg">
+              ℹ️ Base and Target belong to different domains. Comparing within the same domain provides optimal regression precision.
+            </div>
+          )}
         </div>
 
         {/* 4. Interactive Scrollable Audit List Container */}

@@ -35,12 +35,12 @@ model Domain {
 }
 
 model Test {
-  id               String   @id @default(cuid())
-  domain           Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  id               String    @id @default(cuid())
+  domain           Domain    @relation(fields: [domainId], references: [id], onDelete: Cascade)
   domainId         String
-  device           String   @default("desktop")
-  network          String?  @default("No Throttling")
-  status           String   @default("pending")
+  device           String    @default("desktop")
+  network          String?   @default("No Throttling")
+  status           String    @default("pending")
   errorMessage     String?
   performanceScore Int?
   fcp              Float?
@@ -49,9 +49,11 @@ model Test {
   cls              Float?
   fullReport       Json?
   aiSummary        Json?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  deletedAt        DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
-  @@index([domainId, createdAt(sort: Desc)])
+  @@index([domainId, deletedAt, createdAt(sort: Desc)])
   @@index([domainId, status, createdAt(sort: Desc)])
 }
+

@@ -26,7 +26,7 @@ async function AsyncTestReportFetcher({
     },
   });
 
-  if (!test) {
+  if (!test || test.deletedAt) {
     notFound();
   }
 

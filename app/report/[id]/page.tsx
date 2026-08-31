@@ -25,6 +25,7 @@ export async function generateMetadata({
   const test = await prisma.test.findUnique({
     where: { id },
     select: {
+      deletedAt: true,
       performanceScore: true,
       domain: {
         select: {
@@ -34,7 +35,7 @@ export async function generateMetadata({
     },
   });
 
-  if (!test) {
+  if (!test || test.deletedAt) {
     return { title: "Audit Not Found - AuditHQ" };
   }
 
@@ -52,7 +53,7 @@ async function AsyncPublicReportFetcher({ testId }: { testId: string }) {
     },
   });
 
-  if (!test) {
+  if (!test || test.deletedAt) {
     notFound();
   }
 

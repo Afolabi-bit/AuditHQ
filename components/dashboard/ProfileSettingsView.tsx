@@ -224,18 +224,18 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
         {activeTab === "usage" && (
           <div className="bg-surface-0 border border-border rounded-2xl p-4 sm:p-7 md:p-9 shadow-xs space-y-5 sm:space-y-6">
             <div className="space-y-1 pb-2 border-b border-border/80">
-              <h2 className="text-sm sm:text-base font-bold text-text-primary">
-                Monthly Audit Quotas & History
-              </h2>
+              <h3 className="text-sm sm:text-base font-bold text-text-primary">
+                Monthly Usage Quota & Limits
+              </h3>
               <p className="text-xs text-text-secondary">
-                Execution budget and telemetry history under your current Developer tier
+                Execution capacity and telemetry history under your active workspace
               </p>
             </div>
 
             <div className="border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 bg-surface-1 space-y-3 sm:space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-xs font-semibold text-text-secondary">
-                  Audits Run This Billing Cycle
+                  Audits Run This Month
                 </span>
                 <span className="text-xs font-mono font-bold text-brand-600 dark:text-brand-400 whitespace-nowrap">
                   {auditsThisMonth} / 100

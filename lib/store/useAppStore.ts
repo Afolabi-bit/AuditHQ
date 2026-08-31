@@ -66,6 +66,9 @@ interface AppState {
   /** Upsert a single test (add or update in-place, maintaining order) */
   upsertTest: (test: StoredTest) => void;
 
+  /** Remove a test locally upon deletion */
+  removeTest: (testId: string) => void;
+
   /** Set aggregated dashboard stats */
   setStats: (stats: DashboardStats, userId?: string) => void;
 
@@ -171,6 +174,18 @@ export const useAppStore = create<AppState>()(
 
           return {
             tests: updatedTests,
+            testsOrder: updatedOrder,
+            testsLastFetched: Date.now(),
+          };
+        });
+      },
+
+      removeTest: (testId) => {
+        set((state) => {
+          const { [testId]: _, ...remainingTests } = state.tests;
+          const updatedOrder = state.testsOrder.filter((id) => id !== testId);
+          return {
+            tests: remainingTests,
             testsOrder: updatedOrder,
             testsLastFetched: Date.now(),
           };

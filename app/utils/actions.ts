@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/db";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
+import getSessionUser from "@/lib/auth";
 
 export async function syncUserToDatabase(user: KindeUser) {
   try {
@@ -32,6 +33,7 @@ async function cancelPendingTestsForDomain(domainId: string) {
     where: {
       domainId: domainId,
       status: "pending",
+      deletedAt: null,
     },
     data: {
       status: "cancelled",
@@ -115,15 +117,52 @@ export async function submitDomain(data: Domain) {
 
 export async function getTestStatus(id: string) {
   try {
-    const test = await prisma.test.findUnique({
+    const test = await prisma.test.findFirst({
       where: {
         id: id,
+        deletedAt: null,
       },
     });
     return test;
   } catch (error) {
     console.error("Error getting test status:", error);
     throw new Error("Failed to get test status");
+  }
+}
+
+export async function deleteTest(testId: string) {
+  try {
+    const sessionUser = await getSessionUser();
+    if (!sessionUser?.id) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    const test = await prisma.test.findUnique({
+      where: { id: testId },
+      include: { domain: true },
+    });
+
+    if (!test) {
+      return { success: false, error: "Audit not found" };
+    }
+
+    if (test.domain.ownerId !== sessionUser.id) {
+      return { success: false, error: "Forbidden: You do not own this test" };
+    }
+
+    // Soft delete: sets deletedAt timestamp so it is excluded from dashboard feeds but still counts against monthly usage quota
+    await prisma.test.update({
+      where: { id: testId },
+      data: { deletedAt: new Date() },
+    });
+
+    return { success: true, message: "Audit deleted successfully" };
+  } catch (error) {
+    console.error("Error deleting test:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to delete test",
+    };
   }
 }
 
@@ -134,6 +173,7 @@ export async function getRecentTests(userID: string) {
         domain: {
           ownerId: userID,
         },
+        deletedAt: null,
       },
       select: {
         id: true,
@@ -207,6 +247,7 @@ export async function getDashboardStats(
 
     // Run parallel count & aggregate queries with lean projections
     const [testsThisMonth, activeSites, completedTests] = await Promise.all([
+      // NOTE: testsThisMonth counts ALL audits created this month (including soft-deleted) to strictly preserve quota
       prisma.test.count({
         where: {
           domain: { ownerId: userID },
@@ -223,6 +264,7 @@ export async function getDashboardStats(
           domain: { ownerId: userID },
           status: "completed",
           performanceScore: { not: null },
+          deletedAt: null,
         },
         select: {
           id: true,
