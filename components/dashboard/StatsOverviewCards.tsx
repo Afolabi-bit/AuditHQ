@@ -2,15 +2,15 @@
 
 import React from "react";
 import {
-  BarChart3,
+  ChartBar,
   Clock,
   Globe,
-  TrendingDown,
-  TrendingUp,
+  TrendDown,
+  TrendUp,
   Minus,
-  Activity,
-  Zap,
-} from "lucide-react";
+  Pulse,
+  Lightning,
+} from "@phosphor-icons/react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import useSWR from "swr";
 import { DashboardStats } from "@/app/utils/actions";
@@ -103,7 +103,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             </div>
           </div>
           <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
-            <BarChart3 className="h-5 w-5" />
+            <ChartBar weight="fill" className="h-5 w-5" />
           </div>
         </div>
 
@@ -137,7 +137,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             </div>
           </div>
           <div className="h-10 w-10 rounded-xl bg-score-good/10 text-score-good border border-score-good/20 flex items-center justify-center shrink-0">
-            <Activity className="h-5 w-5" />
+            <Pulse weight="bold" className="h-5 w-5" />
           </div>
         </div>
 
@@ -147,18 +147,18 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
           ) : stats.performanceDiff != null && stats.performanceDiff !== 0 ? (
             stats.performanceDiff > 0 ? (
               <span className="inline-flex items-center gap-1.5 text-score-good font-semibold text-xs">
-                <TrendingUp className="h-3.5 w-3.5" />
+                <TrendUp weight="bold" className="h-3.5 w-3.5" />
                 +{Number(stats.performanceDiff) % 1 === 0 ? stats.performanceDiff : Number(stats.performanceDiff).toFixed(1)} pts vs earlier
               </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 text-score-poor font-semibold text-xs">
-                <TrendingDown className="h-3.5 w-3.5" />
+                <TrendDown weight="bold" className="h-3.5 w-3.5" />
                 {Number(stats.performanceDiff) % 1 === 0 ? stats.performanceDiff : Number(stats.performanceDiff).toFixed(1)} pts vs earlier
               </span>
             )
           ) : (
             <span className="inline-flex items-center gap-1.5 text-text-tertiary">
-              <Minus className="h-3.5 w-3.5" />
+              <Minus weight="bold" className="h-3.5 w-3.5" />
               Stable baseline
             </span>
           )}
@@ -181,7 +181,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             </div>
           </div>
           <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
-            <Globe className="h-5 w-5" />
+            <Globe weight="bold" className="h-5 w-5" />
           </div>
         </div>
 
@@ -212,7 +212,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             </div>
           </div>
           <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
-            <Clock className="h-5 w-5" />
+            <Clock weight="bold" className="h-5 w-5" />
           </div>
         </div>
 
@@ -222,18 +222,18 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
           ) : stats.loadTimeDiff != null && stats.loadTimeDiff !== 0 ? (
             stats.loadTimeDiff < 0 ? (
               <span className="inline-flex items-center gap-1.5 text-score-good font-semibold text-xs">
-                <TrendingUp className="h-3.5 w-3.5" />
+                <TrendUp weight="bold" className="h-3.5 w-3.5" />
                 {Math.abs(Number(stats.loadTimeDiff))}ms faster
               </span>
             ) : (
               <span className="inline-flex items-center gap-1.5 text-score-poor font-semibold text-xs">
-                <TrendingDown className="h-3.5 w-3.5" />
+                <TrendDown weight="bold" className="h-3.5 w-3.5" />
                 +{Math.abs(Number(stats.loadTimeDiff))}ms slower
               </span>
             )
           ) : (
             <span className="inline-flex items-center gap-1.5 text-text-tertiary">
-              <Minus className="h-3.5 w-3.5" />
+              <Minus weight="bold" className="h-3.5 w-3.5" />
               Lighthouse simulated LCP
             </span>
           )}
@@ -244,3 +244,4 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
 };
 
 export default StatsOverviewCards;
+

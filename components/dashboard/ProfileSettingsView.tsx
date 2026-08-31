@@ -5,15 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   User,
-  Mail,
-  Shield,
+  Envelope,
+  ShieldCheck,
   Globe,
-  Zap,
+  Lightning,
   ArrowLeft,
   Palette,
-  BarChart3,
+  ChartBar,
   Lock,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { ThemeSelector } from "@/components/dashboard/ThemeSelector";
 import { SignOutButton } from "@/components/dashboard/SignOutButton";
 
@@ -51,22 +51,22 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
     {
       id: "general",
       label: "General Profile",
-      icon: <User className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
+      icon: <User weight="bold" className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
     },
     {
       id: "appearance",
       label: "Appearance",
-      icon: <Palette className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
+      icon: <Palette weight="bold" className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
     },
     {
       id: "usage",
       label: "Audit Quotas",
-      icon: <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
+      icon: <ChartBar weight="bold" className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
     },
     {
       id: "security",
       label: "Security & Session",
-      icon: <Lock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
+      icon: <Lock weight="bold" className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
     },
   ];
 
@@ -78,7 +78,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
           href="/dashboard"
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-secondary hover:text-brand-600 dark:hover:text-brand-400 transition-colors shrink-0"
         >
-          <ArrowLeft className="h-3.5 w-3.5" />
+          <ArrowLeft weight="bold" className="h-3.5 w-3.5" />
           Back to Console
         </Link>
         <span className="text-[11px] font-mono text-text-tertiary truncate max-w-full">
@@ -138,7 +138,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                     </div>
                   ) : (
                     <div className="h-14 w-14 sm:h-18 sm:w-18 rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center font-bold text-xl sm:text-2xl shadow-xs">
-                      {user.given_name?.[0]?.toUpperCase() || <User className="h-6 w-6 sm:h-8 sm:w-8" />}
+                      {user.given_name?.[0]?.toUpperCase() || <User weight="bold" className="h-6 w-6 sm:h-8 sm:w-8" />}
                     </div>
                   )}
                   <span
@@ -159,7 +159,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                     </span>
                   </div>
                   <p className="text-xs text-text-secondary flex items-center gap-1.5 truncate max-w-full" title={user.email || ""}>
-                    <Mail className="h-3.5 w-3.5 text-text-tertiary shrink-0" />
+                    <Envelope weight="bold" className="h-3.5 w-3.5 text-text-tertiary shrink-0" />
                     <span className="truncate">{user.email}</span>
                   </p>
                 </div>
@@ -180,7 +180,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
               <div className="bg-surface-1 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-border space-y-1">
                 <p className="text-text-tertiary font-medium text-[11px]">Authentication</p>
                 <p className="font-bold text-text-primary flex items-center gap-1.5">
-                  <Shield className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                  <ShieldCheck weight="fill" className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600 dark:text-brand-400 shrink-0" />
                   <span className="truncate">Kinde OAuth 2.0</span>
                 </p>
               </div>
@@ -188,7 +188,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
               <div className="bg-surface-1 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-border space-y-1">
                 <p className="text-text-tertiary font-medium text-[11px]">Audit Engine</p>
                 <p className="font-bold text-text-primary flex items-center gap-1.5">
-                  <Zap className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                  <Lightning weight="fill" className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600 dark:text-brand-400 shrink-0" />
                   <span className="truncate">Lighthouse 12.0</span>
                 </p>
               </div>
@@ -196,7 +196,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
               <div className="bg-surface-1 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-border space-y-1">
                 <p className="text-text-tertiary font-medium text-[11px]">Connected Sites</p>
                 <p className="font-bold text-text-primary flex items-center gap-1.5">
-                  <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600 dark:text-brand-400 shrink-0" />
+                  <Globe weight="bold" className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-600 dark:text-brand-400 shrink-0" />
                   <span className="truncate">{totalDomains} {totalDomains === 1 ? "Domain" : "Domains"}</span>
                 </p>
               </div>
@@ -296,3 +296,4 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
     </main>
   );
 };
+

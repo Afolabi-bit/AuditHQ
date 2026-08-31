@@ -16,20 +16,20 @@ export const COLORS = {
   // Brand accent
   brand:       [37, 99, 235]   as RGB,  // blue-600
   brandLight:  [219, 234, 254] as RGB,  // blue-100
-  indigo:      [99, 102, 241]  as RGB,
+  sky:         [56, 189, 248]  as RGB,  // sky-400
 
   // Semantic
-  emerald:     [16, 185, 129]  as RGB,
-  emeraldLight:[209, 250, 229] as RGB,
-  amber:       [245, 158, 11]  as RGB,
-  amberLight:  [254, 243, 199] as RGB,
-  rose:        [239, 68, 68]   as RGB,
-  roseLight:   [254, 226, 226] as RGB,
-  violet:      [139, 92, 246]  as RGB,
+  emerald:     [5, 150, 105]   as RGB,  // emerald-600
+  emeraldLight:[209, 250, 229] as RGB,  // emerald-100
+  amber:       [217, 119, 6]   as RGB,  // amber-600
+  amberLight:  [254, 243, 199] as RGB,  // amber-100
+  rose:        [220, 38, 38]   as RGB,  // red-600
+  roseLight:   [254, 226, 226] as RGB,  // red-100
+  cyan:        [2, 132, 199]   as RGB,  // cyan-600
 
   // Text
   ink:         [15, 23, 42]    as RGB,
-  muted:       [100, 116, 139] as RGB,
+  muted:       [71, 85, 105]   as RGB,
   faint:       [148, 163, 184] as RGB,
   ghostWhite:  [203, 213, 225] as RGB,
 

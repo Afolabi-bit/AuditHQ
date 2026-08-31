@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Film, Eye, Clock, Maximize2, X, Globe } from "lucide-react";
+import { FilmStrip, Eye, Clock, ArrowsOut, X, Globe } from "@phosphor-icons/react";
 import { SynchronizedFrame } from "@/lib/comparison/types";
 
 interface SynchronizedFilmstripProps {
@@ -29,8 +29,8 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
     <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="space-y-1">
-          <h2 className="text-lg sm:text-xl font-bold text-text-primary font-sans flex items-center gap-2.5">
-            <Film className="h-5 w-5 text-brand-500" />
+          <h2 className="text-lg sm:text-xl font-bold text-text-primary flex items-center gap-2.5">
+            <FilmStrip weight="bold" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
             Synchronized Visual Progression (Filmstrip Diff)
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
@@ -54,7 +54,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                   key={f.timestampMs}
                   className="w-40 sm:w-44 text-center text-xs font-mono font-bold text-text-tertiary border-b border-border pb-1.5 flex items-center justify-center gap-1"
                 >
-                  <Clock className="h-3 w-3" />
+                  <Clock weight="bold" className="h-3 w-3" />
                   {f.timestampMs === 0 ? "0.0s (Start)" : `${(f.timestampMs / 1000).toFixed(1)}s`}
                 </div>
               ))}
@@ -75,7 +75,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                 <div
                   key={`base-${f.timestampMs}`}
                   onClick={() => setSelectedFrame(f)}
-                  className="w-40 sm:w-44 h-24 sm:h-28 bg-surface-1 rounded-lg border border-border overflow-hidden relative group cursor-pointer hover:border-brand-500 transition-all shrink-0 shadow-2xs flex items-center justify-center"
+                  className="w-40 sm:w-44 h-24 sm:h-28 bg-surface-1 rounded-lg border border-border overflow-hidden relative group cursor-pointer hover:border-brand-500 dark:hover:border-brand-500/40 transition-all shrink-0 shadow-2xs flex items-center justify-center"
                 >
                   {f.baseFrame ? (
                     <img
@@ -90,7 +90,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                   )}
 
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
-                    <Maximize2 className="h-3.5 w-3.5" />
+                    <ArrowsOut weight="bold" className="h-3.5 w-3.5" />
                     <span>Enlarge</span>
                   </div>
                 </div>
@@ -100,7 +100,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
             {/* Row 2: Target Run */}
             <div className="flex items-center gap-3">
               <div className="w-28 sm:w-32 shrink-0 space-y-0.5 pr-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-500 border border-brand-200 inline-block">
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 inline-block">
                   Target Run
                 </span>
                 <p className="text-xs font-mono text-text-primary truncate" title={targetUrl}>
@@ -112,7 +112,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                 <div
                   key={`target-${f.timestampMs}`}
                   onClick={() => setSelectedFrame(f)}
-                  className="w-40 sm:w-44 h-24 sm:h-28 bg-surface-1 rounded-lg border border-border overflow-hidden relative group cursor-pointer hover:border-brand-500 transition-all shrink-0 shadow-2xs flex items-center justify-center"
+                  className="w-40 sm:w-44 h-24 sm:h-28 bg-surface-1 rounded-lg border border-border overflow-hidden relative group cursor-pointer hover:border-brand-500 dark:hover:border-brand-500/40 transition-all shrink-0 shadow-2xs flex items-center justify-center"
                 >
                   {f.targetFrame ? (
                     <img
@@ -127,7 +127,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                   )}
 
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
-                    <Maximize2 className="h-3.5 w-3.5" />
+                    <ArrowsOut weight="bold" className="h-3.5 w-3.5" />
                     <span>Enlarge</span>
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
         </div>
 
         <p className="text-[11px] text-text-tertiary font-mono text-center sm:text-left flex items-center gap-1.5 pt-2 border-t border-border/60">
-          <Eye className="h-3.5 w-3.5 text-brand-500" />
+          <Eye weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
           Click any frame to inspect the high-resolution rendering difference side-by-side.
         </p>
       </div>
@@ -154,8 +154,8 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
           >
             <div className="flex items-center justify-between border-b border-border pb-4">
               <div>
-                <h3 className="text-base font-bold text-text-primary font-sans flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-brand-500" />
+                <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
+                  <Clock weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
                   Visual Comparison at {(selectedFrame.timestampMs / 1000).toFixed(1)}s ({selectedFrame.timestampMs}ms)
                 </h3>
                 <p className="text-xs text-text-secondary">
@@ -167,7 +167,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                 onClick={() => setSelectedFrame(null)}
                 className="h-8 w-8 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
               >
-                <X className="h-4 w-4" />
+                <X weight="bold" className="h-4 w-4" />
               </button>
             </div>
 
@@ -198,7 +198,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
               {/* Target Frame Modal */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-brand-50 text-brand-500 border border-brand-200">
+                  <span className="px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30">
                     Target Run Comparison
                   </span>
                   <span className="text-xs font-mono text-text-tertiary">
@@ -224,3 +224,4 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
     </section>
   );
 };
+

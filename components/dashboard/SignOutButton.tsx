@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { LogOut, AlertTriangle, X } from "lucide-react";
+import { SignOut, Warning, X } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 
@@ -30,7 +30,7 @@ export const SignOutButton: React.FC = () => {
         onClick={() => setIsOpen(true)}
         className="bg-surface-0 hover:bg-destructive/10 text-destructive border-destructive/30 font-semibold text-xs rounded-lg px-4 h-9 cursor-pointer w-full sm:w-auto shrink-0 shadow-xs transition-colors"
       >
-        <LogOut className="h-4 w-4 mr-1.5" />
+        <SignOut weight="bold" className="h-4 w-4 mr-1.5" />
         Sign Out
       </Button>
 
@@ -51,12 +51,12 @@ export const SignOutButton: React.FC = () => {
             <div className="flex items-start justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-destructive/10 text-destructive border border-destructive/20 shrink-0">
-                  <AlertTriangle className="h-5 w-5" />
+                  <Warning weight="fill" className="h-5 w-5" />
                 </div>
                 <div>
                   <h3
                     id="signout-dialog-title"
-                    className="text-base font-bold text-text-primary font-sans"
+                    className="text-base font-bold text-text-primary"
                   >
                     Confirm Sign Out
                   </h3>
@@ -72,7 +72,7 @@ export const SignOutButton: React.FC = () => {
                 className="p-1 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface-2 transition-colors cursor-pointer"
                 aria-label="Close dialog"
               >
-                <X className="h-4 w-4" />
+                <X weight="bold" className="h-4 w-4" />
               </button>
             </div>
 
@@ -99,7 +99,7 @@ export const SignOutButton: React.FC = () => {
                   size="sm"
                   className="bg-destructive hover:bg-destructive/90 text-white font-semibold text-xs rounded-lg h-9 px-4 shadow-sm cursor-pointer"
                 >
-                  <LogOut className="h-4 w-4 mr-1.5" />
+                  <SignOut weight="bold" className="h-4 w-4 mr-1.5" />
                   Sign Out
                 </Button>
               </LogoutLink>
@@ -110,3 +110,4 @@ export const SignOutButton: React.FC = () => {
     </>
   );
 };
+

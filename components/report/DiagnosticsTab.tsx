@@ -2,13 +2,12 @@
 
 import React, { useState } from "react";
 import {
-  Layers,
-  ChevronDown,
-  ChevronUp,
-  CheckCircle2,
-  Activity,
+  Stack,
+  CaretDown,
+  CaretUp,
+  CheckCircle,
   SlidersHorizontal,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
 import { FormattedDescription } from "./FormattedDescription";
 import { DiagnosticItemDetail } from "./DiagnosticInspectorDrawer";
@@ -33,7 +32,7 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
   if (!diagnostics || diagnostics.length === 0) {
     return (
       <div className="bg-surface-0 border border-border rounded-2xl p-10 text-center text-text-secondary space-y-2 shadow-xs">
-        <CheckCircle2 className="h-10 w-10 text-score-good mx-auto" />
+        <CheckCircle weight="fill" className="h-10 w-10 text-score-good mx-auto" />
         <h4 className="text-base font-bold text-text-primary">
           All Diagnostic Health Checks Passed
         </h4>
@@ -60,7 +59,7 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
                 isExpanded ? "border-brand-200 dark:border-brand-500/30" : "border-border hover:border-brand-200 dark:hover:border-brand-500/30"
               }`}
             >
-              {/* Header Container (div with role=button to prevent nested button errors) */}
+              {/* Header Container */}
               <div
                 role="button"
                 tabIndex={0}
@@ -75,7 +74,7 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
               >
                 <div className="flex items-start gap-3 flex-1 min-w-0">
                   <div className="mt-0.5 p-2 rounded-xl bg-surface-1 text-text-secondary border border-border shrink-0 shadow-2xs">
-                    <Layers className="h-4 w-4" />
+                    <Stack weight="bold" className="h-4 w-4" />
                   </div>
                   <div className="space-y-1 flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
@@ -113,16 +112,16 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
                       className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border text-text-secondary hover:text-brand-600 dark:hover:text-brand-300 transition-colors cursor-pointer"
                       title="Open in Drawer"
                     >
-                      <SlidersHorizontal className="h-3 w-3" />
+                      <SlidersHorizontal weight="bold" className="h-3 w-3" />
                       <span>Inspect</span>
                     </button>
                   )}
 
                   <div className="p-1.5 rounded-lg bg-surface-1 border border-border text-text-tertiary">
                     {isExpanded ? (
-                      <ChevronUp className="h-4 w-4" />
+                      <CaretUp weight="bold" className="h-4 w-4" />
                     ) : (
-                      <ChevronDown className="h-4 w-4" />
+                      <CaretDown weight="bold" className="h-4 w-4" />
                     )}
                   </div>
                 </div>
@@ -201,3 +200,4 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
     </div>
   );
 };
+

@@ -4,23 +4,21 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
-  ExternalLink,
-  Download,
-  Share2,
+  ArrowSquareOut,
+  DownloadSimple,
+  ShareNetwork,
   Check,
-  RotateCw,
-  Monitor,
-  Smartphone,
+  ArrowsClockwise,
+  Desktop,
+  DeviceMobile,
   Clock,
-  Calendar,
-  Activity,
-  Zap,
-  Loader2,
+  Lightning,
+  CircleNotch,
   FileCode,
-  ArrowRightLeft,
-  ChevronDown,
+  ArrowsLeftRight,
+  CaretDown,
   FileText,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { Button } from "../ui/button";
 import { generateReportPDF, type PdfReportFormat } from "@/lib/generate-report-pdf";
 import { CompareSelectorModal } from "@/components/compare/CompareSelectorModal";
@@ -151,7 +149,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               className="inline-flex items-center text-xs font-bold text-text-secondary hover:text-text-primary transition-colors gap-2"
             >
               <div className="h-6 w-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
-                <Zap className="h-3.5 w-3.5 fill-white" />
+                <Lightning weight="fill" className="h-3.5 w-3.5 text-white" />
               </div>
               <span>AuditHQ Public Report</span>
             </Link>
@@ -160,7 +158,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               href="/dashboard"
               className="inline-flex items-center font-semibold text-text-secondary hover:text-brand-600 dark:hover:text-brand-400 transition-colors gap-1.5"
             >
-              <ArrowLeft className="h-3.5 w-3.5" />
+              <ArrowLeft weight="bold" className="h-3.5 w-3.5" />
               <span>Back to Console</span>
             </Link>
           )}
@@ -188,7 +186,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                 className="text-text-tertiary hover:text-brand-600 dark:hover:text-brand-400 transition-colors p-1 rounded-md hover:bg-surface-1 shrink-0"
                 title="Open live URL in new tab"
               >
-                <ExternalLink className="h-4 w-4" />
+                <ArrowSquareOut weight="bold" className="h-4 w-4" />
               </a>
             </div>
 
@@ -196,9 +194,9 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
             <div className="flex flex-wrap items-center gap-2 text-[11px] text-text-secondary">
               <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2 py-0.5 rounded-md">
                 {isDesktop ? (
-                  <Monitor className="h-3 w-3 text-brand-600 dark:text-brand-400" />
+                  <Desktop weight="bold" className="h-3 w-3 text-brand-600 dark:text-brand-400" />
                 ) : (
-                  <Smartphone className="h-3 w-3 text-brand-600 dark:text-brand-400" />
+                  <DeviceMobile weight="bold" className="h-3 w-3 text-brand-600 dark:text-brand-400" />
                 )}
                 {isDesktop ? "Desktop Chrome" : "Mobile"}
               </span>
@@ -226,12 +224,12 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
             >
               {copied ? (
                 <>
-                  <Check className="h-3.5 w-3.5 mr-1 text-score-good" />
+                  <Check weight="bold" className="h-3.5 w-3.5 mr-1 text-score-good" />
                   Copied!
                 </>
               ) : (
                 <>
-                  <Share2 className="h-3.5 w-3.5 mr-1 text-text-tertiary" />
+                  <ShareNetwork weight="bold" className="h-3.5 w-3.5 mr-1 text-text-tertiary" />
                   Share
                 </>
               )}
@@ -244,7 +242,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               onClick={() => setIsCompareOpen(true)}
               className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer gap-1"
             >
-              <ArrowRightLeft className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
+              <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
               <span>Compare</span>
             </Button>
 
@@ -256,7 +254,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-2.5 rounded-xl font-semibold text-xs transition-colors cursor-pointer"
               title="Download raw JSON"
             >
-              <FileCode className="h-3.5 w-3.5 text-text-tertiary" />
+              <FileCode weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
             </Button>
 
             {/* Download PDF Dropdown Menu */}
@@ -269,14 +267,14 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               >
                 {isGeneratingPdf ? (
                   <>
-                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    <CircleNotch weight="bold" className="h-3.5 w-3.5 animate-spin" />
                     <span>Rendering…</span>
                   </>
                 ) : (
                   <>
-                    <Download className="h-3.5 w-3.5" />
+                    <DownloadSimple weight="bold" className="h-3.5 w-3.5" />
                     <span>PDF</span>
-                    <ChevronDown className="h-3 w-3 opacity-70" />
+                    <CaretDown weight="bold" className="h-3 w-3 opacity-70" />
                   </>
                 )}
               </Button>
@@ -292,7 +290,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                     onClick={() => handleExportPdf("basic")}
                     className="w-full px-3.5 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                   >
-                    <FileText className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                    <FileText weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-text-primary">Executive Summary</p>
                       <p className="text-[11px] text-text-tertiary">1-Page C-level performance briefing</p>
@@ -303,7 +301,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                     onClick={() => handleExportPdf("detailed")}
                     className="w-full px-3.5 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                   >
-                    <Download className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                    <DownloadSimple weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-text-primary">Full Technical Audit</p>
                       <p className="text-[11px] text-text-tertiary">Detailed CWVs & payload diagnostics</p>
@@ -321,7 +319,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                   variant="outline"
                   className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer gap-1"
                 >
-                  <RotateCw className="h-3.5 w-3.5 text-text-tertiary" />
+                  <ArrowsClockwise weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
                   <span className="hidden sm:inline">New Audit</span>
                 </Button>
               </Link>
@@ -340,3 +338,4 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
     </header>
   );
 };
+

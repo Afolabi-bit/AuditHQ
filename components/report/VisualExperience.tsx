@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Maximize2, Film, Clock, X } from "lucide-react";
+import { ArrowsOut, FilmStrip, Clock, X } from "@phosphor-icons/react";
 import { Button } from "../ui/button";
 
 interface VisualExperienceProps {
@@ -29,7 +29,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
           <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-center gap-2">
-            <Film className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+            <FilmStrip weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
             Visual Rendering Progression
           </h3>
           <p className="text-xs text-text-secondary">
@@ -44,7 +44,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
             onClick={() => setLightboxOpen(true)}
             className="text-xs font-semibold text-text-primary bg-surface-0 hover:bg-surface-1 border-border rounded-xl h-9 px-3.5 cursor-pointer shadow-2xs"
           >
-            <Maximize2 className="h-3.5 w-3.5 mr-1.5 text-text-tertiary" />
+            <ArrowsOut weight="bold" className="h-3.5 w-3.5 mr-1.5 text-text-tertiary" />
             Full Render View
           </Button>
         )}
@@ -60,7 +60,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
           >
             <div className="flex items-center justify-between mb-4 text-xs">
               <span className="flex items-center gap-1.5 font-semibold text-text-primary">
-                <Clock className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
+                <Clock weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
                 Time-Lapse Capture
               </span>
               <span className="text-text-tertiary">
@@ -138,13 +138,13 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
                 onClick={() => setLightboxOpen(false)}
                 className="p-1.5 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface-1 cursor-pointer"
               >
-                <X className="h-4 w-4" />
+                <X weight="bold" className="h-4 w-4" />
               </button>
             </div>
             <div className="rounded-xl overflow-hidden border border-border">
               <img
                 src={fullPageScreenshot}
-                alt="Full Page Screenshot Full Resolution"
+                alt="Full Page Screenshot"
                 className="w-full h-auto object-contain"
               />
             </div>

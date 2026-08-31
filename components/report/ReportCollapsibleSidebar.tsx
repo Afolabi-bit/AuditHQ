@@ -4,19 +4,19 @@ import React from "react";
 import Link from "next/link";
 import {
   Gauge,
-  Activity,
-  Sparkles,
-  Film,
-  Zap,
-  HardDrive,
+  Pulse,
+  Cpu,
+  FilmStrip,
+  Lightning,
+  HardDrives,
   Eye,
   ShieldCheck,
-  Layers,
+  Stack,
   ArrowLeft,
   X,
-  PanelLeftClose,
-  PanelLeftOpen,
-} from "lucide-react";
+  CaretLeft,
+  CaretRight,
+} from "@phosphor-icons/react";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
 
 export type ReportSectionKey =
@@ -76,25 +76,25 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
         {
           id: "scorecard" as ReportSectionKey,
           label: "Executive Scorecard",
-          icon: <Gauge className="h-4 w-4" />,
+          icon: <Gauge weight="bold" className="h-4 w-4" />,
           dot: getScoreDot(report.scores.performance),
         },
         {
           id: "vitals" as ReportSectionKey,
           label: "Core Web Vitals",
-          icon: <Activity className="h-4 w-4" />,
+          icon: <Pulse weight="bold" className="h-4 w-4" />,
           dot: vitalsDot,
         },
         {
           id: "ai" as ReportSectionKey,
-          label: "AI Diagnostics",
-          icon: <Sparkles className="h-4 w-4" />,
+          label: "Automated Diagnostics",
+          icon: <Cpu weight="fill" className="h-4 w-4" />,
           dot: null,
         },
         {
           id: "visual" as ReportSectionKey,
           label: "Visual Filmstrip",
-          icon: <Film className="h-4 w-4" />,
+          icon: <FilmStrip weight="bold" className="h-4 w-4" />,
           dot: null,
         },
       ],
@@ -105,31 +105,31 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
         {
           id: "opportunities" as ReportSectionKey,
           label: "Opportunities",
-          icon: <Zap className="h-4 w-4" />,
+          icon: <Lightning weight="fill" className="h-4 w-4" />,
           dot: opportunitiesDot,
         },
         {
           id: "network" as ReportSectionKey,
           label: "Network Payloads",
-          icon: <HardDrive className="h-4 w-4" />,
+          icon: <HardDrives weight="fill" className="h-4 w-4" />,
           dot: null,
         },
         {
           id: "a11y" as ReportSectionKey,
           label: "Accessibility & SEO",
-          icon: <Eye className="h-4 w-4" />,
+          icon: <Eye weight="bold" className="h-4 w-4" />,
           dot: a11yDot,
         },
         {
           id: "security" as ReportSectionKey,
           label: "Security Checks",
-          icon: <ShieldCheck className="h-4 w-4" />,
+          icon: <ShieldCheck weight="fill" className="h-4 w-4" />,
           dot: securityDot,
         },
         {
           id: "diagnostics" as ReportSectionKey,
           label: "Diagnostics",
-          icon: <Layers className="h-4 w-4" />,
+          icon: <Stack weight="bold" className="h-4 w-4" />,
           dot: diagnosticsDot,
         },
       ],
@@ -148,7 +148,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
                   href="/"
                   className="inline-flex items-center gap-1.5 text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5" />
+                  <ArrowLeft weight="bold" className="h-3.5 w-3.5" />
                   Home
                 </Link>
               ) : (
@@ -156,7 +156,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
                   href="/dashboard"
                   className="inline-flex items-center gap-1.5 text-xs font-medium text-text-secondary hover:text-text-primary transition-colors"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5" />
+                  <ArrowLeft weight="bold" className="h-3.5 w-3.5" />
                   Console
                 </Link>
               )}
@@ -166,7 +166,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
                 className="hidden lg:flex p-1 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface-1 cursor-pointer"
                 title="Collapse Sidebar"
               >
-                <PanelLeftClose className="h-4 w-4" />
+                <CaretLeft weight="bold" className="h-4 w-4" />
               </button>
             </div>
           ) : (
@@ -175,7 +175,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
               className="hidden lg:flex mx-auto p-1.5 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface-1 cursor-pointer"
               title="Expand Sidebar"
             >
-              <PanelLeftOpen className="h-4 w-4" />
+              <CaretRight weight="bold" className="h-4 w-4" />
             </button>
           )}
 
@@ -184,11 +184,11 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
             onClick={onCloseMobile}
             className="lg:hidden p-1 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface-1"
           >
-            <X className="h-5 w-5" />
+            <X weight="bold" className="h-5 w-5" />
           </button>
         </div>
 
-        {/* Navigation Items (Clean & Simple: Icon + Name + Subtle Dot) */}
+        {/* Navigation Items */}
         <div className="space-y-4">
           {navGroups.map((group, gIdx) => (
             <div key={gIdx} className="space-y-0.5">
@@ -216,7 +216,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 relative">
-                      <span className={isActive ? "text-text-primary" : "text-text-tertiary"}>
+                      <span className={isActive ? "text-brand-600 dark:text-brand-400" : "text-text-tertiary"}>
                         {item.icon}
                       </span>
                       {!isCollapsed && (
@@ -271,3 +271,4 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
     </>
   );
 };
+

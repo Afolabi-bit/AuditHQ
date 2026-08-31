@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from "react";
 import {
   Gauge,
-  Activity,
-  Sparkles,
-  Film,
-  Layers,
-  ChevronRight,
-} from "lucide-react";
+  Pulse,
+  Cpu,
+  FilmStrip,
+  Stack,
+  CaretRight,
+} from "@phosphor-icons/react";
 
 interface SectionItem {
   id: string;
@@ -20,27 +20,27 @@ const sections: SectionItem[] = [
   {
     id: "executive-scorecard",
     label: "Scorecard",
-    icon: <Gauge className="h-4 w-4" />,
+    icon: <Gauge weight="bold" className="h-4 w-4" />,
   },
   {
     id: "core-web-vitals",
     label: "Web Vitals",
-    icon: <Activity className="h-4 w-4" />,
+    icon: <Pulse weight="bold" className="h-4 w-4" />,
   },
   {
     id: "ai-diagnostics",
-    label: "AI Insights",
-    icon: <Sparkles className="h-4 w-4" />,
+    label: "Diagnostics",
+    icon: <Cpu weight="fill" className="h-4 w-4" />,
   },
   {
     id: "visual-experience",
     label: "Filmstrip",
-    icon: <Film className="h-4 w-4" />,
+    icon: <FilmStrip weight="bold" className="h-4 w-4" />,
   },
   {
     id: "report-tabs",
     label: "Deep Dive",
-    icon: <Layers className="h-4 w-4" />,
+    icon: <Stack weight="bold" className="h-4 w-4" />,
   },
 ];
 
@@ -79,7 +79,7 @@ export const ReportJumpRail: React.FC = () => {
 
   return (
     <>
-      {/* ── Desktop Sticky Sidebar (Left Anchor Rail) ──────────────────────── */}
+      {/* Desktop Sticky Sidebar (Left Anchor Rail) */}
       <aside className="hidden xl:block w-56 shrink-0">
         <div className="sticky top-24 space-y-3 bg-surface-0 border border-border rounded-2xl p-3.5 shadow-xs">
           <div className="px-3 py-1.5 border-b border-border/70">
@@ -107,7 +107,7 @@ export const ReportJumpRail: React.FC = () => {
                     </span>
                     <span>{sec.label}</span>
                   </div>
-                  {isActive && <ChevronRight className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />}
+                  {isActive && <CaretRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />}
                 </button>
               );
             })}
@@ -115,7 +115,7 @@ export const ReportJumpRail: React.FC = () => {
         </div>
       </aside>
 
-      {/* ── Mobile/Tablet Sticky Horizontal Anchor Pill Bar ─────────────────── */}
+      {/* Mobile/Tablet Sticky Horizontal Anchor Pill Bar */}
       <div className="xl:hidden sticky top-16 z-30 bg-surface-0/95 backdrop-blur-md border-b border-border py-2 px-4 -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-auto shadow-2xs">
         <div className="flex items-center gap-1.5 min-w-max">
           {sections.map((sec) => {
@@ -140,3 +140,4 @@ export const ReportJumpRail: React.FC = () => {
     </>
   );
 };
+

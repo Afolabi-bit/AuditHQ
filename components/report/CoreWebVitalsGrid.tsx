@@ -1,7 +1,14 @@
 "use client";
 
 import React from "react";
-import { Activity, Gauge, Timer, Layers, Zap, Server } from "lucide-react";
+import {
+  Pulse,
+  Gauge,
+  Timer,
+  Stack,
+  Lightning,
+  HardDrives,
+} from "@phosphor-icons/react";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
 
 interface CoreWebVitalsGridProps {
@@ -120,7 +127,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       goodMax: 2500,
       warnMax: 4000,
       description: "Measures when the main content of the web page is completely rendered.",
-      icon: <Layers className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
+      icon: <Stack weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "25% Weight",
       isCoreVital: true,
     },
@@ -137,7 +144,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       goodMax: 200,
       warnMax: 600,
       description: "Total time where the main thread was blocked from responding to user inputs.",
-      icon: <Timer className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
+      icon: <Timer weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "30% Weight",
       isCoreVital: true,
     },
@@ -154,7 +161,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       goodMax: 0.1,
       warnMax: 0.25,
       description: "Quantifies unexpected visual layout shifts during page loading.",
-      icon: <Activity className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
+      icon: <Pulse weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "25% Weight",
       isCoreVital: true,
     },
@@ -171,7 +178,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       goodMax: 1800,
       warnMax: 3000,
       description: "Time when the browser first renders any text, image, or canvas element.",
-      icon: <Zap className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
+      icon: <Lightning weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "10% Weight",
       isCoreVital: false,
     },
@@ -188,7 +195,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       goodMax: 3400,
       warnMax: 5800,
       description: "Measures how quickly the visual contents of a page are fully populated.",
-      icon: <Gauge className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
+      icon: <Gauge weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "10% Weight",
       isCoreVital: false,
     },
@@ -205,7 +212,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
       goodMax: 800,
       warnMax: 1800,
       description: "Measures origin server response time and initial SSL handshake latency.",
-      icon: <Server className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
+      icon: <HardDrives weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />,
       weight: "Diagnostic",
       isCoreVital: false,
     },
@@ -323,3 +330,4 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
     </div>
   );
 };
+

@@ -2,14 +2,14 @@
 
 import React from "react";
 import {
-  TrendingDown,
-  TrendingUp,
+  TrendDown,
+  TrendUp,
   Clock,
-  Zap,
-  Layers,
-  Activity,
+  Lightning,
+  Stack,
+  Pulse,
   Gauge,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { ComparisonReport, MetricDelta } from "@/lib/comparison/types";
 
 interface CoreWebVitalsDeltaGridProps {
@@ -30,42 +30,42 @@ const cwvConfigs: CWVConfig[] = [
     title: "Largest Contentful Paint (LCP)",
     shortDesc: "Main viewport content rendering speed",
     targetThreshold: "Target: ≤ 2.5s",
-    icon: <Clock className="h-4.5 w-4.5" />,
+    icon: <Stack weight="fill" className="h-4.5 w-4.5" />,
   },
   {
     id: "fcp",
     title: "First Contentful Paint (FCP)",
     shortDesc: "First visual DOM element painted",
     targetThreshold: "Target: ≤ 1.8s",
-    icon: <Activity className="h-4.5 w-4.5" />,
+    icon: <Lightning weight="fill" className="h-4.5 w-4.5" />,
   },
   {
     id: "tbt",
     title: "Total Blocking Time (TBT)",
     shortDesc: "Main thread script task responsiveness",
     targetThreshold: "Target: ≤ 200ms",
-    icon: <Zap className="h-4.5 w-4.5" />,
+    icon: <Gauge weight="bold" className="h-4.5 w-4.5" />,
   },
   {
     id: "cls",
     title: "Cumulative Layout Shift (CLS)",
     shortDesc: "Visual stability and unexpected layout shifts",
     targetThreshold: "Target: ≤ 0.10",
-    icon: <Layers className="h-4.5 w-4.5" />,
+    icon: <Pulse weight="bold" className="h-4.5 w-4.5" />,
   },
   {
     id: "speedIndex",
     title: "Speed Index",
     shortDesc: "Visual progression speed during page load",
     targetThreshold: "Target: ≤ 3.4s",
-    icon: <Gauge className="h-4.5 w-4.5" />,
+    icon: <Clock weight="bold" className="h-4.5 w-4.5" />,
   },
   {
     id: "ttfb",
     title: "Time to First Byte (TTFB)",
     shortDesc: "Initial server response and TLS handshake latency",
     targetThreshold: "Target: ≤ 800ms",
-    icon: <Clock className="h-4.5 w-4.5" />,
+    icon: <Clock weight="bold" className="h-4.5 w-4.5" />,
   },
 ];
 
@@ -73,9 +73,9 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
   return (
     <section className="space-y-5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           <h2 className="text-lg sm:text-xl font-bold text-text-primary flex items-center gap-2.5">
-            <Gauge className="h-5 w-5 text-brand-600 dark:text-brand-400" />
+            <Gauge weight="bold" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
             Core Web Vitals & Diagnostic Metrics Comparison
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
@@ -149,9 +149,9 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
                     }`}
                   >
                     {isImproved ? (
-                      <TrendingDown className="h-3.5 w-3.5" />
+                      <TrendDown weight="bold" className="h-3.5 w-3.5" />
                     ) : isRegressed ? (
-                      <TrendingUp className="h-3.5 w-3.5" />
+                      <TrendUp weight="bold" className="h-3.5 w-3.5" />
                     ) : null}
                     {item.deltaDisplay}
                     {item.percentChange != null && (
@@ -171,3 +171,4 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
     </section>
   );
 };
+

@@ -23,9 +23,9 @@ const RESOURCE_COLORS: Record<string, [number, number, number]> = {
   script:     COLORS.rose,
   stylesheet: COLORS.brand,
   image:      COLORS.amber,
-  font:       COLORS.violet,
+  font:       COLORS.cyan,
   document:   COLORS.emerald,
-  media:      COLORS.indigo,
+  media:      COLORS.sky,
   other:      COLORS.muted,
 };
 

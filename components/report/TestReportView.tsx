@@ -20,24 +20,24 @@ import {
   type DiagnosticItemDetail,
 } from "./DiagnosticInspectorDrawer";
 import {
-  AlertCircle,
-  Zap,
-  Loader2,
-  Menu,
-  Share2,
+  WarningOctagon,
+  Lightning,
+  CircleNotch,
+  List,
+  ShareNetwork,
   Check,
-  Download,
+  DownloadSimple,
   FileCode,
-  ArrowRightLeft,
-  ChevronDown,
+  ArrowsLeftRight,
+  CaretDown,
   FileText,
-  ExternalLink,
-  Monitor,
-  Smartphone,
+  ArrowSquareOut,
+  Desktop,
+  DeviceMobile,
   ArrowLeft,
   ArrowRight,
-  RotateCcw,
-} from "lucide-react";
+  ArrowsClockwise,
+} from "@phosphor-icons/react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useAppStore, toStoredTest } from "@/lib/store/useAppStore";
@@ -70,7 +70,7 @@ interface TestReportViewProps {
 const sectionsList: Array<{ id: ReportSectionKey; label: string }> = [
   { id: "scorecard", label: "Executive Scorecard" },
   { id: "vitals", label: "Core Web Vitals" },
-  { id: "ai", label: "AI Performance Fixes" },
+  { id: "ai", label: "Automated Diagnostics" },
   { id: "visual", label: "Visual Filmstrip" },
   { id: "opportunities", label: "Opportunities & Savings" },
   { id: "network", label: "Network & Payloads" },
@@ -107,7 +107,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [isPdfMenuOpen]);
 
-  // Sync loaded test & AI summary into Zustand localStorage store
+  // Sync loaded test & summary into Zustand localStorage store
   useEffect(() => {
     if (test.status === "completed") {
       useAppStore.getState().upsertTest(toStoredTest(test));
@@ -193,9 +193,9 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             }`}
           >
             {isPending ? (
-              <Loader2 className="h-7 w-7 animate-spin" />
+              <CircleNotch weight="bold" className="h-7 w-7 animate-spin" />
             ) : (
-              <AlertCircle className="h-7 w-7" />
+              <WarningOctagon weight="fill" className="h-7 w-7" />
             )}
           </div>
           <div className="space-y-1.5">
@@ -234,8 +234,8 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
       subtitle: "Official Google ranking vitals, main-thread responsiveness, and rendering milestones",
     },
     ai: {
-      title: "AI Performance Diagnostics & Remediation",
-      subtitle: "Automated root-cause analysis, projected ROI speed lift, and framework-specific code fixes",
+      title: "Automated Diagnostics & Remediation",
+      subtitle: "Deterministic root-cause analysis, projected speed lift, and framework-specific code remediation",
     },
     visual: {
       title: "Visual Load Experience & Filmstrip",
@@ -293,7 +293,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
               className="p-1.5 rounded-lg border border-border bg-surface-1 text-text-secondary hover:text-text-primary cursor-pointer shrink-0"
               title="Open Navigation"
             >
-              <Menu className="h-4.5 w-4.5" />
+              <List weight="bold" className="h-4.5 w-4.5" />
             </button>
             <span className="font-bold text-sm text-text-primary truncate">
               {test.domain.url}
@@ -322,12 +322,12 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                   className="text-text-tertiary hover:text-text-primary transition-colors p-1 rounded-md hover:bg-surface-1 shrink-0"
                   title="Open live URL"
                 >
-                  <ExternalLink className="h-4 w-4" />
+                  <ArrowSquareOut weight="bold" className="h-4 w-4" />
                 </a>
               </div>
               <div className="flex items-center gap-2 text-xs text-text-tertiary">
                 <span className="inline-flex items-center gap-1 font-medium">
-                  {isDesktop ? <Monitor className="h-3 w-3" /> : <Smartphone className="h-3 w-3" />}
+                  {isDesktop ? <Desktop weight="bold" className="h-3 w-3" /> : <DeviceMobile weight="bold" className="h-3 w-3" />}
                   {isDesktop ? "Desktop Chrome" : "Mobile Simulation"}
                 </span>
                 <span>•</span>
@@ -348,12 +348,12 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
               >
                 {copied ? (
                   <>
-                    <Check className="h-3.5 w-3.5 text-score-good" />
+                    <Check weight="bold" className="h-3.5 w-3.5 text-score-good" />
                     <span>Link Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Share2 className="h-3.5 w-3.5 text-text-tertiary" />
+                    <ShareNetwork weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
                     <span>Share</span>
                   </>
                 )}
@@ -366,7 +366,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 onClick={() => setIsCompareOpen(true)}
                 className="h-8.5 px-3 rounded-lg text-xs font-semibold border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary cursor-pointer shadow-2xs gap-1.5"
               >
-                <ArrowRightLeft className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
+                <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
                 <span>Compare</span>
               </Button>
 
@@ -380,14 +380,14 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 >
                   {activePdfFormat ? (
                     <>
-                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      <CircleNotch weight="bold" className="h-3.5 w-3.5 animate-spin" />
                       <span>Exporting…</span>
                     </>
                   ) : (
                     <>
-                      <Download className="h-3.5 w-3.5" />
+                      <DownloadSimple weight="bold" className="h-3.5 w-3.5" />
                       <span>Export PDF</span>
-                      <ChevronDown className="h-3 w-3 opacity-80" />
+                      <CaretDown weight="bold" className="h-3 w-3 opacity-80" />
                     </>
                   )}
                 </Button>
@@ -398,7 +398,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                       onClick={() => handleExportPdf("basic")}
                       className="w-full px-3 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2 cursor-pointer text-xs"
                     >
-                      <FileText className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                      <FileText weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                       <div>
                         <p className="font-semibold text-text-primary">Executive Summary</p>
                         <p className="text-[10px] text-text-tertiary">1-Page C-level performance brief</p>
@@ -409,7 +409,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                       onClick={() => handleExportPdf("detailed")}
                       className="w-full px-3 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2 cursor-pointer text-xs"
                     >
-                      <Download className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+                      <DownloadSimple weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                       <div>
                         <p className="font-semibold text-text-primary">Full Technical Audit</p>
                         <p className="text-[10px] text-text-tertiary">Comprehensive whitepaper</p>
@@ -427,7 +427,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 className="h-8.5 px-2.5 rounded-lg border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary cursor-pointer shadow-2xs"
                 title="Download raw Lighthouse JSON"
               >
-                <FileCode className="h-3.5 w-3.5 text-text-tertiary" />
+                <FileCode weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
               </Button>
             </div>
           </div>
@@ -537,7 +537,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 onClick={() => handleNavigateSection(prevSection.id)}
                 className="w-full sm:w-auto inline-flex items-center gap-3 px-4 py-2.5 rounded-xl border border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group"
               >
-                <ArrowLeft className="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" />
+                <ArrowLeft weight="bold" className="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" />
                 <div className="text-left">
                   <span className="text-[10px] text-text-tertiary block font-mono">Previous Section</span>
                   <span className="font-bold text-text-primary">{prevSection.label}</span>
@@ -562,7 +562,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                   <span className="text-[10px] text-text-tertiary block font-mono">Next Section</span>
                   <span className="font-bold text-text-primary">{nextSection.label}</span>
                 </div>
-                <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform text-brand-600 dark:text-brand-400" />
+                <ArrowRight weight="bold" className="h-4 w-4 transform group-hover:translate-x-1 transition-transform text-brand-600 dark:text-brand-400" />
               </button>
             ) : (
               <button
@@ -573,24 +573,24 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                   <span className="text-[10px] text-text-tertiary block font-mono">Completed</span>
                   <span className="font-bold text-text-primary">Back to Scorecard</span>
                 </div>
-                <RotateCcw className="h-4 w-4 transform group-hover:rotate-180 transition-transform" />
+                <ArrowsClockwise weight="bold" className="h-4 w-4 transform group-hover:rotate-180 transition-transform" />
               </button>
             )}
           </div>
 
           {/* Public Footer CTA Banner (if viewed publicly) */}
           {isPublic && (
-            <div className="mt-12 bg-linear-to-br from-brand-600 to-brand-700 dark:bg-surface-0 dark:from-surface-0 dark:to-surface-0 border border-border rounded-3xl p-8 sm:p-10 text-center text-white space-y-4 shadow-xl">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+            <div className="mt-12 bg-surface-1 border border-border rounded-3xl p-8 sm:p-10 text-center space-y-4 shadow-xs">
+              <h3 className="text-2xl sm:text-3xl font-bold text-text-primary">
                 Optimize your website performance with AuditHQ
               </h3>
-              <p className="text-white/90 text-sm max-w-xl mx-auto leading-relaxed">
+              <p className="text-text-secondary text-sm max-w-xl mx-auto leading-relaxed">
                 Run automated Lighthouse cloud audits, track Core Web Vitals over time, and get instant recommendations to build faster web experiences.
               </p>
               <div className="pt-3">
                 <Link href="/">
-                  <Button size="lg" className="bg-white text-zinc-950 hover:bg-zinc-100 font-extrabold shadow-md rounded-xl cursor-pointer px-7 h-12">
-                    <Zap className="h-4 w-4 mr-2 fill-current" />
+                  <Button size="lg" className="bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-xs rounded-xl cursor-pointer px-7 h-12 gap-2">
+                    <Lightning weight="fill" className="h-4 w-4" />
                     Run Free Audit Now
                   </Button>
                 </Link>
@@ -618,3 +618,4 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
     </div>
   );
 };
+

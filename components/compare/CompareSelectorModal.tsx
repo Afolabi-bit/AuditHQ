@@ -3,15 +3,15 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
-  ArrowRightLeft,
+  ArrowsLeftRight,
   Calendar,
-  Monitor,
-  Smartphone,
+  Desktop,
+  DeviceMobile,
   X,
-  Zap,
+  Lightning,
   Check,
-  Search,
-} from "lucide-react";
+  MagnifyingGlass,
+} from "@phosphor-icons/react";
 import { useAppStore, StoredTest } from "@/lib/store/useAppStore";
 import { Button } from "@/components/ui/button";
 
@@ -142,7 +142,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
         <div className="flex items-center justify-between border-b border-border pb-3 shrink-0">
           <div className="space-y-0.5">
             <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-center gap-2">
-              <ArrowRightLeft className="h-4.5 w-4.5 text-brand-600 dark:text-brand-400" />
+              <ArrowsLeftRight weight="bold" className="h-4.5 w-4.5 text-brand-600 dark:text-brand-400" />
               Compare Audit Runs
             </h3>
             <p className="text-xs text-text-secondary">
@@ -154,7 +154,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
             onClick={onClose}
             className="h-8 w-8 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer shrink-0"
           >
-            <X className="h-4 w-4" />
+            <X weight="bold" className="h-4 w-4" />
           </button>
         </div>
 
@@ -204,7 +204,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
               className="h-7 w-7 rounded-full bg-surface-0 border border-border shadow-xs hover:border-brand-500 hover:text-brand-500 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group disabled:opacity-40"
               title="Swap Base and Target"
             >
-              <ArrowRightLeft className="h-3 w-3 group-hover:rotate-180 transition-transform duration-300" />
+              <ArrowsLeftRight weight="bold" className="h-3 w-3 group-hover:rotate-180 transition-transform duration-300" />
             </button>
           </div>
 
@@ -260,7 +260,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           </div>
 
           <div className="relative">
-            <Search className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
+            <MagnifyingGlass weight="bold" className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
             <input
               type="text"
               placeholder="Search audits by URL or device..."
@@ -318,7 +318,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
 
                     <div className="flex items-center gap-2 text-[10px] text-text-tertiary font-mono">
                       <span className="flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
+                        <Calendar weight="bold" className="h-3 w-3" />
                         {new Date(testItem.createdAt).toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
@@ -328,9 +328,9 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                       <span>•</span>
                       <span className="flex items-center gap-1">
                         {testItem.device?.toLowerCase().includes("mobile") ? (
-                          <Smartphone className="h-3 w-3" />
+                          <DeviceMobile weight="bold" className="h-3 w-3" />
                         ) : (
-                          <Monitor className="h-3 w-3" />
+                          <Desktop weight="bold" className="h-3 w-3" />
                         )}
                         {testItem.device || "Desktop"}
                       </span>
@@ -408,7 +408,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
               onClick={handleLaunch}
               className="bg-brand-600 hover:bg-brand-700 text-white font-semibold cursor-pointer gap-1.5 shadow-xs disabled:opacity-40 h-8 text-xs rounded-lg"
             >
-              <Zap className="h-3.5 w-3.5 fill-current" />
+              <Lightning weight="fill" className="h-3.5 w-3.5" />
               Compare Runs
             </Button>
           </div>
@@ -417,3 +417,4 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
     </div>
   );
 };
+

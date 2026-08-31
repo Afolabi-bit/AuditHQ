@@ -7,13 +7,11 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import {
   Globe,
-  Loader2,
-  Monitor,
-  Smartphone,
-  Zap,
-  Sparkles,
-  Wifi,
-} from "lucide-react";
+  CircleNotch,
+  Desktop,
+  DeviceMobile,
+  Lightning,
+} from "@phosphor-icons/react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { useSWRConfig } from "swr";
 import { useAppStore } from "@/lib/store/useAppStore";
@@ -159,7 +157,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
         <div className="space-y-1">
           <div className="flex items-center gap-2.5">
             <div className="h-7 w-7 rounded-lg bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30 flex items-center justify-center shadow-2xs">
-              <Zap className="h-4 w-4 fill-current" />
+              <Lightning weight="fill" className="h-4 w-4" />
             </div>
             <h2 className="text-lg font-bold text-text-primary">
               Run Performance Audit
@@ -171,7 +169,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
         </div>
 
         <span className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold score-badge-good">
-          <span className="w-2 h-2 rounded-full bg-score-good animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-score-good" />
           Cloud Engine Active
         </span>
       </div>
@@ -186,7 +184,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
             </Label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-text-tertiary">
-                <Globe className="h-4.5 w-4.5" />
+                <Globe weight="bold" className="h-4.5 w-4.5" />
               </div>
               <Input
                 id="url"
@@ -224,7 +222,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
-                <Monitor className="h-4 w-4" />
+                <Desktop weight="bold" className="h-4 w-4" />
                 Desktop
               </button>
               <button
@@ -236,7 +234,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
-                <Smartphone className="h-4 w-4" />
+                <DeviceMobile weight="bold" className="h-4 w-4" />
                 Mobile
               </button>
             </div>
@@ -270,7 +268,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
         {/* Submit Action */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
           <p className="text-xs text-text-tertiary hidden sm:block">
-            Includes AI Diagnostics & Core Web Vitals breakdown
+            Includes Automated Diagnostics & Core Web Vitals breakdown
           </p>
           <Button
             type="submit"
@@ -279,12 +277,12 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
           >
             {isTesting ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin text-white" />
+                <CircleNotch weight="bold" className="h-4 w-4 animate-spin text-white" />
                 <span>Auditing in Cloud Chromium…</span>
               </>
             ) : (
               <>
-                <Zap className="h-4 w-4 fill-white" />
+                <Lightning weight="fill" className="h-4 w-4 text-white" />
                 <span>Launch Cloud Audit</span>
               </>
             )}
@@ -296,3 +294,4 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
 };
 
 export default NewTest;
+

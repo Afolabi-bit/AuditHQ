@@ -5,7 +5,7 @@ import { TestReportView } from "@/components/report/TestReportView";
 import { TestReportSkeleton } from "@/components/report/TestReportSkeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-dynamic";
 

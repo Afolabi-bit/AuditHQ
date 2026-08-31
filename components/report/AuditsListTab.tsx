@@ -3,12 +3,12 @@
 import React, { useState } from "react";
 import {
   Eye,
-  Search,
-  CheckCircle2,
+  MagnifyingGlass,
+  CheckCircle,
   XCircle,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+  CaretDown,
+  CaretUp,
+} from "@phosphor-icons/react";
 import { FormattedDescription } from "./FormattedDescription";
 import { ParsedLighthouseReport } from "@/lib/report-parser";
 
@@ -35,13 +35,13 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
             setSection("a11y");
             setExpandedId(null);
           }}
-          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer font-sans ${
+          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer ${
             section === "a11y"
               ? "bg-brand-600 text-white shadow-xs"
               : "bg-surface-0 text-text-secondary hover:text-text-primary hover:bg-surface-2 border border-border"
           }`}
         >
-          <Eye className="h-4 w-4" />
+          <Eye weight="bold" className="h-4 w-4" />
           Accessibility Inspector ({accessibilityIssues.length})
         </button>
 
@@ -50,13 +50,13 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
             setSection("seo");
             setExpandedId(null);
           }}
-          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer font-sans ${
+          className={`flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-semibold transition-all cursor-pointer ${
             section === "seo"
               ? "bg-brand-600 text-white shadow-xs"
               : "bg-surface-0 text-text-secondary hover:text-text-primary hover:bg-surface-2 border border-border"
           }`}
         >
-          <Search className="h-4 w-4" />
+          <MagnifyingGlass weight="bold" className="h-4 w-4" />
           SEO & Crawlability ({seoIssues.length})
         </button>
       </div>
@@ -65,9 +65,9 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
       {activeIssues.length === 0 ? (
         <div className="bg-surface-0 border border-border rounded-xl p-10 text-center space-y-2 shadow-xs">
           <div className="h-10 w-10 rounded-full bg-score-good/10 text-score-good flex items-center justify-center mx-auto border border-score-good/30">
-            <CheckCircle2 className="h-6 w-6" />
+            <CheckCircle weight="fill" className="h-6 w-6" />
           </div>
-          <h4 className="text-sm font-bold text-text-primary font-sans">
+          <h4 className="text-sm font-bold text-text-primary">
             All {section === "a11y" ? "Accessibility" : "SEO"} checks passed!
           </h4>
           <p className="text-xs text-text-tertiary max-w-md mx-auto">
@@ -84,7 +84,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
               <div
                 key={issue.id}
                 className={`bg-surface-0 border rounded-xl overflow-hidden transition-all shadow-xs ${
-                  isExpanded ? "border-brand-200" : "border-border hover:border-brand-200"
+                  isExpanded ? "border-brand-200 dark:border-brand-500/30" : "border-border hover:border-brand-200 dark:hover:border-brand-500/30"
                 }`}
               >
                 <div
@@ -92,11 +92,11 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
                   className="p-4 sm:p-5 flex items-center justify-between cursor-pointer hover:bg-surface-2 transition-colors gap-4"
                 >
                   <div className="flex items-start gap-3 flex-1 min-w-0">
-                    <div className="mt-0.5 p-1.5 rounded-md bg-[#ffebe6] text-[#de350b] border border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30 shrink-0">
-                      <XCircle className="h-4 w-4" />
+                    <div className="mt-0.5 p-1.5 rounded-md bg-score-poor/10 text-score-poor border border-score-poor/20 shrink-0">
+                      <XCircle weight="fill" className="h-4 w-4" />
                     </div>
                     <div className="space-y-1 flex-1 min-w-0">
-                      <h4 className="text-sm font-bold text-text-primary font-sans">
+                      <h4 className="text-sm font-bold text-text-primary">
                         {issue.title}
                       </h4>
                       <FormattedDescription
@@ -115,9 +115,9 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
                     )}
                     <div className="p-1 rounded bg-surface-1 border border-border text-text-tertiary">
                       {isExpanded ? (
-                        <ChevronUp className="h-4 w-4" />
+                        <CaretUp weight="bold" className="h-4 w-4" />
                       ) : (
-                        <ChevronDown className="h-4 w-4" />
+                        <CaretDown weight="bold" className="h-4 w-4" />
                       )}
                     </div>
                   </div>
@@ -132,7 +132,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
 
                     {items && items.length > 0 && (
                       <div className="space-y-2">
-                        <p className="font-bold text-text-primary uppercase tracking-wider text-[11px] font-sans">
+                        <p className="font-bold text-text-primary uppercase tracking-wider text-[11px]">
                           Failing Elements ({items.length})
                         </p>
                         <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
@@ -145,7 +145,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
                                 {node.node?.selector || node.selector || "DOM Node"}
                               </div>
                               {(node.node?.snippet || node.snippet) && (
-                                <code className="block text-brand-500 bg-brand-50 p-1.5 rounded border border-brand-200 truncate">
+                                <code className="block text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 p-1.5 rounded border border-brand-200 dark:border-brand-500/30 truncate">
                                   {node.node?.snippet || node.snippet}
                                 </code>
                               )}
@@ -169,3 +169,4 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
     </div>
   );
 };
+

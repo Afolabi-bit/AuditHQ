@@ -42,7 +42,7 @@ export function TopProgressBar() {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-9999 h-[2.5px] bg-transparent pointer-events-none overflow-hidden">
-      <div className="h-full bg-[#635bff] shadow-[0_0_8px_#635bff] animate-[progress_1.2s_ease-in-out_infinite]" />
+      <div className="h-full bg-brand-600 dark:bg-brand-500 shadow-[0_0_8px_rgba(37,99,235,0.6)] animate-[progress_1.2s_ease-in-out_infinite]" />
       <style jsx>{`
         @keyframes progress {
           0% {

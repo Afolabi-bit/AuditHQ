@@ -6,7 +6,7 @@ import { CompareReportView } from "@/components/compare/CompareReportView";
 import { TestReportSkeleton } from "@/components/report/TestReportSkeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AlertCircle } from "lucide-react";
+import { WarningCircle } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
@@ -101,11 +101,11 @@ export default async function PublicComparePage({ searchParams }: PublicCompareP
     return (
       <div className="min-h-[70vh] flex items-center justify-center p-6 text-center">
         <div className="max-w-md w-full rounded-2xl bg-surface-0 border border-border p-8 shadow-xs space-y-4">
-          <div className="h-12 w-12 rounded-xl bg-brand-50 border border-brand-200 text-brand-500 flex items-center justify-center mx-auto">
-            <AlertCircle className="h-6 w-6" />
+          <div className="h-12 w-12 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center mx-auto">
+            <WarningCircle weight="fill" className="h-6 w-6" />
           </div>
           <div className="space-y-1">
-            <h2 className="text-base font-bold text-text-primary font-sans">
+            <h2 className="text-base font-bold text-text-primary">
               Invalid Comparison Parameters
             </h2>
             <p className="text-xs text-text-secondary leading-relaxed">
@@ -130,3 +130,4 @@ export default async function PublicComparePage({ searchParams }: PublicCompareP
     </Suspense>
   );
 }
+

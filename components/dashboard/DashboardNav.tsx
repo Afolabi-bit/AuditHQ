@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Zap, User } from "lucide-react";
+import { Lightning, User } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -25,14 +25,14 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
               className="flex items-center space-x-2 sm:space-x-2.5 group transition-opacity shrink-0"
             >
               <div className="h-8 w-8 sm:h-8.5 sm:w-8.5 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-xs group-hover:bg-brand-700 transition-colors">
-                <Zap className="h-4 w-4 sm:h-4.5 sm:w-4.5 fill-white" />
+                <Lightning weight="fill" className="h-4 w-4 sm:h-4.5 sm:w-4.5" />
               </div>
               <span className="text-base sm:text-lg font-bold tracking-tight text-text-primary">
                 AuditHQ
               </span>
             </Link>
 
-            {/* Desktop / Tablet Nav Links (Hidden on Mobile) */}
+            {/* Desktop / Tablet Nav Links */}
             <div className="hidden sm:flex items-center space-x-1 shrink-0">
               <Link
                 href="/dashboard"
@@ -92,7 +92,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
                 ) : (
                   <span className="w-8 h-8 rounded-full bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center font-bold text-xs group-hover:bg-brand-100 transition-all">
                     {user?.given_name?.[0]?.toUpperCase() || (
-                      <User className="h-4 w-4" />
+                      <User weight="bold" className="h-4 w-4" />
                     )}
                   </span>
                 )}
@@ -106,3 +106,4 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
 };
 
 export default DashboardNav;
+

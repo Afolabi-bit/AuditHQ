@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import {
-  TrendingUp,
-  TrendingDown,
+  TrendUp,
+  TrendDown,
   Minus,
-  Activity,
-} from "lucide-react";
+  Pulse,
+} from "@phosphor-icons/react";
 
 interface TrendPoint {
   id?: string | number;
@@ -30,24 +30,24 @@ function getPointColor(score: number): {
 } {
   if (score >= 90) {
     return {
-      stroke: "#00875a",
-      fill: "rgba(0, 135, 90, 0.15)",
-      badge: "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30",
+      stroke: "#059669",
+      fill: "rgba(5, 150, 105, 0.15)",
+      badge: "score-badge-good",
       label: "Good (90-100)",
     };
   }
   if (score >= 50) {
     return {
-      stroke: "#b76e00",
-      fill: "rgba(183, 110, 0, 0.15)",
-      badge: "bg-[#fff8e5] text-[#b76e00] border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30",
+      stroke: "#d97706",
+      fill: "rgba(217, 119, 6, 0.15)",
+      badge: "score-badge-warn",
       label: "Needs Work (50-89)",
     };
   }
   return {
-    stroke: "#de350b",
-    fill: "rgba(222, 53, 11, 0.15)",
-    badge: "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30",
+    stroke: "#dc2626",
+    fill: "rgba(220, 38, 38, 0.15)",
+    badge: "score-badge-poor",
     label: "Poor (<50)",
   };
 }
@@ -60,8 +60,8 @@ export const PerformanceTrajectoryChart: React.FC<
   if (!data || data.length === 0) {
     return (
       <div className="h-60 flex flex-col items-center justify-center text-center text-text-tertiary bg-surface-1/40 rounded-xl border border-dashed border-border">
-        <Activity className="h-8 w-8 mb-2 text-text-tertiary" />
-        <p className="text-xs font-bold text-text-primary font-sans">
+        <Pulse weight="bold" className="h-8 w-8 mb-2 text-text-tertiary" />
+        <p className="text-xs font-bold text-text-primary">
           No audit trajectory recorded yet
         </p>
         <p className="text-[11px] text-text-tertiary mt-0.5 max-w-sm">
@@ -149,18 +149,18 @@ export const PerformanceTrajectoryChart: React.FC<
         <div className="flex items-center gap-3">
           {delta !== 0 ? (
             delta > 0 ? (
-              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-score-good bg-[#e3fcf7] px-2.5 py-1 rounded-md border border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30">
-                <TrendingUp className="h-3.5 w-3.5" />+{delta} pts trajectory
+              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold score-badge-good px-2.5 py-1 rounded-md">
+                <TrendUp weight="bold" className="h-3.5 w-3.5" />+{delta} pts trajectory
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-score-poor bg-[#ffebe6] px-2.5 py-1 rounded-md border border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30">
-                <TrendingDown className="h-3.5 w-3.5" />
+              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold score-badge-poor px-2.5 py-1 rounded-md">
+                <TrendDown weight="bold" className="h-3.5 w-3.5" />
                 {delta} pts trajectory
               </span>
             )
           ) : (
             <span className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-text-secondary bg-surface-1 px-2.5 py-1 rounded-md border border-border">
-              <Minus className="h-3.5 w-3.5" />
+              <Minus weight="bold" className="h-3.5 w-3.5" />
               Consistent Performance
             </span>
           )}
@@ -187,10 +187,10 @@ export const PerformanceTrajectoryChart: React.FC<
           className="w-full h-auto overflow-visible select-none"
         >
           <defs>
-            <linearGradient id="stripeTrajectoryGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#635bff" stopOpacity="0.25" />
-              <stop offset="80%" stopColor="#635bff" stopOpacity="0.04" />
-              <stop offset="100%" stopColor="#635bff" stopOpacity="0.0" />
+            <linearGradient id="techTrajectoryGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.20" />
+              <stop offset="80%" stopColor="var(--primary)" stopOpacity="0.03" />
+              <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.0" />
             </linearGradient>
           </defs>
 
@@ -221,7 +221,7 @@ export const PerformanceTrajectoryChart: React.FC<
             y2={y90}
             stroke="currentColor"
             strokeDasharray="4 4"
-            className="text-[#abf5d1] dark:text-[#00875a]/30"
+            className="text-score-good/30"
           />
           <text
             x={paddingLeft - 10}
@@ -240,7 +240,7 @@ export const PerformanceTrajectoryChart: React.FC<
             y2={y50}
             stroke="currentColor"
             strokeDasharray="4 4"
-            className="text-[#ffe380] dark:text-[#b76e00]/30"
+            className="text-score-warn/30"
           />
           <text
             x={paddingLeft - 10}
@@ -273,7 +273,7 @@ export const PerformanceTrajectoryChart: React.FC<
           {areaPath && (
             <path
               d={areaPath}
-              fill="url(#stripeTrajectoryGradient)"
+              fill="url(#techTrajectoryGradient)"
               className="transition-all duration-500 ease-out"
             />
           )}
@@ -286,7 +286,7 @@ export const PerformanceTrajectoryChart: React.FC<
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="text-brand-500"
+            className="text-brand-600 dark:text-brand-400"
           />
 
           {/* Interactive Marker Circles */}
@@ -304,7 +304,7 @@ export const PerformanceTrajectoryChart: React.FC<
                     stroke="currentColor"
                     strokeWidth="1.5"
                     strokeDasharray="3 3"
-                    className="text-brand-500"
+                    className="text-brand-600 dark:text-brand-400"
                     opacity="0.6"
                   />
                 )}
@@ -313,7 +313,7 @@ export const PerformanceTrajectoryChart: React.FC<
                   cx={p.x}
                   cy={p.y}
                   r={isHovered ? 6 : 4}
-                  className="cursor-pointer transition-all duration-150 fill-brand-500 stroke-surface-0"
+                  className="cursor-pointer transition-all duration-150 fill-brand-600 dark:fill-brand-400 stroke-surface-0"
                   strokeWidth={2}
                   onMouseEnter={() => setHoveredIdx(idx)}
                   onMouseLeave={() => setHoveredIdx(null)}
@@ -337,12 +337,12 @@ export const PerformanceTrajectoryChart: React.FC<
                 <span className="text-[11px] font-sans font-medium text-text-secondary">
                   {activePt.date}
                 </span>
-                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${getPointColor(activePt.score).badge}`}>
+                <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${getPointColor(activePt.score).badge}`}>
                   {activePt.score}/100
                 </span>
               </div>
               {activePt.url && (
-                <p className="text-xs text-brand-500 truncate block font-sans font-semibold" title={activePt.url}>
+                <p className="text-xs text-brand-600 dark:text-brand-400 truncate block font-sans font-semibold" title={activePt.url}>
                   {activePt.url}
                 </p>
               )}
@@ -353,3 +353,4 @@ export const PerformanceTrajectoryChart: React.FC<
     </div>
   );
 };
+

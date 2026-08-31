@@ -2,13 +2,13 @@
 
 import React, { useState } from "react";
 import {
-  CheckCircle2,
-  AlertTriangle,
-  TrendingDown,
-  TrendingUp,
+  CheckCircle,
+  Warning,
+  TrendDown,
+  TrendUp,
   Minus,
-  Zap,
-} from "lucide-react";
+  Lightning,
+} from "@phosphor-icons/react";
 import { OpportunityTransition, OpportunityState } from "@/lib/comparison/types";
 import { formatBytes } from "@/lib/comparison/diff-engine";
 
@@ -24,15 +24,15 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
   const getBadgeStyle = (state: OpportunityState) => {
     switch (state) {
       case "resolved":
-        return "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30";
+        return "score-badge-good";
       case "new_issue":
-        return "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/15 dark:text-[#ff7452] dark:border-[#de350b]/30";
+        return "score-badge-poor";
       case "worsened":
-        return "bg-[#fff8e5] text-[#b76e00] border-[#ffe380] dark:bg-[#b76e00]/15 dark:text-[#ffc400] dark:border-[#b76e00]/30";
+        return "score-badge-warn";
       case "improved":
-        return "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/15 dark:text-[#4de7b4] dark:border-[#00875a]/30";
+        return "score-badge-good";
       default:
-        return "bg-surface-2 text-text-secondary border-border";
+        return "bg-surface-2 text-text-secondary border border-border";
     }
   };
 
@@ -64,8 +64,8 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
     <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1">
-          <h2 className="text-lg sm:text-xl font-bold text-text-primary font-sans flex items-center gap-2.5">
-            <Zap className="h-5 w-5 text-brand-500" />
+          <h2 className="text-lg sm:text-xl font-bold text-text-primary flex items-center gap-2.5">
+            <Lightning weight="fill" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
             Lighthouse Opportunities Transition Matrix
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
@@ -79,7 +79,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
             onClick={() => setFilter("all")}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               filter === "all"
-                ? "bg-surface-0 text-brand-500 shadow-2xs border border-border"
+                ? "bg-surface-0 text-brand-600 dark:text-brand-300 shadow-2xs border border-border"
                 : "text-text-secondary hover:text-text-primary"
             }`}
           >
@@ -126,8 +126,8 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
 
       {filtered.length === 0 ? (
         <div className="bg-surface-0 border border-border rounded-2xl p-10 text-center space-y-2 shadow-xs">
-          <CheckCircle2 className="h-9 w-9 text-score-good mx-auto" />
-          <p className="text-base font-bold text-text-primary font-sans">
+          <CheckCircle weight="fill" className="h-9 w-9 text-score-good mx-auto" />
+          <p className="text-base font-bold text-text-primary">
             No diagnostic changes found in this category
           </p>
           <p className="text-xs sm:text-sm text-text-secondary">
@@ -139,12 +139,12 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="bg-surface-0 border border-border rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-brand-200 transition-all flex flex-col justify-between"
+              className="bg-surface-0 border border-border rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between"
             >
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between gap-2">
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${getBadgeStyle(
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${getBadgeStyle(
                       item.state
                     )}`}
                   >
@@ -159,7 +159,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
                   )}
                 </div>
 
-                <h3 className="text-xs sm:text-sm font-bold text-text-primary font-sans">
+                <h3 className="text-xs sm:text-sm font-bold text-text-primary">
                   {item.title}
                 </h3>
 
@@ -196,3 +196,4 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
     </section>
   );
 };
+

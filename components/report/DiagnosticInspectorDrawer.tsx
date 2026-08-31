@@ -3,16 +3,12 @@
 import React, { useEffect, useState } from "react";
 import {
   X,
-  Zap,
+  Lightning,
   Clock,
-  HardDrive,
+  HardDrives,
   Copy,
   Check,
-  ExternalLink,
-  Code2,
-  AlertTriangle,
-  Layers,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { Button } from "../ui/button";
 import { formatBytes, formatMilliseconds } from "@/lib/report-parser";
 
@@ -86,8 +82,8 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
           {/* Header */}
           <div className="p-6 border-b border-border space-y-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-mono text-brand-500">
-                <Zap className="h-4 w-4 fill-brand-500" />
+              <div className="flex items-center gap-2 text-xs font-mono text-brand-600 dark:text-brand-400">
+                <Lightning weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
                 <span>Diagnostic Inspector</span>
               </div>
               <button
@@ -95,7 +91,7 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
                 className="p-1.5 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 transition-colors cursor-pointer"
                 title="Close drawer (Esc)"
               >
-                <X className="h-5 w-5" />
+                <X weight="bold" className="h-5 w-5" />
               </button>
             </div>
 
@@ -115,13 +111,13 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
               <div className="flex flex-wrap items-center gap-2 pt-1">
                 {hasSavingsMs && (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold score-badge-good">
-                    <Clock className="h-3.5 w-3.5" />
+                    <Clock weight="bold" className="h-3.5 w-3.5" />
                     Est. Time Savings: {formatMilliseconds(item.overallSavingsMs!)}
                   </span>
                 )}
                 {hasSavingsBytes && (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30">
-                    <HardDrive className="h-3.5 w-3.5" />
+                    <HardDrives weight="fill" className="h-3.5 w-3.5" />
                     Est. Byte Savings: {formatBytes(item.overallSavingsBytes!)}
                   </span>
                 )}
@@ -167,9 +163,9 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
                             title="Copy URL"
                           >
                             {copiedUrl === row.url ? (
-                              <Check className="h-3.5 w-3.5 text-score-good" />
+                              <Check weight="bold" className="h-3.5 w-3.5 text-score-good" />
                             ) : (
-                              <Copy className="h-3.5 w-3.5" />
+                              <Copy weight="bold" className="h-3.5 w-3.5" />
                             )}
                           </button>
                         </div>
@@ -217,3 +213,4 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
     </div>
   );
 };
+

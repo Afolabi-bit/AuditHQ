@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Zap, HardDrive, Eye, ShieldCheck, Layers } from "lucide-react";
+import { Lightning, HardDrives, Eye, ShieldCheck, Stack } from "@phosphor-icons/react";
 import { ParsedLighthouseReport, formatBytes } from "@/lib/report-parser";
 import { OpportunitiesTab } from "./OpportunitiesTab";
 import { NetworkPayloadTab } from "./NetworkPayloadTab";
@@ -52,7 +52,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
               value="opportunities"
               className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-4 py-2 rounded-lg font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-1.5 transition-all cursor-pointer"
             >
-              <Zap className="h-3.5 w-3.5 fill-current" />
+              <Lightning weight="fill" className="h-3.5 w-3.5" />
               Opportunities
               {report.opportunities.length > 0 ? (
                 <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] score-badge-warn font-semibold">
@@ -65,7 +65,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
               value="network"
               className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-4 py-2 rounded-lg font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-1.5 transition-all cursor-pointer"
             >
-              <HardDrive className="h-3.5 w-3.5" />
+              <HardDrives weight="fill" className="h-3.5 w-3.5" />
               Network & Payload
               <span className="ml-1 text-[11px] text-text-tertiary">
                 ({formatBytes(report.totalByteWeight)})
@@ -76,7 +76,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
               value="audits"
               className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-4 py-2 rounded-lg font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-1.5 transition-all cursor-pointer"
             >
-              <Eye className="h-3.5 w-3.5" />
+              <Eye weight="bold" className="h-3.5 w-3.5" />
               Accessibility & SEO
               {totalA11yAndSeo > 0 ? (
                 <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] score-badge-poor font-semibold">
@@ -89,7 +89,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
               value="security"
               className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-4 py-2 rounded-lg font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-1.5 transition-all cursor-pointer"
             >
-              <ShieldCheck className="h-3.5 w-3.5" />
+              <ShieldCheck weight="fill" className="h-3.5 w-3.5" />
               Security
               {securityWarnings.length > 0 ? (
                 <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] score-badge-warn font-semibold">
@@ -102,7 +102,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
               value="diagnostics"
               className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-4 py-2 rounded-lg font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-1.5 transition-all cursor-pointer"
             >
-              <Layers className="h-3.5 w-3.5" />
+              <Stack weight="bold" className="h-3.5 w-3.5" />
               Diagnostics
               {report.diagnostics.length > 0 ? (
                 <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 font-semibold">
@@ -144,7 +144,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
           <SecurityTab securityChecks={report.securityChecks} />
         </TabsContent>
 
-        {/* Tab 5: Full Diagnostics List */}
+        {/* Tab 5: Diagnostics */}
         <TabsContent value="diagnostics" className="space-y-4">
           <DiagnosticsTab
             diagnostics={report.diagnostics}

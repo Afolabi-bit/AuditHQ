@@ -4,18 +4,16 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Zap,
-  LayoutDashboard,
-  ArrowRightLeft,
+  Lightning,
+  SquaresFour,
+  ArrowsLeftRight,
   User,
-  Globe,
-  BarChart3,
-  LogOut,
-  ChevronRight,
-  Menu,
+  ChartBar,
+  SignOut,
+  CaretRight,
+  List,
   X,
-  Sparkles,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { KindeUser, LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import useSWR from "swr";
@@ -51,19 +49,19 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
     {
       label: "Console & Audits",
       href: "/dashboard",
-      icon: <LayoutDashboard className="h-4 w-4" />,
+      icon: <SquaresFour weight="fill" className="h-4 w-4" />,
       active: pathname === "/dashboard" || pathname.startsWith("/dashboard/test"),
     },
     {
       label: "Compare Engine",
       href: "/dashboard/compare",
-      icon: <ArrowRightLeft className="h-4 w-4" />,
+      icon: <ArrowsLeftRight weight="bold" className="h-4 w-4" />,
       active: pathname.startsWith("/dashboard/compare") || pathname.startsWith("/compare"),
     },
     {
       label: "Account & Settings",
       href: "/profile",
-      icon: <User className="h-4 w-4" />,
+      icon: <User weight="fill" className="h-4 w-4" />,
       active: pathname === "/profile" || pathname.startsWith("/profile"),
     },
   ];
@@ -75,7 +73,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
         <div className="flex items-center justify-between px-2 pt-1">
           <Link href="/dashboard" className="flex items-center gap-2.5 group">
             <div className="h-8.5 w-8.5 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-xs group-hover:bg-brand-700 transition-colors">
-              <Zap className="h-4.5 w-4.5 fill-white" />
+              <Lightning weight="fill" className="h-4.5 w-4.5 text-white" />
             </div>
             <div>
               <span className="text-base font-bold text-text-primary tracking-tight block leading-tight">
@@ -92,7 +90,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
             onClick={() => setMobileOpen(false)}
             className="lg:hidden p-1.5 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface-1"
           >
-            <X className="h-5 w-5" />
+            <X weight="bold" className="h-5 w-5" />
           </button>
         </div>
 
@@ -118,7 +116,8 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
                 </span>
                 <span>{item.label}</span>
               </div>
-              <ChevronRight
+              <CaretRight
+                weight="bold"
                 className={`h-3.5 w-3.5 transition-transform ${
                   item.active
                     ? "text-brand-600 dark:text-brand-400 translate-x-0.5"
@@ -133,7 +132,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
         <div className="bg-surface-1 border border-border rounded-2xl p-4 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <Sparkles className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
+              <ChartBar weight="fill" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
               <span className="text-xs font-bold text-text-primary">Cloud Plan</span>
             </div>
             <span className="text-[10px] font-mono font-bold score-badge-good px-2 py-0.5 rounded-full">
@@ -177,7 +176,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
               </span>
             ) : (
               <span className="w-9 h-9 rounded-full bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center font-bold text-xs">
-                {user?.given_name?.[0]?.toUpperCase() || <User className="h-4 w-4" />}
+                {user?.given_name?.[0]?.toUpperCase() || <User weight="bold" className="h-4 w-4" />}
               </span>
             )}
           </div>
@@ -192,7 +191,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
         </Link>
 
         <LogoutLink className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-destructive hover:bg-destructive/10 transition-colors border border-transparent hover:border-destructive/20 cursor-pointer">
-          <LogOut className="h-3.5 w-3.5" />
+          <SignOut weight="bold" className="h-3.5 w-3.5" />
           <span>Sign Out</span>
         </LogoutLink>
       </div>
@@ -210,7 +209,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
       <div className="lg:hidden sticky top-0 z-40 bg-surface-0/95 backdrop-blur-md border-b border-border px-4 py-3 flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-lg bg-brand-600 flex items-center justify-center text-white shadow-xs">
-            <Zap className="h-4 w-4 fill-white" />
+            <Lightning weight="fill" className="h-4 w-4 text-white" />
           </div>
           <span className="text-base font-bold text-text-primary">AuditHQ</span>
         </Link>
@@ -219,7 +218,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
           onClick={() => setMobileOpen(true)}
           className="p-1.5 rounded-lg border border-border bg-surface-1 text-text-secondary hover:text-text-primary"
         >
-          <Menu className="h-5 w-5" />
+          <List weight="bold" className="h-5 w-5" />
         </button>
       </div>
 
@@ -240,3 +239,4 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
     </>
   );
 };
+

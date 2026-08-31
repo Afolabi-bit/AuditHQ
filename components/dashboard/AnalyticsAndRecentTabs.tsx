@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { TrendingUp } from "lucide-react";
+import { TrendUp } from "@phosphor-icons/react";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import RecentTests from "./RecentTests";
 import { PerformanceTrajectoryChart } from "./PerformanceTrajectoryChart";
@@ -78,13 +78,13 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
         <TabsList className="bg-surface-1 p-1 rounded-xl border border-border h-11 self-start">
           <TabsTrigger
             value="recent"
-            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-500 data-[state=active]:shadow-xs px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all font-sans cursor-pointer text-text-secondary hover:text-text-primary"
+            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer text-text-secondary hover:text-text-primary"
           >
             Recent Audits
           </TabsTrigger>
           <TabsTrigger
             value="analytics"
-            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-500 data-[state=active]:shadow-xs px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all font-sans cursor-pointer text-text-secondary hover:text-text-primary"
+            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer text-text-secondary hover:text-text-primary"
           >
             Performance Analytics
           </TabsTrigger>
@@ -94,7 +94,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       {/* ── Tab 1: Recent Tests ────────────────────────────────────────────── */}
       <TabsContent value="recent" className="space-y-5 pt-1">
         <div className="space-y-1">
-          <h2 className="text-lg sm:text-xl font-bold text-text-primary font-sans">
+          <h2 className="text-lg sm:text-xl font-bold text-text-primary">
             Audit Activity & History
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
@@ -108,11 +108,11 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       {/* ── Tab 2: Analytics ──────────────────────────────────────────────── */}
       <TabsContent value="analytics" className="space-y-8 pt-1">
         {/* Performance Score Trend Timeline */}
-        <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs hover:border-brand-200 transition-all space-y-6">
+        <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-center gap-2.5 font-sans">
-                <TrendingUp className="h-5 w-5 text-brand-500" />
+              <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-center gap-2.5">
+                <TrendUp weight="bold" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
                 Performance Score Trajectory
               </h3>
               <p className="text-xs sm:text-sm text-text-secondary">
@@ -121,11 +121,12 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
             </div>
 
             {stats.avgPerformance != null && (
-              <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200 self-start sm:self-auto shadow-2xs">
+              <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 self-start sm:self-auto shadow-2xs">
                 Fleet Average: {stats.avgPerformance}/100
               </span>
             )}
           </div>
+
 
           <PerformanceTrajectoryChart
             data={(stats.performanceTrends || []).map((t) => ({

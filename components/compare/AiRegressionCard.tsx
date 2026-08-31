@@ -2,15 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Sparkles,
-  Zap,
-  TrendingUp,
-  AlertTriangle,
-  CheckCircle2,
-  RefreshCw,
-  ArrowRight,
+  Cpu,
+  Lightning,
+  Warning,
+  CheckCircle,
+  ArrowsClockwise,
   ShieldCheck,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { CompareAiSummaryData } from "@/lib/comparison/schema";
 import { Button } from "@/components/ui/button";
 
@@ -40,7 +38,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Failed to generate AI comparison diagnosis");
+        throw new Error(data.error || "Failed to generate comparative diagnosis");
       }
 
       const data = await res.json();
@@ -48,7 +46,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
         setSummary(data.summary);
       }
     } catch (err: any) {
-      console.error("AI Compare Error:", err);
+      console.error("Compare Error:", err);
       setError(err?.message || "Failed to generate comparative insights.");
     } finally {
       setLoading(false);
@@ -61,11 +59,11 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-brand-500/20 bg-linear-to-br from-brand-500/5 via-surface-0 to-surface-0 p-6 sm:p-7 shadow-xs space-y-4">
+      <div className="rounded-2xl border border-border bg-surface-0 p-6 sm:p-7 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-brand-500/10 border border-brand-500/20 flex items-center justify-center text-brand-500">
-              <Sparkles className="h-4 w-4 animate-spin" />
+            <div className="h-8 w-8 rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center">
+              <Cpu weight="fill" className="h-4 w-4" />
             </div>
             <div className="space-y-1">
               <div className="h-4 w-48 bg-surface-2 rounded animate-pulse" />
@@ -87,11 +85,11 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
     return (
       <div className="rounded-2xl border border-border bg-surface-0 p-6 shadow-xs text-center space-y-3">
         <div className="h-10 w-10 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mx-auto">
-          <AlertTriangle className="h-5 w-5" />
+          <Warning weight="fill" className="h-5 w-5" />
         </div>
         <div className="space-y-1">
-          <p className="text-sm font-semibold text-text-primary font-sans">
-            AI Regression Analysis Unavailable
+          <p className="text-sm font-semibold text-text-primary">
+            Comparative Diagnostics Unavailable
           </p>
           <p className="text-xs text-text-secondary max-w-md mx-auto">
             {error}
@@ -102,9 +100,9 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
             size="sm"
             variant="outline"
             onClick={fetchAiComparison}
-            className="cursor-pointer text-xs"
+            className="cursor-pointer text-xs rounded-xl h-9"
           >
-            <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
+            <ArrowsClockwise weight="bold" className="h-3.5 w-3.5 mr-1.5" />
             Retry Analysis
           </Button>
         </div>
@@ -119,34 +117,32 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
     summary.verdict === "Moderate Improvement";
 
   return (
-    <div className="rounded-2xl border border-brand-500/30 bg-linear-to-br from-brand-500/5 via-surface-0 to-surface-0 p-7 sm:p-9 shadow-xs space-y-6 relative overflow-hidden">
+    <div className="rounded-2xl border border-border bg-surface-0 p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/70 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border pb-5">
         <div className="flex items-center gap-3.5">
-          <div className="h-10 w-10 rounded-xl bg-brand-500/10 border border-brand-500/25 flex items-center justify-center text-brand-500 shadow-2xs shrink-0">
-            <Sparkles className="h-5 w-5" />
+          <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shadow-2xs shrink-0">
+            <Cpu weight="fill" className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-2.5">
-              <h2 className="text-lg font-bold text-text-primary font-sans">
-                AI Regression Diagnosis & Changelog
+              <h2 className="text-lg font-bold text-text-primary">
+                Comparative Delta Diagnostics
               </h2>
-              <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-brand-50 text-brand-500 border border-brand-200 uppercase shadow-2xs">
-                Gemini 3.1 Flash Lite
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold bg-surface-1 text-text-secondary border border-border uppercase">
+                Differential Engine
               </span>
             </div>
             <p className="text-xs sm:text-sm text-text-secondary mt-0.5">
-              Automated comparative telemetry synthesis & root-cause evaluation
+              Deterministic comparative telemetry synthesis and root-cause evaluation
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <span
-            className={`px-3 py-1 rounded-full text-xs font-bold border font-mono shadow-2xs ${
-              isImprovement
-                ? "bg-[#e3fcf7] text-[#00875a] border-[#abf5d1] dark:bg-[#00875a]/20 dark:text-[#4de7b4] dark:border-[#00875a]/30"
-                : "bg-[#ffebe6] text-[#de350b] border-[#ffbdad] dark:bg-[#de350b]/20 dark:text-[#ff7452] dark:border-[#de350b]/30"
+            className={`px-3 py-1 rounded-full text-xs font-semibold ${
+              isImprovement ? "score-badge-good" : "score-badge-poor"
             }`}
           >
             {summary.verdict}
@@ -155,9 +151,9 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
       </div>
 
       {/* Headline & Executive Summary */}
-      <div className="p-5 sm:p-6 rounded-xl bg-brand-500/5 border border-brand-500/20 space-y-2.5">
-        <p className="text-sm sm:text-base font-bold text-brand-600 dark:text-brand-400 font-sans flex items-center gap-2">
-          <Zap className="h-4.5 w-4.5 shrink-0 fill-current" />
+      <div className="p-5 rounded-xl bg-surface-1 border border-border space-y-2">
+        <p className="text-sm font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2">
+          <Lightning weight="fill" className="h-4.5 w-4.5 shrink-0" />
           {summary.headline}
         </p>
         <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
@@ -170,8 +166,8 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
         {/* Key Wins */}
         {summary.keyWins.length > 0 && (
           <div className="bg-surface-1 p-4 rounded-xl border border-border space-y-2.5">
-            <p className="text-xs font-bold text-score-good uppercase tracking-wider font-sans flex items-center gap-1.5">
-              <CheckCircle2 className="h-4 w-4 text-score-good" />
+            <p className="text-xs font-bold text-score-good uppercase tracking-wider flex items-center gap-1.5">
+              <CheckCircle weight="fill" className="h-4 w-4 text-score-good" />
               Key Optimizations Achieved
             </p>
             <ul className="space-y-1.5 text-xs text-text-secondary">
@@ -188,8 +184,8 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
         {/* Key Regressions */}
         {summary.keyRegressions.length > 0 && (
           <div className="bg-surface-1 p-4 rounded-xl border border-border space-y-2.5">
-            <p className="text-xs font-bold text-score-poor uppercase tracking-wider font-sans flex items-center gap-1.5">
-              <AlertTriangle className="h-4 w-4 text-score-poor" />
+            <p className="text-xs font-bold text-score-poor uppercase tracking-wider flex items-center gap-1.5">
+              <Warning weight="fill" className="h-4 w-4 text-score-poor" />
               Identified Regressions
             </p>
             <ul className="space-y-1.5 text-xs text-text-secondary">
@@ -206,11 +202,11 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
       {/* Recommended Action */}
       {summary.recommendedAction && (
-        <div className="flex items-start gap-3 p-3.5 bg-brand-50 border border-brand-200 rounded-xl text-xs">
-          <ShieldCheck className="h-4 w-4 text-brand-500 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-3 p-3.5 bg-surface-1 border border-border rounded-xl text-xs">
+          <ShieldCheck weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
           <div>
-            <span className="font-bold text-brand-500 uppercase tracking-wider text-[10px] block font-sans">
-              Engineering Action Recommendation
+            <span className="font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider text-[10px] block">
+              Remediation Directive
             </span>
             <p className="text-text-secondary leading-relaxed mt-0.5">
               {summary.recommendedAction}
@@ -221,3 +217,4 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
     </div>
   );
 };
+

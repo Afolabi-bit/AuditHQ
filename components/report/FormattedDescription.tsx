@@ -1,5 +1,5 @@
 import React from "react";
-import { ExternalLink } from "lucide-react";
+import { ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 
 interface FormattedDescriptionProps {
   text: string;
@@ -49,20 +49,20 @@ export const FormattedDescription: React.FC<FormattedDescriptionProps> = ({
         target="_blank"
         rel="noopener noreferrer"
         onClick={(e) => e.stopPropagation()}
-        className="inline-flex items-center gap-0.5 text-brand-500 hover:text-brand-600 font-semibold underline underline-offset-2 hover:opacity-90 transition-all mx-0.5"
+        className="inline-flex items-center gap-0.5 text-brand-600 dark:text-brand-400 hover:underline underline-offset-2 font-medium mx-0.5"
       >
         <span>{linkText}</span>
-        <ExternalLink className="h-3 w-3 inline shrink-0" />
+        <ArrowSquareOut weight="bold" className="h-3 w-3 inline shrink-0" />
       </a>
     );
 
     lastIndex = match.index + match[0].length;
   }
 
-  // 3. Push remaining text after the last match
+  // 3. Push remaining trailing text
   if (lastIndex < text.length) {
     elements.push(text.substring(lastIndex));
   }
 
-  return <p className={className}>{elements}</p>;
+  return <span className={className}>{elements}</span>;
 };

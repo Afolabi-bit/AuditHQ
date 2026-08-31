@@ -1,16 +1,17 @@
 import { buttonVariants } from "@/components/ui/button";
 import {
-  Zap,
+  Lightning,
   ArrowRight,
-  CheckCircle2,
-  Activity,
+  CheckCircle,
+  DeviceMobile,
   Globe,
   FileText,
   Clock,
-  Sparkles,
-  Layers,
+  Code,
   ShieldCheck,
-} from "lucide-react";
+  Cpu,
+  Gauge,
+} from "@phosphor-icons/react/dist/ssr";
 import {
   KindeUser,
   LoginLink,
@@ -35,7 +36,7 @@ export default async function LandingPage() {
             {/* Brand Logo */}
             <div className="flex items-center space-x-3">
               <div className="h-8.5 w-8.5 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-xs">
-                <Zap className="h-4.5 w-4.5 fill-white" />
+                <Lightning weight="fill" className="h-4.5 w-4.5 text-white" />
               </div>
               <span className="text-xl font-bold tracking-tight text-text-primary">
                 AuditHQ
@@ -72,7 +73,7 @@ export default async function LandingPage() {
               </LoginLink>
               <RegisterLink className="inline-flex items-center justify-center gap-1.5 rounded-xl text-xs sm:text-sm font-semibold h-9 px-4 text-white bg-brand-600 hover:bg-brand-700 active:bg-brand-800 shadow-xs shadow-brand-500/20 transition-all active:scale-[0.98]">
                 <span>Start Free</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight weight="bold" className="h-4 w-4" />
               </RegisterLink>
             </div>
           </div>
@@ -84,8 +85,8 @@ export default async function LandingPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           {/* Tagline Pill */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30">
-            <Activity className="h-3.5 w-3.5" />
-            <span>Autonomous Web Performance Intelligence</span>
+            <Cpu weight="fill" className="h-3.5 w-3.5" />
+            <span>Automated Lighthouse CI & Synthetic Benchmarks</span>
             <span className="text-text-tertiary">|</span>
             <span className="text-text-secondary font-medium">
               Lighthouse 12.0
@@ -102,14 +103,14 @@ export default async function LandingPage() {
 
           {/* Simple Explanation */}
           <p className="text-base sm:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            We test your website in the cloud under real mobile network conditions, diagnose what&apos;s slowing it down, and provide actionable framework fixes.
+            Execute headless Chrome performance audits in the cloud under real mobile network throttling. Diagnose bottlenecks and export whitepaper reports in seconds.
           </p>
 
           {/* Action CTAs */}
           <div className="flex flex-col sm:flex-row gap-3.5 justify-center items-center pt-3">
             <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-xl text-sm sm:text-base font-semibold h-12 px-8 text-white bg-brand-600 hover:bg-brand-700 active:bg-brand-800 shadow-xs shadow-brand-500/25 transition-all active:scale-[0.98]">
               <span>Audit Your Site Free (20s)</span>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight weight="bold" className="h-4 w-4" />
             </RegisterLink>
 
             <a
@@ -130,9 +131,9 @@ export default async function LandingPage() {
             <div className="bg-surface-0 border border-border rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
               <div className="flex items-center justify-between border-b border-border pb-3 text-xs">
                 <div className="flex items-center gap-2 text-text-secondary">
-                  <span className="w-2 h-2 rounded-full bg-score-good animate-pulse" />
-                  <span className="font-semibold text-text-primary">
-                    yourwebsite.com
+                  <span className="w-2 h-2 rounded-full bg-score-good" />
+                  <span className="font-semibold text-text-primary font-mono">
+                    https://example-production.com
                   </span>
                 </div>
                 <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold score-badge-good">
@@ -143,7 +144,7 @@ export default async function LandingPage() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div className="p-3.5 bg-surface-1 rounded-xl border border-border">
                   <p className="text-[11px] text-text-tertiary uppercase font-semibold">
-                    Speed Score
+                    Score
                   </p>
                   <p className="text-2xl font-bold font-mono text-score-good mt-0.5">
                     99/100
@@ -154,33 +155,33 @@ export default async function LandingPage() {
                 </div>
                 <div className="p-3.5 bg-surface-1 rounded-xl border border-border">
                   <p className="text-[11px] text-text-tertiary uppercase font-semibold">
-                    Load Time
+                    LCP (Load)
                   </p>
                   <p className="text-2xl font-bold font-mono text-text-primary mt-0.5">
                     0.8s
                   </p>
-                  <p className="text-[11px] text-score-good font-medium">Fast</p>
+                  <p className="text-[11px] text-score-good font-medium">Fast (≤2.5s)</p>
                 </div>
                 <div className="p-3.5 bg-surface-1 rounded-xl border border-border">
                   <p className="text-[11px] text-text-tertiary uppercase font-semibold">
-                    Input Lag
+                    TBT (Block Time)
                   </p>
                   <p className="text-2xl font-bold font-mono text-text-primary mt-0.5">
                     0ms
                   </p>
                   <p className="text-[11px] text-score-good font-medium">
-                    Instant
+                    Optimal (≤200ms)
                   </p>
                 </div>
                 <div className="p-3.5 bg-surface-1 rounded-xl border border-border">
                   <p className="text-[11px] text-text-tertiary uppercase font-semibold">
-                    Layout Shift
+                    CLS (Shift)
                   </p>
                   <p className="text-2xl font-bold font-mono text-text-primary mt-0.5">
                     0.00
                   </p>
                   <p className="text-[11px] text-score-good font-medium">
-                    Stable
+                    Stable (≤0.1)
                   </p>
                 </div>
               </div>
@@ -190,18 +191,18 @@ export default async function LandingPage() {
           {/* Social Proof Strip */}
           <div className="pt-4 flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs text-text-tertiary uppercase tracking-wider font-medium">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-score-good" />
+              <CheckCircle weight="fill" className="h-4 w-4 text-score-good" />
               10,000+ AUDITS RUN
             </span>
             <span className="text-border hidden sm:inline">·</span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-score-good" />
-              REAL MOBILE TESTING
+              <CheckCircle weight="fill" className="h-4 w-4 text-score-good" />
+              REAL MOBILE SIMULATION
             </span>
             <span className="text-border hidden sm:inline">·</span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-3.5 w-3.5 text-score-good" />
-              ZERO SETUP NEEDED
+              <CheckCircle weight="fill" className="h-4 w-4 text-score-good" />
+              ZERO LOCAL SETUP
             </span>
           </div>
         </div>
@@ -214,15 +215,13 @@ export default async function LandingPage() {
       >
         <div className="text-center space-y-2 mb-12">
           <p className="text-xs font-semibold tracking-widest text-brand-600 dark:text-brand-400 uppercase">
-            Why AuditHQ
+            Engineering Instrumentation
           </p>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-text-primary">
-            Stop guessing why your site is slow
+            Rigorous web performance diagnostics
           </h2>
           <p className="text-sm sm:text-base text-text-secondary max-w-xl mx-auto">
-            High-speed dev laptops hide lag. We test in the cloud under
-            real-world mobile conditions to show what your users actually
-            experience.
+            High-speed dev laptops mask mobile latency. We run standardized headless Chrome tests in the cloud under real 4G throttling.
           </p>
         </div>
 
@@ -232,26 +231,24 @@ export default async function LandingPage() {
           <div className="md:col-span-2 rounded-2xl bg-surface-0 border border-border p-6 sm:p-8 shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between">
             <div className="space-y-3">
               <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center">
-                <Activity className="h-5 w-5" />
+                <DeviceMobile weight="bold" className="h-5 w-5" />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
                 Real Mobile Testing. Zero False Positives.
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed max-w-lg">
-                We simulate real mobile devices and network throttling in the
-                cloud so you get consistent, reproducible benchmarks every
-                single run.
+                Simulate standardized mobile devices with deterministic network throttling to produce reproducible engineering benchmarks on every audit.
               </p>
             </div>
 
             <div className="mt-6 rounded-xl bg-surface-1 border border-border p-4 text-xs space-y-2 text-text-secondary">
               <div className="text-score-good font-semibold flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 shrink-0" />
-                <span>Uncovers oversized images & render-blocking scripts</span>
+                <CheckCircle weight="fill" className="h-4 w-4 shrink-0" />
+                <span>Uncovers oversized payloads & render-blocking JavaScript</span>
               </div>
               <div className="text-text-primary font-medium flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 shrink-0 text-brand-500" />
-                <span>Measures real Core Web Vitals metrics (LCP, TBT, CLS)</span>
+                <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-brand-500" />
+                <span>Measures all Core Web Vitals (LCP, TBT, CLS, FCP, SI, INP)</span>
               </div>
             </div>
           </div>
@@ -260,27 +257,26 @@ export default async function LandingPage() {
           <div className="rounded-2xl bg-surface-0 border border-border p-6 sm:p-8 shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between">
             <div className="space-y-3">
               <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center">
-                <Clock className="h-5 w-5" />
+                <Code weight="bold" className="h-5 w-5" />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-text-primary tracking-tight">
-                Ranked Fixes
+                Ranked Code Fixes
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                See the exact code changes that save the most milliseconds,
-                ordered by impact.
+                Prioritized engineering solutions ranked by estimated millisecond load savings and framework context.
               </p>
             </div>
 
             <div className="mt-5 rounded-xl bg-surface-1 p-3.5 text-xs text-text-primary border border-border space-y-2">
               <div className="flex justify-between items-center">
                 <span className="text-text-secondary truncate">
-                  Compress Hero Assets
+                  Compress Hero Assets (AVIF)
                 </span>
                 <span className="text-score-good font-bold font-mono">+1.4s</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-text-secondary truncate">
-                  Defer Unused JS
+                  Defer Unused Bundle JS
                 </span>
                 <span className="text-score-good font-bold font-mono">+680ms</span>
               </div>
@@ -291,20 +287,19 @@ export default async function LandingPage() {
           <div className="rounded-2xl bg-surface-0 border border-border p-6 sm:p-8 shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between">
             <div className="space-y-3">
               <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center">
-                <FileText className="h-5 w-5" />
+                <FileText weight="fill" className="h-5 w-5" />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-text-primary tracking-tight">
-                Export PDF Reports
+                Export Whitepaper PDFs
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Generate clean, professional PDF summaries for clients,
-                executives, or team reviews in one click.
+                Generate clean, publication-ready vector PDF summaries for clients, executive leadership, or engineering reviews.
               </p>
             </div>
 
             <div className="mt-5 pt-3 border-t border-border flex items-center text-xs font-semibold text-brand-600 dark:text-brand-400 gap-1.5">
-              <span>Instant PDF Export</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+              <span>Instant PDF Generation</span>
+              <ArrowRight weight="bold" className="h-3.5 w-3.5" />
             </div>
           </div>
 
@@ -312,23 +307,22 @@ export default async function LandingPage() {
           <div className="md:col-span-2 rounded-2xl bg-surface-0 border border-border p-6 sm:p-8 shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between">
             <div className="space-y-3">
               <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center">
-                <Globe className="h-5 w-5" />
+                <Globe weight="bold" className="h-5 w-5" />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight">
-                Shareable Live Reports
+                Interactive Public Reports
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed max-w-lg">
-                Share interactive audit dashboards with teammates or clients.
-                Viewers don&apos;t need an account.
+                Share live, interactive audit consoles with colleagues, clients, or stakeholders without requiring authentication.
               </p>
             </div>
 
             <div className="mt-5 pt-3 border-t border-border flex items-center justify-between text-xs text-text-tertiary">
               <span className="text-text-secondary font-medium">
-                Built for engineers, agencies, and founders
+                Standardized for performance teams, DevOps, and agencies
               </span>
               <span className="font-semibold text-brand-600 dark:text-brand-400">
-                Zero friction for viewers →
+                Zero friction sharing →
               </span>
             </div>
           </div>
@@ -343,10 +337,10 @@ export default async function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-2 mb-12">
             <p className="text-xs font-semibold tracking-widest text-brand-600 dark:text-brand-400 uppercase">
-              How It Works
+              Workflow
             </p>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary">
-              Three steps to a faster website
+              Three steps to benchmark your application
             </h2>
           </div>
 
@@ -356,10 +350,10 @@ export default async function LandingPage() {
                 01
               </div>
               <h3 className="text-base font-bold text-text-primary">
-                Paste Any Live URL
+                Specify Target URL
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Enter your site and choose Mobile or Desktop testing.
+                Provide any accessible production or staging URL with Mobile or Desktop emulation.
               </p>
             </div>
 
@@ -368,11 +362,10 @@ export default async function LandingPage() {
                 02
               </div>
               <h3 className="text-base font-bold text-text-primary">
-                Instant Cloud Audit
+                Headless Cloud Execution
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Automated tests measure real load times and pinpoint exact
-                bottlenecks.
+                Automated runners capture filmstrips, network traces, and Web Vitals metrics.
               </p>
             </div>
 
@@ -381,10 +374,10 @@ export default async function LandingPage() {
                 03
               </div>
               <h3 className="text-base font-bold text-text-primary">
-                Apply Fixes & Share
+                Review Diffs & Export
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Follow millisecond-ranked fixes and export clean PDF reports.
+                Analyze root cause diagnostics, compare regression deltas, and export reports.
               </p>
             </div>
           </div>
@@ -394,22 +387,21 @@ export default async function LandingPage() {
       {/* ── 5. Final CTA Section ────────────────────────────────────────── */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-linear-to-br from-brand-600 via-brand-700 to-indigo-800 dark:bg-surface-0 dark:from-surface-0 dark:to-surface-0 border border-border rounded-3xl p-8 sm:p-14 text-center text-white space-y-5 shadow-2xl relative overflow-hidden">
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
-              Ready to make your website faster?
+          <div className="bg-surface-0 border border-border rounded-3xl p-8 sm:p-14 text-center text-text-primary space-y-5 shadow-lg relative overflow-hidden">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-text-primary">
+              Ready to benchmark your web applications?
             </h2>
-            <p className="text-sm sm:text-base text-white/90 max-w-md mx-auto leading-relaxed">
-              Run your first audit in 20 seconds. 100 free tests every month, no
-              credit card required.
+            <p className="text-sm sm:text-base text-text-secondary max-w-md mx-auto leading-relaxed">
+              Run your first audit in 20 seconds. 100 free tests every month with no credit card required.
             </p>
             <div className="pt-2 flex justify-center">
-              <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-xl text-base font-semibold h-12 px-8 bg-white text-zinc-950 hover:bg-zinc-100 shadow-xl transition-all active:scale-[0.98] cursor-pointer">
+              <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-xl text-base font-semibold h-12 px-8 bg-brand-600 hover:bg-brand-700 text-white shadow-xs transition-all active:scale-[0.98] cursor-pointer">
                 <span>Start Auditing Free</span>
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight weight="bold" className="h-4 w-4" />
               </RegisterLink>
             </div>
-            <p className="text-xs text-white/70">
-              ✓ Ready in 10 seconds · ✓ No credit card · ✓ 100 free monthly audits
+            <p className="text-xs text-text-tertiary">
+              ✓ Ready in 20 seconds · ✓ No credit card · ✓ 100 free monthly audits
             </p>
           </div>
         </div>
@@ -420,7 +412,7 @@ export default async function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center space-x-2.5">
             <div className="h-6 w-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
-              <Zap className="h-3.5 w-3.5 fill-white" />
+              <Lightning weight="fill" className="h-3.5 w-3.5 text-white" />
             </div>
             <span className="font-bold text-text-primary">AuditHQ</span>
             <span className="text-text-tertiary">·</span>
@@ -439,3 +431,4 @@ export default async function LandingPage() {
     </div>
   );
 }
+

@@ -10,7 +10,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Brand Scale */
+  /* Brand Scale (Precision Tech Cobalt) */
   --color-brand-50: var(--brand-50);
   --color-brand-100: var(--brand-100);
   --color-brand-200: var(--brand-200);
@@ -19,7 +19,7 @@
   --color-brand-700: var(--brand-700);
   --color-brand-900: var(--brand-900);
 
-  /* Semantic Score Scales */
+  /* Semantic Score Scales (Google Lighthouse & Chrome Core Web Vitals) */
   --color-score-good: var(--score-good);
   --color-score-warn: var(--score-warn);
   --color-score-poor: var(--score-poor);
@@ -61,119 +61,121 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  /* Elevation Shadows */
+  /* Precision Elevation Shadows */
   --shadow-2xs: 0 1px 2px rgba(0, 0, 0, 0.03);
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 1px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
-  --shadow-brand: 0 2px 5px rgba(99, 91, 255, 0.25);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07), 0 1px 1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.10), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+  --shadow-brand: 0 2px 6px rgba(37, 99, 235, 0.20);
 }
 
 :root {
-  --background: #f6f9fc;
-  --foreground: #0a2540;
+  --background: #f8fafc;
+  --foreground: #0f172a;
   --card: #ffffff;
-  --card-foreground: #0a2540;
+  --card-foreground: #0f172a;
   --popover: #ffffff;
-  --popover-foreground: #0a2540;
-  --primary: #635bff;
+  --popover-foreground: #0f172a;
+  --primary: #2563eb;
   --primary-foreground: #ffffff;
   --secondary: #f1f5f9;
-  --secondary-foreground: #0a2540;
+  --secondary-foreground: #0f172a;
   --muted: #f1f5f9;
-  --muted-foreground: #425466;
-  --accent: #f0f2ff;
-  --accent-foreground: #635bff;
-  --destructive: #de350b;
-  --border: #e3e8ee;
-  --input: #e3e8ee;
-  --ring: #635bff;
+  --muted-foreground: #475569;
+  --accent: #eff6ff;
+  --accent-foreground: #2563eb;
+  --destructive: #dc2626;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #2563eb;
 
-  /* Brand Scale */
-  --brand-50: #f0f2ff;
-  --brand-100: #e0e4ff;
-  --brand-200: #c7cefe;
-  --brand-500: #7b73ff;
-  --brand-600: #635bff;
-  --brand-700: #5851ea;
-  --brand-900: #1a1768;
+  /* Brand Scale (Precision Tech Cobalt) */
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+  --brand-900: #1e3a8a;
 
-  /* Score Scales */
-  --score-good: #00875a;
-  --score-warn: #b76e00;
-  --score-poor: #de350b;
-  --score-neutral: #8898aa;
+  /* Google Lighthouse Semantic Scales */
+  --score-good: #059669;
+  --score-warn: #d97706;
+  --score-poor: #dc2626;
+  --score-neutral: #64748b;
 
   /* Surfaces */
   --surface-0: #ffffff;
-  --surface-1: #f6f9fc;
+  --surface-1: #f8fafc;
   --surface-2: #f1f5f9;
-  --surface-3: #e3e8ee;
+  --surface-3: #e2e8f0;
 
-  /* Text */
-  --text-primary: #0a2540;
-  --text-secondary: #425466;
-  --text-tertiary: #8898aa;
+  /* Typography Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
 
-  --chart-1: #635bff;
-  --chart-2: #00875a;
-  --chart-3: #b76e00;
-  --chart-4: #8b5cf6;
-  --chart-5: #de350b;
+  /* Charts */
+  --chart-1: #2563eb;
+  --chart-2: #059669;
+  --chart-3: #d97706;
+  --chart-4: #0284c7;
+  --chart-5: #dc2626;
 }
 
 .dark {
-  --background: #08090a;
-  --foreground: #f7f8f8;
-  --card: #0f1011;
-  --card-foreground: #f7f8f8;
-  --popover: #0f1011;
-  --popover-foreground: #f7f8f8;
-  --primary: #7c75ff;
+  --background: #090a0f;
+  --foreground: #f8fafc;
+  --card: #111318;
+  --card-foreground: #f8fafc;
+  --popover: #111318;
+  --popover-foreground: #f8fafc;
+  --primary: #3b82f6;
   --primary-foreground: #ffffff;
-  --secondary: #16181a;
-  --secondary-foreground: #f7f8f8;
-  --muted: #16181a;
-  --muted-foreground: #8a8f98;
-  --accent: rgba(124, 117, 255, 0.12);
-  --accent-foreground: #7c75ff;
-  --destructive: #ff5247;
+  --secondary: #181b22;
+  --secondary-foreground: #f8fafc;
+  --muted: #181b22;
+  --muted-foreground: #94a3b8;
+  --accent: rgba(59, 130, 246, 0.12);
+  --accent-foreground: #60a5fa;
+  --destructive: #ef4444;
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.12);
-  --ring: #7c75ff;
+  --ring: #3b82f6;
 
-  /* Brand Scale (Luminous in Dark Mode) */
-  --brand-50: rgba(124, 117, 255, 0.08);
-  --brand-100: rgba(124, 117, 255, 0.15);
-  --brand-200: rgba(124, 117, 255, 0.3);
-  --brand-500: #7c75ff;
-  --brand-600: #635bff;
-  --brand-700: #5851ea;
-  --brand-900: #1a1768;
+  /* Brand Scale (Calibrated Blue in Dark Mode) */
+  --brand-50: rgba(59, 130, 246, 0.08);
+  --brand-100: rgba(59, 130, 246, 0.15);
+  --brand-200: rgba(59, 130, 246, 0.25);
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+  --brand-900: #1e3a8a;
 
-  /* Score Scales (Vibrant Neon Contrast) */
-  --score-good: #4de7b4;
-  --score-warn: #ffc400;
-  --score-poor: #ff7452;
-  --score-neutral: #8a8f98;
+  /* Google Lighthouse Semantic Scales (Crisp Dark Contrast) */
+  --score-good: #10b981;
+  --score-warn: #f59e0b;
+  --score-poor: #ef4444;
+  --score-neutral: #94a3b8;
 
-  /* Obsidian Neutral Black Surfaces - No Blue Tinges */
-  --surface-0: #0f1011;
-  --surface-1: #08090a;
-  --surface-2: #16181a;
+  /* Precision Slate/Obsidian Surfaces */
+  --surface-0: #111318;
+  --surface-1: #181b22;
+  --surface-2: #222630;
   --surface-3: rgba(255, 255, 255, 0.08);
 
-  /* Text Colors */
-  --text-primary: #f7f8f8;
-  --text-secondary: #8a8f98;
-  --text-tertiary: #62666d;
+  /* Typography Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
 
-  --chart-1: #7c75ff;
-  --chart-2: #4de7b4;
-  --chart-3: #ffc400;
-  --chart-4: #a78bfa;
-  --chart-5: #ff7452;
+  /* Charts */
+  --chart-1: #3b82f6;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #38bdf8;
+  --chart-5: #ef4444;
 }
 
 @layer base {
@@ -189,23 +191,23 @@
 /* Badge Utilities mapped to exact score tokens */
 .score-badge-good,
 .stripe-badge-good {
-  background-color: rgba(0, 135, 90, 0.12);
+  background-color: rgba(5, 150, 105, 0.10);
   color: var(--score-good);
-  border: 1px solid rgba(0, 135, 90, 0.3);
+  border: 1px solid rgba(5, 150, 105, 0.25);
 }
 
 .score-badge-warn,
 .stripe-badge-warn {
-  background-color: rgba(183, 110, 0, 0.12);
+  background-color: rgba(217, 119, 6, 0.10);
   color: var(--score-warn);
-  border: 1px solid rgba(183, 110, 0, 0.3);
+  border: 1px solid rgba(217, 119, 6, 0.25);
 }
 
 .score-badge-poor,
 .stripe-badge-poor {
-  background-color: rgba(222, 53, 11, 0.12);
+  background-color: rgba(220, 38, 38, 0.10);
   color: var(--score-poor);
-  border: 1px solid rgba(222, 53, 11, 0.3);
+  border: 1px solid rgba(220, 38, 38, 0.25);
 }
 
 .score-badge-neutral,
@@ -217,23 +219,23 @@
 
 .dark .score-badge-good,
 .dark .stripe-badge-good {
-  background-color: rgba(77, 231, 180, 0.12);
-  color: #4de7b4;
-  border: 1px solid rgba(77, 231, 180, 0.25);
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
 }
 
 .dark .score-badge-warn,
 .dark .stripe-badge-warn {
-  background-color: rgba(255, 196, 0, 0.12);
-  color: #ffc400;
-  border: 1px solid rgba(255, 196, 0, 0.25);
+  background-color: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
 .dark .score-badge-poor,
 .dark .stripe-badge-poor {
-  background-color: rgba(255, 116, 82, 0.12);
-  color: #ff7452;
-  border: 1px solid rgba(255, 116, 82, 0.25);
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
 }
 
 /* Custom Clean Scrollbar */
@@ -251,3 +253,4 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-tertiary);
 }
+

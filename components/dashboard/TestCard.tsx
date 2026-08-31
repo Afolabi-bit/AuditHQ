@@ -1,15 +1,14 @@
 import Link from "next/link";
 import {
   Clock,
-  Monitor,
-  Smartphone,
+  Desktop,
+  DeviceMobile,
   XCircle,
   ArrowRight,
-  AlertTriangle,
-  Loader2,
+  Warning,
   Globe,
-  Sparkles,
-} from "lucide-react";
+  Cpu,
+} from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/ui/button";
 
 interface TestCardProps {
@@ -90,20 +89,20 @@ const TestCard = ({
           <div className="space-y-1.5 min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <div className="h-6 w-6 rounded-lg bg-surface-2 flex items-center justify-center text-text-secondary shrink-0">
-                <Globe className="h-3.5 w-3.5" />
+                <Globe weight="bold" className="h-3.5 w-3.5" />
               </div>
               <h3 className="text-base sm:text-lg font-bold text-text-primary hover:text-brand-600 dark:hover:text-brand-400 transition-colors truncate max-w-xl">
                 {url}
               </h3>
               {isPending && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30">
-                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
                   Auditing…
                 </span>
               )}
               {isFailed && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
-                  <XCircle className="h-3.5 w-3.5" />
+                  <XCircle weight="fill" className="h-3.5 w-3.5" />
                   Failed
                 </span>
               )}
@@ -112,15 +111,15 @@ const TestCard = ({
             {/* Metadata Subheader */}
             <div className="flex items-center flex-wrap gap-x-3 gap-y-1 text-xs text-text-secondary">
               <span className="flex items-center gap-1.5">
-                <Clock className="h-3.5 w-3.5 text-text-tertiary" />
+                <Clock weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
                 {date}
               </span>
               <span className="text-text-tertiary">•</span>
               <span className="flex items-center gap-1.5 capitalize">
                 {device?.toLowerCase() === "mobile" ? (
-                  <Smartphone className="h-3.5 w-3.5 text-text-tertiary" />
+                  <DeviceMobile weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
                 ) : (
-                  <Monitor className="h-3.5 w-3.5 text-text-tertiary" />
+                  <Desktop weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
                 )}
                 {device || "Desktop"}
               </span>
@@ -150,14 +149,14 @@ const TestCard = ({
         {/* Failed Error Message Banner */}
         {isFailed && errorMessage && (
           <div className="flex items-start gap-3 text-xs text-destructive bg-destructive/10 p-4 rounded-xl border border-destructive/20">
-            <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5 text-destructive" />
+            <Warning weight="fill" className="h-4 w-4 shrink-0 mt-0.5 text-destructive" />
             <span className="leading-relaxed">{errorMessage}</span>
           </div>
         )}
 
         {/* Pending Animation Banner */}
         {isPending && (
-          <div className="flex items-center gap-3 text-xs text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 p-4 rounded-xl border border-brand-200 dark:border-brand-500/20">
+          <div className="flex items-center gap-3 text-xs text-brand-600 dark:text-brand-300 bg-surface-1 p-4 rounded-xl border border-border">
             <span className="relative flex h-3 w-3 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-600"></span>
@@ -204,13 +203,13 @@ const TestCard = ({
         )}
       </div>
 
-      {/* Prominent Action Footer (Visible & Ergonomic on all screens) */}
+      {/* Prominent Action Footer */}
       {isCompleted && (
         <div className="px-5 py-3.5 sm:px-6 sm:py-4 bg-surface-1/70 border-t border-border/80 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-xs text-text-secondary w-full sm:w-auto justify-between sm:justify-start">
             <span className="inline-flex items-center gap-1.5 font-medium text-text-tertiary">
-              <Sparkles className="h-3.5 w-3.5 text-brand-500" />
-              AI Diagnostics Ready
+              <Cpu weight="fill" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
+              Diagnostics Available
             </span>
           </div>
 
@@ -220,7 +219,7 @@ const TestCard = ({
               className="w-full sm:w-auto h-11 sm:h-9 px-6 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-xl shadow-xs shadow-brand-500/20 cursor-pointer gap-2 transition-transform active:scale-[0.98]"
             >
               <span>View Full Report</span>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight weight="bold" className="h-4 w-4" />
             </Button>
           </Link>
         </div>
@@ -230,3 +229,4 @@ const TestCard = ({
 };
 
 export default TestCard;
+

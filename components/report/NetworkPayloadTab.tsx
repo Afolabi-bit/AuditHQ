@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { HardDrive, Globe, BarChart3 } from "lucide-react";
+import { HardDrives, Globe, ChartBar } from "@phosphor-icons/react";
 import {
   formatBytes,
   formatMilliseconds,
@@ -28,33 +28,33 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
     switch (type.toLowerCase()) {
       case "script":
         return {
-          bar: "bg-[#b76e00]",
+          bar: "bg-score-warn",
           text: "text-score-warn",
-          bg: "bg-[#fff8e5] dark:bg-[#b76e00]/15",
+          bg: "bg-score-warn/10",
         };
       case "image":
         return {
-          bar: "bg-[#00875a]",
+          bar: "bg-score-good",
           text: "text-score-good",
-          bg: "bg-[#e3fcf7] dark:bg-[#00875a]/15",
+          bg: "bg-score-good/10",
         };
       case "stylesheet":
         return {
           bar: "bg-brand-600",
-          text: "text-brand-500",
-          bg: "bg-brand-50",
+          text: "text-brand-600 dark:text-brand-400",
+          bg: "bg-brand-50 dark:bg-brand-500/10",
         };
       case "font":
         return {
-          bar: "bg-[#8b5cf6]",
-          text: "text-[#8b5cf6]",
-          bg: "bg-[#f5f3ff] dark:bg-[#8b5cf6]/15",
+          bar: "bg-cyan-600",
+          text: "text-cyan-600 dark:text-cyan-400",
+          bg: "bg-cyan-50 dark:bg-cyan-500/10",
         };
       case "document":
         return {
-          bar: "bg-[#0284c7]",
-          text: "text-[#0284c7]",
-          bg: "bg-[#f0f9ff] dark:bg-[#0284c7]/15",
+          bar: "bg-sky-600",
+          text: "text-sky-600 dark:text-sky-400",
+          bg: "bg-sky-50 dark:bg-sky-500/10",
         };
       default:
         return {
@@ -84,8 +84,8 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
                 : "Consider asset compression"}
             </p>
           </div>
-          <div className="p-3 rounded-lg bg-brand-50 text-brand-500 border border-brand-200">
-            <HardDrive className="h-5 w-5" />
+          <div className="p-3 rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30">
+            <HardDrives weight="fill" className="h-5 w-5" />
           </div>
         </div>
 
@@ -103,7 +103,7 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
             </p>
           </div>
           <div className="p-3 rounded-lg bg-score-good/10 text-score-good border border-score-good/30">
-            <BarChart3 className="h-5 w-5" />
+            <ChartBar weight="fill" className="h-5 w-5" />
           </div>
         </div>
 
@@ -121,7 +121,7 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
             </p>
           </div>
           <div className="p-3 rounded-lg bg-score-warn/10 text-score-warn border border-score-warn/30">
-            <Globe className="h-5 w-5" />
+            <Globe weight="bold" className="h-5 w-5" />
           </div>
         </div>
       </div>
@@ -223,3 +223,4 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
     </div>
   );
 };
+

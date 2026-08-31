@@ -1,7 +1,12 @@
 "use client";
 
 import React from "react";
-import { Zap, Eye, ShieldCheck, Search } from "lucide-react";
+import {
+  Lightning,
+  Eye,
+  ShieldCheck,
+  MagnifyingGlass,
+} from "@phosphor-icons/react";
 
 interface ScoreGaugeProps {
   score: number;
@@ -42,15 +47,15 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
   const getIcon = () => {
     switch (label.toLowerCase()) {
       case "performance":
-        return <Zap className="h-4 w-4 text-brand-600 dark:text-brand-400 fill-current" />;
+        return <Lightning weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
       case "accessibility":
-        return <Eye className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
+        return <Eye weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
       case "best practices":
-        return <ShieldCheck className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
+        return <ShieldCheck weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
       case "seo":
-        return <Search className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
+        return <MagnifyingGlass weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
       default:
-        return <Zap className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
+        return <Lightning weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />;
     }
   };
 
@@ -125,3 +130,4 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
     </div>
   );
 };
+

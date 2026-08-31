@@ -2,20 +2,20 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Sparkles,
-  Zap,
-  TrendingUp,
+  Cpu,
+  Lightning,
+  TrendUp,
   Clock,
-  CheckCircle2,
-  AlertTriangle,
+  CheckCircle,
+  Warning,
   Copy,
   Check,
-  RefreshCw,
-  Code2,
-  Layers,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+  ArrowsClockwise,
+  Code,
+  Stack,
+  CaretDown,
+  CaretUp,
+} from "@phosphor-icons/react";
 import { AiSummaryData } from "@/lib/ai/schema";
 import { Button } from "@/components/ui/button";
 import { useAppStore } from "@/lib/store/useAppStore";
@@ -69,7 +69,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
       if (!postRes.ok) {
         const data = await postRes.json().catch(() => ({}));
-        throw new Error(data.error || "Failed to generate AI insights");
+        throw new Error(data.error || "Failed to generate diagnostics");
       }
 
       const postData = await postRes.json();
@@ -77,8 +77,8 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
         setSummaryAndCache(postData.summary);
       }
     } catch (err: any) {
-      console.error("AI Insights Error:", err);
-      setError(err?.message || "Failed to load AI insights.");
+      console.error("Diagnostics Error:", err);
+      setError(err?.message || "Failed to load performance diagnostics.");
     } finally {
       setLoading(false);
     }
@@ -123,11 +123,11 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-brand-200 dark:border-brand-500/30 bg-surface-0 p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
+      <div className="rounded-2xl border border-border bg-surface-0 p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center animate-pulse">
-              <Sparkles className="h-4.5 w-4.5" />
+            <div className="h-9 w-9 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center">
+              <Cpu weight="fill" className="h-4.5 w-4.5" />
             </div>
             <div className="space-y-1.5">
               <div className="h-4 w-48 bg-surface-2 rounded-lg animate-pulse" />
@@ -148,19 +148,19 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
   const sanitizeErrorMessage = (msg: string | null): string => {
     if (!msg)
-      return "Unable to generate AI performance diagnostics at this moment.";
+      return "Unable to generate performance diagnostics at this moment.";
     if (
       msg.includes("API key") ||
       msg.includes("GOOGLE_GENERATIVE_AI_API_KEY")
     ) {
-      return "Google AI API key is missing or invalid in environment settings.";
+      return "Diagnostic service API key is missing or invalid in environment settings.";
     }
     if (
       msg.includes("quota") ||
       msg.includes("rate") ||
       msg.includes("RESOURCE_EXHAUSTED")
     ) {
-      return "AI service quota reached. Please wait a few seconds and retry.";
+      return "Diagnostic service quota reached. Please wait a few seconds and retry.";
     }
     if (
       msg.includes("prisma") ||
@@ -170,7 +170,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
       return "Database cache sync issue. Please retry analysis.";
     }
     if (msg.length > 120) {
-      return "Unable to complete AI analysis. Click Retry to attempt again.";
+      return "Unable to complete diagnostic analysis. Click Retry to attempt again.";
     }
     return msg;
   };
@@ -179,11 +179,11 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
     return (
       <div className="rounded-2xl border border-border bg-surface-0 p-6 sm:p-7 shadow-xs text-center space-y-3.5">
         <div className="h-10 w-10 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mx-auto">
-          <AlertTriangle className="h-5 w-5" />
+          <Warning weight="fill" className="h-5 w-5" />
         </div>
         <div className="space-y-1">
           <p className="text-sm font-semibold text-text-primary">
-            AI Performance Diagnostic Unavailable
+            Performance Diagnostics Unavailable
           </p>
           <p className="text-xs text-text-secondary max-w-md mx-auto">
             {sanitizeErrorMessage(error)}
@@ -197,7 +197,8 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
             disabled={loading}
             className="cursor-pointer text-xs rounded-xl h-9"
           >
-            <RefreshCw
+            <ArrowsClockwise
+              weight="bold"
               className={`h-3.5 w-3.5 mr-1.5 ${loading ? "animate-spin" : ""}`}
             />
             {loading ? "Analyzing..." : "Retry Analysis"}
@@ -210,21 +211,18 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
   if (!summary) return null;
 
   return (
-    <section className="rounded-2xl border border-brand-200 dark:border-brand-500/30 bg-surface-0 shadow-xs relative overflow-hidden">
-      {/* Subtle Gradient Accent Bar */}
-      <div className="h-1 w-full bg-linear-to-r from-brand-600 via-indigo-500 to-purple-600" />
-
+    <section className="rounded-2xl border border-border bg-surface-0 shadow-xs relative overflow-hidden">
       <div className="p-6 sm:p-7 space-y-6">
         {/* Top Header Row */}
         <div className="flex items-center justify-between gap-4 border-b border-border pb-5">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shadow-2xs">
-              <Sparkles className="h-4.5 w-4.5" />
+              <Cpu weight="fill" className="h-4.5 w-4.5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg font-bold text-text-primary tracking-tight">
-                  AI Performance Diagnostics
+                  Automated Diagnostics & Remediation
                 </h2>
                 <span
                   className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getVerdictStyle(
@@ -235,16 +233,16 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                 </span>
               </div>
               <p className="text-xs text-text-secondary mt-0.5">
-                Automated engineering analysis and framework-aware remediation code
+                Deterministic root cause analysis and framework-aware remediation code
               </p>
             </div>
           </div>
         </div>
 
         {/* Executive Summary Box */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-brand-50/60 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 space-y-2">
-          <p className="text-sm font-bold text-brand-600 dark:text-brand-300 flex items-center gap-1.5">
-            <Zap className="h-4 w-4" />
+        <div className="p-4 sm:p-5 rounded-2xl bg-surface-1 border border-border space-y-2">
+          <p className="text-sm font-bold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
+            <Lightning weight="fill" className="h-4 w-4" />
             {summary.headline}
           </p>
           <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
@@ -254,43 +252,43 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
         {/* Quantified Impact Metrics */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-          <div className="p-4 bg-surface-1 rounded-xl border border-border/80 flex items-center gap-3">
+          <div className="p-4 bg-surface-1 rounded-xl border border-border flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-score-good/10 text-score-good border border-score-good/20 flex items-center justify-center shrink-0">
-              <Clock className="h-4.5 w-4.5" />
+              <Clock weight="bold" className="h-4.5 w-4.5" />
             </div>
             <div>
               <p className="text-[11px] font-semibold text-text-tertiary uppercase">
                 Est. Load Reduction
               </p>
-              <p className="text-base font-bold text-score-good">
+              <p className="text-base font-bold text-score-good font-mono">
                 {summary.estimatedImpact.timeSavedFormatted.replace(/^[+-]/, "")} Faster
               </p>
             </div>
           </div>
 
-          <div className="p-4 bg-surface-1 rounded-xl border border-border/80 flex items-center gap-3">
+          <div className="p-4 bg-surface-1 rounded-xl border border-border flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
-              <TrendingUp className="h-4.5 w-4.5" />
+              <TrendUp weight="bold" className="h-4.5 w-4.5" />
             </div>
             <div>
               <p className="text-[11px] font-semibold text-text-tertiary uppercase">
                 Est. Conversion Lift
               </p>
-              <p className="text-base font-bold text-brand-600 dark:text-brand-300 font-mono">
+              <p className="text-base font-bold text-brand-600 dark:text-brand-400 font-mono">
                 {summary.estimatedImpact.conversionLift}
               </p>
             </div>
           </div>
 
-          <div className="p-4 bg-surface-1 rounded-xl border border-border/80 flex items-center gap-3">
+          <div className="p-4 bg-surface-1 rounded-xl border border-border flex items-center gap-3">
             <div className="h-9 w-9 rounded-xl bg-surface-2 text-text-secondary border border-border flex items-center justify-center shrink-0">
-              <Layers className="h-4.5 w-4.5" />
+              <Stack weight="fill" className="h-4.5 w-4.5" />
             </div>
             <div>
               <p className="text-[11px] font-semibold text-text-tertiary uppercase">
                 Remediation Plan
               </p>
-              <p className="text-base font-bold text-text-primary">
+              <p className="text-base font-bold text-text-primary font-mono">
                 {summary.priorityFixes.length} Priority Fixes
               </p>
             </div>
@@ -334,16 +332,16 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                         {fix.category}
                       </span>
                       {fix.wastedFormatted && (
-                        <span className="text-xs font-semibold text-score-good">
+                        <span className="text-xs font-semibold text-score-good font-mono">
                           {fix.wastedFormatted}
                         </span>
                       )}
                     </div>
                     <div>
                       {isExpanded ? (
-                        <ChevronUp className="h-4 w-4 text-text-tertiary" />
+                        <CaretUp weight="bold" className="h-4 w-4 text-text-tertiary" />
                       ) : (
-                        <ChevronDown className="h-4 w-4 text-text-tertiary" />
+                        <CaretDown weight="bold" className="h-4 w-4 text-text-tertiary" />
                       )}
                     </div>
                   </button>
@@ -373,8 +371,8 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                         <div className="space-y-1.5">
                           <div className="flex items-center justify-between text-xs text-text-tertiary">
                             <span className="flex items-center gap-1.5 font-medium">
-                              <Code2 className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
-                              Recommended Code Implementation
+                              <Code weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
+                              Recommended Implementation
                             </span>
                             <button
                               onClick={() => handleCopy(fix.codeSnippet!, idx)}
@@ -382,14 +380,14 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                             >
                               {copiedIndex === idx ? (
                                 <>
-                                  <Check className="h-3.5 w-3.5 text-score-good" />
+                                  <Check weight="bold" className="h-3.5 w-3.5 text-score-good" />
                                   <span className="text-score-good">
                                     Copied!
                                   </span>
                                 </>
                               ) : (
                                 <>
-                                  <Copy className="h-3.5 w-3.5" />
+                                  <Copy weight="bold" className="h-3.5 w-3.5" />
                                   <span>Copy Code</span>
                                 </>
                               )}
@@ -419,7 +417,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                 key={idx}
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full score-badge-good font-medium text-xs"
               >
-                <CheckCircle2 className="h-3.5 w-3.5" />
+                <CheckCircle weight="fill" className="h-3.5 w-3.5" />
                 {str}
               </span>
             ))}
@@ -429,3 +427,4 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
     </section>
   );
 };
+

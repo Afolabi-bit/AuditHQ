@@ -1,22 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
-  ArrowRightLeft,
+  ArrowsLeftRight,
   Calendar,
   Globe,
-  Monitor,
-  Smartphone,
-  Share2,
+  Desktop,
+  DeviceMobile,
+  ShareNetwork,
   Check,
-  Zap,
-} from "lucide-react";
+  Lightning,
+} from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { ComparisonReport } from "@/lib/comparison/types";
-import { useState } from "react";
 
 interface CompareHeaderProps {
   report: ComparisonReport;
@@ -67,14 +66,14 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
               href={isPublic ? "/" : "/dashboard"}
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors bg-surface-1 hover:bg-surface-2 px-3 py-1.5 rounded-lg border border-border"
             >
-              <ArrowLeft className="h-3.5 w-3.5" />
+              <ArrowLeft weight="bold" className="h-3.5 w-3.5" />
               {isPublic ? "AuditHQ Home" : "Dashboard"}
             </Link>
 
             <span className="hidden sm:inline-block h-4 w-px bg-border" />
 
-            <div className="flex items-center gap-1.5 text-xs font-bold text-brand-500 uppercase tracking-wider font-sans">
-              <Zap className="h-3.5 w-3.5 fill-brand-500" />
+            <div className="flex items-center gap-1.5 text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
+              <Lightning weight="fill" className="h-3.5 w-3.5" />
               Audit Regression & Diff Engine
             </div>
           </div>
@@ -84,10 +83,10 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleSwap}
-              className="h-8.5 text-xs font-semibold gap-1.5 border-border hover:border-brand-300 hover:text-brand-500 transition-colors cursor-pointer"
+              className="h-8.5 text-xs font-semibold gap-1.5 border-border hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors cursor-pointer"
               title="Swap Base and Target runs"
             >
-              <ArrowRightLeft className="h-3.5 w-3.5" />
+              <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Swap Runs</span>
             </Button>
 
@@ -99,12 +98,12 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
             >
               {copied ? (
                 <>
-                  <Check className="h-3.5 w-3.5 text-score-good" />
+                  <Check weight="bold" className="h-3.5 w-3.5 text-score-good" />
                   <span className="text-score-good">Link Copied!</span>
                 </>
               ) : (
                 <>
-                  <Share2 className="h-3.5 w-3.5" />
+                  <ShareNetwork weight="bold" className="h-3.5 w-3.5" />
                   <span>Share Comparison</span>
                 </>
               )}
@@ -121,25 +120,25 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
                 Base Run (Baseline)
               </span>
               <span className="text-[11px] font-mono text-text-tertiary flex items-center gap-1">
-                <Calendar className="h-3 w-3" />
+                <Calendar weight="bold" className="h-3 w-3" />
                 {formatRunDate(report.base.createdAt)}
               </span>
             </div>
             <p className="text-sm sm:text-base font-bold text-text-primary truncate font-mono flex items-center gap-1.5">
-              <Globe className="h-4 w-4 text-text-tertiary shrink-0" />
+              <Globe weight="bold" className="h-4 w-4 text-text-tertiary shrink-0" />
               {report.base.url}
             </p>
             <div className="flex items-center gap-2 text-xs text-text-tertiary font-mono">
               <span className="flex items-center gap-1">
                 {report.base.device.toLowerCase().includes("mobile") ? (
-                  <Smartphone className="h-3.5 w-3.5" />
+                  <DeviceMobile weight="bold" className="h-3.5 w-3.5" />
                 ) : (
-                  <Monitor className="h-3.5 w-3.5" />
+                  <Desktop weight="bold" className="h-3.5 w-3.5" />
                 )}
                 {report.base.device}
               </span>
               <span>•</span>
-              <span className="font-bold text-text-primary font-sans">
+              <span className="font-bold text-text-primary">
                 Score: {report.base.score}/100
               </span>
             </div>
@@ -149,10 +148,10 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
           <div className="md:col-span-1 flex justify-center items-center py-1 md:py-0">
             <button
               onClick={handleSwap}
-              className="h-8 w-8 rounded-full bg-surface-0 border border-border shadow-xs hover:border-brand-500 hover:text-brand-500 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group"
+              className="h-8 w-8 rounded-full bg-surface-0 border border-border shadow-xs hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group"
               title="Click to Swap Base and Target"
             >
-              <ArrowRightLeft className="h-3.5 w-3.5 group-hover:rotate-180 transition-transform duration-300" />
+              <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 group-hover:rotate-180 transition-transform duration-300" />
             </button>
           </div>
 
@@ -160,27 +159,27 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
           <div className="md:col-span-5 space-y-1 md:text-right">
             <div className="flex items-center gap-2 md:justify-end">
               <span className="text-[11px] font-mono text-text-tertiary flex items-center gap-1 order-2 md:order-1">
-                <Calendar className="h-3 w-3" />
+                <Calendar weight="bold" className="h-3 w-3" />
                 {formatRunDate(report.target.createdAt)}
               </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-500 border border-brand-200 order-1 md:order-2">
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 order-1 md:order-2">
                 Target Run (Comparison)
               </span>
             </div>
             <p className="text-sm sm:text-base font-bold text-text-primary truncate font-mono flex items-center gap-1.5 md:justify-end">
-              <Globe className="h-4 w-4 text-text-tertiary shrink-0 order-first md:order-last" />
+              <Globe weight="bold" className="h-4 w-4 text-text-tertiary shrink-0 order-first md:order-last" />
               {report.target.url}
             </p>
             <div className="flex items-center gap-2 text-xs text-text-tertiary font-mono md:justify-end">
-              <span className="font-bold text-text-primary font-sans">
+              <span className="font-bold text-text-primary">
                 Score: {report.target.score}/100
               </span>
               <span>•</span>
               <span className="flex items-center gap-1">
                 {report.target.device.toLowerCase().includes("mobile") ? (
-                  <Smartphone className="h-3.5 w-3.5" />
+                  <DeviceMobile weight="bold" className="h-3.5 w-3.5" />
                 ) : (
-                  <Monitor className="h-3.5 w-3.5" />
+                  <Desktop weight="bold" className="h-3.5 w-3.5" />
                 )}
                 {report.target.device}
               </span>
@@ -191,3 +190,4 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
     </header>
   );
 };
+

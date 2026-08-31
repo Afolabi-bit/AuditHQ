@@ -2,12 +2,12 @@
 
 import React, { useState } from "react";
 import {
-  CheckCircle2,
-  ChevronDown,
-  ChevronUp,
-  Zap,
+  CheckCircle,
+  CaretDown,
+  CaretUp,
+  Lightning,
   SlidersHorizontal,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import { FormattedDescription } from "./FormattedDescription";
 import { formatBytes, formatMilliseconds, ParsedLighthouseReport } from "@/lib/report-parser";
 import { DiagnosticItemDetail } from "./DiagnosticInspectorDrawer";
@@ -92,7 +92,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
       {/* Opportunities List */}
       {filteredOpportunities.length === 0 ? (
         <div className="bg-surface-0 border border-border rounded-2xl p-10 text-center text-text-secondary space-y-2 shadow-xs">
-          <CheckCircle2 className="h-10 w-10 text-score-good mx-auto" />
+          <CheckCircle weight="fill" className="h-10 w-10 text-score-good mx-auto" />
           <h4 className="text-base font-bold text-text-primary">
             No Optimization Opportunities Found
           </h4>
@@ -111,7 +111,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                 key={opp.id}
                 className="bg-surface-0 border border-border rounded-2xl overflow-hidden shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all"
               >
-                {/* Header Row (div with role=button to prevent nested button hydration errors) */}
+                {/* Header Row */}
                 <div
                   role="button"
                   tabIndex={0}
@@ -126,7 +126,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                 >
                   <div className="flex items-start gap-3 flex-1 min-w-0">
                     <div className="p-2 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 shrink-0 mt-0.5 shadow-2xs">
-                      <Zap className="h-4 w-4 fill-current" />
+                      <Lightning weight="fill" className="h-4 w-4" />
                     </div>
                     <div className="space-y-1 min-w-0 flex-1">
                       <div className="flex items-center gap-2 flex-wrap">
@@ -170,16 +170,16 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                         className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border text-text-secondary hover:text-brand-600 dark:hover:text-brand-300 transition-colors cursor-pointer"
                         title="Open Drawer Inspector"
                       >
-                        <SlidersHorizontal className="h-3 w-3" />
+                        <SlidersHorizontal weight="bold" className="h-3 w-3" />
                         <span>Inspect</span>
                       </button>
                     )}
 
                     <div className="p-1.5 rounded-lg bg-surface-1 border border-border text-text-tertiary">
                       {isExpanded ? (
-                        <ChevronUp className="h-4 w-4" />
+                        <CaretUp weight="bold" className="h-4 w-4" />
                       ) : (
-                        <ChevronDown className="h-4 w-4" />
+                        <CaretDown weight="bold" className="h-4 w-4" />
                       )}
                     </div>
                   </div>
@@ -252,3 +252,4 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
     </div>
   );
 };
+

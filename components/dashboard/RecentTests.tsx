@@ -5,7 +5,7 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import TestCard from "./TestCard";
 import useSWR from "swr";
 import { useAppStore, toStoredTest, StoredTest } from "@/lib/store/useAppStore";
-import { ArrowRightLeft, Sparkles, Inbox } from "lucide-react";
+import { ArrowsLeftRight, Tray } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { CompareSelectorModal } from "@/components/compare/CompareSelectorModal";
 
@@ -125,12 +125,12 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
     return (
       <div className="text-center py-12 px-6 bg-surface-0 border border-border rounded-2xl shadow-xs space-y-3">
         <div className="h-12 w-12 rounded-2xl bg-surface-1 border border-border flex items-center justify-center mx-auto text-text-tertiary">
-          <Inbox className="h-6 w-6" />
+          <Tray weight="bold" className="h-6 w-6" />
         </div>
         <div className="space-y-1 max-w-sm mx-auto">
           <h3 className="text-sm font-semibold text-text-primary">No performance audits yet</h3>
           <p className="text-xs text-text-secondary">
-            Enter a website URL in the command bar above to generate your first Lighthouse audit and AI diagnostics.
+            Enter a website URL in the command bar above to generate your first Lighthouse audit and automated diagnostics.
           </p>
         </div>
       </div>
@@ -146,7 +146,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between bg-surface-0 border border-border px-5 py-3.5 rounded-2xl text-xs shadow-2xs gap-3">
           <div className="flex items-center gap-2.5 text-text-secondary">
             <div className="h-7 w-7 rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
-              <ArrowRightLeft className="h-3.5 w-3.5" />
+              <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5" />
             </div>
             <div>
               <span className="font-semibold text-text-primary block sm:inline">
@@ -164,7 +164,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
             onClick={() => setIsCompareModalOpen(true)}
             className="h-9 px-4 text-xs font-semibold border-border hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-300 cursor-pointer gap-2 shadow-2xs rounded-xl self-start sm:self-auto"
           >
-            <ArrowRightLeft className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
+            <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
             Compare 2 Audits
           </Button>
         </div>
@@ -216,3 +216,4 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 };
 
 export default RecentTests;
+
