@@ -55,7 +55,9 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
       onClose();
     } catch (err) {
       console.error("Error deleting audit test:", err);
-      setErrorMessage(err instanceof Error ? err.message : "An unexpected error occurred");
+      setErrorMessage(
+        err instanceof Error ? err.message : "An unexpected error occurred",
+      );
       setIsDeleting(false);
     }
   };
@@ -79,9 +81,7 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
               <h3 className="text-base font-bold text-text-primary">
                 Delete Audit Run
               </h3>
-              <p className="text-xs text-text-secondary">
-                Audit #{testIdStr}
-              </p>
+              <p className="text-xs text-text-secondary">Audit #{testIdStr}</p>
             </div>
           </div>
 
@@ -98,7 +98,10 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
         <div className="bg-surface-1 border border-border rounded-xl p-3.5 space-y-1.5 text-xs font-mono">
           <div className="flex justify-between">
             <span className="text-text-tertiary">Target URL:</span>
-            <span className="text-text-primary font-bold truncate max-w-[200px]" title={url}>
+            <span
+              className="text-text-primary font-bold truncate max-w-50"
+              title={url}
+            >
               {url || "Unknown URL"}
             </span>
           </div>
@@ -116,7 +119,9 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
             Are you sure you want to delete this test?
           </p>
           <p className="text-[11px] text-text-tertiary">
-            This will permanently remove the audit report and performance traces from your dashboard. Please note that this execution still counts against your monthly usage quota.
+            This will permanently remove the audit report and performance traces
+            from your dashboard. Please note that this execution still counts
+            against your monthly usage quota.
           </p>
         </div>
 
