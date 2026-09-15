@@ -41,8 +41,12 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         message: "Audit completed successfully",
+        testId: result.testId,
+        url: data.url,
+        performanceScore: auditResults.performanceScore,
         data: {
           testId: result.testId,
+          url: data.url,
           status: "completed",
           performanceScore: auditResults.performanceScore,
           fcp: auditResults.fcp,
