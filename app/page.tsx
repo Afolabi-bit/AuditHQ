@@ -87,8 +87,8 @@ export default async function LandingPage() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30 shadow-xs max-w-full">
             <Cpu weight="fill" className="h-3.5 w-3.5 shrink-0" />
             <span className="truncate">
-              Automated Lighthouse Runner{" "}
-              <span className="hidden sm:inline">& Synthetic Benchmarks</span>
+              Cloud Lighthouse Runner{" "}
+              <span className="hidden sm:inline">& AI Diagnostics</span>
             </span>
             <span className="text-text-tertiary shrink-0 hidden sm:inline">
               |
@@ -100,19 +100,19 @@ export default async function LandingPage() {
 
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight leading-[1.1] text-text-primary">
-            Automate Your{" "}
+            Cloud{" "}
             <span className="text-brand-600 dark:text-brand-400">
               Lighthouse Audits
             </span>{" "}
             <br className="hidden sm:inline" />
-            at Production Scale
+            with AI Performance Diagnostics
           </h1>
 
           {/* Simple Explanation */}
           <p className="text-base sm:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
             Execute headless Chrome performance audits in the cloud under real
-            mobile network throttling. Diagnose bottlenecks and export
-            whitepaper reports in seconds.
+            mobile network throttling. Diagnose bottlenecks, compare regression
+            deltas, and export executive reports in seconds.
           </p>
 
           {/* Action CTAs */}

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | AuditHQ",
   },
   description:
-    "Run automated Google Lighthouse cloud audits. Track Core Web Vitals, diagnose regressions, and export executive whitepapers in seconds.",
+    "Run cloud Google Lighthouse audits. Track Core Web Vitals, diagnose regressions with AI, and export executive whitepapers in seconds.",
   keywords: [
     "lighthouse audit",
     "web performance",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: "AuditHQ",
     title: "AuditHQ — Web Performance Engineering Console",
     description:
-      "Run automated Google Lighthouse cloud audits. Track Core Web Vitals, diagnose regressions, and export executive whitepapers in seconds.",
+      "Run cloud Google Lighthouse audits. Track Core Web Vitals, diagnose regressions with AI, and export executive whitepapers in seconds.",
     images: [
       {
         url: "/apple-touch-icon.jpg",
