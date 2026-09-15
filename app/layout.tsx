@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Space_Grotesk, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import getSessionUser from "@/lib/auth";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
@@ -6,6 +7,24 @@ import { syncUserToDatabase } from "./utils/actions";
 import { Toaster } from "@/components/ui/sonner";
 import { TopProgressBar } from "@/components/ui/TopProgressBar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 const BASE_URL = "https://swiftaudithq.vercel.app";
 
@@ -82,7 +101,11 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${plusJakartaSans.variable}`}
+    >
       <body
         className="bg-background text-foreground font-sans antialiased min-h-screen selection:bg-brand-600/20 selection:text-brand-500"
       >
