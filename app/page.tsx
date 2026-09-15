@@ -84,11 +84,16 @@ export default async function LandingPage() {
       <section className="relative overflow-hidden pt-20 pb-24 sm:pt-28 sm:pb-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
           {/* Tagline Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30">
-            <Cpu weight="fill" className="h-3.5 w-3.5" />
-            <span>Automated Lighthouse CI & Synthetic Benchmarks</span>
-            <span className="text-text-tertiary">|</span>
-            <span className="text-text-secondary font-medium">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30 shadow-xs max-w-full">
+            <Cpu weight="fill" className="h-3.5 w-3.5 shrink-0" />
+            <span className="truncate">
+              Automated Lighthouse Runner{" "}
+              <span className="hidden sm:inline">& Synthetic Benchmarks</span>
+            </span>
+            <span className="text-text-tertiary shrink-0 hidden sm:inline">
+              |
+            </span>
+            <span className="text-text-secondary font-medium shrink-0 whitespace-nowrap hidden sm:inline">
               Lighthouse 12.0
             </span>
           </div>
@@ -96,14 +101,18 @@ export default async function LandingPage() {
           {/* Main Headline */}
           <h1 className="text-4xl sm:text-6xl lg:text-[64px] font-extrabold tracking-tight leading-[1.1] text-text-primary">
             Automate Your{" "}
-            <span className="text-brand-600 dark:text-brand-400">Lighthouse Audits</span>{" "}
+            <span className="text-brand-600 dark:text-brand-400">
+              Lighthouse Audits
+            </span>{" "}
             <br className="hidden sm:inline" />
             at Production Scale
           </h1>
 
           {/* Simple Explanation */}
           <p className="text-base sm:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
-            Execute headless Chrome performance audits in the cloud under real mobile network throttling. Diagnose bottlenecks and export whitepaper reports in seconds.
+            Execute headless Chrome performance audits in the cloud under real
+            mobile network throttling. Diagnose bottlenecks and export
+            whitepaper reports in seconds.
           </p>
 
           {/* Action CTAs */}
@@ -160,7 +169,9 @@ export default async function LandingPage() {
                   <p className="text-2xl font-bold font-mono text-text-primary mt-0.5">
                     0.8s
                   </p>
-                  <p className="text-[11px] text-score-good font-medium">Fast (≤2.5s)</p>
+                  <p className="text-[11px] text-score-good font-medium">
+                    Fast (≤2.5s)
+                  </p>
                 </div>
                 <div className="p-3.5 bg-surface-1 rounded-xl border border-border">
                   <p className="text-[11px] text-text-tertiary uppercase font-semibold">
@@ -221,7 +232,8 @@ export default async function LandingPage() {
             Rigorous web performance diagnostics
           </h2>
           <p className="text-sm sm:text-base text-text-secondary max-w-xl mx-auto">
-            High-speed dev laptops mask mobile latency. We run standardized headless Chrome tests in the cloud under real 4G throttling.
+            High-speed dev laptops mask mobile latency. We run standardized
+            headless Chrome tests in the cloud under real 4G throttling.
           </p>
         </div>
 
@@ -237,18 +249,27 @@ export default async function LandingPage() {
                 Real Mobile Testing. Zero False Positives.
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed max-w-lg">
-                Simulate standardized mobile devices with deterministic network throttling to produce reproducible engineering benchmarks on every audit.
+                Simulate standardized mobile devices with deterministic network
+                throttling to produce reproducible engineering benchmarks on
+                every audit.
               </p>
             </div>
 
             <div className="mt-6 rounded-xl bg-surface-1 border border-border p-4 text-xs space-y-2 text-text-secondary">
               <div className="text-score-good font-semibold flex items-center gap-2">
                 <CheckCircle weight="fill" className="h-4 w-4 shrink-0" />
-                <span>Uncovers oversized payloads & render-blocking JavaScript</span>
+                <span>
+                  Uncovers oversized payloads & render-blocking JavaScript
+                </span>
               </div>
               <div className="text-text-primary font-medium flex items-center gap-2">
-                <CheckCircle weight="fill" className="h-4 w-4 shrink-0 text-brand-500" />
-                <span>Measures all Core Web Vitals (LCP, TBT, CLS, FCP, SI, INP)</span>
+                <CheckCircle
+                  weight="fill"
+                  className="h-4 w-4 shrink-0 text-brand-500"
+                />
+                <span>
+                  Measures all Core Web Vitals (LCP, TBT, CLS, FCP, SI, INP)
+                </span>
               </div>
             </div>
           </div>
@@ -263,7 +284,8 @@ export default async function LandingPage() {
                 Ranked Code Fixes
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Prioritized engineering solutions ranked by estimated millisecond load savings and framework context.
+                Prioritized engineering solutions ranked by estimated
+                millisecond load savings and framework context.
               </p>
             </div>
 
@@ -272,13 +294,17 @@ export default async function LandingPage() {
                 <span className="text-text-secondary truncate">
                   Compress Hero Assets (AVIF)
                 </span>
-                <span className="text-score-good font-bold font-mono">+1.4s</span>
+                <span className="text-score-good font-bold font-mono">
+                  +1.4s
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-text-secondary truncate">
                   Defer Unused Bundle JS
                 </span>
-                <span className="text-score-good font-bold font-mono">+680ms</span>
+                <span className="text-score-good font-bold font-mono">
+                  +680ms
+                </span>
               </div>
             </div>
           </div>
@@ -293,7 +319,8 @@ export default async function LandingPage() {
                 Export Whitepaper PDFs
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Generate clean, publication-ready vector PDF summaries for clients, executive leadership, or engineering reviews.
+                Generate clean, publication-ready vector PDF summaries for
+                clients, executive leadership, or engineering reviews.
               </p>
             </div>
 
@@ -313,7 +340,8 @@ export default async function LandingPage() {
                 Interactive Public Reports
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed max-w-lg">
-                Share live, interactive audit consoles with colleagues, clients, or stakeholders without requiring authentication.
+                Share live, interactive audit consoles with colleagues, clients,
+                or stakeholders without requiring authentication.
               </p>
             </div>
 
@@ -353,7 +381,8 @@ export default async function LandingPage() {
                 Specify Target URL
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Provide any accessible production or staging URL with Mobile or Desktop emulation.
+                Provide any accessible production or staging URL with Mobile or
+                Desktop emulation.
               </p>
             </div>
 
@@ -365,7 +394,8 @@ export default async function LandingPage() {
                 Headless Cloud Execution
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Automated runners capture filmstrips, network traces, and Web Vitals metrics.
+                Automated runners capture filmstrips, network traces, and Web
+                Vitals metrics.
               </p>
             </div>
 
@@ -377,7 +407,8 @@ export default async function LandingPage() {
                 Review Diffs & Export
               </h3>
               <p className="text-sm text-text-secondary leading-relaxed">
-                Analyze root cause diagnostics, compare regression deltas, and export reports.
+                Analyze root cause diagnostics, compare regression deltas, and
+                export reports.
               </p>
             </div>
           </div>
@@ -392,7 +423,8 @@ export default async function LandingPage() {
               Ready to benchmark your web applications?
             </h2>
             <p className="text-sm sm:text-base text-text-secondary max-w-md mx-auto leading-relaxed">
-              Run your first audit in 20 seconds. 100 free tests every month with no credit card required.
+              Run your first audit in 20 seconds. 100 free tests every month
+              with no credit card required.
             </p>
             <div className="pt-2 flex justify-center">
               <RegisterLink className="inline-flex items-center justify-center gap-2 rounded-xl text-base font-semibold h-12 px-8 bg-brand-600 hover:bg-brand-700 text-white shadow-xs transition-all active:scale-[0.98] cursor-pointer">
@@ -401,7 +433,8 @@ export default async function LandingPage() {
               </RegisterLink>
             </div>
             <p className="text-xs text-text-tertiary">
-              ✓ Ready in 20 seconds · ✓ No credit card · ✓ 100 free monthly audits
+              ✓ Ready in 20 seconds · ✓ No credit card · ✓ 100 free monthly
+              audits
             </p>
           </div>
         </div>
@@ -431,4 +464,3 @@ export default async function LandingPage() {
     </div>
   );
 }
-
