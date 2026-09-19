@@ -14,8 +14,8 @@ export default function LandingNav({ menuOpen, onToggleMenu }: LandingNavProps) 
     <>
       {/* Floating island nav */}
       <div
-        className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
-        style={{ paddingTop: "24px" }}
+        className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none"
+        style={{ paddingTop: "max(24px, env(safe-area-inset-top))" }}
       >
         <nav
           aria-label="Main navigation"
