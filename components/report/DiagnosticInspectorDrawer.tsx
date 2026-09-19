@@ -72,13 +72,13 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
     <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-black/40 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
         onClick={onClose}
       />
 
       {/* Slide-over Right Drawer */}
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <aside className="w-screen max-w-xl bg-surface-0 border-l border-border shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250">
+      <div className="fixed inset-y-0 end-0 max-w-full flex ps-10">
+        <aside className="w-screen max-w-xl bg-surface-0/95 backdrop-blur-2xl border-s border-border/80 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250 ease-[cubic-bezier(0.32,0.72,0,1)]">
           {/* Header */}
           <div className="p-6 border-b border-border space-y-3">
             <div className="flex items-center justify-between">
