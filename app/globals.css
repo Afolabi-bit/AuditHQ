@@ -281,3 +281,95 @@
 .tagline-word[data-active="true"] {
   color: #ffffff;
 }
+
+/* ─── Apple Design Foundations ────────────────────────── */
+
+/* 1. Tactile Press Physics (Instant Response on Pointer-Down) */
+button:not(:disabled):active,
+[role="button"]:not([aria-disabled="true"]):active,
+a[role="button"]:active {
+  transform: scale(0.975);
+  transition: transform 80ms cubic-bezier(0.32, 0.72, 0, 1) !important;
+}
+
+/* 2. Optical Typography (WWDC 2020: The Details of UI Typography) */
+h1, h2, h3, .font-display {
+  letter-spacing: -0.025em;
+  font-optical-sizing: auto;
+}
+
+h1 {
+  line-height: 1.08;
+}
+
+h2 {
+  line-height: 1.15;
+}
+
+/* Small labels & metric badges want slightly positive tracking for legibility */
+.font-mono,
+.text-\[10px\],
+.text-\[11px\],
+.text-xs {
+  letter-spacing: 0.015em;
+}
+
+/* 3. Fluid Easing & Hover Lift */
+.apple-interactive {
+  transition: transform 200ms cubic-bezier(0.32, 0.72, 0, 1),
+              box-shadow 200ms cubic-bezier(0.32, 0.72, 0, 1),
+              border-color 200ms cubic-bezier(0.32, 0.72, 0, 1),
+              background-color 200ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.apple-interactive:hover {
+  transform: translateY(-1px);
+}
+
+.apple-interactive:active {
+  transform: scale(0.985);
+}
+
+/* 4. Translucent Materials & Depth (WWDC: Materials & Depth) */
+.apple-glass {
+  background-color: color-mix(in srgb, var(--surface-0) 80%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.dark .apple-glass {
+  background-color: color-mix(in srgb, var(--surface-0) 75%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+/* 5. Accessibility (Reduced Motion & Reduced Transparency) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-section {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .apple-glass,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-xs {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: var(--surface-0) !important;
+  }
+}
