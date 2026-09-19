@@ -201,7 +201,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
   return (
     <>
       {/* Desktop Sticky Rail */}
-      <aside className="hidden lg:block w-64 shrink-0 bg-surface-0 border-r border-border h-screen sticky top-0 overflow-y-auto">
+      <aside className="hidden lg:block w-64 shrink-0 bg-surface-0 border-e border-border h-screen sticky top-0 overflow-y-auto">
         {sidebarContent}
       </aside>
 
@@ -229,8 +229,8 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="fixed inset-y-0 left-0 max-w-full flex pr-10">
-            <div className="w-screen max-w-xs bg-surface-0 border-r border-border shadow-2xl animate-in slide-in-from-left">
+          <div className="fixed inset-y-0 start-0 max-w-full flex pe-10">
+            <div className="w-screen max-w-xs bg-surface-0 border-e border-border shadow-2xl animate-in slide-in-from-start">
               {sidebarContent}
             </div>
           </div>
