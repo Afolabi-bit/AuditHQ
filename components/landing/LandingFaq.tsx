@@ -74,7 +74,7 @@ export default function LandingFaq() {
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  textAlign: "left",
+                  textAlign: "start",
                   gap: "16px",
                   outline: "none",
                 }}
@@ -87,7 +87,7 @@ export default function LandingFaq() {
                     fontWeight: 600,
                     color: "#ffffff",
                     lineHeight: "24px",
-                    textAlign: "left",
+                    textAlign: "start",
                   }}
                 >
                   {faq.q}
