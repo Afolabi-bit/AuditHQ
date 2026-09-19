@@ -155,10 +155,10 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           <div className="space-y-0.5">
             <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-center gap-2">
               <ArrowsLeftRight weight="bold" className="h-4.5 w-4.5 text-brand-600 dark:text-brand-400" />
-              Compare Audit Runs
+              Compare Audits
             </h3>
             <p className="text-xs text-text-secondary">
-              Select a baseline and target test to evaluate regressions and score deltas
+              Pick two tests to see score changes, vital deltas, and filmstrips side by side
             </p>
           </div>
 
@@ -184,7 +184,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           >
             <div className="flex items-center justify-between gap-1 mb-0.5">
               <span className="text-[10px] uppercase font-bold text-text-tertiary tracking-wider font-mono">
-                1. Base (Baseline)
+                1. Baseline
               </span>
               {activeSlot === "base" && (
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
@@ -232,7 +232,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           >
             <div className="flex items-center justify-between gap-1 mb-0.5">
               <span className="text-[10px] uppercase font-bold text-text-tertiary tracking-wider font-mono">
-                2. Target (Comparison)
+                2. New Run
               </span>
               {activeSlot === "target" && (
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse" />
