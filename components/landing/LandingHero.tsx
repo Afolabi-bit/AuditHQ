@@ -68,14 +68,14 @@ export default function LandingHero() {
         </div>
 
         {/* Console mockup */}
-        <div className="reveal-section" style={{ maxWidth: "820px", margin: "0 auto", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.08)", background: "#181818", overflow: "hidden", textAlign: "left" }}>
+        <div className="reveal-section" style={{ maxWidth: "820px", marginInline: "auto", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.08)", background: "#181818", overflow: "hidden", textAlign: "start" }}>
           {/* Topbar */}
           <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.06)", background: "#1F1F1F", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               {[0, 1, 2].map((i) => (
                 <span key={i} style={{ width: "10px", height: "10px", borderRadius: "50%", background: "rgba(255,255,255,0.12)", display: "inline-block" }} />
               ))}
-              <span style={{ marginLeft: "8px", fontSize: "11px", fontFamily: "var(--font-mono), monospace", color: "rgba(255,255,255,0.32)" }}>
+              <span style={{ marginInlineStart: "8px", fontSize: "11px", fontFamily: "var(--font-mono), monospace", color: "rgba(255,255,255,0.32)" }}>
                 target: https://production.app
               </span>
             </div>
@@ -85,7 +85,7 @@ export default function LandingHero() {
           </div>
 
           {/* CWV grid */}
-          <div style={{ padding: "20px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
+          <div style={{ padding: "20px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "12px" }}>
             {[
               { label: "LCP", value: "0.8s", spec: "≤ 2.5s" },
               { label: "TBT", value: "0ms", spec: "≤ 200ms" },
