@@ -57,7 +57,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
   };
 
   return (
-    <header className="border-b border-border bg-surface-0/80 backdrop-blur-md sticky top-0 z-30 transition-colors">
+    <header className="border-b border-border/70 bg-surface-0/80 backdrop-blur-xl saturate-180 sticky top-0 z-30 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-4">
         {/* Top bar with back link and actions */}
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -156,7 +156,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
           </div>
 
           {/* Target Run */}
-          <div className="md:col-span-5 space-y-1 md:text-right">
+          <div className="md:col-span-5 space-y-1 md:text-end">
             <div className="flex items-center gap-2 md:justify-end">
               <span className="text-[11px] font-mono text-text-tertiary flex items-center gap-1 order-2 md:order-1">
                 <Calendar weight="bold" className="h-3 w-3" />
