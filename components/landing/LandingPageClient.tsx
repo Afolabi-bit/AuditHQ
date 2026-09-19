@@ -14,7 +14,6 @@ import {
   CaretDown,
 } from "@phosphor-icons/react";
 
-// ─── Constants ────────────────────────────────────────────────────
 const EASING = "cubic-bezier(0.32,0.72,0,1)";
 
 const NAV_LINKS = [
@@ -23,7 +22,6 @@ const NAV_LINKS = [
   { label: "FAQ", href: "#faq" },
 ];
 
-// ─── Data ─────────────────────────────────────────────────────────
 const BENEFITS = [
   {
     Icon: ArrowsLeftRight,
@@ -67,16 +65,28 @@ const STEPS = [
 
 const TESTIMONIALS = [
   {
+    name: "Kenji Watanabe",
+    role: "Staff Engineer",
+    company: "Radial Commerce",
     quote:
       "We had been arguing about Lighthouse scores for weeks because local runs kept giving different numbers. AuditHQ ended that debate on day one. Now the score in the pull request is the score that ships.",
+    hue: 210,
   },
   {
+    name: "Priya Mehta",
+    role: "Frontend Lead",
+    company: "Fieldwork Labs",
     quote:
       "The shareable link feature alone is worth it. I used to spend 20 minutes stitching screenshots into a slide deck for clients. Now I paste one URL and the conversation starts from data.",
+    hue: 150,
   },
   {
+    name: "Marcus Oduya",
+    role: "Head of Platform",
+    company: "Corvo Infra",
     quote:
       "We run 47 audits a week across four client domains. The historical trajectory charts caught a TBT regression in week two that our monitoring missed entirely. Paid for itself before the month ended.",
+    hue: 30,
   },
 ];
 
@@ -118,13 +128,11 @@ const FAQS = [
 const TAGLINE =
   "Performance regressions found in production drain real revenue. Catch them in the cloud before your users do.";
 
-// ─── Component ────────────────────────────────────────────────────
 export default function LandingPageClient() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
 
-  // Section scroll reveal via IntersectionObserver
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>(".reveal-section");
     const observer = new IntersectionObserver(
@@ -136,17 +144,16 @@ export default function LandingPageClient() {
           }
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -48px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -48px 0px" },
     );
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  // Tagline per-word reveal via rAF-throttled scroll (B11)
   useEffect(() => {
     if (!taglineRef.current) return;
     const words = Array.from(
-      taglineRef.current.querySelectorAll<HTMLSpanElement>(".tagline-word")
+      taglineRef.current.querySelectorAll<HTMLSpanElement>(".tagline-word"),
     );
     let rafId: number | null = null;
 
@@ -181,7 +188,6 @@ export default function LandingPageClient() {
     };
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -200,15 +206,8 @@ export default function LandingPageClient() {
         fontFamily: "var(--font-sans), sans-serif",
       }}
     >
-      {/* Skip to content */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded-lg focus:text-sm focus:font-semibold focus:outline-none"
-      >
-        Skip to content
-      </a>
+      <a href="#main-content">Skip to content</a>
 
-      {/* ── Fluid island nav ──────────────────────────────────────── */}
       <div
         className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
         style={{ paddingTop: "24px" }}
@@ -228,7 +227,6 @@ export default function LandingPageClient() {
             gap: "32px",
           }}
         >
-          {/* Logo */}
           <a
             href="/"
             aria-label="AuditHQ home"
@@ -269,8 +267,10 @@ export default function LandingPageClient() {
             </span>
           </a>
 
-          {/* Desktop nav links */}
-          <div className="hidden md:flex" style={{ gap: "28px", alignItems: "center" }}>
+          <div
+            className="hidden md:flex"
+            style={{ gap: "28px", alignItems: "center" }}
+          >
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -296,8 +296,10 @@ export default function LandingPageClient() {
             ))}
           </div>
 
-          {/* Desktop CTAs */}
-          <div className="hidden md:flex" style={{ alignItems: "center", gap: "4px" }}>
+          <div
+            className="hidden md:flex"
+            style={{ alignItems: "center", gap: "4px" }}
+          >
             <LoginLink
               style={{
                 fontSize: "14px",
@@ -346,23 +348,31 @@ export default function LandingPageClient() {
                   "0 0 0 2px #ffffff")
               }
               onBlur={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.boxShadow = "none")
+                ((e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                  "none")
               }
               onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.background = "#1d4ed8")
+                ((e.currentTarget as HTMLAnchorElement).style.background =
+                  "#1d4ed8")
               }
               onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.background = "#2563eb")
+                ((e.currentTarget as HTMLAnchorElement).style.background =
+                  "#2563eb")
               }
               onMouseDown={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.transform = "scale(0.97)")
+                ((e.currentTarget as HTMLAnchorElement).style.transform =
+                  "scale(0.97)")
               }
               onMouseUp={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.transform = "scale(1)")
+                ((e.currentTarget as HTMLAnchorElement).style.transform =
+                  "scale(1)")
               }
             >
               Start free
-              <ArrowRight weight="bold" style={{ width: "13px", height: "13px" }} />
+              <ArrowRight
+                weight="bold"
+                style={{ width: "13px", height: "13px" }}
+              />
             </RegisterLink>
           </div>
 
@@ -509,7 +519,6 @@ export default function LandingPageClient() {
 
       {/* ══ MAIN CONTENT ══════════════════════════════════════════════ */}
       <main id="main-content">
-
         {/* ── Hero ──────────────────────────────────────────────────── */}
         <section
           aria-label="Hero"
@@ -520,7 +529,9 @@ export default function LandingPageClient() {
             background: "#000000",
           }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}
+          >
             {/* Status badge */}
             <div
               style={{
@@ -570,8 +581,7 @@ export default function LandingPageClient() {
                 backgroundClip: "text",
               }}
             >
-              Cloud Lighthouse audits{" "}
-              that match what your users see
+              Cloud Lighthouse audits that match what your users see
             </h1>
 
             {/* Subheadline */}
@@ -585,9 +595,9 @@ export default function LandingPageClient() {
                 textWrap: "pretty",
               }}
             >
-              Your dev laptop masks real mobile latency, CPU throttling, and cold caches.
-              AuditHQ runs deterministic Lighthouse 12.0 audits in isolated cloud containers,
-              so your scores mean something.
+              Your dev laptop masks real mobile latency, CPU throttling, and
+              cold caches. AuditHQ runs deterministic Lighthouse 12.0 audits in
+              isolated cloud containers, so your scores mean something.
             </p>
 
             {/* Primary CTA */}
@@ -612,7 +622,8 @@ export default function LandingPageClient() {
                     "0 0 0 3px rgba(37,99,235,0.55)")
                 }
                 onBlur={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.boxShadow = "none")
+                  ((e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                    "none")
                 }
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLAnchorElement;
@@ -633,9 +644,15 @@ export default function LandingPageClient() {
                     "translateY(-1px)")
                 }
               >
-                <Lightning weight="fill" style={{ width: "16px", height: "16px" }} />
+                <Lightning
+                  weight="fill"
+                  style={{ width: "16px", height: "16px" }}
+                />
                 Run free cloud audit
-                <ArrowRight weight="bold" style={{ width: "16px", height: "16px" }} />
+                <ArrowRight
+                  weight="bold"
+                  style={{ width: "16px", height: "16px" }}
+                />
               </RegisterLink>
             </div>
 
@@ -705,7 +722,9 @@ export default function LandingPageClient() {
                   justifyContent: "space-between",
                 }}
               >
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                >
                   {[0, 1, 2].map((i) => (
                     <span
                       key={i}
@@ -843,7 +862,9 @@ export default function LandingPageClient() {
           aria-label="Problem and solution"
           style={{ background: "#0A0A0A", padding: "96px 0" }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}
+          >
             <div
               className="reveal-section"
               style={{ maxWidth: "600px", marginBottom: "64px" }}
@@ -879,8 +900,9 @@ export default function LandingPageClient() {
                   color: "rgba(255,255,255,0.50)",
                 }}
               >
-                Local DevTools results are shaped by your hardware, your browser extensions, and your
-                office wifi. None of that is what your users experience.
+                Local DevTools results are shaped by your hardware, your browser
+                extensions, and your office wifi. None of that is what your
+                users experience.
               </p>
             </div>
 
@@ -985,7 +1007,9 @@ export default function LandingPageClient() {
           aria-label="Core message"
           style={{ padding: "96px 0", background: "#000000" }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}
+          >
             <div ref={taglineRef} style={{ maxWidth: "760px" }}>
               <p
                 style={{
@@ -1024,7 +1048,9 @@ export default function LandingPageClient() {
           aria-label="Capabilities"
           style={{ padding: "96px 0", background: "#0A0A0A" }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}
+          >
             <div className="reveal-section" style={{ marginBottom: "64px" }}>
               <p
                 style={{
@@ -1076,7 +1102,8 @@ export default function LandingPageClient() {
                     e.currentTarget.style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
+                    e.currentTarget.style.borderColor =
+                      "rgba(255,255,255,0.06)";
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
@@ -1095,7 +1122,11 @@ export default function LandingPageClient() {
                   >
                     <Icon
                       weight="bold"
-                      style={{ width: "18px", height: "18px", color: "#60a5fa" }}
+                      style={{
+                        width: "18px",
+                        height: "18px",
+                        color: "#60a5fa",
+                      }}
                     />
                   </div>
                   <h3
@@ -1130,7 +1161,9 @@ export default function LandingPageClient() {
           aria-label="How it works"
           style={{ padding: "96px 0", background: "#000000" }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}
+          >
             <div className="reveal-section" style={{ marginBottom: "64px" }}>
               <p
                 style={{
@@ -1236,7 +1269,9 @@ export default function LandingPageClient() {
           aria-label="Testimonials"
           style={{ padding: "96px 0", background: "#0A0A0A" }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}
+          >
             <div
               className="reveal-section"
               style={{ marginBottom: "64px", textAlign: "center" }}
@@ -1292,10 +1327,64 @@ export default function LandingPageClient() {
                       fontSize: "15px",
                       lineHeight: "24px",
                       color: "rgba(255,255,255,0.68)",
+                      flex: 1,
                     }}
                   >
                     &ldquo;{t.quote}&rdquo;
                   </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "12px",
+                      paddingTop: "8px",
+                      borderTop: "1px solid rgba(255,255,255,0.06)",
+                    }}
+                  >
+                    <div
+                      aria-hidden="true"
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        background: `hsl(${t.hue}, 40%, 18%)`,
+                        border: `1px solid hsl(${t.hue}, 40%, 28%)`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        color: `hsl(${t.hue}, 65%, 68%)`,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {t.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </div>
+                    <div>
+                      <p
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: 600,
+                          color: "#ffffff",
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        {t.name}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          color: "rgba(255,255,255,0.38)",
+                          marginTop: "2px",
+                        }}
+                      >
+                        {t.role}, {t.company}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -1308,7 +1397,9 @@ export default function LandingPageClient() {
           aria-label="Frequently asked questions"
           style={{ padding: "96px 0", background: "#000000" }}
         >
-          <div style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px" }}>
+          <div
+            style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px" }}
+          >
             <div
               className="reveal-section"
               style={{ marginBottom: "64px", textAlign: "center" }}
@@ -1338,7 +1429,9 @@ export default function LandingPageClient() {
               </h2>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+            >
               {FAQS.map((faq, i) => (
                 <div
                   key={i}
@@ -1348,6 +1441,7 @@ export default function LandingPageClient() {
                     border: "1px solid rgba(255,255,255,0.07)",
                     background: "#181818",
                     overflow: "hidden",
+                    outline: "none",
                   }}
                 >
                   <button
@@ -1430,7 +1524,9 @@ export default function LandingPageClient() {
           aria-label="Get started"
           style={{ padding: "96px 0", background: "#0A0A0A" }}
         >
-          <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+          <div
+            style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}
+          >
             <div
               className="reveal-section"
               style={{
@@ -1462,7 +1558,8 @@ export default function LandingPageClient() {
                   maxWidth: "560px",
                   margin: "0 auto 16px",
                   textWrap: "balance",
-                  background: "linear-gradient(90deg, #FFFFFF 0%, #9B9B9B 100%)",
+                  background:
+                    "linear-gradient(90deg, #FFFFFF 0%, #9B9B9B 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -1480,8 +1577,8 @@ export default function LandingPageClient() {
                   textWrap: "pretty",
                 }}
               >
-                100 free audits per month. No credit card required.
-                Your first result in 23 seconds.
+                100 free audits per month. No credit card required. Your first
+                result in 23 seconds.
               </p>
               <RegisterLink
                 style={{
@@ -1504,7 +1601,8 @@ export default function LandingPageClient() {
                     "0 0 0 3px rgba(37,99,235,0.55)")
                 }
                 onBlur={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.boxShadow = "none")
+                  ((e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                    "none")
                 }
                 onMouseEnter={(e) => {
                   const el = e.currentTarget as HTMLAnchorElement;
@@ -1526,7 +1624,10 @@ export default function LandingPageClient() {
                 }
               >
                 Start auditing free
-                <ArrowRight weight="bold" style={{ width: "16px", height: "16px" }} />
+                <ArrowRight
+                  weight="bold"
+                  style={{ width: "16px", height: "16px" }}
+                />
               </RegisterLink>
               <div
                 style={{
@@ -1588,7 +1689,9 @@ export default function LandingPageClient() {
                 style={{ width: "12px", height: "12px", color: "#ffffff" }}
               />
             </div>
-            <span style={{ fontSize: "14px", fontWeight: 700, color: "#ffffff" }}>
+            <span
+              style={{ fontSize: "14px", fontWeight: 700, color: "#ffffff" }}
+            >
               AuditHQ
             </span>
             <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
