@@ -47,7 +47,7 @@ export const STEPS = [
   {
     num: "01",
     title: "Paste your URL",
-    body: "Enter any publicly accessible URL — staging, production, or a specific page path.",
+    body: "Enter any publicly accessible URL: staging, production, or a specific page path.",
   },
   {
     num: "02",
@@ -107,7 +107,7 @@ export const FAQS = [
   },
   {
     q: "How is historical tracking handled?",
-    a: "Every audit you run is stored in your account with a timestamp. The dashboard shows your score trajectory across recent runs, with delta indicators that highlight regressions or improvements between audits.",
+    a: "Every audit you run is stored in your account with a timestamp. The dashboard shows your score trajectory across recent runs, with delta indicators that show regressions or improvements between audits.",
   },
 ];
 
