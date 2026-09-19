@@ -40,6 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# prisma generated client
 /lib/generated/prisma
 
-/lib/generated/prisma
+# agent skills & ide
+.agents/
+skills-lock.json
