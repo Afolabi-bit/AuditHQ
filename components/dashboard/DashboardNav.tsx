@@ -61,14 +61,14 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
           <div className="flex items-center shrink-0">
             <Link
               href="/profile"
-              className={`flex items-center transition-all cursor-pointer group shrink-0 sm:space-x-2.5 sm:p-1.5 sm:pr-3 sm:rounded-xl sm:border ${
+              className={`flex items-center transition-all cursor-pointer group shrink-0 sm:gap-2.5 sm:p-1.5 sm:pe-3 sm:rounded-xl sm:border ${
                 isProfile
                   ? "sm:bg-brand-50 sm:dark:bg-brand-500/10 sm:border-brand-200 sm:dark:border-brand-500/30 sm:text-brand-600 sm:dark:text-brand-300"
                   : "sm:bg-surface-0 sm:border-border sm:hover:border-brand-200 sm:hover:bg-surface-1"
               }`}
               title="Account Profile & Settings"
             >
-              <div className="text-right hidden sm:block leading-tight max-w-35 truncate">
+              <div className="text-end hidden sm:block leading-tight max-w-35 truncate">
                 <p className="text-xs font-semibold text-text-primary group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors truncate">
                   {user?.given_name} {user?.family_name}
                 </p>
