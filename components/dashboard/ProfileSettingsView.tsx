@@ -50,7 +50,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
   const settingsTabs = [
     {
       id: "general",
-      label: "General Profile",
+      label: "Profile",
       icon: <User weight="bold" className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
     },
     {
@@ -60,12 +60,12 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
     },
     {
       id: "usage",
-      label: "Audit Quotas",
+      label: "Usage & Quotas",
       icon: <ChartBar weight="bold" className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
     },
     {
       id: "security",
-      label: "Security & Session",
+      label: "Security",
       icon: <Lock weight="bold" className="h-3.5 w-3.5 sm:h-4 sm:w-4" />,
     },
   ];
@@ -91,7 +91,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
           Account Profile & Settings
         </h1>
         <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
-          Manage your personal credentials, engine quotas, and display theme
+          Manage your profile, monthly quota, and theme
         </p>
       </div>
 
@@ -228,7 +228,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                 Monthly Usage Quota & Limits
               </h3>
               <p className="text-xs text-text-secondary">
-                Execution capacity and telemetry history under your active workspace
+                Audit count and remaining runs for this billing cycle
               </p>
             </div>
 
@@ -254,7 +254,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
 
             <div className="border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 bg-surface-1 space-y-2 text-xs">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="font-semibold text-text-secondary">Lifetime Cloud Audits</span>
+                <span className="font-semibold text-text-secondary">Total audits run</span>
                 <span className="font-bold font-mono text-text-primary whitespace-nowrap">{totalAudits} audits</span>
               </div>
               {latestTest && (
@@ -274,7 +274,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                 Account Session & Security
               </h2>
               <p className="text-xs text-text-secondary">
-                Manage active workstation credentials and sign out
+                Manage your session and sign out
               </p>
             </div>
 
