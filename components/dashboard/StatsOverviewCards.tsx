@@ -95,7 +95,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
               ) : (
                 <>
                   {stats.testsThisMonth}
-                  <span className="text-sm font-normal text-text-tertiary ml-1.5 font-sans">
+                  <span className="text-sm font-normal text-text-tertiary ms-1.5 font-sans">
                     / {stats.testsLimit || 100}
                   </span>
                 </>

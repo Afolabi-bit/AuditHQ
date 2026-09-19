@@ -30,7 +30,7 @@ export const SignOutButton: React.FC = () => {
         onClick={() => setIsOpen(true)}
         className="bg-surface-0 hover:bg-destructive/10 text-destructive border-destructive/30 font-semibold text-xs rounded-lg px-4 h-9 cursor-pointer w-full sm:w-auto shrink-0 shadow-xs transition-colors"
       >
-        <SignOut weight="bold" className="h-4 w-4 mr-1.5" />
+        <SignOut weight="bold" className="h-4 w-4 me-1.5" />
         Sign Out
       </Button>
 
@@ -99,7 +99,7 @@ export const SignOutButton: React.FC = () => {
                   size="sm"
                   className="bg-destructive hover:bg-destructive/90 text-white font-semibold text-xs rounded-lg h-9 px-4 shadow-sm cursor-pointer"
                 >
-                  <SignOut weight="bold" className="h-4 w-4 mr-1.5" />
+                  <SignOut weight="bold" className="h-4 w-4 me-1.5" />
                   Sign Out
                 </Button>
               </LogoutLink>

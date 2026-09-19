@@ -190,7 +190,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
           {/* Domain Score Pill */}
           {avgScore != null && (
             <div className="flex items-center gap-2 bg-surface-0 px-3.5 py-2 rounded-xl border border-border shadow-2xs">
-              <div className="text-right">
+              <div className="text-end">
                 <p className="text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">
                   Domain Avg
                 </p>

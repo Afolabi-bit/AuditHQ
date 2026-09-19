@@ -100,7 +100,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
       // Optimistically push the newly completed test to local Zustand store
       if (testId) {
         const dId = String(
-          data.data?.domainId || data.domainId || "d-" + Date.now(),
+          data.data?.domainId || data.domainId || "d-" + Date.now()
         );
         useAppStore.getState().upsertTest({
           id: String(testId),
@@ -192,7 +192,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
               Website URL
             </Label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-text-tertiary">
+              <div className="absolute inset-y-0 start-0 ps-3.5 flex items-center pointer-events-none text-text-tertiary">
                 <Globe weight="bold" className="h-4.5 w-4.5" />
               </div>
               <Input
@@ -206,7 +206,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
                 placeholder="example.com, www.brand.com, or https://…"
                 onChange={(e) => setUrl(e.target.value)}
                 onClick={() => setIsUrlValid({ validity: true, message: "" })}
-                className={`pl-10 h-11 text-sm bg-surface-1 border-border text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all ${
+                className={`ps-10 h-11 text-sm bg-surface-1 border-border text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all ${
                   !isUrlValid.validity ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""
                 }`}
               />

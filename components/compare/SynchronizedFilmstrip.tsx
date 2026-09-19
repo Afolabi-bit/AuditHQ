@@ -48,7 +48,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
         <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-border">
           <div className="inline-flex flex-col gap-4 min-w-max">
             {/* Timeline Timestamp Markers */}
-            <div className="flex gap-3 pl-32">
+            <div className="flex gap-3 ps-32">
               {frames.map((f) => (
                 <div
                   key={f.timestampMs}
@@ -62,7 +62,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
 
             {/* Row 1: Base Run */}
             <div className="flex items-center gap-3">
-              <div className="w-28 sm:w-32 shrink-0 space-y-0.5 pr-2">
+              <div className="w-28 sm:w-32 shrink-0 space-y-0.5 pe-2">
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-surface-2 text-text-secondary border border-border inline-block">
                   Base Run
                 </span>
@@ -99,7 +99,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
 
             {/* Row 2: Target Run */}
             <div className="flex items-center gap-3">
-              <div className="w-28 sm:w-32 shrink-0 space-y-0.5 pr-2">
+              <div className="w-28 sm:w-32 shrink-0 space-y-0.5 pe-2">
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 inline-block">
                   Target Run
                 </span>
@@ -136,7 +136,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
           </div>
         </div>
 
-        <p className="text-[11px] text-text-tertiary font-mono text-center sm:text-left flex items-center gap-1.5 pt-2 border-t border-border/60">
+        <p className="text-[11px] text-text-tertiary font-mono text-center sm:text-start flex items-center gap-1.5 pt-2 border-t border-border/60">
           <Eye weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
           Click any frame to inspect the high-resolution rendering difference side-by-side.
         </p>

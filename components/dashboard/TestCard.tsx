@@ -140,7 +140,7 @@ const TestCard = ({
             {/* Composite Score Pill Header & Action */}
             <div className="flex items-center gap-3 self-start sm:self-center shrink-0">
               {isCompleted && (
-                <div className="text-right">
+                <div className="text-end">
                   <p className="text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">Performance</p>
                   <div className="flex items-center gap-2">
                     <span className={`text-2xl sm:text-3xl font-bold font-mono tracking-tight ${scoreColors.text}`}>

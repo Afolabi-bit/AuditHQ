@@ -81,7 +81,7 @@ export const ThemeSelector: React.FC = () => {
             key={t.id}
             type="button"
             onClick={() => setTheme(t.id)}
-            className={`text-left p-4.5 rounded-xl border transition-all cursor-pointer relative group flex flex-col justify-between gap-4 ${
+            className={`text-start p-4.5 rounded-xl border transition-all cursor-pointer relative group flex flex-col justify-between gap-4 ${
               isSelected
                 ? "bg-surface-0 border-brand-500 ring-2 ring-brand-500/20 shadow-sm"
                 : "bg-surface-0 border-border hover:border-brand-200 hover:bg-surface-2/50 dark:hover:border-brand-500/30"

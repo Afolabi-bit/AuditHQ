@@ -142,7 +142,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                     </div>
                   )}
                   <span
-                    className="absolute -bottom-1 -right-1 h-4 w-4 sm:h-5 sm:w-5 bg-score-good border-2 border-surface-0 rounded-full flex items-center justify-center"
+                    className="absolute -bottom-1 -end-1 h-4 w-4 sm:h-5 sm:w-5 bg-score-good border-2 border-surface-0 rounded-full flex items-center justify-center"
                     title="Active account"
                   >
                     <span className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-white" />
@@ -165,7 +165,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                 </div>
               </div>
 
-              <div className="bg-surface-1 border border-border rounded-xl sm:rounded-2xl p-3 sm:p-4 text-left sm:text-right shrink-0">
+              <div className="bg-surface-1 border border-border rounded-xl sm:rounded-2xl p-3 sm:p-4 text-start sm:text-end shrink-0">
                 <p className="text-[10px] sm:text-[11px] font-semibold text-text-tertiary uppercase tracking-wider">
                   Current Plan
                 </p>

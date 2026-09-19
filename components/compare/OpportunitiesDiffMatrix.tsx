@@ -180,7 +180,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
                     {item.baseSavingsMs > 0 ? `${item.baseSavingsMs}ms` : item.baseSavingsBytes > 0 ? formatBytes(item.baseSavingsBytes) : "Passed / 0ms"}
                   </span>
                 </div>
-                <div className="border-l border-border/70 pl-2.5">
+                <div className="border-s border-border/70 ps-2.5">
                   <span className="text-[10px] uppercase font-bold text-text-tertiary block">
                     Target Savings
                   </span>
