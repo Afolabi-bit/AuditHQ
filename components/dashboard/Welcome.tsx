@@ -11,7 +11,7 @@ const Welcome = ({ user }: { user: KindeUser }) => {
         Welcome back, {user?.given_name || "Developer"}
       </h1>
       <p className="text-xs sm:text-sm md:text-base text-text-secondary leading-relaxed font-normal">
-        Autonomous cloud audits, Core Web Vitals diagnostics, and continuous performance telemetry.
+        Run deterministic Lighthouse audits in isolated containers, track vitals over time, and catch regressions before they ship.
       </p>
     </div>
   );
