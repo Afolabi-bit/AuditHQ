@@ -61,7 +61,7 @@ export default function LandingHowItWorks() {
                 style={{
                   position: "absolute",
                   top: "16px",
-                  right: "20px",
+                  insetInlineEnd: "20px",
                   fontSize: "56px",
                   fontWeight: 700,
                   color: "rgba(255,255,255,0.035)",
