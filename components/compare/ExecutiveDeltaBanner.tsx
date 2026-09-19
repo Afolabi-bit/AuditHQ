@@ -84,7 +84,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
               {overallVerdict.badge}
             </span>
             <span className="text-xs font-semibold text-text-tertiary font-mono">
-              Comparative Analysis
+              Comparison
             </span>
           </div>
 
@@ -100,7 +100,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
         {/* Right: Score Shift Hero Box */}
         <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3.5 shrink-0 bg-surface-0/80 p-5 rounded-2xl border border-border/80 shadow-2xs">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-text-tertiary">
-            Net Performance Shift
+            Score Difference
           </span>
 
           <div
@@ -190,7 +190,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
         {/* 4. Total Byte Shift */}
         <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
           <div className="flex items-center justify-between text-xs text-text-tertiary">
-            <span className="font-semibold text-text-primary">Weight Shift</span>
+            <span className="font-semibold text-text-primary">Page Weight Change</span>
             <HardDrives weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           </div>
           <p
