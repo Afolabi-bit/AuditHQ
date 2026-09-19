@@ -222,7 +222,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-lg font-bold text-text-primary tracking-tight">
-                  Automated Diagnostics & Remediation
+                  Diagnostics & Suggested Fixes
                 </h2>
                 <span
                   className={`px-2.5 py-0.5 rounded-full text-xs font-semibold ${getVerdictStyle(
@@ -233,7 +233,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                 </span>
               </div>
               <p className="text-xs text-text-secondary mt-0.5">
-                Deterministic root cause analysis and framework-aware remediation code
+                Root causes identified from audit traces with suggested fixes
               </p>
             </div>
           </div>
@@ -286,7 +286,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
             </div>
             <div>
               <p className="text-[11px] font-semibold text-text-tertiary uppercase">
-                Remediation Plan
+                Fixes Found
               </p>
               <p className="text-base font-bold text-text-primary font-mono">
                 {summary.priorityFixes.length} Priority Fixes
@@ -298,7 +298,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
         {/* Priority Code Fixes Accordion List */}
         <div className="space-y-3 pt-2">
           <h3 className="text-xs font-semibold tracking-wider uppercase text-text-tertiary">
-            Prioritized Engineering Remediation
+            Recommended Fixes
           </h3>
 
           <div className="space-y-3">
@@ -359,7 +359,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                         </div>
                         <div className="p-3.5 bg-surface-1 rounded-xl border border-border space-y-1">
                           <p className="font-semibold text-brand-600 dark:text-brand-400 uppercase text-[10px]">
-                            Remediation Plan
+                            Suggested Fix
                           </p>
                           <p className="text-text-secondary leading-relaxed">
                             {fix.solution}
@@ -372,7 +372,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                           <div className="flex items-center justify-between text-xs text-text-tertiary">
                             <span className="flex items-center gap-1.5 font-medium">
                               <Code weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
-                              Recommended Implementation
+                              Code Example
                             </span>
                             <button
                               onClick={() => handleCopy(fix.codeSnippet!, idx)}
