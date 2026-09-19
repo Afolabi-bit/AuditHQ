@@ -90,22 +90,27 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
         return;
       }
 
-      const testId = data.testId || data.id;
-      const score = data.results?.performanceScore ?? data.performanceScore;
-      const normalizedTargetUrl = data.url || url;
+      const testId = data.data?.testId || data.testId || data.id;
+      const score =
+        data.data?.performanceScore ??
+        data.results?.performanceScore ??
+        data.performanceScore;
+      const normalizedTargetUrl = data.data?.url || data.url || url;
 
       // Optimistically push the newly completed test to local Zustand store
       if (testId) {
-        const dId = String(data.domainId || "d-" + Date.now());
+        const dId = String(
+          data.data?.domainId || data.domainId || "d-" + Date.now()
+        );
         useAppStore.getState().upsertTest({
           id: String(testId),
           domainId: dId,
           status: "completed",
           performanceScore: score ?? null,
-          fcp: data.results?.fcp ?? null,
-          lcp: data.results?.lcp ?? null,
-          tbt: data.results?.tbt ?? null,
-          cls: data.results?.cls ?? null,
+          fcp: data.data?.fcp ?? data.results?.fcp ?? null,
+          lcp: data.data?.lcp ?? data.results?.lcp ?? null,
+          tbt: data.data?.tbt ?? data.results?.tbt ?? null,
+          cls: data.data?.cls ?? data.results?.cls ?? null,
           device,
           network,
           errorMessage: null,
@@ -133,12 +138,16 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
 
       toast.success("Audit complete!", {
         id: queuedToastId,
-        description: `Performance score: ${score ?? "—"}/100 for ${normalizedTargetUrl}`,
-        action: {
-          label: "View Full Report",
-          onClick: () =>
-            (window.location.href = `/dashboard/test/${testId}`),
-        },
+        description: `Performance score: ${score !== null && score !== undefined ? score : "—"}/100 for ${normalizedTargetUrl}`,
+        ...(testId
+          ? {
+              action: {
+                label: "View Full Report",
+                onClick: () =>
+                  (window.location.href = `/dashboard/test/${testId}`),
+              },
+            }
+          : {}),
       });
     } catch (error) {
       console.error("Error submitting test:", error);
