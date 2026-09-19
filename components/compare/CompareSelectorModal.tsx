@@ -143,11 +143,11 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="bg-surface-0 border border-border rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl flex flex-col max-h-[88vh] h-full overflow-hidden animate-in zoom-in-95 duration-150"
+        className="bg-surface-0/95 backdrop-blur-xl border border-border/80 rounded-2xl max-w-xl w-full p-5 sm:p-6 shadow-2xl flex flex-col max-h-[88vh] h-full overflow-hidden animate-in zoom-in-95 duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 1. Modal Header */}
@@ -176,7 +176,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           <button
             type="button"
             onClick={() => setActiveSlot("base")}
-            className={`sm:col-span-5 p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
+            className={`sm:col-span-5 p-2.5 rounded-lg border text-start transition-all cursor-pointer ${
               activeSlot === "base"
                 ? "bg-surface-0 border-brand-500 shadow-xs ring-1 ring-brand-500/30"
                 : "bg-surface-0/60 border-border hover:bg-surface-0"
@@ -224,7 +224,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           <button
             type="button"
             onClick={() => setActiveSlot("target")}
-            className={`sm:col-span-5 p-2.5 rounded-lg border text-left transition-all cursor-pointer ${
+            className={`sm:col-span-5 p-2.5 rounded-lg border text-start transition-all cursor-pointer ${
               activeSlot === "target"
                 ? "bg-surface-0 border-brand-500 shadow-xs ring-1 ring-brand-500/30"
                 : "bg-surface-0/60 border-border hover:bg-surface-0"
@@ -272,13 +272,13 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
           </div>
 
           <div className="relative">
-            <MagnifyingGlass weight="bold" className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
+            <MagnifyingGlass weight="bold" className="h-3.5 w-3.5 absolute start-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
             <input
               type="text"
               placeholder="Search audits by URL or device..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-1 border border-border rounded-lg pl-8 pr-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
+              className="w-full bg-surface-1 border border-border rounded-lg ps-8 pe-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
             />
           </div>
 
@@ -324,7 +324,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
         </div>
 
         {/* 4. Interactive Scrollable Audit List Container */}
-        <div className="flex-1 min-h-0 overflow-y-auto space-y-1.5 pr-1">
+        <div className="flex-1 min-h-0 overflow-y-auto space-y-1.5 pe-1">
           {filteredList.length === 0 ? (
             <div className="py-10 text-center text-xs text-text-tertiary font-mono space-y-1">
               <p>No matching completed audits found.</p>
