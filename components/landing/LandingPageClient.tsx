@@ -1282,7 +1282,9 @@ export default function LandingPageClient() {
                     borderRadius: "16px",
                     background: "#181818",
                     border: "1px solid rgba(255,255,255,0.06)",
-                    borderLeft: "2px solid rgba(37,99,235,0.45)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "24px",
                   }}
                 >
                   <p
