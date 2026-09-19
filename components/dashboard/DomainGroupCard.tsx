@@ -221,7 +221,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
               className="h-9 px-3.5 text-xs font-semibold border-border hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-300 gap-1.5 rounded-xl cursor-pointer"
             >
               <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
-              <span>Compare Domain Runs</span>
+              <span>Compare Audits</span>
             </Button>
           )}
 
@@ -234,7 +234,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
             className="h-9 px-3.5 text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white gap-1.5 rounded-xl shadow-xs cursor-pointer disabled:opacity-50"
           >
             <Lightning weight="fill" className="h-3.5 w-3.5" />
-            <span>{isQueueing ? "Auditing…" : "Run Audit"}</span>
+            <span>{isQueueing ? "Running…" : "Run Audit"}</span>
           </Button>
 
           {/* Expand Toggle */}
