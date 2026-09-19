@@ -127,14 +127,14 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
           <div>
             <div className="flex items-center gap-2.5">
               <h2 className="text-lg font-bold text-text-primary">
-                Comparative Delta Diagnostics
+                Comparison Summary
               </h2>
               <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold bg-surface-1 text-text-secondary border border-border uppercase">
-                Differential Engine
+                Automated Analysis
               </span>
             </div>
             <p className="text-xs sm:text-sm text-text-secondary mt-0.5">
-              Deterministic comparative telemetry synthesis and root-cause evaluation
+              Side-by-side performance changes and root causes
             </p>
           </div>
         </div>
@@ -168,7 +168,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
           <div className="bg-surface-1 p-4 rounded-xl border border-border space-y-2.5">
             <p className="text-xs font-bold text-score-good uppercase tracking-wider flex items-center gap-1.5">
               <CheckCircle weight="fill" className="h-4 w-4 text-score-good" />
-              Key Optimizations Achieved
+              Improvements
             </p>
             <ul className="space-y-1.5 text-xs text-text-secondary">
               {summary.keyWins.map((win, idx) => (
@@ -186,7 +186,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
           <div className="bg-surface-1 p-4 rounded-xl border border-border space-y-2.5">
             <p className="text-xs font-bold text-score-poor uppercase tracking-wider flex items-center gap-1.5">
               <Warning weight="fill" className="h-4 w-4 text-score-poor" />
-              Identified Regressions
+              Regressions
             </p>
             <ul className="space-y-1.5 text-xs text-text-secondary">
               {summary.keyRegressions.map((reg, idx) => (
@@ -206,7 +206,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
           <ShieldCheck weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
           <div>
             <span className="font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider text-[10px] block">
-              Remediation Directive
+              Recommended Next Step
             </span>
             <p className="text-text-secondary leading-relaxed mt-0.5">
               {summary.recommendedAction}
