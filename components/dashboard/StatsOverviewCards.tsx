@@ -189,7 +189,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
           {isLoading ? (
             <div className="h-4 w-28 rounded bg-surface-2 animate-pulse" />
           ) : (
-            <span>Multi-domain telemetry</span>
+            <span>Unique domains tested</span>
           )}
         </div>
       </div>
@@ -234,7 +234,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
           ) : (
             <span className="inline-flex items-center gap-1.5 text-text-tertiary font-mono">
               <Minus weight="bold" className="h-3.5 w-3.5" />
-              Lighthouse simulated LCP
+              Median LCP across tests
             </span>
           )}
         </div>
