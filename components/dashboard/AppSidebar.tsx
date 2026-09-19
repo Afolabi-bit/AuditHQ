@@ -47,19 +47,19 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
 
   const navItems = [
     {
-      label: "Console & Audits",
+      label: "Audits & History",
       href: "/dashboard",
       icon: <SquaresFour weight="fill" className="h-4 w-4" />,
       active: pathname === "/dashboard" || pathname.startsWith("/dashboard/test"),
     },
     {
-      label: "Compare Engine",
+      label: "Compare Audits",
       href: "/dashboard/compare",
       icon: <ArrowsLeftRight weight="bold" className="h-4 w-4" />,
       active: pathname.startsWith("/dashboard/compare") || pathname.startsWith("/compare"),
     },
     {
-      label: "Account & Settings",
+      label: "Settings",
       href: "/profile",
       icon: <User weight="fill" className="h-4 w-4" />,
       active: pathname === "/profile" || pathname.startsWith("/profile"),
@@ -142,7 +142,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
 
           <div className="space-y-1.5">
             <div className="flex justify-between text-[11px] font-mono text-text-tertiary">
-              <span>Audits Quota</span>
+              <span>Monthly quota</span>
               <span>
                 {stats.testsThisMonth} / {stats.testsLimit || 100}
               </span>
