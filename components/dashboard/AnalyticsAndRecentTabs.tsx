@@ -98,7 +98,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
             Audit Activity & History
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
-            Chronological feed of automated and user-triggered Lighthouse cloud audit runs
+            Past Lighthouse audits run from your account
           </p>
         </div>
 
@@ -116,13 +116,13 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
                 Performance Score Trajectory
               </h3>
               <p className="text-xs sm:text-sm text-text-secondary">
-                Sequential score distribution and variation tracking across recent audit executions
+                Scores over your recent audit runs
               </p>
             </div>
 
             {stats.avgPerformance != null && (
               <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 self-start sm:self-auto shadow-2xs">
-                Fleet Average: {stats.avgPerformance}/100
+                Average Score: {stats.avgPerformance}/100
               </span>
             )}
           </div>
@@ -145,10 +145,10 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
         <div className="space-y-4">
           <div className="space-y-1">
             <h3 className="text-base sm:text-lg font-bold text-text-primary font-sans">
-              Aggregated Core Web Vitals
+              Core Web Vitals Averages
             </h3>
             <p className="text-xs sm:text-sm text-text-secondary">
-              Weighted averages across all audited domains against Google threshold targets
+              Average vital metrics across all domains you audited
             </p>
           </div>
 
@@ -180,12 +180,12 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
               </div>
               <p className="text-[11px] text-text-tertiary">
                 {cwv.lcp == null
-                  ? "No telemetry recorded"
+                  ? "No data yet"
                   : cwv.lcp <= 2.5
-                  ? "✓ Fast viewport visual"
+                  ? "✓ Fast"
                   : cwv.lcp <= 4.0
-                  ? "⚠ Needs improvement"
-                  : "✗ Slow visual render"}
+                  ? "⚠ Needs work"
+                  : "✗ Slow"}
               </p>
             </div>
 
@@ -216,12 +216,12 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
               </div>
               <p className="text-[11px] text-text-tertiary">
                 {cwv.tbt == null
-                  ? "No telemetry recorded"
+                  ? "No data yet"
                   : cwv.tbt <= 200
-                  ? "✓ Main thread responsive"
+                  ? "✓ Responsive"
                   : cwv.tbt <= 600
-                  ? "⚠ High script latency"
-                  : "✗ Heavy execution blocks"}
+                  ? "⚠ High blocking time"
+                  : "✗ Long main-thread tasks"}
               </p>
             </div>
 
@@ -252,12 +252,12 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
               </div>
               <p className="text-[11px] text-text-tertiary">
                 {cwv.cls == null
-                  ? "No telemetry recorded"
+                  ? "No data yet"
                   : cwv.cls <= 0.1
-                  ? "✓ Visual elements stable"
+                  ? "✓ Stable layout"
                   : cwv.cls <= 0.25
-                  ? "⚠ Minor layout shifting"
-                  : "✗ Severe visual shifts"}
+                  ? "⚠ Minor shifts"
+                  : "✗ Frequent layout shifts"}
               </p>
             </div>
           </div>
