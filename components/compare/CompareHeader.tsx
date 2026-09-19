@@ -74,7 +74,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
 
             <div className="flex items-center gap-1.5 text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
               <Lightning weight="fill" className="h-3.5 w-3.5" />
-              Audit Regression & Diff Engine
+              Audit Comparison
             </div>
           </div>
 
@@ -117,7 +117,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
           <div className="md:col-span-5 space-y-1">
             <div className="flex items-center gap-2">
               <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-surface-2 text-text-secondary border border-border">
-                Base Run (Baseline)
+                Baseline Run
               </span>
               <span className="text-[11px] font-mono text-text-tertiary flex items-center gap-1">
                 <Calendar weight="bold" className="h-3 w-3" />
@@ -163,7 +163,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
                 {formatRunDate(report.target.createdAt)}
               </span>
               <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 order-1 md:order-2">
-                Target Run (Comparison)
+                New Run
               </span>
             </div>
             <p className="text-sm sm:text-base font-bold text-text-primary truncate font-mono flex items-center gap-1.5 md:justify-end">
