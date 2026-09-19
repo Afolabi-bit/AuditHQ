@@ -142,7 +142,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
         ...(testId
           ? {
               action: {
-                label: "View Full Report",
+                label: "View Report",
                 onClick: () =>
                   (window.location.href = `/dashboard/test/${testId}`),
               },
@@ -173,7 +173,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-text-secondary">
-            Execute headless Lighthouse evaluation with real-world device simulation and network throttling
+            Run Lighthouse in a clean Chromium container with your choice of device emulation and network speed
           </p>
         </div>
 
@@ -277,7 +277,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
         {/* Submit Action */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
           <p className="text-xs text-text-tertiary hidden sm:block">
-            Includes Automated Diagnostics & Core Web Vitals breakdown
+            Includes metric breakdowns, filmstrip frames, and actionable audit fixes
           </p>
           <Button
             type="submit"
