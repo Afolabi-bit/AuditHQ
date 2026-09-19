@@ -293,7 +293,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                     <FileText weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-text-primary">Executive Summary</p>
-                      <p className="text-[11px] text-text-tertiary">1-Page C-level performance briefing</p>
+                      <p className="text-[11px] text-text-tertiary">1-page performance overview</p>
                     </div>
                   </button>
 
@@ -304,7 +304,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                     <DownloadSimple weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-text-primary">Full Technical Audit</p>
-                      <p className="text-[11px] text-text-tertiary">Detailed CWVs & payload diagnostics</p>
+                      <p className="text-[11px] text-text-tertiary">Full metrics, filmstrip, and audit breakdown</p>
                     </div>
                   </button>
                 </div>
