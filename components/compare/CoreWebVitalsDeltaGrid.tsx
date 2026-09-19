@@ -123,7 +123,7 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
                 </div>
 
                 {/* Target Value */}
-                <div className="space-y-0.5 border-l border-border/70 pl-3">
+                <div className="space-y-0.5 border-s border-border/70 ps-3">
                   <span className="text-[10px] uppercase font-semibold text-text-tertiary">
                     Target Run
                   </span>
