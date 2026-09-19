@@ -19,7 +19,7 @@ export default function LandingCta() {
             borderRadius: "24px",
             background: "#181818",
             border: "1px solid rgba(255,255,255,0.07)",
-            padding: "80px 48px",
+            padding: "clamp(48px, 8vw, 80px) clamp(20px, 5vw, 48px)",
             textAlign: "center",
           }}
         >
