@@ -225,7 +225,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
 
                       {/* Collapsed dot indicator */}
                       {isCollapsed && item.dot && (
-                        <span className={`absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full ${item.dot}`} />
+                        <span className={`absolute -top-0.5 -end-0.5 w-2 h-2 rounded-full ${item.dot}`} />
                       )}
                     </div>
 
@@ -247,7 +247,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
     <>
       {/* Desktop Collapsible Left Sidebar */}
       <aside
-        className={`hidden lg:block shrink-0 bg-surface-0 border-r border-border h-screen sticky top-0 overflow-y-auto z-20 transition-all duration-200 ${
+        className={`hidden lg:block shrink-0 bg-surface-0 border-e border-border h-screen sticky top-0 overflow-y-auto z-20 transition-all duration-200 ${
           isCollapsed ? "w-14" : "w-56"
         }`}
       >
@@ -258,11 +258,11 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
       {mobileOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden lg:hidden">
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in"
+            className="fixed inset-0 bg-black/40 backdrop-blur-md transition-opacity animate-in fade-in"
             onClick={onCloseMobile}
           />
-          <div className="fixed inset-y-0 left-0 max-w-full flex pr-12">
-            <div className="w-screen max-w-xs bg-surface-0 border-r border-border shadow-xl animate-in slide-in-from-left">
+          <div className="fixed inset-y-0 start-0 max-w-full flex pe-12">
+            <div className="w-screen max-w-xs bg-surface-0/95 backdrop-blur-2xl border-e border-border shadow-2xl animate-in slide-in-from-left duration-250 ease-[cubic-bezier(0.32,0.72,0,1)]">
               {sidebarBody}
             </div>
           </div>
