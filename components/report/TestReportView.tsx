@@ -68,15 +68,15 @@ interface TestReportViewProps {
 }
 
 const sectionsList: Array<{ id: ReportSectionKey; label: string }> = [
-  { id: "scorecard", label: "Executive Scorecard" },
+  { id: "scorecard", label: "Category Scores" },
   { id: "vitals", label: "Core Web Vitals" },
-  { id: "ai", label: "Automated Diagnostics" },
+  { id: "ai", label: "Diagnostics & Fixes" },
   { id: "visual", label: "Visual Filmstrip" },
-  { id: "opportunities", label: "Opportunities & Savings" },
-  { id: "network", label: "Network & Payloads" },
+  { id: "opportunities", label: "Opportunities" },
+  { id: "network", label: "Network Payloads" },
   { id: "a11y", label: "Accessibility & SEO" },
-  { id: "security", label: "Security Checks" },
-  { id: "diagnostics", label: "Engine Diagnostics" },
+  { id: "security", label: "Security" },
+  { id: "diagnostics", label: "DOM & Diagnostics" },
 ];
 
 export const TestReportView: React.FC<TestReportViewProps> = ({
@@ -204,7 +204,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             </h2>
             <p className="text-xs text-text-secondary leading-relaxed">
               {isPending
-                ? "Lighthouse 12.0 engine is executing headless simulations. This page will update automatically upon completion."
+                ? "Lighthouse 12.0 is running tests in a cloud container. This page updates automatically when it finishes."
                 : test.errorMessage ||
                   "This audit could not be completed. Check the domain URL or try running the test again."}
             </p>
@@ -215,7 +215,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 size="sm"
                 className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-xl px-5 h-10 cursor-pointer shadow-xs"
               >
-                {isPublic ? "Return to AuditHQ Home" : "Return to Dashboard"}
+                {isPublic ? "Return to Home" : "Return to Dashboard"}
               </Button>
             </Link>
           </div>
@@ -226,40 +226,40 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
   const sectionTitles: Record<ReportSectionKey, { title: string; subtitle: string }> = {
     scorecard: {
-      title: "Executive Health Scorecard",
-      subtitle: "Multi-dimensional Lighthouse 12.0 category assessment and composite performance index",
+      title: "Category Scores",
+      subtitle: "Overall performance, accessibility, best practices, and SEO scores from Lighthouse 12.0",
     },
     vitals: {
-      title: "Core Web Vitals & Diagnostic Metrics",
-      subtitle: "Official Google ranking vitals, main-thread responsiveness, and rendering milestones",
+      title: "Core Web Vitals",
+      subtitle: "LCP, FCP, TBT, and CLS compared against Google thresholds",
     },
     ai: {
-      title: "Automated Diagnostics & Remediation",
-      subtitle: "Deterministic root-cause analysis, projected speed lift, and framework-specific code remediation",
+      title: "Diagnostics & Fixes",
+      subtitle: "Root causes identified from the traces with actionable code fixes",
     },
     visual: {
-      title: "Visual Load Experience & Filmstrip",
-      subtitle: "Step-by-step visual progression player and high-resolution full-page screenshot",
+      title: "Visual Filmstrip",
+      subtitle: "Frame-by-frame loading timeline and full-page screenshot",
     },
     opportunities: {
-      title: "Optimization Opportunities & Savings",
-      subtitle: "Actionable recommendations to reclaim wasted network payload bytes and reduce render delays",
+      title: "Opportunities & Savings",
+      subtitle: "Potential byte and time savings to speed up page load",
     },
     network: {
-      title: "Network Payloads & Third-Party Overhead",
-      subtitle: "Asset distribution, MIME type breakdown, and third-party script latency analysis",
+      title: "Network Payloads",
+      subtitle: "Resource breakdown by type and third-party script transfer sizes",
     },
     a11y: {
-      title: "Accessibility & SEO Compliance",
-      subtitle: "WCAG 2.1 contrast ratios, ARIA attribute validation, and search crawlability audit",
+      title: "Accessibility & SEO",
+      subtitle: "Color contrast, ARIA landmarks, and search indexing checks",
     },
     security: {
-      title: "Security Checks & Vulnerability Audits",
-      subtitle: "HTTPS enforcement, CSP headers, cross-origin isolation, and JavaScript library checks",
+      title: "Security Checks",
+      subtitle: "HTTPS, security headers, and known library vulnerabilities",
     },
     diagnostics: {
-      title: "Engine Diagnostics & DOM Health",
-      subtitle: "Detailed runtime breakdown of main-thread execution, layout shifts, and DOM element nodes",
+      title: "DOM & Diagnostics",
+      subtitle: "Main-thread work, layout shift sources, and DOM node count",
     },
   };
 
