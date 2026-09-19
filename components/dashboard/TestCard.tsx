@@ -180,7 +180,7 @@ const TestCard = ({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-600"></span>
               </span>
-              <span className="font-medium">Lighthouse headless browser is capturing traces, Core Web Vitals, and filmstrips…</span>
+              <span className="font-medium">Lighthouse is running traces and recording performance metrics…</span>
             </div>
           )}
 
@@ -228,7 +228,7 @@ const TestCard = ({
             <div className="flex items-center gap-2 text-xs text-text-secondary w-full sm:w-auto justify-between sm:justify-start">
               <span className="inline-flex items-center gap-1.5 font-medium text-text-tertiary">
                 <Cpu weight="fill" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
-                Diagnostics Available
+                Diagnostics ready
               </span>
             </div>
 
@@ -237,7 +237,7 @@ const TestCard = ({
                 size="default"
                 className="w-full sm:w-auto h-11 sm:h-9 px-6 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-xl shadow-xs shadow-brand-500/20 cursor-pointer gap-2 transition-transform active:scale-[0.98]"
               >
-                <span>View Full Report</span>
+                <span>View Report</span>
                 <ArrowRight weight="bold" className="h-4 w-4" />
               </Button>
             </Link>
