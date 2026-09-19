@@ -65,28 +65,16 @@ const STEPS = [
 
 const TESTIMONIALS = [
   {
-    name: "Kenji Watanabe",
-    role: "Staff Engineer",
-    company: "Radial Commerce",
     quote:
       "We had been arguing about Lighthouse scores for weeks because local runs kept giving different numbers. AuditHQ ended that debate on day one. Now the score in the pull request is the score that ships.",
-    hue: 210,
   },
   {
-    name: "Priya Mehta",
-    role: "Frontend Lead",
-    company: "Fieldwork Labs",
     quote:
       "The shareable link feature alone is worth it. I used to spend 20 minutes stitching screenshots into a slide deck for clients. Now I paste one URL and the conversation starts from data.",
-    hue: 150,
   },
   {
-    name: "Marcus Oduya",
-    role: "Head of Platform",
-    company: "Corvo Infra",
     quote:
       "We run 47 audits a week across four client domains. The historical trajectory charts caught a TBT regression in week two that our monitoring missed entirely. Paid for itself before the month ended.",
-    hue: 30,
   },
 ];
 
@@ -206,7 +194,6 @@ export default function LandingPageClient() {
         fontFamily: "var(--font-sans), sans-serif",
       }}
     >
-      <a href="#main-content">Skip to content</a>
 
       <div
         className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
@@ -517,9 +504,7 @@ export default function LandingPageClient() {
         </div>
       </div>
 
-      {/* ══ MAIN CONTENT ══════════════════════════════════════════════ */}
       <main id="main-content">
-        {/* ── Hero ──────────────────────────────────────────────────── */}
         <section
           aria-label="Hero"
           style={{
@@ -532,7 +517,6 @@ export default function LandingPageClient() {
           <div
             style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}
           >
-            {/* Status badge */}
             <div
               style={{
                 display: "inline-flex",
@@ -1286,7 +1270,7 @@ export default function LandingPageClient() {
                   letterSpacing: "0.08em",
                 }}
               >
-                WHAT TEAMS SAY
+                WHAT PEOPLE SAY
               </p>
               <h2
                 style={{
@@ -1297,7 +1281,7 @@ export default function LandingPageClient() {
                   textWrap: "balance",
                 }}
               >
-                Engineering teams who stopped guessing
+                From the teams using it every day
               </h2>
             </div>
 
@@ -1317,9 +1301,6 @@ export default function LandingPageClient() {
                     borderRadius: "16px",
                     background: "#181818",
                     border: "1px solid rgba(255,255,255,0.06)",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "24px",
                   }}
                 >
                   <p
@@ -1327,64 +1308,10 @@ export default function LandingPageClient() {
                       fontSize: "15px",
                       lineHeight: "24px",
                       color: "rgba(255,255,255,0.68)",
-                      flex: 1,
                     }}
                   >
                     &ldquo;{t.quote}&rdquo;
                   </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "12px",
-                      paddingTop: "8px",
-                      borderTop: "1px solid rgba(255,255,255,0.06)",
-                    }}
-                  >
-                    <div
-                      aria-hidden="true"
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        borderRadius: "50%",
-                        background: `hsl(${t.hue}, 40%, 18%)`,
-                        border: `1px solid hsl(${t.hue}, 40%, 28%)`,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "12px",
-                        fontWeight: 700,
-                        color: `hsl(${t.hue}, 65%, 68%)`,
-                        flexShrink: 0,
-                      }}
-                    >
-                      {t.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </div>
-                    <div>
-                      <p
-                        style={{
-                          fontSize: "14px",
-                          fontWeight: 600,
-                          color: "#ffffff",
-                          lineHeight: 1.2,
-                        }}
-                      >
-                        {t.name}
-                      </p>
-                      <p
-                        style={{
-                          fontSize: "12px",
-                          color: "rgba(255,255,255,0.38)",
-                          marginTop: "2px",
-                        }}
-                      >
-                        {t.role}, {t.company}
-                      </p>
-                    </div>
-                  </div>
                 </div>
               ))}
             </div>
@@ -1462,11 +1389,8 @@ export default function LandingPageClient() {
                       gap: "16px",
                       outline: "none",
                     }}
-                    onFocus={(e) =>
-                      (e.currentTarget.style.boxShadow =
-                        "inset 0 0 0 2px rgba(37,99,235,0.40)")
-                    }
-                    onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+                    onFocus={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.02)")}
+                    onBlur={(e) => (e.currentTarget.style.background = "none")}
                   >
                     <span
                       style={{
