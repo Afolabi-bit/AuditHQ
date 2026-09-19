@@ -84,7 +84,7 @@ const TestCard = ({
   return (
     <>
       <div
-        className={`rounded-2xl bg-surface-0 border transition-all duration-200 overflow-hidden shadow-xs hover:shadow-md ${
+        className={`rounded-2xl bg-surface-0 border transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 overflow-hidden shadow-xs hover:shadow-md ${
           isCompleted
             ? "border-border hover:border-brand-300 dark:hover:border-brand-500/40"
             : isPending
