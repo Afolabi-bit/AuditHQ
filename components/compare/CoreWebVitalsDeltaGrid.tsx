@@ -76,10 +76,10 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
         <div className="space-y-0.5">
           <h2 className="text-lg sm:text-xl font-bold text-text-primary flex items-center gap-2.5">
             <Gauge weight="bold" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
-            Core Web Vitals & Diagnostic Metrics Comparison
+            Core Web Vitals Comparison
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
-            Comparative performance telemetry measured across identical synthetic conditions
+            Side-by-side metric deltas measured under identical throttled conditions
           </p>
         </div>
       </div>
