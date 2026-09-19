@@ -137,7 +137,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
   };
 
   return (
-    <div className="bg-surface-0 border border-border rounded-2xl overflow-hidden shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all">
+    <div className="bg-surface-0 border border-border rounded-2xl overflow-hidden shadow-xs hover:shadow-sm hover:border-brand-200 dark:hover:border-brand-500/30 transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]">
       {/* ── Domain Summary Header Banner ── */}
       <div
         onClick={() => setIsExpanded(!isExpanded)}
