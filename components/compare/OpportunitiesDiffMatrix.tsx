@@ -66,10 +66,10 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
         <div className="space-y-1">
           <h2 className="text-lg sm:text-xl font-bold text-text-primary flex items-center gap-2.5">
             <Lightning weight="fill" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
-            Lighthouse Opportunities Transition Matrix
+            Opportunity Changes
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
-            Tracking diagnostic issues resolved, introduced, or modified between audits
+            Fixes resolved, introduced, or worsened between these two runs
           </p>
         </div>
 
