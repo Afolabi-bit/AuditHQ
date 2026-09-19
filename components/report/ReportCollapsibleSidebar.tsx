@@ -75,7 +75,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
       items: [
         {
           id: "scorecard" as ReportSectionKey,
-          label: "Executive Scorecard",
+          label: "Category Scores",
           icon: <Gauge weight="bold" className="h-4 w-4" />,
           dot: getScoreDot(report.scores.performance),
         },
@@ -87,7 +87,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
         },
         {
           id: "ai" as ReportSectionKey,
-          label: "Automated Diagnostics",
+          label: "Diagnostics & Fixes",
           icon: <Cpu weight="fill" className="h-4 w-4" />,
           dot: null,
         },
@@ -122,13 +122,13 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
         },
         {
           id: "security" as ReportSectionKey,
-          label: "Security Checks",
+          label: "Security",
           icon: <ShieldCheck weight="fill" className="h-4 w-4" />,
           dot: securityDot,
         },
         {
           id: "diagnostics" as ReportSectionKey,
-          label: "Diagnostics",
+          label: "DOM & Diagnostics",
           icon: <Stack weight="bold" className="h-4 w-4" />,
           dot: diagnosticsDot,
         },
