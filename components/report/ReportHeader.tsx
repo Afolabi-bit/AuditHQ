@@ -139,7 +139,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   const isGeneratingPdf = activePdfFormat !== null;
 
   return (
-    <header className="bg-surface-0 text-text-primary border-b border-border shadow-2xs sticky top-0 z-30 transition-colors">
+    <header className="bg-surface-0/80 backdrop-blur-xl saturate-180 text-text-primary border-b border-border/70 shadow-2xs sticky top-0 z-30 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4.5 space-y-3">
         {/* Top Breadcrumb / Nav Line */}
         <div className="flex items-center justify-between text-xs">
@@ -224,12 +224,12 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
             >
               {copied ? (
                 <>
-                  <Check weight="bold" className="h-3.5 w-3.5 mr-1 text-score-good" />
+                  <Check weight="bold" className="h-3.5 w-3.5 me-1 text-score-good" />
                   Copied!
                 </>
               ) : (
                 <>
-                  <ShareNetwork weight="bold" className="h-3.5 w-3.5 mr-1 text-text-tertiary" />
+                  <ShareNetwork weight="bold" className="h-3.5 w-3.5 me-1 text-text-tertiary" />
                   Share
                 </>
               )}
@@ -281,14 +281,14 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 
               {/* PDF Format Dropdown */}
               {isPdfMenuOpen && (
-                <div className="absolute right-0 mt-1.5 w-64 rounded-2xl bg-surface-0 border border-border shadow-xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div className="absolute end-0 mt-1.5 w-64 rounded-2xl bg-surface-0/95 backdrop-blur-xl border border-border/80 shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
                   <p className="px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-text-tertiary">
                     Select PDF Format
                   </p>
 
                   <button
                     onClick={() => handleExportPdf("basic")}
-                    className="w-full px-3.5 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
+                    className="w-full px-3.5 py-2 text-start hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                   >
                     <FileText weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                     <div>
@@ -299,7 +299,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 
                   <button
                     onClick={() => handleExportPdf("detailed")}
-                    className="w-full px-3.5 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
+                    className="w-full px-3.5 py-2 text-start hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                   >
                     <DownloadSimple weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                     <div>
