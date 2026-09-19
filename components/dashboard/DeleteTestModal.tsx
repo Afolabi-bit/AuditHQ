@@ -119,9 +119,8 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
             Are you sure you want to delete this test?
           </p>
           <p className="text-[11px] text-text-tertiary">
-            This will permanently remove the audit report and performance traces
-            from your dashboard. Please note that this execution still counts
-            against your monthly usage quota.
+            This permanently removes the report and traces from your account.
+            The run still counts against your monthly quota.
           </p>
         </div>
 
@@ -152,7 +151,7 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
             className="h-9 px-4 text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white rounded-xl gap-1.5 shadow-xs cursor-pointer disabled:opacity-50"
           >
             <Trash weight="bold" className="h-4 w-4" />
-            {isDeleting ? "Deleting…" : "Delete Audit Run"}
+            {isDeleting ? "Deleting…" : "Delete Audit"}
           </Button>
         </div>
       </div>
