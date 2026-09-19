@@ -220,7 +220,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
             >
               <Folders weight={viewMode === "domain" ? "fill" : "bold"} className="h-3.5 w-3.5" />
               <span>Group by Domain</span>
-              <span className="ml-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 text-text-tertiary">
+              <span className="ms-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 text-text-tertiary">
                 {domainGroups.length}
               </span>
             </button>
@@ -236,7 +236,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
             >
               <List weight={viewMode === "feed" ? "fill" : "bold"} className="h-3.5 w-3.5" />
               <span>Chronological Feed</span>
-              <span className="ml-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 text-text-tertiary">
+              <span className="ms-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 text-text-tertiary">
                 {displayTests.length}
               </span>
             </button>
@@ -246,13 +246,13 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
         {/* Right: Search Input & Global Compare Action */}
         <div className="flex items-center gap-2.5 flex-1 md:justify-end">
           <div className="relative w-full sm:w-64">
-            <MagnifyingGlass weight="bold" className="h-3.5 w-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
+            <MagnifyingGlass weight="bold" className="h-3.5 w-3.5 absolute start-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
             <input
               type="text"
               placeholder="Search domains or audit #..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-1 border border-border rounded-xl pl-8 pr-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
+              className="w-full bg-surface-1 border border-border rounded-xl ps-8 pe-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
             />
           </div>
 
