@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Space_Grotesk, JetBrains_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import getSessionUser from "@/lib/auth";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
@@ -20,10 +20,11 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 const BASE_URL = "https://swiftaudithq.vercel.app";
@@ -31,11 +32,11 @@ const BASE_URL = "https://swiftaudithq.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "AuditHQ — Web Performance Engineering Console",
+    default: "AuditHQ — Cloud Lighthouse Audits That Match Reality",
     template: "%s | AuditHQ",
   },
   description:
-    "Run cloud Google Lighthouse audits. Track Core Web Vitals, diagnose regressions with AI, and export executive whitepapers in seconds.",
+    "Run deterministic Lighthouse 12.0 audits in isolated cloud containers. Get reproducible Core Web Vitals scores, ranked remediation roadmaps, and shareable public links in under 25 seconds.",
   keywords: [
     "lighthouse audit",
     "web performance",
@@ -104,7 +105,7 @@ export default async function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${plusJakartaSans.variable}`}
+      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${manrope.variable}`}
     >
       <body
         className="bg-background text-foreground font-sans antialiased min-h-screen selection:bg-brand-600/20 selection:text-brand-500"
