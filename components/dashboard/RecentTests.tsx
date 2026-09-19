@@ -191,9 +191,9 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
           <Tray weight="bold" className="h-6 w-6" />
         </div>
         <div className="space-y-1 max-w-sm mx-auto">
-          <h3 className="text-sm font-semibold text-text-primary">No performance audits yet</h3>
+          <h3 className="text-sm font-semibold text-text-primary">No audits yet</h3>
           <p className="text-xs text-text-secondary">
-            Enter a website URL in the command bar above to generate your first Lighthouse audit and automated diagnostics.
+            Enter a URL above to run your first Lighthouse test and inspect the metrics.
           </p>
         </div>
       </div>
@@ -235,7 +235,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
               }`}
             >
               <List weight={viewMode === "feed" ? "fill" : "bold"} className="h-3.5 w-3.5" />
-              <span>Chronological Feed</span>
+              <span>All Audits</span>
               <span className="ms-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 text-text-tertiary">
                 {displayTests.length}
               </span>
@@ -249,7 +249,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
             <MagnifyingGlass weight="bold" className="h-3.5 w-3.5 absolute start-3 top-1/2 -translate-y-1/2 text-text-tertiary pointer-events-none" />
             <input
               type="text"
-              placeholder="Search domains or audit #..."
+              placeholder="Search domains or audit ID..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-surface-1 border border-border rounded-xl ps-8 pe-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
