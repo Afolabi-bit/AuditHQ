@@ -240,13 +240,13 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
           return (
             <div
               key={card.id}
-              className="bg-surface-0 border border-border rounded-xl p-5 sm:p-6 shadow-xs flex flex-col justify-between space-y-4"
+              className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col justify-between space-y-4 hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-md transition-all"
             >
               <div className="space-y-3.5">
                 {/* Card Top Row */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="p-2 rounded-lg bg-surface-1 border border-border text-brand-600 dark:text-brand-400 shrink-0">
+                    <div className="p-2.5 rounded-xl bg-surface-1/70 dark:bg-white/[0.04] border border-border/60 dark:border-white/[0.07] text-brand-600 dark:text-brand-400 shrink-0 shadow-2xs">
                       {card.icon}
                     </div>
                     <div className="min-w-0">
@@ -255,7 +255,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
                           {card.acronym}
                         </h4>
                         {card.isCoreVital && (
-                          <span className="px-1.5 py-0.2 rounded text-[10px] font-mono text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30 whitespace-nowrap">
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30 whitespace-nowrap">
                             Core Vital
                           </span>
                         )}
@@ -268,7 +268,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
 
                   {/* Rating Badge: nowrap & shrink-0 to prevent wrapping */}
                   <span
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold shrink-0 whitespace-nowrap ${theme.pill}`}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold shrink-0 whitespace-nowrap ${theme.pill}`}
                   >
                     <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${theme.dot}`} />
                     <span>{theme.label}</span>
@@ -295,7 +295,7 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
 
                 {/* 3-Zone Threshold Spectrum Bar */}
                 <div className="space-y-1 pt-1">
-                  <div className="relative h-1.5 w-full bg-surface-2 rounded-full overflow-hidden flex">
+                  <div className="relative h-1.5 w-full bg-surface-2 dark:bg-white/[0.08] rounded-full overflow-hidden flex">
                     <div className="w-1/3 h-full bg-emerald-500/30" />
                     <div className="w-1/3 h-full bg-amber-500/30" />
                     <div className="w-1/3 h-full bg-rose-500/30" />
@@ -319,9 +319,9 @@ export const CoreWebVitalsGrid: React.FC<CoreWebVitalsGridProps> = ({ metrics })
               </div>
 
               {/* Footer Weight */}
-              <div className="pt-3 border-t border-border flex items-center justify-between text-[11px] text-text-tertiary">
+              <div className="pt-3 border-t border-border/50 dark:border-white/[0.06] flex items-center justify-between text-[11px] text-text-tertiary">
                 <span>Lighthouse Weight</span>
-                <span className="font-mono text-text-secondary">{card.weight}</span>
+                <span className="font-mono text-text-secondary font-medium">{card.weight}</span>
               </div>
             </div>
           );
