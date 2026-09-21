@@ -156,18 +156,18 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
         {[1, 2].map((i) => (
           <div
             key={i}
-            className="rounded-2xl bg-surface-0 border border-border p-6 shadow-xs space-y-4"
+            className="rounded-2xl bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] p-6 shadow-2xs space-y-4"
           >
             <div className="flex items-center justify-between">
               <div className="space-y-2 flex-1 max-w-md">
-                <div className="h-5 w-48 rounded-lg bg-surface-2 animate-pulse" />
-                <div className="h-3.5 w-32 rounded-md bg-surface-2 animate-pulse" />
+                <div className="h-5 w-48 rounded-lg bg-surface-2 dark:bg-white/[0.06] animate-pulse" />
+                <div className="h-3.5 w-32 rounded-md bg-surface-2 dark:bg-white/[0.06] animate-pulse" />
               </div>
-              <div className="h-10 w-24 rounded-xl bg-surface-2 animate-pulse" />
+              <div className="h-10 w-24 rounded-xl bg-surface-2 dark:bg-white/[0.06] animate-pulse" />
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
               {[1, 2, 3, 4].map((j) => (
-                <div key={j} className="h-16 rounded-xl bg-surface-1 animate-pulse" />
+                <div key={j} className="h-16 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] animate-pulse" />
               ))}
             </div>
           </div>
@@ -178,7 +178,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 
   if (error && storedList.length === 0) {
     return (
-      <div className="text-center py-10 text-destructive font-mono text-xs bg-destructive/5 border border-destructive/20 rounded-2xl p-6">
+      <div className="text-center py-10 text-destructive font-mono text-xs bg-destructive/5 dark:bg-red-500/[0.05] border border-destructive/20 dark:border-red-500/20 rounded-2xl p-6 backdrop-blur-md">
         Failed to load tests. Please try refreshing the page.
       </div>
     );
@@ -186,12 +186,12 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
 
   if (displayTests.length === 0) {
     return (
-      <div className="text-center py-12 px-6 bg-surface-0 border border-border rounded-2xl shadow-xs space-y-3">
-        <div className="h-12 w-12 rounded-2xl bg-surface-1 border border-border flex items-center justify-center mx-auto text-text-tertiary">
+      <div className="text-center py-12 px-6 bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl shadow-2xs space-y-3">
+        <div className="h-12 w-12 rounded-2xl bg-surface-1/80 dark:bg-white/[0.05] border border-border/40 dark:border-white/[0.06] flex items-center justify-center mx-auto text-text-tertiary">
           <Tray weight="bold" className="h-6 w-6" />
         </div>
         <div className="space-y-1 max-w-sm mx-auto">
-          <h3 className="text-sm font-semibold text-text-primary">No audits yet</h3>
+          <h3 className="text-sm font-semibold text-text-primary font-display">No audits yet</h3>
           <p className="text-xs text-text-secondary">
             Enter a URL above to run your first Lighthouse test and inspect the metrics.
           </p>
@@ -205,22 +205,22 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
   return (
     <div className="space-y-5">
       {/* ── Control Deck: View Switcher, Search & Comparison Trigger ── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5 bg-surface-0 border border-border p-3 sm:p-4 rounded-2xl shadow-2xs">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5 bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] p-3 sm:p-4 rounded-2xl shadow-2xs">
         {/* Left: View Mode Segmented Switcher */}
         <div className="flex items-center gap-2">
-          <div className="inline-flex p-1 bg-surface-1 rounded-xl border border-border">
+          <div className="inline-flex p-1 bg-surface-1/60 dark:bg-white/[0.03] rounded-xl border border-border/40 dark:border-white/[0.06]">
             <button
               type="button"
               onClick={() => setViewMode("domain")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === "domain"
-                  ? "bg-surface-0 text-brand-600 dark:text-brand-300 shadow-2xs border border-border/80"
+                  ? "bg-surface-0 dark:bg-white/[0.08] text-brand-600 dark:text-white shadow-2xs border border-border/60 dark:border-white/10"
                   : "text-text-secondary hover:text-text-primary"
               }`}
             >
               <Folders weight={viewMode === "domain" ? "fill" : "bold"} className="h-3.5 w-3.5" />
               <span>Group by Domain</span>
-              <span className="ms-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 text-text-tertiary">
+              <span className="ms-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 dark:bg-white/[0.06] text-text-tertiary">
                 {domainGroups.length}
               </span>
             </button>
@@ -230,13 +230,13 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
               onClick={() => setViewMode("feed")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                 viewMode === "feed"
-                  ? "bg-surface-0 text-brand-600 dark:text-brand-300 shadow-2xs border border-border/80"
+                  ? "bg-surface-0 dark:bg-white/[0.08] text-brand-600 dark:text-white shadow-2xs border border-border/60 dark:border-white/10"
                   : "text-text-secondary hover:text-text-primary"
               }`}
             >
               <List weight={viewMode === "feed" ? "fill" : "bold"} className="h-3.5 w-3.5" />
               <span>All Audits</span>
-              <span className="ms-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 text-text-tertiary">
+              <span className="ms-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-surface-2 dark:bg-white/[0.06] text-text-tertiary">
                 {displayTests.length}
               </span>
             </button>
@@ -252,7 +252,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
               placeholder="Search domains or audit ID..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-1 border border-border rounded-xl ps-8 pe-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 transition-all"
+              className="w-full bg-surface-1/70 dark:bg-white/[0.04] border border-border/60 dark:border-white/[0.08] rounded-xl ps-8 pe-3 py-1.5 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0 dark:focus:bg-white/[0.07] focus:ring-2 focus:ring-brand-500/20 transition-all"
             />
           </div>
 
@@ -261,7 +261,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
               size="sm"
               variant="outline"
               onClick={() => setIsCompareModalOpen(true)}
-              className="h-8.5 px-3.5 text-xs font-semibold border-border hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-300 cursor-pointer gap-1.5 rounded-xl shrink-0"
+              className="h-8.5 px-3.5 text-xs font-semibold border-border/60 dark:border-white/[0.08] bg-surface-0/60 dark:bg-white/[0.04] hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-300 cursor-pointer gap-1.5 rounded-xl shrink-0 focus-ring"
             >
               <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
               <span className="hidden sm:inline">Compare 2 Audits</span>
@@ -275,7 +275,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
       {viewMode === "domain" && (
         <div className="space-y-4">
           {domainGroups.length === 0 ? (
-            <div className="py-12 text-center text-xs text-text-tertiary font-mono bg-surface-0 border border-border rounded-2xl p-6">
+            <div className="py-12 text-center text-xs text-text-tertiary font-mono bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-6">
               No domains matched &quot;{searchQuery}&quot;.
             </div>
           ) : (
@@ -297,7 +297,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
       {viewMode === "feed" && (
         <div className="space-y-4">
           {filteredFeedTests.length === 0 ? (
-            <div className="py-12 text-center text-xs text-text-tertiary font-mono bg-surface-0 border border-border rounded-2xl p-6">
+            <div className="py-12 text-center text-xs text-text-tertiary font-mono bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-6">
               No audit runs matched &quot;{searchQuery}&quot;.
             </div>
           ) : (
