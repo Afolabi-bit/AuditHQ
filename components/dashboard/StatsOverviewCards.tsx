@@ -83,7 +83,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
       {/* 1. Tests This Month */}
-      <div className="bg-surface-0 border border-border rounded-xl p-5 sm:p-6 transition-colors flex flex-col justify-between">
+      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-2xs hover:border-brand-500/40 dark:hover:border-white/20 transition-all duration-200 flex flex-col justify-between group">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
             <p className="text-xs font-medium text-text-secondary">
@@ -91,7 +91,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             </p>
             <div className="text-3xl font-bold font-mono text-foreground tracking-tight">
               {isLoading ? (
-                <div className="h-9 w-16 rounded-md bg-surface-2 animate-pulse my-1" />
+                <div className="h-9 w-16 rounded-lg bg-surface-2 dark:bg-white/[0.06] animate-pulse my-1" />
               ) : (
                 <>
                   {stats.testsThisMonth}
@@ -102,17 +102,17 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
               )}
             </div>
           </div>
-          <div className="h-8 w-8 rounded-lg bg-surface-1 border border-border/80 text-text-secondary flex items-center justify-center shrink-0">
+          <div className="h-9 w-9 rounded-xl bg-surface-1/80 dark:bg-white/[0.05] border border-border/40 dark:border-white/[0.05] text-text-secondary dark:text-white/70 flex items-center justify-center shrink-0 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
             <ChartBar weight="bold" className="h-4 w-4" />
           </div>
         </div>
 
-        <div className="mt-5 pt-3.5 border-t border-border/70 space-y-2">
+        <div className="mt-5 pt-3.5 border-t border-border/40 dark:border-white/[0.05] space-y-2">
           <div className="flex justify-between text-xs text-text-tertiary font-mono">
             <span>Quota usage</span>
             <span className="font-semibold text-text-secondary">{isLoading ? "—" : `${usagePercent}%`}</span>
           </div>
-          <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-surface-2 dark:bg-white/[0.06] rounded-full overflow-hidden">
             <div
               className="h-full bg-brand-600 dark:bg-brand-500 rounded-full transition-all duration-500"
               style={{ width: `${isLoading ? 0 : usagePercent}%` }}
@@ -122,7 +122,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
       </div>
 
       {/* 2. Average Performance */}
-      <div className="bg-surface-0 border border-border rounded-xl p-5 sm:p-6 transition-colors flex flex-col justify-between">
+      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-2xs hover:border-brand-500/40 dark:hover:border-white/20 transition-all duration-200 flex flex-col justify-between group">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
             <p className="text-xs font-medium text-text-secondary">
@@ -130,35 +130,35 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             </p>
             <div className={`text-3xl font-bold font-mono tracking-tight ${getScoreTextColor(stats.avgPerformance)}`}>
               {isLoading ? (
-                <div className="h-9 w-14 rounded-md bg-surface-2 animate-pulse my-1" />
+                <div className="h-9 w-14 rounded-lg bg-surface-2 dark:bg-white/[0.06] animate-pulse my-1" />
               ) : (
                 stats.avgPerformance != null ? Math.round(Number(stats.avgPerformance)) : "—"
               )}
             </div>
           </div>
-          <div className="h-8 w-8 rounded-lg bg-surface-1 border border-border/80 text-score-good flex items-center justify-center shrink-0">
+          <div className="h-9 w-9 rounded-xl bg-surface-1/80 dark:bg-white/[0.05] border border-border/40 dark:border-white/[0.05] text-score-good flex items-center justify-center shrink-0">
             <Pulse weight="bold" className="h-4 w-4" />
           </div>
         </div>
 
-        <div className="mt-5 pt-3.5 border-t border-border/70 flex items-center text-xs">
+        <div className="mt-5 pt-3.5 border-t border-border/40 dark:border-white/[0.05] flex items-center text-xs">
           {isLoading ? (
-            <div className="h-4 w-32 rounded bg-surface-2 animate-pulse" />
+            <div className="h-4 w-32 rounded-full bg-surface-2 dark:bg-white/[0.06] animate-pulse" />
           ) : stats.performanceDiff != null && stats.performanceDiff !== 0 ? (
             stats.performanceDiff > 0 ? (
-              <span className="inline-flex items-center gap-1.5 text-score-good font-semibold text-xs font-mono">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold font-mono text-emerald-600 dark:text-emerald-400">
                 <TrendUp weight="bold" className="h-3.5 w-3.5" />
                 +{Number(stats.performanceDiff) % 1 === 0 ? stats.performanceDiff : Number(stats.performanceDiff).toFixed(1)} pts
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 text-score-poor font-semibold text-xs font-mono">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold font-mono text-red-600 dark:text-red-400">
                 <TrendDown weight="bold" className="h-3.5 w-3.5" />
                 {Number(stats.performanceDiff) % 1 === 0 ? stats.performanceDiff : Number(stats.performanceDiff).toFixed(1)} pts
               </span>
             )
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-text-tertiary font-mono">
-              <Minus weight="bold" className="h-3.5 w-3.5" />
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono text-text-tertiary">
+              <Minus weight="bold" className="h-3 w-3" />
               Stable baseline
             </span>
           )}
@@ -166,7 +166,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
       </div>
 
       {/* 3. Active Monitored Domains */}
-      <div className="bg-surface-0 border border-border rounded-xl p-5 sm:p-6 transition-colors flex flex-col justify-between">
+      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-2xs hover:border-brand-500/40 dark:hover:border-white/20 transition-all duration-200 flex flex-col justify-between group">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
             <p className="text-xs font-medium text-text-secondary">
@@ -174,20 +174,20 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             </p>
             <div className="text-3xl font-bold font-mono text-foreground tracking-tight">
               {isLoading ? (
-                <div className="h-9 w-12 rounded-md bg-surface-2 animate-pulse my-1" />
+                <div className="h-9 w-12 rounded-lg bg-surface-2 dark:bg-white/[0.06] animate-pulse my-1" />
               ) : (
                 stats.activeSites
               )}
             </div>
           </div>
-          <div className="h-8 w-8 rounded-lg bg-surface-1 border border-border/80 text-text-secondary flex items-center justify-center shrink-0">
+          <div className="h-9 w-9 rounded-xl bg-surface-1/80 dark:bg-white/[0.05] border border-border/40 dark:border-white/[0.05] text-text-secondary dark:text-white/70 flex items-center justify-center shrink-0 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
             <Globe weight="bold" className="h-4 w-4" />
           </div>
         </div>
 
-        <div className="mt-5 pt-3.5 border-t border-border/70 flex items-center text-xs font-mono text-text-tertiary">
+        <div className="mt-5 pt-3.5 border-t border-border/40 dark:border-white/[0.05] flex items-center text-xs font-mono text-text-tertiary">
           {isLoading ? (
-            <div className="h-4 w-28 rounded bg-surface-2 animate-pulse" />
+            <div className="h-4 w-28 rounded-full bg-surface-2 dark:bg-white/[0.06] animate-pulse" />
           ) : (
             <span>Unique domains tested</span>
           )}
@@ -195,7 +195,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
       </div>
 
       {/* 4. Avg Page Load Time */}
-      <div className="bg-surface-0 border border-border rounded-xl p-5 sm:p-6 transition-colors flex flex-col justify-between">
+      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-2xs hover:border-brand-500/40 dark:hover:border-white/20 transition-all duration-200 flex flex-col justify-between group">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
             <p className="text-xs font-medium text-text-secondary">
@@ -203,7 +203,7 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
             </p>
             <div className="text-3xl font-bold font-mono text-foreground tracking-tight">
               {isLoading ? (
-                <div className="h-9 w-16 rounded-md bg-surface-2 animate-pulse my-1" />
+                <div className="h-9 w-16 rounded-lg bg-surface-2 dark:bg-white/[0.06] animate-pulse my-1" />
               ) : stats.avgLoadTime != null ? (
                 `${(Number(stats.avgLoadTime) / 1000).toFixed(1)}s`
               ) : (
@@ -211,29 +211,29 @@ const StatsOverviewCards: React.FC<StatsOverviewCardsProps> = ({ user, initialSt
               )}
             </div>
           </div>
-          <div className="h-8 w-8 rounded-lg bg-surface-1 border border-border/80 text-text-secondary flex items-center justify-center shrink-0">
+          <div className="h-9 w-9 rounded-xl bg-surface-1/80 dark:bg-white/[0.05] border border-border/40 dark:border-white/[0.05] text-text-secondary dark:text-white/70 flex items-center justify-center shrink-0 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
             <Clock weight="bold" className="h-4 w-4" />
           </div>
         </div>
 
-        <div className="mt-5 pt-3.5 border-t border-border/70 flex items-center text-xs">
+        <div className="mt-5 pt-3.5 border-t border-border/40 dark:border-white/[0.05] flex items-center text-xs">
           {isLoading ? (
-            <div className="h-4 w-32 rounded bg-surface-2 animate-pulse" />
+            <div className="h-4 w-32 rounded-full bg-surface-2 dark:bg-white/[0.06] animate-pulse" />
           ) : stats.loadTimeDiff != null && stats.loadTimeDiff !== 0 ? (
             stats.loadTimeDiff < 0 ? (
-              <span className="inline-flex items-center gap-1.5 text-score-good font-semibold text-xs font-mono">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold font-mono text-emerald-600 dark:text-emerald-400">
                 <TrendUp weight="bold" className="h-3.5 w-3.5" />
                 {Math.abs(Number(stats.loadTimeDiff))}ms faster
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1.5 text-score-poor font-semibold text-xs font-mono">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold font-mono text-red-600 dark:text-red-400">
                 <TrendDown weight="bold" className="h-3.5 w-3.5" />
                 +{Math.abs(Number(stats.loadTimeDiff))}ms slower
               </span>
             )
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-text-tertiary font-mono">
-              <Minus weight="bold" className="h-3.5 w-3.5" />
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono text-text-tertiary">
+              <Minus weight="bold" className="h-3 w-3" />
               Median LCP across tests
             </span>
           )}
