@@ -5,6 +5,7 @@ import { Warning, Trash, X } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import { deleteTest } from "@/app/utils/actions";
 import { useAppStore } from "@/lib/store/useAppStore";
+import { toast } from "sonner";
 
 interface DeleteTestModalProps {
   testId: string | number | null;
@@ -36,10 +37,45 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
       setIsDeleting(true);
       setErrorMessage(null);
 
-      const result = await deleteTest(testIdStr);
+      let success = false;
+      let errorMsg = "Failed to delete test";
 
-      if (!result.success) {
-        setErrorMessage(result.error || "Failed to delete test");
+      // 1. Try dedicated REST API endpoint with session cookies
+      try {
+        const apiRes = await fetch(`/api/test/${encodeURIComponent(testIdStr)}/delete`, {
+          method: "DELETE",
+        });
+        if (apiRes.ok) {
+          const apiData = await apiRes.json();
+          if (apiData.success) {
+            success = true;
+          } else if (apiData.error) {
+            errorMsg = apiData.error;
+          }
+        }
+      } catch (apiErr) {
+        console.warn("API delete route failed, falling back to server action:", apiErr);
+      }
+
+      // 2. If API route didn't succeed, attempt server action
+      if (!success) {
+        try {
+          const actionRes = await deleteTest(testIdStr);
+          if (actionRes.success) {
+            success = true;
+          } else if (actionRes.error) {
+            errorMsg = actionRes.error;
+          }
+        } catch (actionErr) {
+          console.warn("Server action delete failed:", actionErr);
+          if (actionErr instanceof Error) {
+            errorMsg = actionErr.message;
+          }
+        }
+      }
+
+      if (!success) {
+        setErrorMessage(errorMsg);
         setIsDeleting(false);
         return;
       }
@@ -51,6 +87,7 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
         onDeleted(testIdStr);
       }
 
+      toast.success("Audit run deleted successfully");
       setIsDeleting(false);
       onClose();
     } catch (err) {
