@@ -50,11 +50,11 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
         </p>
       </div>
 
-      <div className="bg-surface-0 border border-border rounded-2xl shadow-xs overflow-hidden p-2 sm:p-4">
+      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl shadow-xs overflow-hidden p-2 sm:p-4">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
-              <tr className="border-b border-border bg-surface-1/80 text-text-tertiary uppercase font-bold text-[11px] tracking-wider">
+              <tr className="border-b border-border/50 dark:border-white/[0.07] bg-surface-1/70 dark:bg-white/[0.03] text-text-tertiary uppercase font-bold text-[11px] tracking-wider">
                 <th className="py-4 px-5">Resource Category</th>
                 <th className="py-4 px-5 text-right">Base Run</th>
                 <th className="py-4 px-5 text-right">Target Run</th>
@@ -62,7 +62,7 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
                 <th className="py-4 px-5 text-right">Change %</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border font-mono">
+            <tbody className="divide-y divide-border/40 dark:divide-white/[0.05] font-mono">
               {resourceDiffs.map((item) => {
                 const isTotal = item.resourceType === "total";
                 const isImproved = item.status === "improved";
@@ -71,12 +71,12 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
                 return (
                   <tr
                     key={item.resourceType}
-                    className={`hover:bg-surface-1/50 transition-colors ${
-                      isTotal ? "bg-surface-1/40 font-bold border-t-2 border-border" : ""
+                    className={`hover:bg-surface-1/50 dark:hover:bg-white/[0.02] transition-colors ${
+                      isTotal ? "bg-surface-1/40 dark:bg-white/[0.02] font-bold border-t border-border/60 dark:border-white/[0.07]" : ""
                     }`}
                   >
-                    <td className="py-3.5 px-4 flex items-center gap-2.5 font-sans font-semibold text-text-primary">
-                      <div className="h-7 w-7 rounded-lg bg-surface-1 border border-border flex items-center justify-center shrink-0">
+                    <td className="py-3.5 px-4 flex items-center gap-3 font-sans font-semibold text-text-primary">
+                      <div className="h-8 w-8 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] flex items-center justify-center shrink-0 shadow-2xs">
                         {getResourceIcon(item.resourceType)}
                       </div>
                       <span>{item.label}</span>
@@ -92,12 +92,12 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
 
                     <td className="py-3.5 px-4 text-right">
                       <span
-                        className={`inline-flex items-center gap-1 font-bold px-2 py-0.5 rounded text-[11px] ${
+                        className={`inline-flex items-center gap-1 font-bold px-2.5 py-0.5 rounded-full text-[11px] border ${
                           isImproved
-                            ? "score-badge-good"
+                            ? "score-badge-good border-emerald-500/20"
                             : isRegressed
-                            ? "score-badge-poor"
-                            : "bg-surface-2 text-text-secondary border border-border"
+                            ? "score-badge-poor border-red-500/20"
+                            : "bg-surface-2/60 dark:bg-white/[0.04] text-text-secondary border-border/50 dark:border-white/[0.07]"
                         }`}
                       >
                         {isImproved ? (
