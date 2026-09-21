@@ -129,13 +129,13 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
         </div>
 
         {/* Plan / Usage Widget */}
-        <div className="bg-surface-1 border border-border rounded-2xl p-4 space-y-3">
+        <div className="bg-surface-1/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 space-y-3 backdrop-blur-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <ChartBar weight="fill" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
               <span className="text-xs font-bold text-text-primary">Cloud Plan</span>
             </div>
-            <span className="text-[10px] font-mono font-bold score-badge-good px-2 py-0.5 rounded-full">
+            <span className="text-[10px] font-mono font-bold score-badge-good px-2.5 py-0.5 rounded-full">
               Developer
             </span>
           </div>
@@ -147,7 +147,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
                 {stats.testsThisMonth} / {stats.testsLimit || 100}
               </span>
             </div>
-            <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden">
+            <div className="h-1.5 w-full bg-surface-2 dark:bg-white/[0.08] rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-600 rounded-full transition-all duration-500"
                 style={{ width: `${usagePercent}%` }}
@@ -158,14 +158,14 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
       </div>
 
       {/* User Info & Sign Out */}
-      <div className="pt-4 border-t border-border space-y-3">
+      <div className="pt-4 border-t border-border/60 dark:border-white/[0.07] space-y-3">
         <Link
           href="/profile"
-          className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-1 transition-colors group cursor-pointer"
+          className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-1/70 dark:hover:bg-white/[0.04] transition-colors group cursor-pointer"
         >
           <div className="relative shrink-0">
             {user?.picture ? (
-              <span className="relative w-9 h-9 inline-block rounded-full overflow-hidden ring-1 ring-border group-hover:ring-brand-300 transition-all">
+              <span className="relative w-9 h-9 inline-block rounded-full overflow-hidden ring-1 ring-border/60 group-hover:ring-brand-400 transition-all">
                 <Image
                   src={user.picture}
                   alt={user?.given_name || "User"}
@@ -201,12 +201,12 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
   return (
     <>
       {/* Desktop Sticky Rail */}
-      <aside className="hidden lg:block w-64 shrink-0 bg-surface-0 border-e border-border h-screen sticky top-0 overflow-y-auto">
+      <aside className="hidden lg:block w-64 shrink-0 bg-surface-0/80 dark:bg-[#05070a]/90 backdrop-blur-xl border-e border-border/60 dark:border-white/[0.07] h-screen sticky top-0 overflow-y-auto">
         {sidebarContent}
       </aside>
 
       {/* Mobile Top Bar */}
-      <div className="lg:hidden sticky top-0 z-40 bg-surface-0/95 backdrop-blur-md border-b border-border px-4 py-3 flex items-center justify-between">
+      <div className="lg:hidden sticky top-0 z-40 bg-surface-0/80 dark:bg-[#05070a]/90 backdrop-blur-xl border-b border-border/60 dark:border-white/[0.07] px-4 py-3 flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-lg bg-brand-600 flex items-center justify-center text-white shadow-xs">
             <Lightning weight="fill" className="h-4 w-4 text-white" />
@@ -216,7 +216,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
 
         <button
           onClick={() => setMobileOpen(true)}
-          className="p-1.5 rounded-lg border border-border bg-surface-1 text-text-secondary hover:text-text-primary"
+          className="p-1.5 rounded-lg border border-border/60 dark:border-white/[0.07] bg-surface-1 text-text-secondary hover:text-text-primary"
         >
           <List weight="bold" className="h-5 w-5" />
         </button>
@@ -226,11 +226,11 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden lg:hidden">
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in"
+            className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in"
             onClick={() => setMobileOpen(false)}
           />
           <div className="fixed inset-y-0 start-0 max-w-full flex pe-10">
-            <div className="w-screen max-w-xs bg-surface-0 border-e border-border shadow-2xl animate-in slide-in-from-start">
+            <div className="w-screen max-w-xs bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border-e border-border/60 dark:border-white/[0.08] shadow-2xl animate-in slide-in-from-start">
               {sidebarContent}
             </div>
           </div>
