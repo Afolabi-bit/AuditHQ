@@ -48,6 +48,7 @@ interface DomainGroupCardProps {
   userId: string;
   defaultExpanded?: boolean;
   onRunTestStarted?: () => void;
+  onTestDeleted?: (testId: string) => void;
 }
 
 function getScoreBadgeStyle(score: number | null) {
@@ -68,6 +69,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
   userId,
   defaultExpanded = true,
   onRunTestStarted,
+  onTestDeleted,
 }) => {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [isQueueing, setIsQueueing] = useState(false);
@@ -283,6 +285,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
                 tti={tbtSeconds}
                 cls={clsValue}
                 speedIndex={null}
+                onDeleted={onTestDeleted}
               />
             );
           })}
