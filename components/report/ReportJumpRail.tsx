@@ -81,8 +81,8 @@ export const ReportJumpRail: React.FC = () => {
     <>
       {/* Desktop Sticky Sidebar (Left Anchor Rail) */}
       <aside className="hidden xl:block w-56 shrink-0">
-        <div className="sticky top-24 space-y-3 bg-surface-0 border border-border rounded-2xl p-3.5 shadow-xs">
-          <div className="px-3 py-1.5 border-b border-border/70">
+        <div className="sticky top-24 space-y-3 bg-card/80 dark:bg-[#0c0e14]/90 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-3.5 shadow-xl">
+          <div className="px-3 py-1.5 border-b border-border/60 dark:border-white/[0.07]">
             <p className="text-[11px] font-bold uppercase tracking-wider text-text-tertiary">
               Report Sections
             </p>
@@ -97,8 +97,8 @@ export const ReportJumpRail: React.FC = () => {
                   onClick={() => scrollToSection(sec.id)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer text-left ${
                     isActive
-                      ? "bg-brand-50 text-brand-600 dark:bg-brand-500/15 dark:text-brand-300 font-bold border border-brand-200 dark:border-brand-500/30 shadow-2xs"
-                      : "text-text-secondary hover:text-text-primary hover:bg-surface-1"
+                      ? "bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20 shadow-xs"
+                      : "text-text-secondary hover:text-text-primary hover:bg-surface-1/60 dark:hover:bg-white/[0.04]"
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
@@ -116,18 +116,18 @@ export const ReportJumpRail: React.FC = () => {
       </aside>
 
       {/* Mobile/Tablet Sticky Horizontal Anchor Pill Bar */}
-      <div className="xl:hidden sticky top-16 z-30 bg-surface-0/95 backdrop-blur-md border-b border-border py-2 px-4 -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-auto shadow-2xs">
-        <div className="flex items-center gap-1.5 min-w-max">
+      <div className="xl:hidden sticky top-16 z-30 bg-background/90 dark:bg-[#05070a]/90 backdrop-blur-xl border-b border-border/60 dark:border-white/[0.07] py-2.5 px-4 -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-auto shadow-sm">
+        <div className="flex items-center gap-2 min-w-max">
           {sections.map((sec) => {
             const isActive = activeSection === sec.id;
             return (
               <button
                 key={sec.id}
                 onClick={() => scrollToSection(sec.id)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                   isActive
                     ? "bg-brand-600 text-white shadow-xs"
-                    : "bg-surface-1 text-text-secondary hover:text-text-primary border border-border"
+                    : "bg-surface-1/60 dark:bg-white/[0.04] text-text-secondary hover:text-text-primary border border-border/60 dark:border-white/[0.07]"
                 }`}
               >
                 {sec.icon}
