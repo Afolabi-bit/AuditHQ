@@ -19,7 +19,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Missing test ID" }, { status: 400 });
     }
 
-    const result = await deleteTest(testId);
+    const result = await deleteTest(testId, user.id);
     if (!result.success) {
       return NextResponse.json(
         { error: result.error || "Failed to delete test" },
