@@ -15,11 +15,11 @@ export default function DashboardError({ error, reset }: ErrorPageProps) {
   }, [error]);
 
   return (
-    <div className="min-h-screen bg-surface-1 flex flex-col items-center justify-center p-6">
-      <div className="max-w-md w-full bg-surface-0 border border-border rounded-2xl p-6 shadow-sm space-y-6 text-center">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6">
+      <div className="max-w-md w-full bg-card/80 dark:bg-[#0c0e14]/90 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-8 sm:p-10 shadow-2xl space-y-6 text-center">
         {/* Error icon wrapper */}
-        <div className="h-12 w-12 rounded-full bg-score-poor/10 text-score-poor border border-score-poor/20 flex items-center justify-center mx-auto">
-          <WarningOctagon weight="fill" className="h-6 w-6" />
+        <div className="h-14 w-14 rounded-2xl bg-score-poor/10 text-score-poor border border-score-poor/20 flex items-center justify-center mx-auto shadow-xs">
+          <WarningOctagon weight="fill" className="h-7 w-7" />
         </div>
 
         <div className="space-y-2">
@@ -32,24 +32,24 @@ export default function DashboardError({ error, reset }: ErrorPageProps) {
         </div>
 
         {/* Monospace Error Detail Console */}
-        <div className="text-left bg-surface-1 border border-border rounded-xl p-3.5 font-mono text-[10px] text-text-secondary overflow-x-auto space-y-1 max-h-32">
+        <div className="text-left bg-surface-1/60 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 font-mono text-[11px] text-text-secondary overflow-x-auto space-y-1.5 max-h-36">
           <div className="text-score-poor font-bold">Error: {error.message || "Unknown error"}</div>
           {error.digest && <div className="opacity-75">Digest ID: {error.digest}</div>}
           <div className="opacity-60">Source: dashboard/page.tsx</div>
         </div>
 
         {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-2 pt-2">
+        <div className="flex flex-col sm:flex-row gap-2.5 pt-2">
           <button
             onClick={() => reset()}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-xl text-xs font-semibold text-white bg-brand-600 hover:bg-brand-700 transition-colors cursor-pointer shadow-sm"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 h-10 px-4 rounded-xl text-xs font-semibold text-white bg-brand-600 hover:bg-brand-500 transition-all cursor-pointer shadow-sm hover:shadow-brand-500/20"
           >
             <ArrowClockwise weight="bold" className="h-3.5 w-3.5" />
             Retry Request
           </button>
           <Link
             href="/"
-            className="flex-1 inline-flex items-center justify-center gap-1.5 h-9 px-4 rounded-xl text-xs font-semibold text-text-primary bg-surface-0 hover:bg-surface-2 border border-border transition-colors cursor-pointer"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 h-10 px-4 rounded-xl text-xs font-semibold text-text-primary bg-surface-0/60 dark:bg-white/[0.03] hover:bg-surface-1/60 dark:hover:bg-white/[0.06] border border-border/60 dark:border-white/[0.07] transition-all cursor-pointer"
           >
             <House weight="bold" className="h-3.5 w-3.5" />
             Go to Home
