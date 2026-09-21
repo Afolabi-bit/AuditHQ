@@ -43,7 +43,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
         </span>
       </div>
 
-      <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs space-y-6 overflow-hidden">
+      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-6 sm:p-8 shadow-xs space-y-6 overflow-hidden">
         {/* Filmstrip Horizontal Scroller */}
         <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-border">
           <div className="inline-flex flex-col gap-4 min-w-max">
@@ -52,9 +52,9 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
               {frames.map((f) => (
                 <div
                   key={f.timestampMs}
-                  className="w-40 sm:w-44 text-center text-xs font-mono font-bold text-text-tertiary border-b border-border pb-1.5 flex items-center justify-center gap-1"
+                  className="w-40 sm:w-44 text-center text-xs font-mono font-bold text-text-tertiary border-b border-border/50 dark:border-white/[0.07] pb-2 flex items-center justify-center gap-1.5"
                 >
-                  <Clock weight="bold" className="h-3 w-3" />
+                  <Clock weight="bold" className="h-3.5 w-3.5" />
                   {f.timestampMs === 0 ? "0.0s (Start)" : `${(f.timestampMs / 1000).toFixed(1)}s`}
                 </div>
               ))}
@@ -62,8 +62,8 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
 
             {/* Row 1: Base Run */}
             <div className="flex items-center gap-3">
-              <div className="w-28 sm:w-32 shrink-0 space-y-0.5 pe-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-surface-2 text-text-secondary border border-border inline-block">
+              <div className="w-28 sm:w-32 shrink-0 space-y-1 pe-2">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/[0.06] text-text-secondary border border-border/50 dark:border-white/[0.07] inline-block">
                   Base Run
                 </span>
                 <p className="text-xs font-mono text-text-primary truncate" title={baseUrl}>
@@ -75,7 +75,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                 <div
                   key={`base-${f.timestampMs}`}
                   onClick={() => setSelectedFrame(f)}
-                  className="w-40 sm:w-44 h-24 sm:h-28 bg-surface-1 rounded-lg border border-border overflow-hidden relative group cursor-pointer hover:border-brand-500 dark:hover:border-brand-500/40 transition-all shrink-0 shadow-2xs flex items-center justify-center"
+                  className="w-40 sm:w-44 h-24 sm:h-28 bg-surface-1/80 dark:bg-[#0c0e14]/90 rounded-xl border border-border/60 dark:border-white/[0.07] overflow-hidden relative group cursor-pointer hover:border-brand-500/50 dark:hover:border-brand-500/40 transition-all shrink-0 shadow-2xs flex items-center justify-center"
                 >
                   {f.baseFrame ? (
                     <img
@@ -89,7 +89,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                     </div>
                   )}
 
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
+                  <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
                     <ArrowsOut weight="bold" className="h-3.5 w-3.5" />
                     <span>Enlarge</span>
                   </div>
@@ -99,8 +99,8 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
 
             {/* Row 2: Target Run */}
             <div className="flex items-center gap-3">
-              <div className="w-28 sm:w-32 shrink-0 space-y-0.5 pe-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 inline-block">
+              <div className="w-28 sm:w-32 shrink-0 space-y-1 pe-2">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 inline-block">
                   Target Run
                 </span>
                 <p className="text-xs font-mono text-text-primary truncate" title={targetUrl}>
@@ -112,7 +112,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                 <div
                   key={`target-${f.timestampMs}`}
                   onClick={() => setSelectedFrame(f)}
-                  className="w-40 sm:w-44 h-24 sm:h-28 bg-surface-1 rounded-lg border border-border overflow-hidden relative group cursor-pointer hover:border-brand-500 dark:hover:border-brand-500/40 transition-all shrink-0 shadow-2xs flex items-center justify-center"
+                  className="w-40 sm:w-44 h-24 sm:h-28 bg-surface-1/80 dark:bg-[#0c0e14]/90 rounded-xl border border-border/60 dark:border-white/[0.07] overflow-hidden relative group cursor-pointer hover:border-brand-500/50 dark:hover:border-brand-500/40 transition-all shrink-0 shadow-2xs flex items-center justify-center"
                 >
                   {f.targetFrame ? (
                     <img
@@ -126,7 +126,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
                     </div>
                   )}
 
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1">
+                  <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-xs font-semibold gap-1.5">
                     <ArrowsOut weight="bold" className="h-3.5 w-3.5" />
                     <span>Enlarge</span>
                   </div>
@@ -136,7 +136,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
           </div>
         </div>
 
-        <p className="text-[11px] text-text-tertiary font-mono text-center sm:text-start flex items-center gap-1.5 pt-2 border-t border-border/60">
+        <p className="text-[11px] text-text-tertiary font-mono text-center sm:text-start flex items-center gap-1.5 pt-3 border-t border-border/40 dark:border-white/[0.05]">
           <Eye weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
           Click any frame to inspect the high-resolution rendering difference side-by-side.
         </p>
@@ -145,16 +145,16 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
       {/* Enlarged Side-by-Side Modal */}
       {selectedFrame && (
         <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200"
           onClick={() => setSelectedFrame(null)}
         >
           <div
-            className="bg-surface-0 border border-border rounded-2xl max-w-5xl w-full p-6 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto"
+            className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/[0.08] rounded-3xl max-w-5xl w-full p-6 sm:p-7 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-border pb-4">
+            <div className="flex items-center justify-between border-b border-border/50 dark:border-white/[0.07] pb-4">
               <div>
-                <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
+                <h3 className="text-base font-bold text-text-primary flex items-center gap-2 tracking-tight">
                   <Clock weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
                   Visual Comparison at {(selectedFrame.timestampMs / 1000).toFixed(1)}s ({selectedFrame.timestampMs}ms)
                 </h3>
@@ -165,24 +165,24 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
 
               <button
                 onClick={() => setSelectedFrame(null)}
-                className="h-8 w-8 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
+                className="h-9 w-9 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] border border-border/60 dark:border-white/[0.07] flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer shadow-2xs"
               >
                 <X weight="bold" className="h-4 w-4" />
               </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Base Frame Modal */}
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-surface-2 text-text-secondary border border-border">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/[0.06] text-text-secondary border border-border/50 dark:border-white/[0.07]">
                     Base Run Baseline
                   </span>
                   <span className="text-xs font-mono text-text-tertiary">
                     {(selectedFrame.timestampMs / 1000).toFixed(1)}s
                   </span>
                 </div>
-                <div className="aspect-video bg-surface-1 rounded-xl border border-border overflow-hidden flex items-center justify-center">
+                <div className="aspect-video bg-surface-1/60 dark:bg-black/40 rounded-2xl border border-border/60 dark:border-white/[0.07] overflow-hidden flex items-center justify-center shadow-inner">
                   {selectedFrame.baseFrame ? (
                     <img
                       src={selectedFrame.baseFrame}
@@ -196,16 +196,16 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
               </div>
 
               {/* Target Frame Modal */}
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20">
                     Target Run Comparison
                   </span>
                   <span className="text-xs font-mono text-text-tertiary">
                     {(selectedFrame.timestampMs / 1000).toFixed(1)}s
                   </span>
                 </div>
-                <div className="aspect-video bg-surface-1 rounded-xl border border-border overflow-hidden flex items-center justify-center">
+                <div className="aspect-video bg-surface-1/60 dark:bg-black/40 rounded-2xl border border-border/60 dark:border-white/[0.07] overflow-hidden flex items-center justify-center shadow-inner">
                   {selectedFrame.targetFrame ? (
                     <img
                       src={selectedFrame.targetFrame}
