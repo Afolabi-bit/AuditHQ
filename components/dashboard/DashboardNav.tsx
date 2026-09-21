@@ -9,16 +9,13 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 
 const DashboardNav = ({ user }: { user: KindeUser }) => {
   const pathname = usePathname();
-
-  const isConsole =
-    pathname === "/dashboard" || pathname.startsWith("/dashboard/test");
   const isProfile = pathname === "/profile" || pathname.startsWith("/profile");
 
   return (
     <nav className="bg-surface-0/80 backdrop-blur-xl saturate-180 border-b border-border/70 sticky top-0 z-50 shadow-2xs">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16 gap-2 sm:gap-4">
-          {/* Brand Logo & Navigation */}
+          {/* Brand Logo */}
           <div className="flex items-center space-x-2 sm:space-x-6 min-w-0">
             <Link
               href="/dashboard"
@@ -30,35 +27,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
               <span className="text-base sm:text-lg font-bold tracking-tight text-text-primary">
                 AuditHQ
               </span>
-              <span className="hidden md:inline-flex items-center text-[10px] font-mono font-medium text-text-tertiary px-1.5 py-0.5 rounded-md bg-surface-1 border border-border/70">
-                v1.2
-              </span>
             </Link>
-
-            {/* Nav Links (Responsive: Compact on mobile, full label on desktop) */}
-            <div className="flex items-center space-x-1 shrink-0">
-              <Link
-                href="/dashboard"
-                className={`min-h-[36px] px-2.5 sm:px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap shrink-0 flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                  isConsole
-                    ? "text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30 shadow-2xs"
-                    : "text-text-secondary hover:text-text-primary hover:bg-surface-1"
-                }`}
-              >
-                Console
-              </Link>
-              <Link
-                href="/profile"
-                className={`min-h-[36px] px-2.5 sm:px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all whitespace-nowrap shrink-0 flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                  isProfile
-                    ? "text-brand-600 dark:text-brand-300 bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/30 shadow-2xs"
-                    : "text-text-secondary hover:text-text-primary hover:bg-surface-1"
-                }`}
-              >
-                <span className="sm:hidden">Profile</span>
-                <span className="hidden sm:inline">Profile & Settings</span>
-              </Link>
-            </div>
           </div>
 
           {/* Right Actions & Profile */}
