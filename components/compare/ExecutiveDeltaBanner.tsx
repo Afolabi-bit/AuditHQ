@@ -26,32 +26,32 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
 
   const getContainerStyle = () => {
     if (isPositive) {
-      return "border-emerald-500/30 bg-emerald-500/5";
+      return "border-emerald-500/20 bg-emerald-500/[0.03] backdrop-blur-xl";
     }
     if (isNegative) {
-      return "border-rose-500/30 bg-rose-500/5";
+      return "border-rose-500/20 bg-rose-500/[0.03] backdrop-blur-xl";
     }
-    return "border-border bg-surface-1/50";
+    return "border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl";
   };
 
   const getScoreDeltaBadge = () => {
     const raw = scoreDelta.delta ?? 0;
     if (raw > 0) {
       return {
-        bg: "score-badge-good",
+        bg: "score-badge-good border border-emerald-500/20",
         icon: <TrendUp weight="bold" className="h-6 w-6 shrink-0" />,
         text: `+${raw} pts`,
       };
     }
     if (raw < 0) {
       return {
-        bg: "score-badge-poor",
+        bg: "score-badge-poor border border-red-500/20",
         icon: <TrendDown weight="bold" className="h-6 w-6 shrink-0" />,
         text: `${raw} pts`,
       };
     }
     return {
-      bg: "bg-surface-2 text-text-tertiary border-border",
+      bg: "bg-surface-2/70 dark:bg-white/[0.04] text-text-tertiary border border-border/60 dark:border-white/[0.07]",
       icon: <Minus weight="bold" className="h-6 w-6 shrink-0" />,
       text: "0 pts",
     };
@@ -60,7 +60,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
   const badge = getScoreDeltaBadge();
 
   return (
-    <div className={`rounded-2xl border p-7 sm:p-9 shadow-xs space-y-8 transition-all ${getContainerStyle()}`}>
+    <div className={`rounded-3xl border p-7 sm:p-9 shadow-xs space-y-8 transition-all ${getContainerStyle()}`}>
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
         {/* Left: Overall Verdict Title & Subtitle */}
         <div className="space-y-3 max-w-2xl">
@@ -68,10 +68,10 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
             <span
               className={`px-3.5 py-1.5 rounded-full text-xs font-bold font-mono uppercase tracking-wider border flex items-center gap-2 shadow-2xs ${
                 isPositive
-                  ? "score-badge-good"
+                  ? "score-badge-good border-emerald-500/20"
                   : isNegative
-                  ? "score-badge-poor"
-                  : "bg-surface-2 text-text-secondary border border-border"
+                  ? "score-badge-poor border-red-500/20"
+                  : "bg-surface-2/70 dark:bg-white/[0.04] text-text-secondary border-border/60 dark:border-white/[0.07]"
               }`}
             >
               {isPositive ? (
@@ -98,7 +98,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
         </div>
 
         {/* Right: Score Shift Hero Box */}
-        <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3.5 shrink-0 bg-surface-0/80 p-5 rounded-2xl border border-border/80 shadow-2xs">
+        <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3.5 shrink-0 bg-surface-0/80 dark:bg-[#0c0e14]/90 p-5 rounded-2xl border border-border/60 dark:border-white/[0.08] shadow-2xs backdrop-blur-xl">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-text-tertiary">
             Score Difference
           </span>
@@ -121,13 +121,13 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
       {/* 4 Quick Impact Highlight Pills */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 pt-2">
         {/* 1. LCP Delta */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
+        <div className="p-4.5 sm:p-5 rounded-2xl bg-surface-0/80 dark:bg-[#0c0e14]/80 border border-border/60 dark:border-white/[0.07] shadow-2xs space-y-1.5 backdrop-blur-xl">
           <div className="flex items-center justify-between text-xs text-text-tertiary">
             <span className="font-semibold text-text-primary">LCP Delta</span>
             <Clock weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           </div>
           <p
-            className={`text-xl sm:text-2xl font-mono font-extrabold ${
+            className={`text-xl sm:text-2xl font-mono font-extrabold tracking-tight ${
               metrics.lcp.status === "improved"
                 ? "text-score-good"
                 : metrics.lcp.status === "regressed"
@@ -143,13 +143,13 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
         </div>
 
         {/* 2. TBT Delta */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
+        <div className="p-4.5 sm:p-5 rounded-2xl bg-surface-0/80 dark:bg-[#0c0e14]/80 border border-border/60 dark:border-white/[0.07] shadow-2xs space-y-1.5 backdrop-blur-xl">
           <div className="flex items-center justify-between text-xs text-text-tertiary">
             <span className="font-semibold text-text-primary">TBT Delta</span>
             <Lightning weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           </div>
           <p
-            className={`text-xl sm:text-2xl font-mono font-extrabold ${
+            className={`text-xl sm:text-2xl font-mono font-extrabold tracking-tight ${
               metrics.tbt.status === "improved"
                 ? "text-score-good"
                 : metrics.tbt.status === "regressed"
@@ -165,14 +165,14 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
         </div>
 
         {/* 3. CLS Delta */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
+        <div className="p-4.5 sm:p-5 rounded-2xl bg-surface-0/80 dark:bg-[#0c0e14]/80 border border-border/60 dark:border-white/[0.07] shadow-2xs space-y-1.5 backdrop-blur-xl">
           <div className="flex items-center justify-between text-xs text-text-tertiary">
             <span className="font-semibold text-text-primary">CLS Delta</span>
             <Pulse weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           </div>
 
           <p
-            className={`text-xl sm:text-2xl font-mono font-extrabold ${
+            className={`text-xl sm:text-2xl font-mono font-extrabold tracking-tight ${
               metrics.cls.status === "improved"
                 ? "text-score-good"
                 : metrics.cls.status === "regressed"
@@ -188,13 +188,13 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
         </div>
 
         {/* 4. Total Byte Shift */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-surface-0/90 border border-border shadow-2xs space-y-1.5">
+        <div className="p-4.5 sm:p-5 rounded-2xl bg-surface-0/80 dark:bg-[#0c0e14]/80 border border-border/60 dark:border-white/[0.07] shadow-2xs space-y-1.5 backdrop-blur-xl">
           <div className="flex items-center justify-between text-xs text-text-tertiary">
             <span className="font-semibold text-text-primary">Page Weight Change</span>
             <HardDrives weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
           </div>
           <p
-            className={`text-xl sm:text-2xl font-mono font-extrabold ${
+            className={`text-xl sm:text-2xl font-mono font-extrabold tracking-tight ${
               (totalByteDiff?.deltaBytes ?? 0) < 0
                 ? "text-score-good"
                 : (totalByteDiff?.deltaBytes ?? 0) > 0
