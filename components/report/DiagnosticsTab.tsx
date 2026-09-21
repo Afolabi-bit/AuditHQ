@@ -31,12 +31,14 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
 
   if (!diagnostics || diagnostics.length === 0) {
     return (
-      <div className="bg-surface-0 border border-border rounded-2xl p-10 text-center text-text-secondary space-y-2 shadow-xs">
-        <CheckCircle weight="fill" className="h-10 w-10 text-score-good mx-auto" />
+      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-10 text-center text-text-secondary space-y-3 shadow-xs">
+        <div className="w-12 h-12 rounded-2xl bg-score-good/10 text-score-good border border-score-good/20 flex items-center justify-center mx-auto shadow-xs">
+          <CheckCircle weight="fill" className="h-6 w-6" />
+        </div>
         <h4 className="text-base font-bold text-text-primary">
           All Diagnostic Health Checks Passed
         </h4>
-        <p className="text-xs text-text-tertiary max-w-md mx-auto">
+        <p className="text-xs text-text-tertiary max-w-md mx-auto leading-relaxed">
           No critical diagnostic bottlenecks or rendering thread stalls were identified during this audit run.
         </p>
       </div>
@@ -55,8 +57,10 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
           return (
             <div
               key={diag.id}
-              className={`bg-surface-0 border rounded-2xl overflow-hidden shadow-xs transition-all ${
-                isExpanded ? "border-brand-200 dark:border-brand-500/30" : "border-border hover:border-brand-200 dark:hover:border-brand-500/30"
+              className={`bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border rounded-2xl overflow-hidden shadow-xs transition-all ${
+                isExpanded
+                  ? "border-brand-500/40 dark:border-brand-500/40 ring-1 ring-brand-500/20 shadow-md"
+                  : "border-border/60 dark:border-white/[0.07] hover:border-border dark:hover:border-white/[0.15]"
               }`}
             >
               {/* Header Container */}
@@ -70,19 +74,19 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
                     toggleExpand(diag.id);
                   }
                 }}
-                className="w-full p-4.5 sm:p-5 flex items-start justify-between gap-4 text-left cursor-pointer hover:bg-surface-1 transition-colors select-none"
+                className="w-full p-4.5 sm:p-5 flex items-start justify-between gap-4 text-left cursor-pointer hover:bg-surface-1/40 dark:hover:bg-white/[0.02] transition-colors select-none"
               >
-                <div className="flex items-start gap-3 flex-1 min-w-0">
-                  <div className="mt-0.5 p-2 rounded-xl bg-surface-1 text-text-secondary border border-border shrink-0 shadow-2xs">
+                <div className="flex items-start gap-3.5 flex-1 min-w-0">
+                  <div className="mt-0.5 p-2.5 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] text-text-secondary border border-border/50 dark:border-white/[0.07] shrink-0 shadow-2xs">
                     <Stack weight="bold" className="h-4 w-4" />
                   </div>
-                  <div className="space-y-1 flex-1 min-w-0">
+                  <div className="space-y-1.5 flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h4 className="text-sm font-bold text-text-primary">
+                      <h4 className="text-sm font-bold text-text-primary tracking-tight">
                         {diag.title}
                       </h4>
                       {diag.displayValue && (
-                        <span className="px-2 py-0.5 rounded-full text-xs font-semibold score-badge-warn">
+                        <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold score-badge-warn border border-amber-500/20">
                           {diag.displayValue}
                         </span>
                       )}
@@ -95,7 +99,7 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0">
+                <div className="flex items-center gap-2.5 shrink-0">
                   {onInspectItem && (
                     <button
                       type="button"
@@ -109,15 +113,15 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
                           items: diag.details?.items,
                         });
                       }}
-                      className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-surface-1 hover:bg-surface-2 border border-border text-text-secondary hover:text-brand-600 dark:hover:text-brand-300 transition-colors cursor-pointer"
+                      className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] border border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-brand-600 dark:hover:text-brand-300 transition-all cursor-pointer shadow-2xs"
                       title="Open in Drawer"
                     >
-                      <SlidersHorizontal weight="bold" className="h-3 w-3" />
+                      <SlidersHorizontal weight="bold" className="h-3.5 w-3.5" />
                       <span>Inspect</span>
                     </button>
                   )}
 
-                  <div className="p-1.5 rounded-lg bg-surface-1 border border-border text-text-tertiary">
+                  <div className="p-2 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] text-text-tertiary">
                     {isExpanded ? (
                       <CaretUp weight="bold" className="h-4 w-4" />
                     ) : (
@@ -129,14 +133,14 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
 
               {/* Expanded Details */}
               {isExpanded && (
-                <div className="p-5 border-t border-border bg-surface-1 space-y-4 text-xs">
+                <div className="p-5 border-t border-border/50 dark:border-white/[0.07] bg-surface-1/30 dark:bg-black/30 space-y-4 text-xs">
                   <FormattedDescription
                     text={diag.description}
                     className="text-xs text-text-secondary leading-relaxed"
                   />
 
                   {items.length > 0 && headings.length > 0 && (
-                    <div className="space-y-2">
+                    <div className="space-y-2.5 pt-1">
                       <div className="flex items-center justify-between">
                         <p className="font-semibold text-text-primary uppercase tracking-wider text-[11px]">
                           Report Breakdown ({items.length})
@@ -150,27 +154,27 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
                               displayValue: diag.displayValue,
                               items: diag.details?.items,
                             })}
-                            className="text-xs text-brand-600 dark:text-brand-400 hover:underline font-semibold cursor-pointer"
+                            className="text-xs text-brand-600 dark:text-brand-400 hover:text-brand-500 font-semibold cursor-pointer transition-colors"
                           >
                             Open in Side Inspector →
                           </button>
                         )}
                       </div>
 
-                      <div className="border border-border rounded-xl overflow-x-auto bg-surface-0">
+                      <div className="border border-border/60 dark:border-white/[0.07] rounded-2xl overflow-x-auto bg-surface-0/80 dark:bg-[#0c0e14]/90 shadow-2xs">
                         <table className="w-full text-left border-collapse text-xs font-mono">
                           <thead>
-                            <tr className="bg-surface-1 border-b border-border text-text-tertiary text-[11px]">
+                            <tr className="bg-surface-1/70 dark:bg-white/[0.03] border-b border-border/50 dark:border-white/[0.07] text-text-tertiary text-[11px]">
                               {headings.map((h, hIdx) => (
-                                <th key={hIdx} className="p-2.5 px-3 whitespace-nowrap">
+                                <th key={hIdx} className="p-3 px-3.5 whitespace-nowrap font-semibold">
                                   {h.label || h.text || h.key}
                                 </th>
                               ))}
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-border">
+                          <tbody className="divide-y divide-border/40 dark:divide-white/[0.05]">
                             {items.slice(0, 15).map((row, rIdx) => (
-                              <tr key={rIdx} className="hover:bg-surface-1/50 transition-colors">
+                              <tr key={rIdx} className="hover:bg-surface-1/50 dark:hover:bg-white/[0.02] transition-colors">
                                 {headings.map((h, hIdx) => {
                                   const cellVal = row[h.key];
                                   const displayVal =
@@ -179,7 +183,7 @@ export const DiagnosticsTab: React.FC<DiagnosticsTabProps> = ({
                                       : String(cellVal ?? "—");
 
                                   return (
-                                    <td key={hIdx} className="p-2.5 px-3 max-w-xs truncate text-text-primary">
+                                    <td key={hIdx} className="p-3 px-3.5 max-w-xs truncate text-text-primary">
                                       {displayVal}
                                     </td>
                                   );
