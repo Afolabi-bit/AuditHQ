@@ -139,7 +139,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
   const isGeneratingPdf = activePdfFormat !== null;
 
   return (
-    <header className="bg-surface-0/80 backdrop-blur-xl saturate-180 text-text-primary border-b border-border/70 shadow-2xs sticky top-0 z-30 transition-colors">
+    <header className="bg-surface-0/80 dark:bg-[#05070a]/90 backdrop-blur-xl saturate-180 text-text-primary border-b border-border/60 dark:border-white/[0.07] shadow-2xs sticky top-0 z-30 transition-colors">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4.5 space-y-3">
         {/* Top Breadcrumb / Nav Line */}
         <div className="flex items-center justify-between text-xs">
@@ -148,8 +148,8 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               href="/"
               className="inline-flex items-center text-xs font-bold text-text-secondary hover:text-text-primary transition-colors gap-2"
             >
-              <div className="h-6 w-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
-                <Lightning weight="fill" className="h-3.5 w-3.5 text-white" />
+              <div className="h-7 w-7 rounded-xl bg-brand-600 flex items-center justify-center text-white shadow-sm shadow-brand-500/25">
+                <Lightning weight="fill" className="h-4 w-4 text-white" />
               </div>
               <span>AuditHQ Public Report</span>
             </Link>
@@ -164,7 +164,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
           )}
 
           <div className="flex items-center gap-2 font-mono text-[11px] text-text-tertiary">
-            <span className="px-2 py-0.5 rounded-full bg-surface-1 border border-border">
+            <span className="px-2.5 py-0.5 rounded-full bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07]">
               Lighthouse 12.0
             </span>
             <span className="hidden sm:inline">#{String(testId).slice(0, 12)}</span>
@@ -183,7 +183,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                className="text-text-tertiary hover:text-brand-600 dark:hover:text-brand-400 transition-colors p-1 rounded-md hover:bg-surface-1 shrink-0"
+                className="text-text-tertiary hover:text-brand-600 dark:hover:text-brand-400 transition-colors p-1.5 rounded-xl hover:bg-surface-1 dark:hover:bg-white/[0.04] shrink-0"
                 title="Open live URL in new tab"
               >
                 <ArrowSquareOut weight="bold" className="h-4 w-4" />
@@ -192,7 +192,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 
             {/* Compact Metadata Chips */}
             <div className="flex flex-wrap items-center gap-2 text-[11px] text-text-secondary">
-              <span className="inline-flex items-center gap-1 bg-surface-1 border border-border px-2 py-0.5 rounded-md">
+              <span className="inline-flex items-center gap-1.5 bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] px-2.5 py-0.5 rounded-full">
                 {isDesktop ? (
                   <Desktop weight="bold" className="h-3 w-3 text-brand-600 dark:text-brand-400" />
                 ) : (
@@ -202,7 +202,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               </span>
 
               {network && (
-                <span className="bg-surface-1 border border-border px-2 py-0.5 rounded-md text-text-tertiary">
+                <span className="bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] px-2.5 py-0.5 rounded-full text-text-tertiary">
                   {network}
                 </span>
               )}
@@ -220,7 +220,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleCopyShareLink}
-              className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer"
+              className="bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary border-border/60 dark:border-white/[0.07] h-9 px-3.5 rounded-xl font-semibold text-xs transition-colors cursor-pointer shadow-2xs"
             >
               {copied ? (
                 <>
@@ -240,7 +240,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={() => setIsCompareOpen(true)}
-              className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer gap-1"
+              className="bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary border-border/60 dark:border-white/[0.07] h-9 px-3.5 rounded-xl font-semibold text-xs transition-colors cursor-pointer gap-1.5 shadow-2xs"
             >
               <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
               <span>Compare</span>
@@ -251,7 +251,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleExportJson}
-              className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-2.5 rounded-xl font-semibold text-xs transition-colors cursor-pointer"
+              className="bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary border-border/60 dark:border-white/[0.07] h-9 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer shadow-2xs"
               title="Download raw JSON"
             >
               <FileCode weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
@@ -263,7 +263,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                 size="sm"
                 disabled={isGeneratingPdf}
                 onClick={() => setIsPdfMenuOpen(!isPdfMenuOpen)}
-                className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs h-8.5 px-3 rounded-xl shadow-xs cursor-pointer gap-1.5"
+                className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs h-9 px-3.5 rounded-xl shadow-sm shadow-brand-500/20 cursor-pointer gap-1.5"
               >
                 {isGeneratingPdf ? (
                   <>
@@ -281,14 +281,14 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 
               {/* PDF Format Dropdown */}
               {isPdfMenuOpen && (
-                <div className="absolute end-0 mt-1.5 w-64 rounded-2xl bg-surface-0/95 backdrop-blur-xl border border-border/80 shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <p className="px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-text-tertiary">
+                <div className="absolute end-0 mt-2 w-64 rounded-2xl bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-xl border border-border/60 dark:border-white/[0.08] shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <p className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-text-tertiary">
                     Select PDF Format
                   </p>
 
                   <button
                     onClick={() => handleExportPdf("basic")}
-                    className="w-full px-3.5 py-2 text-start hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
+                    className="w-full px-3 py-2 rounded-xl text-start hover:bg-surface-1 dark:hover:bg-white/[0.04] transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                   >
                     <FileText weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                     <div>
@@ -299,7 +299,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
 
                   <button
                     onClick={() => handleExportPdf("detailed")}
-                    className="w-full px-3.5 py-2 text-start hover:bg-surface-1 transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
+                    className="w-full px-3 py-2 rounded-xl text-start hover:bg-surface-1 dark:hover:bg-white/[0.04] transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                   >
                     <DownloadSimple weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                     <div>
@@ -317,7 +317,7 @@ export const ReportHeader: React.FC<ReportHeaderProps> = ({
                 <Button
                   size="sm"
                   variant="outline"
-                  className="bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary border-border h-8.5 px-3 rounded-xl font-semibold text-xs transition-colors cursor-pointer gap-1"
+                  className="bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary border-border/60 dark:border-white/[0.07] h-9 px-3.5 rounded-xl font-semibold text-xs transition-colors cursor-pointer gap-1.5 shadow-2xs"
                 >
                   <ArrowsClockwise weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
                   <span className="hidden sm:inline">New Audit</span>
