@@ -126,29 +126,29 @@
 }
 
 .dark {
-  --background: #0b0d11;
-  --foreground: #f8fafc;
-  --card: #12151d;
-  --card-foreground: #f8fafc;
-  --popover: #12151d;
-  --popover-foreground: #f8fafc;
-  --primary: #3b82f6;
+  --background: #05070a;
+  --foreground: #ffffff;
+  --card: #0c0e14;
+  --card-foreground: #ffffff;
+  --popover: #0c0e14;
+  --popover-foreground: #ffffff;
+  --primary: #2563eb;
   --primary-foreground: #ffffff;
-  --secondary: #181c26;
-  --secondary-foreground: #f8fafc;
-  --muted: #181c26;
-  --muted-foreground: #94a3b8;
-  --accent: rgba(59, 130, 246, 0.12);
+  --secondary: #12151d;
+  --secondary-foreground: #ffffff;
+  --muted: #12151d;
+  --muted-foreground: rgba(255, 255, 255, 0.60);
+  --accent: rgba(37, 99, 235, 0.12);
   --accent-foreground: #60a5fa;
   --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.09);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #3b82f6;
+  --border: rgba(255, 255, 255, 0.07);
+  --input: rgba(255, 255, 255, 0.09);
+  --ring: #2563eb;
 
-  /* Brand Scale (Calibrated Blue in Dark Mode) */
-  --brand-50: rgba(59, 130, 246, 0.08);
-  --brand-100: rgba(59, 130, 246, 0.15);
-  --brand-200: rgba(59, 130, 246, 0.25);
+  /* Brand Scale (Electric Cobalt matching Landing Page) */
+  --brand-50: rgba(37, 99, 235, 0.08);
+  --brand-100: rgba(37, 99, 235, 0.15);
+  --brand-200: rgba(37, 99, 235, 0.25);
   --brand-500: #3b82f6;
   --brand-600: #2563eb;
   --brand-700: #1d4ed8;
@@ -158,18 +158,18 @@
   --score-good: #10b981;
   --score-warn: #f59e0b;
   --score-poor: #ef4444;
-  --score-neutral: #94a3b8;
+  --score-neutral: rgba(255, 255, 255, 0.45);
 
-  /* Precision Slate/Obsidian Surfaces */
-  --surface-0: #12151d;
-  --surface-1: #181c26;
-  --surface-2: #222736;
-  --surface-3: rgba(255, 255, 255, 0.08);
+  /* Precision Slate/Obsidian Surfaces (Soft, Layered Depth) */
+  --surface-0: #0c0e14;
+  --surface-1: #12151d;
+  --surface-2: #191d27;
+  --surface-3: rgba(255, 255, 255, 0.07);
 
-  /* Typography Colors */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-tertiary: #64748b;
+  /* Typography Colors (Landing Page Parity) */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.65);
+  --text-tertiary: rgba(255, 255, 255, 0.40);
 
   /* Charts */
   --chart-1: #3b82f6;
@@ -237,6 +237,16 @@
   background-color: rgba(239, 68, 68, 0.12);
   color: #ef4444;
   border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* Accessible Keyboard Focus Ring Utility */
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 /* Custom Clean Scrollbar */
