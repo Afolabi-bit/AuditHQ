@@ -16,10 +16,10 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0 border border-border rounded-xl p-4.5 px-6 shadow-xs">
-        <div className="space-y-0.5">
-          <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
-            <ShieldCheck weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 px-6 shadow-xs">
+        <div className="space-y-1">
+          <h3 className="text-base font-bold text-text-primary flex items-center gap-2 tracking-tight">
+            <ShieldCheck weight="fill" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
             Security & Best Practices Audit
           </h3>
           <p className="text-xs text-text-secondary">
@@ -27,8 +27,8 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
           </p>
         </div>
 
-        <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1 rounded-full score-badge-good">
-          <span className="w-1.5 h-1.5 rounded-full bg-score-good" />
+        <span className="inline-flex items-center gap-2 text-xs font-mono font-bold px-3.5 py-1.5 rounded-full score-badge-good border border-emerald-500/20 shadow-2xs self-start sm:self-auto">
+          <span className="w-2 h-2 rounded-full bg-score-good animate-pulse" />
           {passedCount} of {securityChecks.length} checks passing
         </span>
       </div>
@@ -39,17 +39,17 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
           return (
             <div
               key={check.id}
-              className={`rounded-xl p-5 border shadow-xs transition-all flex flex-col justify-between gap-3 bg-surface-0 ${
+              className={`rounded-2xl p-5.5 border shadow-xs transition-all flex flex-col justify-between gap-3.5 bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl ${
                 isPassed
-                  ? "border-border hover:border-brand-200 dark:hover:border-brand-500/30"
-                  : "border-score-warn/40 hover:border-score-warn"
+                  ? "border-border/60 dark:border-white/[0.07] hover:border-border dark:hover:border-white/[0.15]"
+                  : "border-amber-500/30 hover:border-amber-500/50 bg-amber-500/[0.02]"
               }`}
             >
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-3">
                     <div
-                      className={`p-2 rounded-lg border ${
+                      className={`p-2.5 rounded-xl border shrink-0 shadow-2xs ${
                         isPassed
                           ? "bg-score-good/10 text-score-good border-score-good/20"
                           : "bg-score-warn/10 text-score-warn border-score-warn/20"
@@ -61,14 +61,14 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
                         <Warning weight="fill" className="h-4 w-4" />
                       )}
                     </div>
-                    <h4 className="text-sm font-bold text-text-primary leading-tight">
+                    <h4 className="text-sm font-bold text-text-primary leading-snug">
                       {check.title}
                     </h4>
                   </div>
 
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider shrink-0 ${
-                      isPassed ? "score-badge-good" : "score-badge-warn"
+                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider shrink-0 border ${
+                      isPassed ? "score-badge-good border-emerald-500/20" : "score-badge-warn border-amber-500/20"
                     }`}
                   >
                     {isPassed ? "Compliant" : "Warning"}
