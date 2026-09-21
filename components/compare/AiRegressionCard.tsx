@@ -59,23 +59,23 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-border bg-surface-0 p-6 sm:p-7 shadow-xs space-y-4">
+      <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl p-6 sm:p-7 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center">
-              <Cpu weight="fill" className="h-4 w-4" />
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 flex items-center justify-center shadow-2xs">
+              <Cpu weight="fill" className="h-5 w-5" />
             </div>
-            <div className="space-y-1">
-              <div className="h-4 w-48 bg-surface-2 rounded animate-pulse" />
-              <div className="h-3 w-32 bg-surface-2 rounded animate-pulse" />
+            <div className="space-y-1.5">
+              <div className="h-4 w-48 bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
+              <div className="h-3 w-32 bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
             </div>
           </div>
-          <div className="h-6 w-24 bg-surface-2 rounded-full animate-pulse" />
+          <div className="h-6 w-24 bg-surface-2/60 dark:bg-white/[0.06] rounded-full animate-pulse" />
         </div>
         <div className="space-y-2 pt-2">
-          <div className="h-3.5 w-full bg-surface-2 rounded animate-pulse" />
-          <div className="h-3.5 w-5/6 bg-surface-2 rounded animate-pulse" />
-          <div className="h-3.5 w-4/6 bg-surface-2 rounded animate-pulse" />
+          <div className="h-3.5 w-full bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
+          <div className="h-3.5 w-5/6 bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
+          <div className="h-3.5 w-4/6 bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
         </div>
       </div>
     );
@@ -83,15 +83,15 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
   if (error && !summary) {
     return (
-      <div className="rounded-2xl border border-border bg-surface-0 p-6 shadow-xs text-center space-y-3">
-        <div className="h-10 w-10 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mx-auto">
-          <Warning weight="fill" className="h-5 w-5" />
+      <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl p-6 shadow-xs text-center space-y-3">
+        <div className="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mx-auto shadow-2xs">
+          <Warning weight="fill" className="h-6 w-6" />
         </div>
         <div className="space-y-1">
           <p className="text-sm font-semibold text-text-primary">
             Comparative Diagnostics Unavailable
           </p>
-          <p className="text-xs text-text-secondary max-w-md mx-auto">
+          <p className="text-xs text-text-secondary max-w-md mx-auto leading-relaxed">
             {error}
           </p>
         </div>
@@ -100,7 +100,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
             size="sm"
             variant="outline"
             onClick={fetchAiComparison}
-            className="cursor-pointer text-xs rounded-xl h-9"
+            className="cursor-pointer text-xs rounded-xl h-10 px-4 border-border/60 dark:border-white/[0.07]"
           >
             <ArrowsClockwise weight="bold" className="h-3.5 w-3.5 mr-1.5" />
             Retry Analysis
@@ -117,19 +117,19 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
     summary.verdict === "Moderate Improvement";
 
   return (
-    <div className="rounded-2xl border border-border bg-surface-0 p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
+    <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/50 dark:border-white/[0.07] pb-5">
         <div className="flex items-center gap-3.5">
-          <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shadow-2xs shrink-0">
+          <div className="h-10 w-10 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 flex items-center justify-center shadow-2xs shrink-0">
             <Cpu weight="fill" className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-2.5">
-              <h2 className="text-lg font-bold text-text-primary">
+              <h2 className="text-lg font-bold text-text-primary tracking-tight">
                 Comparison Summary
               </h2>
-              <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold bg-surface-1 text-text-secondary border border-border uppercase">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-surface-1/80 dark:bg-white/[0.04] text-text-secondary border border-border/50 dark:border-white/[0.07] uppercase">
                 Automated Analysis
               </span>
             </div>
@@ -141,8 +141,8 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <span
-            className={`px-3 py-1 rounded-full text-xs font-semibold ${
-              isImprovement ? "score-badge-good" : "score-badge-poor"
+            className={`px-3 py-1 rounded-full text-xs font-semibold border ${
+              isImprovement ? "score-badge-good border-emerald-500/20" : "score-badge-poor border-red-500/20"
             }`}
           >
             {summary.verdict}
@@ -151,7 +151,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
       </div>
 
       {/* Headline & Executive Summary */}
-      <div className="p-5 rounded-xl bg-surface-1 border border-border space-y-2">
+      <div className="p-5 rounded-2xl bg-surface-1/70 dark:bg-[#0c0e14]/90 border border-border/60 dark:border-white/[0.07] space-y-2 shadow-2xs">
         <p className="text-sm font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2">
           <Lightning weight="fill" className="h-4.5 w-4.5 shrink-0" />
           {summary.headline}
@@ -165,7 +165,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
         {/* Key Wins */}
         {summary.keyWins.length > 0 && (
-          <div className="bg-surface-1 p-4 rounded-xl border border-border space-y-2.5">
+          <div className="bg-surface-1/60 dark:bg-[#0c0e14]/80 p-5 rounded-2xl border border-border/60 dark:border-white/[0.07] space-y-3 shadow-2xs">
             <p className="text-xs font-bold text-score-good uppercase tracking-wider flex items-center gap-1.5">
               <CheckCircle weight="fill" className="h-4 w-4 text-score-good" />
               Improvements
@@ -183,7 +183,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
         {/* Key Regressions */}
         {summary.keyRegressions.length > 0 && (
-          <div className="bg-surface-1 p-4 rounded-xl border border-border space-y-2.5">
+          <div className="bg-surface-1/60 dark:bg-[#0c0e14]/80 p-5 rounded-2xl border border-border/60 dark:border-white/[0.07] space-y-3 shadow-2xs">
             <p className="text-xs font-bold text-score-poor uppercase tracking-wider flex items-center gap-1.5">
               <Warning weight="fill" className="h-4 w-4 text-score-poor" />
               Regressions
@@ -202,8 +202,8 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
       {/* Recommended Action */}
       {summary.recommendedAction && (
-        <div className="flex items-start gap-3 p-3.5 bg-surface-1 border border-border rounded-xl text-xs">
-          <ShieldCheck weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-3 p-4 bg-surface-1/60 dark:bg-[#0c0e14]/80 border border-border/60 dark:border-white/[0.07] rounded-2xl text-xs shadow-2xs">
+          <ShieldCheck weight="fill" className="h-4.5 w-4.5 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
           <div>
             <span className="font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider text-[10px] block">
               Recommended Next Step
