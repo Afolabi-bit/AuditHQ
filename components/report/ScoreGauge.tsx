@@ -61,11 +61,11 @@ export const ScoreGauge: React.FC<ScoreGaugeProps> = ({
 
   return (
     <div
-      className={`rounded-2xl bg-surface-0 border border-border p-5 sm:p-6 shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 hover:shadow-md transition-all flex flex-col justify-between ${className}`}
+      className={`rounded-2xl bg-surface-0/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] p-5 sm:p-6 shadow-xs backdrop-blur-xl hover:border-brand-300 dark:hover:border-brand-500/30 hover:shadow-md transition-all flex flex-col justify-between ${className}`}
     >
       {/* Header */}
       <div className="flex items-center gap-3 w-full">
-        <div className="p-2 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 shadow-2xs">
+        <div className="p-2.5 rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 shadow-2xs">
           {getIcon()}
         </div>
         <div className="space-y-0.5">
