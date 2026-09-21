@@ -74,13 +74,13 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 p-1.5 bg-surface-1 rounded-xl border border-border">
+        <div className="flex items-center gap-1.5 p-1.5 bg-surface-1/70 dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-border/60 dark:border-white/[0.07] shadow-2xs">
           <button
             onClick={() => setFilter("all")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               filter === "all"
-                ? "bg-surface-0 text-brand-600 dark:text-brand-300 shadow-2xs border border-border"
-                : "text-text-secondary hover:text-text-primary"
+                ? "bg-surface-0/90 dark:bg-[#121620] text-brand-600 dark:text-brand-300 shadow-2xs border border-border/50 dark:border-white/[0.08]"
+                : "text-text-secondary hover:text-text-primary hover:bg-surface-2/60 dark:hover:bg-white/[0.04]"
             }`}
           >
             All ({transitions.length})
@@ -88,10 +88,10 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {countNew > 0 && (
             <button
               onClick={() => setFilter("new_issue")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 filter === "new_issue"
-                  ? "bg-surface-0 text-score-poor shadow-2xs border border-border"
-                  : "text-text-secondary hover:text-score-poor"
+                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-poor shadow-2xs border border-border/50 dark:border-white/[0.08]"
+                  : "text-text-secondary hover:text-score-poor hover:bg-surface-2/60 dark:hover:bg-white/[0.04]"
               }`}
             >
               New Issues ({countNew})
@@ -100,10 +100,10 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {countResolved > 0 && (
             <button
               onClick={() => setFilter("resolved")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 filter === "resolved"
-                  ? "bg-surface-0 text-score-good shadow-2xs border border-border"
-                  : "text-text-secondary hover:text-score-good"
+                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-good shadow-2xs border border-border/50 dark:border-white/[0.08]"
+                  : "text-text-secondary hover:text-score-good hover:bg-surface-2/60 dark:hover:bg-white/[0.04]"
               }`}
             >
               Resolved ({countResolved})
@@ -112,10 +112,10 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {countWorsened > 0 && (
             <button
               onClick={() => setFilter("worsened")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 filter === "worsened"
-                  ? "bg-surface-0 text-score-warn shadow-2xs border border-border"
-                  : "text-text-secondary hover:text-score-warn"
+                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-warn shadow-2xs border border-border/50 dark:border-white/[0.08]"
+                  : "text-text-secondary hover:text-score-warn hover:bg-surface-2/60 dark:hover:bg-white/[0.04]"
               }`}
             >
               Degraded ({countWorsened})
@@ -125,12 +125,14 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
       </div>
 
       {filtered.length === 0 ? (
-        <div className="bg-surface-0 border border-border rounded-2xl p-10 text-center space-y-2 shadow-xs">
-          <CheckCircle weight="fill" className="h-9 w-9 text-score-good mx-auto" />
-          <p className="text-base font-bold text-text-primary">
+        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-10 text-center space-y-3 shadow-xs">
+          <div className="w-12 h-12 rounded-2xl bg-score-good/10 text-score-good flex items-center justify-center mx-auto border border-score-good/20 shadow-xs">
+            <CheckCircle weight="fill" className="h-6 w-6" />
+          </div>
+          <p className="text-base font-bold text-text-primary tracking-tight">
             No diagnostic changes found in this category
           </p>
-          <p className="text-xs sm:text-sm text-text-secondary">
+          <p className="text-xs sm:text-sm text-text-secondary max-w-md mx-auto leading-relaxed">
             Lighthouse opportunity states remained identical across baseline runs.
           </p>
         </div>
@@ -139,12 +141,12 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="bg-surface-0 border border-border rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-brand-200 dark:hover:border-brand-500/30 transition-all flex flex-col justify-between"
+              className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-border dark:hover:border-white/[0.15] transition-all flex flex-col justify-between"
             >
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between gap-2">
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${getBadgeStyle(
+                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${getBadgeStyle(
                       item.state
                     )}`}
                   >
@@ -159,7 +161,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
                   )}
                 </div>
 
-                <h3 className="text-xs sm:text-sm font-bold text-text-primary">
+                <h3 className="text-xs sm:text-sm font-bold text-text-primary tracking-tight">
                   {item.title}
                 </h3>
 
@@ -171,7 +173,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
               </div>
 
               {/* Base vs Target Savings Comparison */}
-              <div className="grid grid-cols-2 gap-2 pt-2.5 border-t border-border/60 text-[11px] font-mono bg-surface-1/60 p-2.5 rounded-lg">
+              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-border/40 dark:border-white/[0.05] text-[11px] font-mono bg-surface-1/60 dark:bg-[#0c0e14]/90 p-3 rounded-xl border border-border/50 dark:border-white/[0.07] shadow-2xs">
                 <div>
                   <span className="text-[10px] uppercase font-bold text-text-tertiary block">
                     Base Savings
@@ -180,7 +182,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
                     {item.baseSavingsMs > 0 ? `${item.baseSavingsMs}ms` : item.baseSavingsBytes > 0 ? formatBytes(item.baseSavingsBytes) : "Passed / 0ms"}
                   </span>
                 </div>
-                <div className="border-s border-border/70 ps-2.5">
+                <div className="border-s border-border/50 dark:border-white/[0.07] ps-3">
                   <span className="text-[10px] uppercase font-bold text-text-tertiary block">
                     Target Savings
                   </span>
