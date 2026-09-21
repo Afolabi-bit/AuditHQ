@@ -100,12 +100,12 @@ export default async function PublicComparePage({ searchParams }: PublicCompareP
   if (!baseId || !targetId) {
     return (
       <div className="min-h-[70vh] flex items-center justify-center p-6 text-center">
-        <div className="max-w-md w-full rounded-2xl bg-surface-0 border border-border p-8 shadow-xs space-y-4">
-          <div className="h-12 w-12 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center mx-auto">
-            <WarningCircle weight="fill" className="h-6 w-6" />
+        <div className="max-w-md w-full rounded-3xl bg-card/80 dark:bg-[#0c0e14]/90 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] p-8 sm:p-10 shadow-2xl space-y-5">
+          <div className="h-14 w-14 rounded-2xl bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 flex items-center justify-center mx-auto shadow-xs">
+            <WarningCircle weight="fill" className="h-7 w-7" />
           </div>
-          <div className="space-y-1">
-            <h2 className="text-base font-bold text-text-primary">
+          <div className="space-y-2">
+            <h2 className="text-lg font-bold text-text-primary">
               Invalid Comparison Parameters
             </h2>
             <p className="text-xs text-text-secondary leading-relaxed">
@@ -114,7 +114,7 @@ export default async function PublicComparePage({ searchParams }: PublicCompareP
           </div>
           <div className="pt-2">
             <Link href="/">
-              <Button size="sm" className="cursor-pointer">
+              <Button size="sm" className="rounded-xl px-5 h-10 font-semibold cursor-pointer shadow-sm">
                 Return to Home
               </Button>
             </Link>
