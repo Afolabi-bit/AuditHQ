@@ -74,17 +74,17 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
   return (
     <Tabs defaultValue="recent" className="space-y-8">
       {/* Tab Navigation Pill Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-4">
-        <TabsList className="bg-surface-1 p-1 rounded-xl border border-border h-11 self-start">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border/40 dark:border-white/[0.05] pb-4">
+        <TabsList className="bg-surface-1/60 dark:bg-white/[0.03] p-1 rounded-xl border border-border/40 dark:border-white/[0.06] h-11 self-start">
           <TabsTrigger
             value="recent"
-            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer text-text-secondary hover:text-text-primary"
+            className="data-[state=active]:bg-surface-0 dark:data-[state=active]:bg-white/[0.08] data-[state=active]:text-brand-600 dark:data-[state=active]:text-white data-[state=active]:shadow-2xs px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer text-text-secondary hover:text-text-primary focus-ring"
           >
             Recent Audits
           </TabsTrigger>
           <TabsTrigger
             value="analytics"
-            className="data-[state=active]:bg-surface-0 data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-xs px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer text-text-secondary hover:text-text-primary"
+            className="data-[state=active]:bg-surface-0 dark:data-[state=active]:bg-white/[0.08] data-[state=active]:text-brand-600 dark:data-[state=active]:text-white data-[state=active]:shadow-2xs px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all cursor-pointer text-text-secondary hover:text-text-primary focus-ring"
           >
             Performance Analytics
           </TabsTrigger>
@@ -94,7 +94,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       {/* ── Tab 1: Recent Tests ────────────────────────────────────────────── */}
       <TabsContent value="recent" className="space-y-5 pt-1">
         <div className="space-y-1">
-          <h2 className="text-lg sm:text-xl font-bold text-text-primary">
+          <h2 className="text-lg sm:text-xl font-bold text-text-primary tracking-tight font-display">
             Audit Activity & History
           </h2>
           <p className="text-xs sm:text-sm text-text-secondary">
@@ -108,10 +108,10 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
       {/* ── Tab 2: Analytics ──────────────────────────────────────────────── */}
       <TabsContent value="analytics" className="space-y-8 pt-1">
         {/* Performance Score Trend Timeline */}
-        <div className="bg-surface-0 border border-border rounded-2xl p-6 sm:p-8 shadow-xs hover:border-brand-200 dark:hover:border-brand-500/30 transition-all space-y-6">
+        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-6 sm:p-8 shadow-2xs hover:border-brand-500/30 dark:hover:border-white/15 transition-all space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-center gap-2.5">
+              <h3 className="text-base sm:text-lg font-bold text-text-primary flex items-center gap-2.5 font-display tracking-tight">
                 <TrendUp weight="bold" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
                 Performance Score Trajectory
               </h3>
@@ -121,12 +121,11 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
             </div>
 
             {stats.avgPerformance != null && (
-              <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 self-start sm:self-auto shadow-2xs">
+              <span className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-mono font-bold bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200/80 dark:border-brand-500/30 self-start sm:self-auto shadow-2xs">
                 Average Score: {stats.avgPerformance}/100
               </span>
             )}
           </div>
-
 
           <PerformanceTrajectoryChart
             data={(stats.performanceTrends || []).map((t) => ({
@@ -144,7 +143,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
         {/* Aggregate CWV Metric Insights */}
         <div className="space-y-4">
           <div className="space-y-1">
-            <h3 className="text-base sm:text-lg font-bold text-text-primary font-sans">
+            <h3 className="text-base sm:text-lg font-bold text-text-primary font-display tracking-tight">
               Core Web Vitals Averages
             </h3>
             <p className="text-xs sm:text-sm text-text-secondary">
@@ -154,7 +153,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* LCP Metric */}
-            <div className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs space-y-3">
+            <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 shadow-2xs space-y-3 hover:border-brand-500/30 dark:hover:border-white/15 transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-text-secondary">
                   Avg Largest Contentful Paint (LCP)
@@ -190,7 +189,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
             </div>
 
             {/* TBT Metric */}
-            <div className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs space-y-3">
+            <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 shadow-2xs space-y-3 hover:border-brand-500/30 dark:hover:border-white/15 transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-text-secondary">
                   Avg Total Blocking Time (TBT)
@@ -226,7 +225,7 @@ const AnalyticsAndRecentTabs: React.FC<AnalyticsAndRecentTabsProps> = ({
             </div>
 
             {/* CLS Metric */}
-            <div className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs space-y-3">
+            <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 shadow-2xs space-y-3 hover:border-brand-500/30 dark:hover:border-white/15 transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-text-secondary">
                   Avg Cumulative Layout Shift (CLS)
