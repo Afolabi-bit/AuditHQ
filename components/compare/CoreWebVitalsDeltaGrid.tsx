@@ -93,25 +93,25 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
           return (
             <div
               key={cfg.id}
-              className="bg-surface-0 border border-border rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-brand-200 dark:hover:border-brand-500/30 hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-border dark:hover:border-white/[0.15] hover:shadow-md transition-all flex flex-col justify-between"
             >
               {/* Header */}
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-0.5">
-                  <p className="text-sm font-bold text-text-primary">
+                  <p className="text-sm font-bold text-text-primary tracking-tight">
                     {cfg.title}
                   </p>
                   <p className="text-xs text-text-tertiary">
                     {cfg.shortDesc}
                   </p>
                 </div>
-                <div className="h-9 w-9 rounded-xl bg-surface-1 border border-border flex items-center justify-center text-text-secondary shrink-0 shadow-2xs">
+                <div className="h-10 w-10 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] flex items-center justify-center text-text-secondary shrink-0 shadow-2xs">
                   {cfg.icon}
                 </div>
               </div>
 
               {/* Side by side Values */}
-              <div className="grid grid-cols-2 gap-3 bg-surface-1 p-3.5 rounded-xl border border-border/70">
+              <div className="grid grid-cols-2 gap-3 bg-surface-1/60 dark:bg-[#0c0e14]/90 p-3.5 rounded-xl border border-border/50 dark:border-white/[0.07] shadow-2xs">
                 {/* Base Value */}
                 <div className="space-y-0.5">
                   <span className="text-[10px] uppercase font-semibold text-text-tertiary">
@@ -123,7 +123,7 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
                 </div>
 
                 {/* Target Value */}
-                <div className="space-y-0.5 border-s border-border/70 ps-3">
+                <div className="space-y-0.5 border-s border-border/50 dark:border-white/[0.07] ps-3">
                   <span className="text-[10px] uppercase font-semibold text-text-tertiary">
                     Target Run
                   </span>
@@ -134,18 +134,18 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
               </div>
 
               {/* Delta & Percent Shift */}
-              <div className="flex items-center justify-between pt-2 border-t border-border/60 text-xs">
+              <div className="flex items-center justify-between pt-2 border-t border-border/40 dark:border-white/[0.05] text-xs">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[11px] font-semibold text-text-tertiary">
                     Net Delta:
                   </span>
                   <span
-                    className={`inline-flex items-center gap-1 font-mono font-bold px-2.5 py-0.5 rounded-full text-xs ${
+                    className={`inline-flex items-center gap-1 font-mono font-bold px-2.5 py-0.5 rounded-full text-xs border ${
                       isImproved
-                        ? "score-badge-good"
+                        ? "score-badge-good border-emerald-500/20"
                         : isRegressed
-                        ? "score-badge-poor"
-                        : "score-badge-neutral"
+                        ? "score-badge-poor border-red-500/20"
+                        : "score-badge-neutral border-border/40 dark:border-white/[0.05]"
                     }`}
                   >
                     {isImproved ? (
@@ -160,7 +160,7 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
                   </span>
                 </div>
 
-                <span className="text-[11px] text-text-tertiary">
+                <span className="text-[11px] text-text-tertiary font-mono">
                   {cfg.targetThreshold}
                 </span>
               </div>
