@@ -184,22 +184,22 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center w-full max-w-full">
-        <div className="max-w-md w-full rounded-2xl bg-surface-0 border border-border p-8 shadow-xs space-y-5">
+        <div className="max-w-md w-full rounded-3xl bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] p-8 sm:p-10 shadow-sm space-y-5">
           <div
-            className={`h-14 w-14 rounded-2xl flex items-center justify-center mx-auto border ${
+            className={`h-16 w-16 rounded-2xl flex items-center justify-center mx-auto border shadow-2xs ${
               isPending
-                ? "bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border-brand-200 dark:border-brand-500/30"
+                ? "bg-brand-500/10 text-brand-600 dark:text-brand-400 border-brand-500/20"
                 : "bg-destructive/10 text-destructive border-destructive/20"
             }`}
           >
             {isPending ? (
-              <CircleNotch weight="bold" className="h-7 w-7 animate-spin" />
+              <CircleNotch weight="bold" className="h-8 w-8 animate-spin" />
             ) : (
-              <WarningOctagon weight="fill" className="h-7 w-7" />
+              <WarningOctagon weight="fill" className="h-8 w-8" />
             )}
           </div>
-          <div className="space-y-1.5">
-            <h2 className="text-lg font-bold text-text-primary">
+          <div className="space-y-2">
+            <h2 className="text-xl font-bold text-text-primary tracking-tight">
               {isPending ? "Cloud Audit in Progress…" : "Audit Encountered an Issue"}
             </h2>
             <p className="text-xs text-text-secondary leading-relaxed">
@@ -213,7 +213,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             <Link href={isPublic ? "/" : "/dashboard"}>
               <Button
                 size="sm"
-                className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-xl px-5 h-10 cursor-pointer shadow-xs"
+                className="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-xl px-6 h-10 cursor-pointer shadow-sm shadow-brand-500/20"
               >
                 {isPublic ? "Return to Home" : "Return to Dashboard"}
               </Button>
@@ -286,11 +286,11 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
         className="flex-1 min-w-0 h-full overflow-y-auto flex flex-col"
       >
         {/* Mobile Header Bar with Hamburger */}
-        <div className="lg:hidden sticky top-0 z-30 bg-surface-0/95 backdrop-blur-md border-b border-border px-4 py-3 flex items-center justify-between shadow-2xs">
+        <div className="lg:hidden sticky top-0 z-30 bg-surface-0/95 dark:bg-[#05070a]/95 backdrop-blur-xl border-b border-border/60 dark:border-white/[0.07] px-4 py-3 flex items-center justify-between shadow-2xs">
           <div className="flex items-center gap-2 min-w-0">
             <button
               onClick={() => setMobileSidebarOpen(true)}
-              className="p-1.5 rounded-lg border border-border bg-surface-1 text-text-secondary hover:text-text-primary cursor-pointer shrink-0"
+              className="p-2 rounded-xl border border-border/60 dark:border-white/[0.07] bg-surface-1/80 dark:bg-white/[0.04] text-text-secondary hover:text-text-primary cursor-pointer shrink-0"
               title="Open Navigation"
             >
               <List weight="bold" className="h-4.5 w-4.5" />
@@ -300,7 +300,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             </span>
           </div>
 
-          <span className="text-xs font-mono font-bold score-badge-good px-2.5 py-0.5 rounded-full shrink-0">
+          <span className="text-xs font-mono font-bold score-badge-good px-3 py-1 rounded-full shrink-0 border border-emerald-500/20">
             {parsedReport.scores.performance}/100
           </span>
         </div>
@@ -308,9 +308,9 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
         {/* Spacious Main Reading Canvas */}
         <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
           {/* ── Prominent Top Action & Sharing Bar ─────────────────────────── */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border/50 dark:border-white/[0.07]">
             {/* Left: Audited Endpoint & Context */}
-            <div className="space-y-1 min-w-0">
+            <div className="space-y-1.5 min-w-0">
               <div className="flex items-center gap-2">
                 <h2 className="text-xl sm:text-2xl font-bold text-text-primary tracking-tight truncate max-w-md" title={test.domain.url}>
                   {test.domain.url}
@@ -319,15 +319,15 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                   href={test.domain.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-text-tertiary hover:text-text-primary transition-colors p-1 rounded-md hover:bg-surface-1 shrink-0"
+                  className="text-text-tertiary hover:text-brand-600 dark:hover:text-brand-400 transition-colors p-1.5 rounded-xl hover:bg-surface-1 dark:hover:bg-white/[0.04] shrink-0"
                   title="Open live URL"
                 >
                   <ArrowSquareOut weight="bold" className="h-4 w-4" />
                 </a>
               </div>
               <div className="flex items-center gap-2 text-xs text-text-tertiary">
-                <span className="inline-flex items-center gap-1 font-medium">
-                  {isDesktop ? <Desktop weight="bold" className="h-3 w-3" /> : <DeviceMobile weight="bold" className="h-3 w-3" />}
+                <span className="inline-flex items-center gap-1.5 font-medium">
+                  {isDesktop ? <Desktop weight="bold" className="h-3.5 w-3.5" /> : <DeviceMobile weight="bold" className="h-3.5 w-3.5" />}
                   {isDesktop ? "Desktop Chrome" : "Mobile Simulation"}
                 </span>
                 <span>•</span>
@@ -344,7 +344,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={handleCopyShareLink}
-                className="h-8.5 px-3 rounded-lg text-xs font-semibold border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary cursor-pointer shadow-2xs gap-1.5"
+                className="h-9 px-3.5 rounded-xl text-xs font-semibold border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary cursor-pointer shadow-2xs gap-1.5"
               >
                 {copied ? (
                   <>
@@ -364,7 +364,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={() => setIsCompareOpen(true)}
-                className="h-8.5 px-3 rounded-lg text-xs font-semibold border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary cursor-pointer shadow-2xs gap-1.5"
+                className="h-9 px-3.5 rounded-xl text-xs font-semibold border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary cursor-pointer shadow-2xs gap-1.5"
               >
                 <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
                 <span>Compare</span>
@@ -376,7 +376,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                   size="sm"
                   disabled={activePdfFormat !== null}
                   onClick={() => setIsPdfMenuOpen(!isPdfMenuOpen)}
-                  className="h-8.5 px-3 rounded-lg bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow-xs cursor-pointer gap-1.5"
+                  className="h-9 px-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow-sm shadow-brand-500/20 cursor-pointer gap-1.5"
                 >
                   {activePdfFormat ? (
                     <>
@@ -393,10 +393,10 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 </Button>
 
                 {isPdfMenuOpen && (
-                  <div className="absolute right-0 mt-1.5 w-56 rounded-xl bg-surface-0 border border-border shadow-xl py-1.5 z-50 animate-in fade-in duration-100">
+                  <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-xl border border-border/60 dark:border-white/[0.08] shadow-2xl p-1.5 z-50 animate-in fade-in duration-100">
                     <button
                       onClick={() => handleExportPdf("basic")}
-                      className="w-full px-3 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2 cursor-pointer text-xs"
+                      className="w-full px-3 py-2 rounded-xl text-left hover:bg-surface-1 dark:hover:bg-white/[0.04] transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                     >
                       <FileText weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                       <div>
@@ -407,7 +407,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
 
                     <button
                       onClick={() => handleExportPdf("detailed")}
-                      className="w-full px-3 py-2 text-left hover:bg-surface-1 transition-colors flex items-start gap-2 cursor-pointer text-xs"
+                      className="w-full px-3 py-2 rounded-xl text-left hover:bg-surface-1 dark:hover:bg-white/[0.04] transition-colors flex items-start gap-2.5 cursor-pointer text-xs"
                     >
                       <DownloadSimple weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0 mt-0.5" />
                       <div>
@@ -424,7 +424,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
                 variant="outline"
                 size="sm"
                 onClick={handleExportJson}
-                className="h-8.5 px-2.5 rounded-lg border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary cursor-pointer shadow-2xs"
+                className="h-9 px-3 rounded-xl border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary cursor-pointer shadow-2xs"
                 title="Download raw Lighthouse JSON"
               >
                 <FileCode weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
@@ -531,11 +531,11 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
           </div>
 
           {/* ── 3. Bottom Section Navigation Bar ────────────────────────────── */}
-          <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="pt-6 border-t border-border/50 dark:border-white/[0.07] flex flex-col sm:flex-row items-center justify-between gap-4">
             {prevSection ? (
               <button
                 onClick={() => handleNavigateSection(prevSection.id)}
-                className="w-full sm:w-auto inline-flex items-center gap-3 px-4 py-2.5 rounded-xl border border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group"
+                className="w-full sm:w-auto inline-flex items-center gap-3.5 px-4.5 py-3 rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group"
               >
                 <ArrowLeft weight="bold" className="h-4 w-4 transform group-hover:-translate-x-1 transition-transform" />
                 <div className="text-left">
@@ -547,7 +547,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
               <div className="hidden sm:block" />
             )}
 
-            <div className="flex items-center gap-2 text-xs text-text-tertiary font-mono">
+            <div className="flex items-center gap-2 text-xs text-text-tertiary font-mono bg-surface-1/60 dark:bg-white/[0.03] px-3 py-1.5 rounded-full border border-border/50 dark:border-white/[0.07]">
               <span className="font-bold text-text-primary">{currentIndex + 1}</span>
               <span>/</span>
               <span>{sectionsList.length}</span>
@@ -556,7 +556,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             {nextSection ? (
               <button
                 onClick={() => handleNavigateSection(nextSection.id)}
-                className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-end gap-3 px-4 py-2.5 rounded-xl border border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group text-right"
+                className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-end gap-3.5 px-4.5 py-3 rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group text-right"
               >
                 <div className="text-right">
                   <span className="text-[10px] text-text-tertiary block font-mono">Next Section</span>
@@ -567,21 +567,21 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
             ) : (
               <button
                 onClick={() => handleNavigateSection("scorecard")}
-                className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-end gap-3 px-4 py-2.5 rounded-xl border border-border bg-surface-0 hover:bg-surface-1 text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group text-right"
+                className="w-full sm:w-auto inline-flex items-center justify-between sm:justify-end gap-3.5 px-4.5 py-3 rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] text-text-secondary hover:text-text-primary text-xs font-semibold transition-all cursor-pointer shadow-2xs group text-right"
               >
                 <div className="text-right">
                   <span className="text-[10px] text-text-tertiary block font-mono">Completed</span>
                   <span className="font-bold text-text-primary">Back to Scorecard</span>
                 </div>
-                <ArrowsClockwise weight="bold" className="h-4 w-4 transform group-hover:rotate-180 transition-transform" />
+                <ArrowsClockwise weight="bold" className="h-4 w-4 transform group-hover:rotate-180 transition-transform text-brand-600 dark:text-brand-400" />
               </button>
             )}
           </div>
 
           {/* Public Footer CTA Banner (if viewed publicly) */}
           {isPublic && (
-            <div className="mt-12 bg-surface-1 border border-border rounded-3xl p-8 sm:p-10 text-center space-y-4 shadow-xs">
-              <h3 className="text-2xl sm:text-3xl font-bold text-text-primary">
+            <div className="mt-12 bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-8 sm:p-12 text-center space-y-4 shadow-sm">
+              <h3 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
                 Optimize your website performance with AuditHQ
               </h3>
               <p className="text-text-secondary text-sm max-w-xl mx-auto leading-relaxed">
@@ -589,7 +589,7 @@ export const TestReportView: React.FC<TestReportViewProps> = ({
               </p>
               <div className="pt-3">
                 <Link href="/">
-                  <Button size="lg" className="bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-xs rounded-xl cursor-pointer px-7 h-12 gap-2">
+                  <Button size="lg" className="bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-sm shadow-brand-500/25 rounded-xl cursor-pointer px-8 h-12 gap-2">
                     <Lightning weight="fill" className="h-4 w-4" />
                     Run Free Audit Now
                   </Button>
