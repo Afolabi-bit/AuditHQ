@@ -20,7 +20,7 @@ export const CategoryScoreRings: React.FC<CategoryScoreRingsProps> = ({ scores }
   return (
     <section className="space-y-6">
       {/* Legend and Composite Score Summary */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-border/60 text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-border/60 dark:border-white/[0.07] text-xs">
         <span className="font-mono text-text-secondary">
           Average Category Score: <strong className="text-text-primary font-bold">{avgCategoryScore}/100</strong>
         </span>
