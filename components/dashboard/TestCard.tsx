@@ -84,12 +84,12 @@ const TestCard = ({
   return (
     <>
       <div
-        className={`rounded-2xl bg-surface-0 border transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 overflow-hidden shadow-xs hover:shadow-md ${
+        className={`rounded-2xl backdrop-blur-md transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 overflow-hidden shadow-2xs hover:shadow-md ${
           isCompleted
-            ? "border-border hover:border-brand-300 dark:hover:border-brand-500/40"
+            ? "bg-surface-0/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] hover:border-brand-500/40 dark:hover:border-white/20"
             : isPending
-            ? "border-brand-200 dark:border-brand-500/30 bg-surface-0"
-            : "border-destructive/30 bg-destructive/5"
+            ? "bg-surface-0/70 dark:bg-white/[0.03] border border-brand-300 dark:border-brand-500/30"
+            : "bg-destructive/5 dark:bg-red-500/[0.04] border border-destructive/20 dark:border-red-500/20"
         }`}
       >
         <div className="p-5 sm:p-6 lg:p-7 space-y-5">
@@ -97,20 +97,20 @@ const TestCard = ({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1.5 min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <div className="h-6 w-6 rounded-lg bg-surface-2 flex items-center justify-center text-text-secondary shrink-0">
+                <div className="h-6 w-6 rounded-lg bg-surface-1/80 dark:bg-white/[0.05] border border-border/40 dark:border-white/[0.05] flex items-center justify-center text-text-secondary dark:text-white/70 shrink-0">
                   <Globe weight="bold" className="h-3.5 w-3.5" />
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-text-primary hover:text-brand-600 dark:hover:text-brand-400 transition-colors truncate max-w-xl">
                   {url}
                 </h3>
                 {isPending && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30">
-                    <span className="w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30">
+                    <span className="w-2 h-2 rounded-full bg-brand-600 dark:bg-brand-400 animate-pulse" />
                     Auditing…
                   </span>
                 )}
                 {isFailed && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-destructive/10 text-destructive border border-destructive/20">
                     <XCircle weight="fill" className="h-3.5 w-3.5" />
                     Failed
                   </span>
@@ -146,7 +146,7 @@ const TestCard = ({
                     <span className={`text-2xl sm:text-3xl font-bold font-mono tracking-tight ${scoreColors.text}`}>
                       {typeof score === "number" ? score : "—"}
                     </span>
-                    <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${scoreColors.badge}`}>
+                    <span className={`text-xs font-bold font-mono px-3 py-1 rounded-full shadow-2xs ${scoreColors.badge}`}>
                       {scoreColors.label}
                     </span>
                   </div>
@@ -158,7 +158,8 @@ const TestCard = ({
                 type="button"
                 onClick={() => setIsDeleteOpen(true)}
                 title="Delete this audit run"
-                className="h-8 w-8 rounded-lg bg-surface-1 hover:bg-rose-500/10 hover:border-rose-500/30 text-text-tertiary hover:text-rose-600 dark:hover:text-rose-400 border border-border flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Delete this audit run"
+                className="h-8 w-8 rounded-lg bg-surface-1/80 dark:bg-white/[0.04] hover:bg-rose-500/10 hover:border-rose-500/30 text-text-tertiary hover:text-rose-600 dark:hover:text-rose-400 border border-border/40 dark:border-white/[0.06] flex items-center justify-center transition-colors cursor-pointer focus-ring"
               >
                 <Trash weight="bold" className="h-4 w-4" />
               </button>
@@ -175,7 +176,7 @@ const TestCard = ({
 
           {/* Pending Animation Banner */}
           {isPending && (
-            <div className="flex items-center gap-3 text-xs text-brand-600 dark:text-brand-300 bg-surface-1 p-4 rounded-xl border border-border">
+            <div className="flex items-center gap-3 text-xs text-brand-600 dark:text-brand-300 bg-surface-1/60 dark:bg-white/[0.03] p-4 rounded-xl border border-border/40 dark:border-white/[0.06]">
               <span className="relative flex h-3 w-3 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-brand-600"></span>
@@ -187,32 +188,44 @@ const TestCard = ({
           {/* Completed Metrics Strip */}
           {isCompleted && (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-              <div className="p-3 sm:p-3.5 rounded-xl bg-surface-1 border border-border/80 flex flex-col justify-between">
-                <p className="text-[11px] font-semibold text-text-secondary uppercase">FCP</p>
+              <div className="p-3.5 sm:p-4 rounded-xl bg-surface-1/60 dark:bg-white/[0.03] border border-border/40 dark:border-white/[0.05] flex flex-col justify-between hover:bg-surface-1 dark:hover:bg-white/[0.05] transition-colors">
+                <div className="flex items-center justify-between">
+                  <p className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">FCP</p>
+                  <span className={`w-1.5 h-1.5 rounded-full ${fcp != null && Number(fcp) <= 1.8 ? 'bg-score-good' : fcp != null && Number(fcp) <= 3.0 ? 'bg-score-warn' : 'bg-score-poor'}`} />
+                </div>
                 <p className="text-base sm:text-lg font-bold text-text-primary font-mono mt-1">
                   {fcp != null ? `${Number(fcp).toFixed(1)}s` : "—"}
                 </p>
                 <p className="text-[10px] text-text-tertiary mt-0.5">First Contentful Paint</p>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-xl bg-surface-1 border border-border/80 flex flex-col justify-between">
-                <p className="text-[11px] font-semibold text-text-secondary uppercase">LCP</p>
+              <div className="p-3.5 sm:p-4 rounded-xl bg-surface-1/60 dark:bg-white/[0.03] border border-border/40 dark:border-white/[0.05] flex flex-col justify-between hover:bg-surface-1 dark:hover:bg-white/[0.05] transition-colors">
+                <div className="flex items-center justify-between">
+                  <p className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">LCP</p>
+                  <span className={`w-1.5 h-1.5 rounded-full ${lcp != null && Number(lcp) <= 2.5 ? 'bg-score-good' : lcp != null && Number(lcp) <= 4.0 ? 'bg-score-warn' : 'bg-score-poor'}`} />
+                </div>
                 <p className="text-base sm:text-lg font-bold text-text-primary font-mono mt-1">
                   {lcp != null ? `${Number(lcp).toFixed(1)}s` : "—"}
                 </p>
                 <p className="text-[10px] text-text-tertiary mt-0.5">Largest Contentful Paint</p>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-xl bg-surface-1 border border-border/80 flex flex-col justify-between">
-                <p className="text-[11px] font-semibold text-text-secondary uppercase">TBT</p>
+              <div className="p-3.5 sm:p-4 rounded-xl bg-surface-1/60 dark:bg-white/[0.03] border border-border/40 dark:border-white/[0.05] flex flex-col justify-between hover:bg-surface-1 dark:hover:bg-white/[0.05] transition-colors">
+                <div className="flex items-center justify-between">
+                  <p className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">TBT</p>
+                  <span className={`w-1.5 h-1.5 rounded-full ${tti != null && (Number(tti) <= 200 || Number(tti) * 1000 <= 200) ? 'bg-score-good' : 'bg-score-warn'}`} />
+                </div>
                 <p className="text-base sm:text-lg font-bold text-text-primary font-mono mt-1">
                   {tti != null ? `${Math.round(Number(tti) > 100 ? Number(tti) : Number(tti) * 1000)}ms` : "—"}
                 </p>
                 <p className="text-[10px] text-text-tertiary mt-0.5">Total Blocking Time</p>
               </div>
 
-              <div className="p-3 sm:p-3.5 rounded-xl bg-surface-1 border border-border/80 flex flex-col justify-between">
-                <p className="text-[11px] font-semibold text-text-secondary uppercase">CLS</p>
+              <div className="p-3.5 sm:p-4 rounded-xl bg-surface-1/60 dark:bg-white/[0.03] border border-border/40 dark:border-white/[0.05] flex flex-col justify-between hover:bg-surface-1 dark:hover:bg-white/[0.05] transition-colors">
+                <div className="flex items-center justify-between">
+                  <p className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider">CLS</p>
+                  <span className={`w-1.5 h-1.5 rounded-full ${cls != null && Number(cls) <= 0.1 ? 'bg-score-good' : cls != null && Number(cls) <= 0.25 ? 'bg-score-warn' : 'bg-score-poor'}`} />
+                </div>
                 <p className="text-base sm:text-lg font-bold text-text-primary font-mono mt-1">
                   {cls != null ? Number(cls).toFixed(2) : "—"}
                 </p>
@@ -222,9 +235,9 @@ const TestCard = ({
           )}
         </div>
 
-        {/* Prominent Action Footer */}
+        {/* Prominent Action Footer with Ergonomic Touch Target */}
         {isCompleted && (
-          <div className="px-5 py-3.5 sm:px-6 sm:py-4 bg-surface-1/70 border-t border-border/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="px-5 py-3.5 sm:px-6 sm:py-4 bg-surface-1/50 dark:bg-white/[0.02] border-t border-border/40 dark:border-white/[0.05] flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-xs text-text-secondary w-full sm:w-auto justify-between sm:justify-start">
               <span className="inline-flex items-center gap-1.5 font-medium text-text-tertiary">
                 <Cpu weight="fill" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
@@ -235,7 +248,7 @@ const TestCard = ({
             <Link href={`/dashboard/test/${id}`} className="w-full sm:w-auto">
               <Button
                 size="default"
-                className="w-full sm:w-auto h-11 sm:h-9 px-6 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs rounded-xl shadow-xs shadow-brand-500/20 cursor-pointer gap-2 transition-transform active:scale-[0.98]"
+                className="w-full sm:w-auto min-h-[44px] sm:min-h-[38px] px-6 bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs shadow-brand-500/25 cursor-pointer gap-2 transition-transform active:scale-[0.98] focus-ring"
               >
                 <span>View Report</span>
                 <ArrowRight weight="bold" className="h-4 w-4" />
