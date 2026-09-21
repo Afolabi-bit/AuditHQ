@@ -96,6 +96,24 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
   const displayTests: RecentTestData[] = data?.tests ?? (isUserMatching && storedList.length > 0 ? (storedList as any) : []);
   const showSkeleton = isLoading && displayTests.length === 0;
 
+  const handleTestDeleted = (deletedTestId: string) => {
+    // Instantly remove from SWR cache without waiting for network re-fetch
+    mutate(
+      (current: any) => {
+        if (!current?.tests) return current;
+        return {
+          ...current,
+          tests: current.tests.filter(
+            (t: any) => String(t.id) !== String(deletedTestId)
+          ),
+        };
+      },
+      { revalidate: true }
+    );
+    // Remove from Zustand persistent store
+    useAppStore.getState().removeTest(deletedTestId);
+  };
+
   // Domain Grouping Computation
   const domainGroups = useMemo(() => {
     const map = new Map<string, DomainGroupTestItem[]>();
@@ -287,6 +305,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
                 userId={user.id}
                 defaultExpanded={true}
                 onRunTestStarted={() => mutate()}
+                onTestDeleted={handleTestDeleted}
               />
             ))
           )}
@@ -329,7 +348,7 @@ const RecentTests = ({ user }: { user: KindeUser }) => {
                   tti={tbtSeconds}
                   cls={clsValue}
                   speedIndex={null}
-                  onDeleted={() => mutate()}
+                  onDeleted={handleTestDeleted}
                 />
               );
             })
