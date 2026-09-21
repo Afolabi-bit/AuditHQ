@@ -57,20 +57,20 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
   };
 
   return (
-    <header className="border-b border-border/70 bg-surface-0/80 backdrop-blur-xl saturate-180 sticky top-0 z-30 transition-colors">
+    <header className="border-b border-border/60 dark:border-white/[0.07] bg-surface-0/80 dark:bg-[#05070a]/90 backdrop-blur-xl saturate-180 sticky top-0 z-30 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-4">
         {/* Top bar with back link and actions */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <Link
               href={isPublic ? "/" : "/dashboard"}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors bg-surface-1 hover:bg-surface-2 px-3 py-1.5 rounded-lg border border-border"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors bg-surface-1/80 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] px-3.5 py-1.5 rounded-xl border border-border/60 dark:border-white/[0.07] shadow-2xs"
             >
               <ArrowLeft weight="bold" className="h-3.5 w-3.5" />
               {isPublic ? "AuditHQ Home" : "Dashboard"}
             </Link>
 
-            <span className="hidden sm:inline-block h-4 w-px bg-border" />
+            <span className="hidden sm:inline-block h-4 w-px bg-border/50 dark:bg-white/[0.07]" />
 
             <div className="flex items-center gap-1.5 text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider">
               <Lightning weight="fill" className="h-3.5 w-3.5" />
@@ -83,7 +83,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleSwap}
-              className="h-8.5 text-xs font-semibold gap-1.5 border-border hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors cursor-pointer"
+              className="h-9 px-3.5 rounded-xl text-xs font-semibold gap-1.5 border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors cursor-pointer shadow-2xs"
               title="Swap Base and Target runs"
             >
               <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5" />
@@ -94,7 +94,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleShare}
-              className="h-8.5 text-xs font-semibold gap-1.5 border-border cursor-pointer"
+              className="h-9 px-3.5 rounded-xl text-xs font-semibold gap-1.5 border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] transition-colors cursor-pointer shadow-2xs"
             >
               {copied ? (
                 <>
@@ -103,7 +103,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
                 </>
               ) : (
                 <>
-                  <ShareNetwork weight="bold" className="h-3.5 w-3.5" />
+                  <ShareNetwork weight="bold" className="h-3.5 w-3.5 text-text-tertiary" />
                   <span>Share Comparison</span>
                 </>
               )}
@@ -112,11 +112,11 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
         </div>
 
         {/* Comparison Hero Header: Base vs Target */}
-        <div className="grid grid-cols-1 md:grid-cols-11 gap-3 items-center bg-surface-1 p-3.5 sm:p-4 rounded-xl border border-border">
+        <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl p-4 sm:p-5 rounded-2xl border border-border/60 dark:border-white/[0.07] shadow-xs">
           {/* Base Run */}
-          <div className="md:col-span-5 space-y-1">
+          <div className="md:col-span-5 space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-surface-2 text-text-secondary border border-border">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/[0.06] text-text-secondary border border-border/50 dark:border-white/[0.07]">
                 Baseline Run
               </span>
               <span className="text-[11px] font-mono text-text-tertiary flex items-center gap-1">
@@ -124,7 +124,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
                 {formatRunDate(report.base.createdAt)}
               </span>
             </div>
-            <p className="text-sm sm:text-base font-bold text-text-primary truncate font-mono flex items-center gap-1.5">
+            <p className="text-sm sm:text-base font-bold text-text-primary truncate font-mono flex items-center gap-1.5 tracking-tight">
               <Globe weight="bold" className="h-4 w-4 text-text-tertiary shrink-0" />
               {report.base.url}
             </p>
@@ -148,25 +148,25 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
           <div className="md:col-span-1 flex justify-center items-center py-1 md:py-0">
             <button
               onClick={handleSwap}
-              className="h-8 w-8 rounded-full bg-surface-0 border border-border shadow-xs hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group"
+              className="h-9 w-9 rounded-full bg-surface-0/80 dark:bg-[#0c0e14] border border-border/60 dark:border-white/[0.1] shadow-xs hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group"
               title="Click to Swap Base and Target"
             >
-              <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 group-hover:rotate-180 transition-transform duration-300" />
+              <ArrowsLeftRight weight="bold" className="h-4 w-4 group-hover:rotate-180 transition-transform duration-300" />
             </button>
           </div>
 
           {/* Target Run */}
-          <div className="md:col-span-5 space-y-1 md:text-end">
+          <div className="md:col-span-5 space-y-1.5 md:text-end">
             <div className="flex items-center gap-2 md:justify-end">
               <span className="text-[11px] font-mono text-text-tertiary flex items-center gap-1 order-2 md:order-1">
                 <Calendar weight="bold" className="h-3 w-3" />
                 {formatRunDate(report.target.createdAt)}
               </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 order-1 md:order-2">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 order-1 md:order-2">
                 New Run
               </span>
             </div>
-            <p className="text-sm sm:text-base font-bold text-text-primary truncate font-mono flex items-center gap-1.5 md:justify-end">
+            <p className="text-sm sm:text-base font-bold text-text-primary truncate font-mono flex items-center gap-1.5 md:justify-end tracking-tight">
               <Globe weight="bold" className="h-4 w-4 text-text-tertiary shrink-0 order-first md:order-last" />
               {report.target.url}
             </p>
