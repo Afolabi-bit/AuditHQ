@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import getSessionUser from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 export async function syncUserToDatabase(user: KindeUser) {
   try {
@@ -130,10 +131,11 @@ export async function getTestStatus(id: string) {
   }
 }
 
-export async function deleteTest(testId: string) {
+export async function deleteTest(testId: string, authorizedUserId?: string) {
   try {
     const sessionUser = await getSessionUser();
-    if (!sessionUser?.id) {
+    const userId = sessionUser?.id || authorizedUserId;
+    if (!userId) {
       return { success: false, error: "Unauthorized" };
     }
 
@@ -146,7 +148,7 @@ export async function deleteTest(testId: string) {
       return { success: false, error: "Audit not found" };
     }
 
-    if (test.domain.ownerId !== sessionUser.id) {
+    if (test.domain.ownerId !== userId) {
       return { success: false, error: "Forbidden: You do not own this test" };
     }
 
@@ -155,6 +157,14 @@ export async function deleteTest(testId: string) {
       where: { id: testId },
       data: { deletedAt: new Date() },
     });
+
+    try {
+      revalidatePath("/dashboard");
+      revalidatePath(`/dashboard/test/${testId}`);
+      revalidatePath(`/report/${testId}`);
+    } catch {
+      // revalidatePath may throw in non-request contexts
+    }
 
     return { success: true, message: "Audit deleted successfully" };
   } catch (error) {
