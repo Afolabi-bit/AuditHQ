@@ -16,7 +16,7 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
   return (
     <div className="min-h-screen bg-background pb-16 w-full max-w-full overflow-x-hidden animate-in fade-in-50 duration-150">
       {/* ── 1. Static Report Header Deck ────── */}
-      <div className="bg-surface-0 border-b border-border px-4 sm:px-6 lg:px-8 py-6">
+      <div className="bg-surface-0/80 dark:bg-[#05070a]/90 backdrop-blur-xl border-b border-border/60 dark:border-white/[0.07] px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs font-mono text-text-tertiary">
@@ -24,23 +24,23 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
               <span>/</span>
               <span>Reports</span>
               <span>/</span>
-              <div className="h-3 w-14 rounded bg-surface-2 animate-pulse" />
+              <div className="h-3.5 w-14 rounded-full bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
             </div>
 
             <div className="flex items-center gap-3 flex-wrap">
-              <div className="h-7 w-64 max-w-full rounded-md bg-surface-2 animate-pulse" />
+              <div className="h-7 w-64 max-w-full rounded-xl bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
             </div>
 
             <div className="flex items-center gap-2 pt-1 flex-wrap">
-              <div className="h-5 w-20 rounded-full bg-surface-2 animate-pulse" />
-              <div className="h-5 w-28 rounded-full bg-surface-2 animate-pulse" />
-              <div className="h-5 w-32 rounded-full bg-surface-2 animate-pulse" />
+              <div className="h-5 w-20 rounded-full bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
+              <div className="h-5 w-28 rounded-full bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
+              <div className="h-5 w-32 rounded-full bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
             </div>
           </div>
 
           <div className="flex items-center gap-2 self-start md:self-auto">
-            <div className="h-9 w-32 rounded-lg bg-brand-50 border border-brand-200/60 animate-pulse" />
-            <div className="h-9 w-24 rounded-lg bg-surface-0 border border-border animate-pulse" />
+            <div className="h-9 w-32 rounded-xl bg-brand-500/10 border border-brand-500/20 animate-pulse" />
+            <div className="h-9 w-24 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] border border-border/60 dark:border-white/[0.07] animate-pulse" />
           </div>
         </div>
       </div>
@@ -50,13 +50,13 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
         {/* Section 1: 4 Score Gauges */}
         <section className="space-y-4">
           {/* Section Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0 border border-border rounded-xl p-4 px-6 shadow-xs">
-            <div className="space-y-0.5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 px-6 shadow-xs">
+            <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <h2 className="text-base font-extrabold text-text-primary tracking-tight">
                   Core Performance Audit
                 </h2>
-                <div className="h-5 w-36 rounded-full bg-brand-50 border border-brand-200/50 animate-pulse" />
+                <div className="h-5 w-36 rounded-full bg-brand-500/10 border border-brand-500/20 animate-pulse" />
               </div>
               <p className="text-xs text-text-secondary">
                 Multi-dimensional evaluation based on official Google Lighthouse 12.0 scoring algorithms
@@ -89,11 +89,11 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
             ].map((g, idx) => (
               <div
                 key={idx}
-                className="rounded-xl bg-surface-0 border border-border p-5 shadow-xs flex flex-col justify-between"
+                className="rounded-2xl bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] p-5 sm:p-6 shadow-xs flex flex-col justify-between"
               >
                 {/* Header */}
-                <div className="flex items-center gap-2.5 w-full">
-                  <div className="p-2 rounded-lg bg-brand-50 border border-brand-200 dark:bg-brand-500/10 dark:border-brand-500/30">
+                <div className="flex items-center gap-3 w-full">
+                  <div className="p-2.5 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400">
                     {g.icon}
                   </div>
                   <div>
@@ -105,9 +105,9 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
                 </div>
 
                 {/* Gauge Radial Skeleton */}
-                <div className="relative flex items-center justify-center my-5">
-                  <div className="h-32 w-32 rounded-full border-8 border-surface-2 animate-pulse flex flex-col items-center justify-center">
-                    <div className="h-8 w-14 rounded bg-surface-2 animate-pulse" />
+                <div className="relative flex items-center justify-center my-6">
+                  <div className="h-32 w-32 rounded-full border-8 border-surface-2/60 dark:border-white/[0.06] animate-pulse flex flex-col items-center justify-center">
+                    <div className="h-8 w-14 rounded-xl bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
                     <span className="text-[10px] font-mono font-semibold text-text-tertiary uppercase mt-0.5">
                       / 100
                     </span>
@@ -115,9 +115,9 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
                 </div>
 
                 {/* Footer */}
-                <div className="w-full pt-3 border-t border-border flex items-center justify-between text-xs">
+                <div className="w-full pt-3 border-t border-border/50 dark:border-white/[0.07] flex items-center justify-between text-xs">
                   <span className="text-[11px] text-text-tertiary font-medium">Passing Threshold</span>
-                  <span className="text-[11px] font-mono font-bold text-text-primary bg-surface-1 px-2 py-0.5 rounded border border-border">
+                  <span className="text-[11px] font-mono font-bold text-text-primary bg-surface-1/80 dark:bg-white/[0.04] px-2.5 py-0.5 rounded-full border border-border/50 dark:border-white/[0.07]">
                     90–100 pts
                   </span>
                 </div>
@@ -128,7 +128,7 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
 
         {/* Section 2: 6 Core Web Vitals Cards */}
         <section className="space-y-4">
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
               <Pulse weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
               Core Web Vitals & Diagnostic Timings
@@ -149,12 +149,12 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
             ].map((card, idx) => (
               <div
                 key={idx}
-                className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs flex flex-col justify-between"
+                className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex flex-col justify-between"
               >
                 <div className="space-y-3.5">
                   <div className="flex items-start justify-between gap-2">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-lg bg-brand-50 border border-brand-200 dark:bg-brand-500/10 dark:border-brand-500/30">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 shadow-2xs">
                         {card.icon}
                       </div>
                       <div>
@@ -163,7 +163,7 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
                             {card.acronym}
                           </h4>
                           {card.isCore && (
-                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-brand-50 text-brand-600 border border-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:border-brand-500/30">
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-brand-500/10 text-brand-600 border border-brand-500/20 dark:text-brand-300">
                               Core Vital
                             </span>
                           )}
@@ -171,26 +171,26 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
                         <p className="text-xs text-text-tertiary line-clamp-1">{card.name}</p>
                       </div>
                     </div>
-                    <div className="h-5 w-16 rounded-full bg-surface-2 animate-pulse" />
+                    <div className="h-5 w-16 rounded-full bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
                   </div>
 
                   {/* Metric Display Skeleton */}
                   <div className="pt-1 flex items-baseline justify-between gap-2">
-                    <div className="h-8 w-20 rounded bg-surface-2 animate-pulse" />
-                    <span className="text-xs font-mono text-text-tertiary bg-surface-1 px-2 py-0.5 rounded-md border border-border">
+                    <div className="h-8 w-20 rounded-xl bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
+                    <span className="text-xs font-mono text-text-tertiary bg-surface-1/80 dark:bg-white/[0.04] px-2.5 py-0.5 rounded-full border border-border/50 dark:border-white/[0.07]">
                       Target: {card.target}
                     </span>
                   </div>
 
                   {/* 3-Zone bar */}
-                  <div className="h-1.5 w-full bg-surface-2 rounded-full overflow-hidden flex">
+                  <div className="h-1.5 w-full bg-surface-2/60 dark:bg-white/[0.06] rounded-full overflow-hidden flex">
                     <div className="w-1/3 h-full bg-emerald-500/30" />
                     <div className="w-1/3 h-full bg-amber-500/30" />
                     <div className="w-1/3 h-full bg-rose-500/30" />
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs text-text-tertiary">
+                <div className="mt-4 pt-3 border-t border-border/50 dark:border-white/[0.07] flex items-center justify-between text-xs text-text-tertiary">
                   <span className="font-medium">Lighthouse Weight</span>
                   <span className="font-semibold text-text-primary font-mono">{card.weight}</span>
                 </div>
@@ -201,7 +201,7 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
 
         {/* Section 3: Visual Progression Skeleton */}
         <section className="space-y-4">
-          <div className="space-y-0.5">
+          <div className="space-y-1">
             <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
               <FilmStrip weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400" />
               Visual Rendering Progression
@@ -211,12 +211,12 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
             </p>
           </div>
 
-          <div className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs">
+          <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs">
             <div className="flex items-center gap-3 overflow-hidden pb-1">
               {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="shrink-0 flex flex-col items-center space-y-1.5">
-                  <div className="w-28 h-20 bg-surface-1 rounded-lg border border-border animate-pulse" />
-                  <div className="h-4 w-12 rounded bg-surface-2 animate-pulse" />
+                <div key={i} className="shrink-0 flex flex-col items-center space-y-2">
+                  <div className="w-28 h-20 bg-surface-1/80 dark:bg-white/[0.04] rounded-xl border border-border/50 dark:border-white/[0.07] animate-pulse" />
+                  <div className="h-4 w-12 rounded-full bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
                 </div>
               ))}
             </div>
@@ -225,20 +225,20 @@ export function TestReportSkeleton({ isPublic = false }: { isPublic?: boolean } 
 
         {/* Section 4: Diagnostic Tabs Skeleton */}
         <section className="space-y-4 pt-2">
-          <div className="border-b border-border pb-2">
-            <div className="h-10 w-96 max-w-full rounded-lg bg-surface-2 border border-border animate-pulse" />
+          <div className="border-b border-border/50 dark:border-white/[0.07] pb-2">
+            <div className="h-10 w-96 max-w-full rounded-2xl bg-surface-2/60 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] animate-pulse" />
           </div>
           <div className="space-y-3">
             {[1, 2].map((i) => (
               <div
                 key={i}
-                className="bg-surface-0 border border-border rounded-xl p-5 shadow-xs flex items-center justify-between"
+                className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex items-center justify-between"
               >
                 <div className="space-y-2 flex-1 max-w-md">
-                  <div className="h-4 w-64 rounded bg-surface-2 animate-pulse" />
-                  <div className="h-3 w-40 rounded bg-surface-2 animate-pulse" />
+                  <div className="h-4 w-64 rounded-lg bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
+                  <div className="h-3 w-40 rounded-lg bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
                 </div>
-                <div className="h-6 w-20 rounded bg-surface-2 animate-pulse" />
+                <div className="h-6 w-20 rounded-full bg-surface-2/60 dark:bg-white/[0.06] animate-pulse" />
               </div>
             ))}
           </div>
