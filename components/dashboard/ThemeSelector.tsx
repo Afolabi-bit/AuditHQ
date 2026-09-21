@@ -33,9 +33,9 @@ export const ThemeSelector: React.FC = () => {
       desc: "Deep obsidian black with calibrated cobalt accents",
       icon: Moon,
       preview: {
-        bg: "bg-[#0b0d11]",
-        card: "bg-[#111318] border-white/10",
-        accent: "bg-[#3b82f6]",
+        bg: "bg-[#05070a]",
+        card: "bg-[#0c0e14] border-white/[0.08]",
+        accent: "bg-[#2563eb]",
         text: "bg-[#f1f5f9]",
         muted: "bg-[#64748b]",
       },
@@ -46,8 +46,8 @@ export const ThemeSelector: React.FC = () => {
       desc: "Automatically syncs with your operating system preference",
       icon: Desktop,
       preview: {
-        bg: "bg-gradient-to-r from-[#f8fafc] to-[#0b0d11]",
-        card: "bg-gradient-to-r from-white to-[#111318] border-[#e2e8f0] dark:border-white/10",
+        bg: "bg-gradient-to-r from-[#f8fafc] to-[#05070a]",
+        card: "bg-gradient-to-r from-white to-[#0c0e14] border-[#e2e8f0] dark:border-white/[0.08]",
         accent: "bg-[#2563eb]",
         text: "bg-gradient-to-r from-[#0f172a] to-[#f1f5f9]",
         muted: "bg-gradient-to-r from-[#94a3b8] to-[#64748b]",
@@ -61,7 +61,7 @@ export const ThemeSelector: React.FC = () => {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="h-36 rounded-xl bg-surface-2/40 border border-border animate-pulse"
+            className="h-36 rounded-2xl bg-surface-2/40 border border-border/60 dark:border-white/[0.07] animate-pulse"
           />
         ))}
       </div>
@@ -81,16 +81,16 @@ export const ThemeSelector: React.FC = () => {
             key={t.id}
             type="button"
             onClick={() => setTheme(t.id)}
-            className={`text-start p-4.5 rounded-xl border transition-all cursor-pointer relative group flex flex-col justify-between gap-4 ${
+            className={`text-start p-5 rounded-2xl border transition-all cursor-pointer relative group flex flex-col justify-between gap-4 backdrop-blur-xl ${
               isSelected
-                ? "bg-surface-0 border-brand-500 ring-2 ring-brand-500/20 shadow-sm"
-                : "bg-surface-0 border-border hover:border-brand-200 hover:bg-surface-2/50 dark:hover:border-brand-500/30"
+                ? "bg-surface-0/90 dark:bg-white/[0.06] border-brand-500 ring-2 ring-brand-500/20 shadow-xs"
+                : "bg-surface-0/60 dark:bg-white/[0.02] border-border/60 dark:border-white/[0.07] hover:border-brand-300 dark:hover:border-brand-500/30 hover:bg-surface-1/60 dark:hover:bg-white/[0.04]"
             }`}
           >
             {/* Visual Mini Preview Tile */}
             <div
-              className={`w-full h-16 rounded-lg ${t.preview.bg} p-2 flex flex-col justify-between border ${
-                isSelected ? "border-brand-200/50" : "border-border/60"
+              className={`w-full h-16 rounded-xl ${t.preview.bg} p-2 flex flex-col justify-between border ${
+                isSelected ? "border-brand-200/50 dark:border-brand-500/40" : "border-border/60 dark:border-white/[0.06]"
               }`}
             >
               <div className="flex items-center justify-between">
@@ -98,7 +98,7 @@ export const ThemeSelector: React.FC = () => {
                 <div className={`h-2.5 w-6 rounded-full ${t.preview.accent}`} />
               </div>
               <div
-                className={`w-full h-6 rounded-md ${t.preview.card} border p-1 flex items-center gap-1.5`}
+                className={`w-full h-6 rounded-lg ${t.preview.card} border p-1 flex items-center gap-1.5`}
               >
                 <div className={`h-1.5 w-8 rounded-full ${t.preview.muted}`} />
                 <div className={`h-1.5 w-4 rounded-full ${t.preview.accent}`} />
