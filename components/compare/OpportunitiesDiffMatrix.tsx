@@ -74,13 +74,13 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 p-1.5 bg-surface-1/70 dark:bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-border/60 dark:border-white/[0.07] shadow-2xs">
+        <div className="flex items-center gap-1.5 p-1.5 bg-surface-1/70 dark:bg-white/3 backdrop-blur-xl rounded-2xl border border-border/60 dark:border-white/[0.07] shadow-2xs">
           <button
             onClick={() => setFilter("all")}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
               filter === "all"
-                ? "bg-surface-0/90 dark:bg-[#121620] text-brand-600 dark:text-brand-300 shadow-2xs border border-border/50 dark:border-white/[0.08]"
-                : "text-text-secondary hover:text-text-primary hover:bg-surface-2/60 dark:hover:bg-white/[0.04]"
+                ? "bg-surface-0/90 dark:bg-[#121620] text-brand-600 dark:text-brand-300 shadow-2xs border border-border/50 dark:border-white/8"
+                : "text-text-secondary hover:text-text-primary hover:bg-surface-2/60 dark:hover:bg-white/4"
             }`}
           >
             All ({transitions.length})
@@ -90,8 +90,8 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
               onClick={() => setFilter("new_issue")}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 filter === "new_issue"
-                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-poor shadow-2xs border border-border/50 dark:border-white/[0.08]"
-                  : "text-text-secondary hover:text-score-poor hover:bg-surface-2/60 dark:hover:bg-white/[0.04]"
+                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-poor shadow-2xs border border-border/50 dark:border-white/8"
+                  : "text-text-secondary hover:text-score-poor hover:bg-surface-2/60 dark:hover:bg-white/4"
               }`}
             >
               New Issues ({countNew})
@@ -102,8 +102,8 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
               onClick={() => setFilter("resolved")}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 filter === "resolved"
-                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-good shadow-2xs border border-border/50 dark:border-white/[0.08]"
-                  : "text-text-secondary hover:text-score-good hover:bg-surface-2/60 dark:hover:bg-white/[0.04]"
+                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-good shadow-2xs border border-border/50 dark:border-white/8"
+                  : "text-text-secondary hover:text-score-good hover:bg-surface-2/60 dark:hover:bg-white/4"
               }`}
             >
               Resolved ({countResolved})
@@ -114,8 +114,8 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
               onClick={() => setFilter("worsened")}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                 filter === "worsened"
-                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-warn shadow-2xs border border-border/50 dark:border-white/[0.08]"
-                  : "text-text-secondary hover:text-score-warn hover:bg-surface-2/60 dark:hover:bg-white/[0.04]"
+                  ? "bg-surface-0/90 dark:bg-[#121620] text-score-warn shadow-2xs border border-border/50 dark:border-white/8"
+                  : "text-text-secondary hover:text-score-warn hover:bg-surface-2/60 dark:hover:bg-white/4"
               }`}
             >
               Degraded ({countWorsened})
@@ -125,7 +125,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
       </div>
 
       {filtered.length === 0 ? (
-        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-10 text-center space-y-3 shadow-xs">
+        <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-10 text-center space-y-3 shadow-xs">
           <div className="w-12 h-12 rounded-2xl bg-score-good/10 text-score-good flex items-center justify-center mx-auto border border-score-good/20 shadow-xs">
             <CheckCircle weight="fill" className="h-6 w-6" />
           </div>
@@ -141,7 +141,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
           {filtered.map((item) => (
             <div
               key={item.id}
-              className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-border dark:hover:border-white/[0.15] transition-all flex flex-col justify-between"
+              className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-border dark:hover:border-white/15 transition-all flex flex-col justify-between"
             >
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between gap-2">
@@ -173,7 +173,7 @@ export const OpportunitiesDiffMatrix: React.FC<OpportunitiesDiffMatrixProps> = (
               </div>
 
               {/* Base vs Target Savings Comparison */}
-              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-border/40 dark:border-white/[0.05] text-[11px] font-mono bg-surface-1/60 dark:bg-[#0c0e14]/90 p-3 rounded-xl border border-border/50 dark:border-white/[0.07] shadow-2xs">
+              <div className="grid grid-cols-2 gap-3 text-[11px] font-mono bg-surface-1/60 dark:bg-[#0c0e14]/90 p-3 rounded-xl border border-border/50 dark:border-white/[0.07] shadow-2xs">
                 <div>
                   <span className="text-[10px] uppercase font-bold text-text-tertiary block">
                     Base Savings
