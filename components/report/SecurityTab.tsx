@@ -16,7 +16,7 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 px-6 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 px-6 shadow-xs">
         <div className="space-y-1">
           <h3 className="text-base font-bold text-text-primary flex items-center gap-2 tracking-tight">
             <ShieldCheck weight="fill" className="h-5 w-5 text-brand-600 dark:text-brand-400" />
@@ -39,10 +39,10 @@ export const SecurityTab: React.FC<SecurityTabProps> = ({ securityChecks }) => {
           return (
             <div
               key={check.id}
-              className={`rounded-2xl p-5.5 border shadow-xs transition-all flex flex-col justify-between gap-3.5 bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl ${
+              className={`rounded-2xl p-5.5 border shadow-xs transition-all flex flex-col justify-between gap-3.5 bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl ${
                 isPassed
-                  ? "border-border/60 dark:border-white/[0.07] hover:border-border dark:hover:border-white/[0.15]"
-                  : "border-amber-500/30 hover:border-amber-500/50 bg-amber-500/[0.02]"
+                  ? "border-border/60 dark:border-white/[0.07] hover:border-border dark:hover:border-white/15"
+                  : "border-amber-500/30 hover:border-amber-500/50 bg-amber-500/2"
               }`}
             >
               <div className="space-y-2.5">
