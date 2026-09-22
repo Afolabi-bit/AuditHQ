@@ -31,7 +31,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
     if (isNegative) {
       return "border-rose-500/20 bg-rose-500/[0.03] backdrop-blur-xl";
     }
-    return "border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl";
+    return "border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl";
   };
 
   const getScoreDeltaBadge = () => {
@@ -51,7 +51,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
       };
     }
     return {
-      bg: "bg-surface-2/70 dark:bg-white/[0.04] text-text-tertiary border border-border/60 dark:border-white/[0.07]",
+      bg: "bg-surface-2/70 dark:bg-white/4 text-text-tertiary border border-border/60 dark:border-white/[0.07]",
       icon: <Minus weight="bold" className="h-6 w-6 shrink-0" />,
       text: "0 pts",
     };
@@ -71,7 +71,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
                   ? "score-badge-good border-emerald-500/20"
                   : isNegative
                   ? "score-badge-poor border-red-500/20"
-                  : "bg-surface-2/70 dark:bg-white/[0.04] text-text-secondary border-border/60 dark:border-white/[0.07]"
+                  : "bg-surface-2/70 dark:bg-white/4 text-text-secondary border-border/60 dark:border-white/[0.07]"
               }`}
             >
               {isPositive ? (
@@ -98,7 +98,7 @@ export const ExecutiveDeltaBanner: React.FC<ExecutiveDeltaBannerProps> = ({ repo
         </div>
 
         {/* Right: Score Shift Hero Box */}
-        <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3.5 shrink-0 bg-surface-0/80 dark:bg-[#0c0e14]/90 p-5 rounded-2xl border border-border/60 dark:border-white/[0.08] shadow-2xs backdrop-blur-xl">
+        <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3.5 shrink-0 bg-surface-0/80 dark:bg-[#0c0e14]/90 p-5 rounded-2xl border border-border/60 dark:border-white/8 shadow-2xs backdrop-blur-xl">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-text-tertiary">
             Score Difference
           </span>
