@@ -76,7 +76,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                 filter === tab.id
                   ? "bg-brand-600 text-white shadow-xs"
-                  : "bg-surface-0/70 dark:bg-white/[0.03] text-text-secondary hover:text-text-primary hover:bg-surface-1 border border-border/60 dark:border-white/[0.07]"
+                  : "bg-surface-0/70 dark:bg-white/3 text-text-secondary hover:text-text-primary hover:bg-surface-1 border border-border/60 dark:border-white/[0.07]"
               }`}
             >
               {tab.label}
@@ -91,7 +91,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
 
       {/* Opportunities List */}
       {filteredOpportunities.length === 0 ? (
-        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-10 text-center text-text-secondary space-y-2 shadow-xs">
+        <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-10 text-center text-text-secondary space-y-2 shadow-xs">
           <CheckCircle weight="fill" className="h-10 w-10 text-score-good mx-auto" />
           <h4 className="text-base font-bold text-text-primary">
             No Optimization Opportunities Found
@@ -109,7 +109,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
             return (
               <div
                 key={opp.id}
-                className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl overflow-hidden shadow-xs hover:border-brand-300 dark:hover:border-brand-500/30 transition-all"
+                className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl overflow-hidden shadow-xs hover:border-brand-300 dark:hover:border-brand-500/30 transition-all"
               >
                 {/* Header Row */}
                 <div
@@ -122,7 +122,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                       toggleExpand(opp.id);
                     }
                   }}
-                  className="w-full p-4.5 sm:p-5 flex items-start justify-between gap-4 text-left cursor-pointer hover:bg-surface-1/60 dark:hover:bg-white/[0.03] transition-colors select-none"
+                  className="w-full p-4.5 sm:p-5 flex items-start justify-between gap-4 text-left cursor-pointer hover:bg-surface-1/60 dark:hover:bg-white/3 transition-colors select-none"
                 >
                   <div className="flex items-start gap-3 flex-1 min-w-0">
                     <div className="p-2.5 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 shrink-0 mt-0.5 shadow-2xs">
@@ -167,7 +167,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                           e.stopPropagation();
                           onInspectItem(opp as any);
                         }}
-                        className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] hover:bg-surface-2 border border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-brand-600 dark:hover:text-brand-300 transition-colors cursor-pointer"
+                        className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-xl bg-surface-1/80 dark:bg-white/4 hover:bg-surface-2 border border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-brand-600 dark:hover:text-brand-300 transition-colors cursor-pointer"
                         title="Open Drawer Inspector"
                       >
                         <SlidersHorizontal weight="bold" className="h-3 w-3" />
@@ -175,7 +175,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                       </button>
                     )}
 
-                    <div className="p-1.5 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] border border-border/60 dark:border-white/[0.07] text-text-tertiary">
+                    <div className="p-1.5 rounded-xl bg-surface-1/80 dark:bg-white/4 border border-border/60 dark:border-white/[0.07] text-text-tertiary">
                       {isExpanded ? (
                         <CaretUp weight="bold" className="h-4 w-4" />
                       ) : (
@@ -187,7 +187,7 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
 
                 {/* Expanded Details */}
                 {isExpanded && (
-                  <div className="p-5 border-t border-border/50 dark:border-white/[0.06] bg-surface-1/60 dark:bg-white/[0.02] space-y-4 text-xs">
+                  <div className="p-5 border-t border-border/50 dark:border-white/6 bg-surface-1/60 dark:bg-white/2 space-y-4 text-xs">
                     <FormattedDescription
                       text={opp.description}
                       className="text-xs text-text-secondary leading-relaxed"
@@ -213,15 +213,15 @@ export const OpportunitiesTab: React.FC<OpportunitiesTabProps> = ({
                         <div className="border border-border/60 dark:border-white/[0.07] rounded-2xl overflow-x-auto bg-surface-0/80 dark:bg-[#07090e]">
                           <table className="w-full text-left border-collapse text-xs font-mono">
                             <thead>
-                              <tr className="bg-surface-1/70 dark:bg-white/[0.03] border-b border-border/60 dark:border-white/[0.07] text-text-tertiary text-[11px]">
+                              <tr className="bg-surface-1/70 dark:bg-white/3 border-b border-border/60 dark:border-white/[0.07] text-text-tertiary text-[11px]">
                                 <th className="p-3 px-4">URL / Resource</th>
                                 <th className="p-3 px-4 text-right">Potential Savings</th>
                                 <th className="p-3 px-4 text-right">Total Size</th>
                               </tr>
                             </thead>
-                            <tbody className="divide-y divide-border/50 dark:divide-white/[0.05]">
+                            <tbody className="divide-y divide-border/50 dark:divide-white/5">
                               {opp.items.slice(0, 10).map((row: any, idx: number) => (
-                                <tr key={idx} className="hover:bg-surface-1/40 dark:hover:bg-white/[0.02] transition-colors">
+                                <tr key={idx} className="hover:bg-surface-1/40 dark:hover:bg-white/2 transition-colors">
                                   <td className="p-3 px-4 max-w-md truncate text-text-primary" title={row.url}>
                                     {row.url || "Resource Asset"}
                                   </td>
