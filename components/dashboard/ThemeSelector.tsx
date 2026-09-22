@@ -83,14 +83,14 @@ export const ThemeSelector: React.FC = () => {
             onClick={() => setTheme(t.id)}
             className={`text-start p-5 rounded-2xl border transition-all cursor-pointer relative group flex flex-col justify-between gap-4 backdrop-blur-xl ${
               isSelected
-                ? "bg-surface-0/90 dark:bg-white/[0.06] border-brand-500 ring-2 ring-brand-500/20 shadow-xs"
-                : "bg-surface-0/60 dark:bg-white/[0.02] border-border/60 dark:border-white/[0.07] hover:border-brand-300 dark:hover:border-brand-500/30 hover:bg-surface-1/60 dark:hover:bg-white/[0.04]"
+                ? "bg-surface-0/90 dark:bg-white/6 border-brand-500 ring-2 ring-brand-500/20 shadow-xs"
+                : "bg-surface-0/60 dark:bg-white/2 border-border/60 dark:border-white/[0.07] hover:border-brand-300 dark:hover:border-brand-500/30 hover:bg-surface-1/60 dark:hover:bg-white/4"
             }`}
           >
             {/* Visual Mini Preview Tile */}
             <div
               className={`w-full h-16 rounded-xl ${t.preview.bg} p-2 flex flex-col justify-between border ${
-                isSelected ? "border-brand-200/50 dark:border-brand-500/40" : "border-border/60 dark:border-white/[0.06]"
+                isSelected ? "border-brand-200/50 dark:border-brand-500/40" : "border-border/60 dark:border-white/6"
               }`}
             >
               <div className="flex items-center justify-between">
