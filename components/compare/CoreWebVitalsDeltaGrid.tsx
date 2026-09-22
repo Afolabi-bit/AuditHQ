@@ -93,7 +93,7 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
           return (
             <div
               key={cfg.id}
-              className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-border dark:hover:border-white/[0.15] hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4 hover:border-border dark:hover:border-white/15 hover:shadow-md transition-all flex flex-col justify-between"
             >
               {/* Header */}
               <div className="flex items-start justify-between gap-3">
@@ -105,7 +105,7 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
                     {cfg.shortDesc}
                   </p>
                 </div>
-                <div className="h-10 w-10 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] flex items-center justify-center text-text-secondary shrink-0 shadow-2xs">
+                <div className="h-10 w-10 rounded-xl bg-surface-1/80 dark:bg-white/4 border border-border/50 dark:border-white/[0.07] flex items-center justify-center text-text-secondary shrink-0 shadow-2xs">
                   {cfg.icon}
                 </div>
               </div>
@@ -134,7 +134,7 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
               </div>
 
               {/* Delta & Percent Shift */}
-              <div className="flex items-center justify-between pt-2 border-t border-border/40 dark:border-white/[0.05] text-xs">
+              <div className="flex items-center justify-between pt-2 border-t border-border/40 dark:border-white/5 text-xs">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[11px] font-semibold text-text-tertiary">
                     Net Delta:
@@ -145,7 +145,7 @@ export const CoreWebVitalsDeltaGrid: React.FC<CoreWebVitalsDeltaGridProps> = ({ 
                         ? "score-badge-good border-emerald-500/20"
                         : isRegressed
                         ? "score-badge-poor border-red-500/20"
-                        : "score-badge-neutral border-border/40 dark:border-white/[0.05]"
+                        : "score-badge-neutral border-border/40 dark:border-white/5"
                     }`}
                   >
                     {isImproved ? (
