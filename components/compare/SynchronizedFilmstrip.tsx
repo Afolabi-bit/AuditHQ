@@ -43,7 +43,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
         </span>
       </div>
 
-      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-6 sm:p-8 shadow-xs space-y-6 overflow-hidden">
+      <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-6 sm:p-8 shadow-xs space-y-6 overflow-hidden">
         {/* Filmstrip Horizontal Scroller */}
         <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-border">
           <div className="inline-flex flex-col gap-4 min-w-max">
@@ -63,7 +63,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
             {/* Row 1: Base Run */}
             <div className="flex items-center gap-3">
               <div className="w-28 sm:w-32 shrink-0 space-y-1 pe-2">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/[0.06] text-text-secondary border border-border/50 dark:border-white/[0.07] inline-block">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/6 text-text-secondary border border-border/50 dark:border-white/[0.07] inline-block">
                   Base Run
                 </span>
                 <p className="text-xs font-mono text-text-primary truncate" title={baseUrl}>
@@ -136,7 +136,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
           </div>
         </div>
 
-        <p className="text-[11px] text-text-tertiary font-mono text-center sm:text-start flex items-center gap-1.5 pt-3 border-t border-border/40 dark:border-white/[0.05]">
+        <p className="text-[11px] text-text-tertiary font-mono text-center sm:text-start flex items-center gap-1.5 pt-3 border-t border-border/40 dark:border-white/5">
           <Eye weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
           Click any frame to inspect the high-resolution rendering difference side-by-side.
         </p>
@@ -149,7 +149,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
           onClick={() => setSelectedFrame(null)}
         >
           <div
-            className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/[0.08] rounded-3xl max-w-5xl w-full p-6 sm:p-7 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
+            className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/8 rounded-3xl max-w-5xl w-full p-6 sm:p-7 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-border/50 dark:border-white/[0.07] pb-4">
@@ -165,7 +165,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
 
               <button
                 onClick={() => setSelectedFrame(null)}
-                className="h-9 w-9 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] border border-border/60 dark:border-white/[0.07] flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer shadow-2xs"
+                className="h-9 w-9 rounded-xl bg-surface-1/80 dark:bg-white/4 hover:bg-surface-2 dark:hover:bg-white/8 border border-border/60 dark:border-white/[0.07] flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer shadow-2xs"
               >
                 <X weight="bold" className="h-4 w-4" />
               </button>
@@ -175,7 +175,7 @@ export const SynchronizedFilmstrip: React.FC<SynchronizedFilmstripProps> = ({
               {/* Base Frame Modal */}
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/[0.06] text-text-secondary border border-border/50 dark:border-white/[0.07]">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/6 text-text-secondary border border-border/50 dark:border-white/[0.07]">
                     Base Run Baseline
                   </span>
                   <span className="text-xs font-mono text-text-tertiary">
