@@ -129,7 +129,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
         </div>
 
         {/* Plan / Usage Widget */}
-        <div className="bg-surface-1/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 space-y-3 backdrop-blur-xl">
+        <div className="bg-surface-1/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 space-y-3 backdrop-blur-xl">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <ChartBar weight="fill" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
@@ -147,7 +147,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
                 {stats.testsThisMonth} / {stats.testsLimit || 100}
               </span>
             </div>
-            <div className="h-1.5 w-full bg-surface-2 dark:bg-white/[0.08] rounded-full overflow-hidden">
+            <div className="h-1.5 w-full bg-surface-2 dark:bg-white/8 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-600 rounded-full transition-all duration-500"
                 style={{ width: `${usagePercent}%` }}
@@ -161,7 +161,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
       <div className="pt-4 border-t border-border/60 dark:border-white/[0.07] space-y-3">
         <Link
           href="/profile"
-          className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-1/70 dark:hover:bg-white/[0.04] transition-colors group cursor-pointer"
+          className="flex items-center gap-3 p-2 rounded-xl hover:bg-surface-1/70 dark:hover:bg-white/4 transition-colors group cursor-pointer"
         >
           <div className="relative shrink-0">
             {user?.picture ? (
@@ -230,7 +230,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({ user }) => {
             onClick={() => setMobileOpen(false)}
           />
           <div className="fixed inset-y-0 start-0 max-w-full flex pe-10">
-            <div className="w-screen max-w-xs bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border-e border-border/60 dark:border-white/[0.08] shadow-2xl animate-in slide-in-from-start">
+            <div className="w-screen max-w-xs bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border-e border-border/60 dark:border-white/8 shadow-2xl animate-in slide-in-from-start">
               {sidebarContent}
             </div>
           </div>
