@@ -46,11 +46,11 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
         onValueChange={handleTabChange}
         className="space-y-6 w-full min-w-0"
       >
-        <div className="border-b border-border/50 dark:border-white/[0.06] pb-3.5 w-full overflow-x-auto">
-          <TabsList className="bg-surface-1/70 dark:bg-white/[0.03] backdrop-blur-xl p-1.5 rounded-2xl border border-border/60 dark:border-white/[0.07] h-auto gap-1.5 flex-wrap max-w-full shadow-2xs">
+        <div className="border-b border-border/50 dark:border-white/6 pb-3.5 w-full overflow-x-auto">
+          <TabsList className="bg-surface-1/70 dark:bg-white/3 backdrop-blur-xl p-1.5 rounded-2xl border border-border/60 dark:border-white/[0.07] h-auto gap-1.5 flex-wrap max-w-full shadow-2xs">
             <TabsTrigger
               value="opportunities"
-              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/[0.08] px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
+              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/8 px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
             >
               <Lightning weight="fill" className="h-4 w-4" />
               Opportunities
@@ -63,7 +63,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
 
             <TabsTrigger
               value="network"
-              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/[0.08] px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
+              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/8 px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
             >
               <HardDrives weight="fill" className="h-4 w-4" />
               Network & Payload
@@ -74,7 +74,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
 
             <TabsTrigger
               value="audits"
-              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/[0.08] px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
+              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/8 px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
             >
               <Eye weight="bold" className="h-4 w-4" />
               Accessibility & SEO
@@ -87,7 +87,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
 
             <TabsTrigger
               value="security"
-              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/[0.08] px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
+              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/8 px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
             >
               <ShieldCheck weight="fill" className="h-4 w-4" />
               Security
@@ -100,7 +100,7 @@ export const ReportTabs: React.FC<ReportTabsProps> = ({
 
             <TabsTrigger
               value="diagnostics"
-              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/[0.08] px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
+              className="data-[state=active]:bg-surface-0 data-[state=active]:dark:bg-[#121620] data-[state=active]:text-brand-600 dark:data-[state=active]:text-brand-300 data-[state=active]:shadow-sm data-[state=active]:border data-[state=active]:border-border/50 dark:data-[state=active]:border-white/8 px-4 py-2.5 rounded-xl font-semibold text-xs text-text-secondary hover:text-text-primary flex items-center gap-2 transition-all cursor-pointer"
             >
               <Stack weight="bold" className="h-4 w-4" />
               Diagnostics
