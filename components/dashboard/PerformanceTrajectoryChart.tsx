@@ -59,7 +59,7 @@ export const PerformanceTrajectoryChart: React.FC<
 
   if (!data || data.length === 0) {
     return (
-      <div className="h-60 flex flex-col items-center justify-center text-center text-text-tertiary bg-surface-1/40 dark:bg-white/[0.02] rounded-2xl border border-dashed border-border/60 dark:border-white/[0.08] p-6">
+      <div className="h-60 flex flex-col items-center justify-center text-center text-text-tertiary bg-surface-1/40 dark:bg-white/2 rounded-2xl border border-dashed border-border/60 dark:border-white/8 p-6">
         <Pulse weight="bold" className="h-8 w-8 mb-2 text-text-tertiary" />
         <p className="text-xs font-bold text-text-primary">
           No audit trajectory recorded yet
@@ -159,7 +159,7 @@ export const PerformanceTrajectoryChart: React.FC<
               </span>
             )
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-text-secondary bg-surface-1/80 dark:bg-white/[0.04] px-3 py-1 rounded-full border border-border/60 dark:border-white/[0.07]">
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-text-secondary bg-surface-1/80 dark:bg-white/4 px-3 py-1 rounded-full border border-border/60 dark:border-white/[0.07]">
               <Minus weight="bold" className="h-3.5 w-3.5" />
               Consistent Performance
             </span>
@@ -181,7 +181,7 @@ export const PerformanceTrajectoryChart: React.FC<
       </div>
 
       {/* SVG Canvas Container with overflow-visible to prevent tooltip clipping */}
-      <div className="relative bg-surface-0/70 dark:bg-white/[0.02] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 overflow-visible shadow-xs">
+      <div className="relative bg-surface-0/70 dark:bg-white/2 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 overflow-visible shadow-xs">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
           className="w-full h-auto overflow-visible select-none"
@@ -332,8 +332,8 @@ export const PerformanceTrajectoryChart: React.FC<
               top: `${(activePt.y / svgHeight) * 100}%`,
             }}
           >
-            <div className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-xl border border-border/60 dark:border-white/[0.08] rounded-2xl p-3.5 shadow-2xl text-xs font-mono space-y-2 min-w-44 max-w-64 text-text-primary">
-              <div className="flex items-center justify-between gap-2 border-b border-border/40 dark:border-white/[0.06] pb-2">
+            <div className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-xl border border-border/60 dark:border-white/8 rounded-2xl p-3.5 shadow-2xl text-xs font-mono space-y-2 min-w-44 max-w-64 text-text-primary">
+              <div className="flex items-center justify-between gap-2 border-b border-border/40 dark:border-white/6 pb-2">
                 <span className="text-[11px] font-sans font-medium text-text-secondary">
                   {activePt.date}
                 </span>
