@@ -38,7 +38,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-2xs ${
             section === "a11y"
               ? "bg-brand-600 text-white shadow-sm shadow-brand-500/20"
-              : "bg-surface-0/70 dark:bg-white/[0.03] text-text-secondary hover:text-text-primary hover:bg-surface-2 dark:hover:bg-white/[0.06] border border-border/60 dark:border-white/[0.07]"
+              : "bg-surface-0/70 dark:bg-white/3 text-text-secondary hover:text-text-primary hover:bg-surface-2 dark:hover:bg-white/6 border border-border/60 dark:border-white/[0.07]"
           }`}
         >
           <Eye weight="bold" className="h-4 w-4" />
@@ -53,7 +53,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer shadow-2xs ${
             section === "seo"
               ? "bg-brand-600 text-white shadow-sm shadow-brand-500/20"
-              : "bg-surface-0/70 dark:bg-white/[0.03] text-text-secondary hover:text-text-primary hover:bg-surface-2 dark:hover:bg-white/[0.06] border border-border/60 dark:border-white/[0.07]"
+              : "bg-surface-0/70 dark:bg-white/3 text-text-secondary hover:text-text-primary hover:bg-surface-2 dark:hover:bg-white/6 border border-border/60 dark:border-white/[0.07]"
           }`}
         >
           <MagnifyingGlass weight="bold" className="h-4 w-4" />
@@ -63,7 +63,7 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
 
       {/* Issues List */}
       {activeIssues.length === 0 ? (
-        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-10 text-center space-y-3 shadow-xs">
+        <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-3xl p-10 text-center space-y-3 shadow-xs">
           <div className="w-12 h-12 rounded-2xl bg-score-good/10 text-score-good flex items-center justify-center mx-auto border border-score-good/20 shadow-xs">
             <CheckCircle weight="fill" className="h-6 w-6" />
           </div>
@@ -83,15 +83,15 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
             return (
               <div
                 key={issue.id}
-                className={`bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border rounded-2xl overflow-hidden transition-all shadow-xs ${
+                className={`bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border rounded-2xl overflow-hidden transition-all shadow-xs ${
                   isExpanded
                     ? "border-brand-500/40 dark:border-brand-500/40 ring-1 ring-brand-500/20 shadow-md"
-                    : "border-border/60 dark:border-white/[0.07] hover:border-border dark:hover:border-white/[0.15]"
+                    : "border-border/60 dark:border-white/[0.07] hover:border-border dark:hover:border-white/15"
                 }`}
               >
                 <div
                   onClick={() => setExpandedId(isExpanded ? null : issue.id)}
-                  className="p-4.5 sm:p-5 flex items-center justify-between cursor-pointer hover:bg-surface-1/40 dark:hover:bg-white/[0.02] transition-colors gap-4"
+                  className="p-4.5 sm:p-5 flex items-center justify-between cursor-pointer hover:bg-surface-1/40 dark:hover:bg-white/2 transition-colors gap-4"
                 >
                   <div className="flex items-start gap-3.5 flex-1 min-w-0">
                     <div className="mt-0.5 p-2 rounded-xl bg-score-poor/10 text-score-poor border border-score-poor/20 shrink-0 shadow-2xs">
@@ -111,11 +111,11 @@ export const AuditsListTab: React.FC<AuditsListTabProps> = ({
 
                   <div className="flex items-center gap-2.5 shrink-0">
                     {items && items.length > 0 && (
-                      <span className="text-[11px] font-mono text-text-tertiary bg-surface-1/80 dark:bg-white/[0.04] px-2.5 py-0.5 rounded-full border border-border/50 dark:border-white/[0.07]">
+                      <span className="text-[11px] font-mono text-text-tertiary bg-surface-1/80 dark:bg-white/4 px-2.5 py-0.5 rounded-full border border-border/50 dark:border-white/[0.07]">
                         {items.length} nodes
                       </span>
                     )}
-                    <div className="p-1.5 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] text-text-tertiary">
+                    <div className="p-1.5 rounded-xl bg-surface-1/80 dark:bg-white/4 border border-border/50 dark:border-white/[0.07] text-text-tertiary">
                       {isExpanded ? (
                         <CaretUp weight="bold" className="h-4 w-4" />
                       ) : (
