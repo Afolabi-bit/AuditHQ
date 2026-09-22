@@ -64,7 +64,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
           <div className="flex items-center gap-3">
             <Link
               href={isPublic ? "/" : "/dashboard"}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors bg-surface-1/80 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] px-3.5 py-1.5 rounded-xl border border-border/60 dark:border-white/[0.07] shadow-2xs"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-text-secondary hover:text-text-primary transition-colors bg-surface-1/80 dark:bg-white/4 hover:bg-surface-2 dark:hover:bg-white/8 px-3.5 py-1.5 rounded-xl border border-border/60 dark:border-white/[0.07] shadow-2xs"
             >
               <ArrowLeft weight="bold" className="h-3.5 w-3.5" />
               {isPublic ? "AuditHQ Home" : "Dashboard"}
@@ -83,7 +83,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleSwap}
-              className="h-9 px-3.5 rounded-xl text-xs font-semibold gap-1.5 border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors cursor-pointer shadow-2xs"
+              className="h-9 px-3.5 rounded-xl text-xs font-semibold gap-1.5 border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/3 hover:bg-surface-1 dark:hover:bg-white/6 hover:border-brand-500/40 hover:text-brand-600 dark:hover:text-brand-400 transition-colors cursor-pointer shadow-2xs"
               title="Swap Base and Target runs"
             >
               <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5" />
@@ -94,7 +94,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
               variant="outline"
               size="sm"
               onClick={handleShare}
-              className="h-9 px-3.5 rounded-xl text-xs font-semibold gap-1.5 border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] transition-colors cursor-pointer shadow-2xs"
+              className="h-9 px-3.5 rounded-xl text-xs font-semibold gap-1.5 border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/3 hover:bg-surface-1 dark:hover:bg-white/6 transition-colors cursor-pointer shadow-2xs"
             >
               {copied ? (
                 <>
@@ -112,11 +112,11 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
         </div>
 
         {/* Comparison Hero Header: Base vs Target */}
-        <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl p-4 sm:p-5 rounded-2xl border border-border/60 dark:border-white/[0.07] shadow-xs">
+        <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl p-4 sm:p-5 rounded-2xl border border-border/60 dark:border-white/[0.07] shadow-xs">
           {/* Base Run */}
           <div className="md:col-span-5 space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/[0.06] text-text-secondary border border-border/50 dark:border-white/[0.07]">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-surface-2/60 dark:bg-white/6 text-text-secondary border border-border/50 dark:border-white/[0.07]">
                 Baseline Run
               </span>
               <span className="text-[11px] font-mono text-text-tertiary flex items-center gap-1">
@@ -148,7 +148,7 @@ export const CompareHeader: React.FC<CompareHeaderProps> = ({
           <div className="md:col-span-1 flex justify-center items-center py-1 md:py-0">
             <button
               onClick={handleSwap}
-              className="h-9 w-9 rounded-full bg-surface-0/80 dark:bg-[#0c0e14] border border-border/60 dark:border-white/[0.1] shadow-xs hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group"
+              className="h-9 w-9 rounded-full bg-surface-0/80 dark:bg-[#0c0e14] border border-border/60 dark:border-white/10 shadow-xs hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group"
               title="Click to Swap Base and Target"
             >
               <ArrowsLeftRight weight="bold" className="h-4 w-4 group-hover:rotate-180 transition-transform duration-300" />
