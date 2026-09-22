@@ -139,11 +139,11 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
   };
 
   return (
-    <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl overflow-hidden shadow-2xs hover:shadow-sm hover:border-brand-500/40 dark:hover:border-white/20 transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]">
+    <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl overflow-hidden shadow-2xs hover:shadow-sm hover:border-brand-500/40 dark:hover:border-white/20 transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]">
       {/* ── Domain Summary Header Banner ── */}
       <div
         onClick={() => setIsExpanded(!isExpanded)}
-        className="p-5 sm:p-6 bg-surface-1/40 dark:bg-white/[0.02] hover:bg-surface-1/60 dark:hover:bg-white/[0.04] border-b border-border/40 dark:border-white/[0.05] transition-colors cursor-pointer flex flex-col lg:flex-row lg:items-center justify-between gap-4 select-none"
+        className="p-5 sm:p-6 bg-surface-1/40 dark:bg-white/2 hover:bg-surface-1/60 dark:hover:bg-white/4 border-b border-border/40 dark:border-white/5 transition-colors cursor-pointer flex flex-col lg:flex-row lg:items-center justify-between gap-4 select-none"
       >
         {/* Left Info: Domain Identity, Badges & Activity */}
         <div className="space-y-2 min-w-0 flex-1">
@@ -156,12 +156,12 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
               {url}
             </h3>
 
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold font-mono bg-surface-2/80 dark:bg-white/[0.05] text-text-secondary border border-border/40 dark:border-white/[0.06]">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold font-mono bg-surface-2/80 dark:bg-white/5 text-text-secondary border border-border/40 dark:border-white/6">
               {tests.length} {tests.length === 1 ? "Audit" : "Audits"}
             </span>
 
             {latestTest?.device && (
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-surface-2/80 dark:bg-white/[0.05] text-text-tertiary border border-border/40 dark:border-white/[0.06] uppercase">
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-surface-2/80 dark:bg-white/5 text-text-tertiary border border-border/40 dark:border-white/6 uppercase">
                 {latestTest.device.toLowerCase() === "mobile" ? (
                   <DeviceMobile weight="bold" className="h-3 w-3" />
                 ) : (
@@ -191,7 +191,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
         <div className="flex items-center flex-wrap gap-3 sm:gap-4 shrink-0">
           {/* Domain Score Pill */}
           {avgScore != null && (
-            <div className="flex items-center gap-2.5 bg-surface-0/80 dark:bg-white/[0.05] px-3.5 py-2 rounded-xl border border-border/40 dark:border-white/[0.06] shadow-2xs">
+            <div className="flex items-center gap-2.5 bg-surface-0/80 dark:bg-white/5 px-3.5 py-2 rounded-xl border border-border/40 dark:border-white/6 shadow-2xs">
               <div className="text-end">
                 <p className="text-[10px] font-semibold uppercase tracking-wider text-text-tertiary">
                   Domain Avg
@@ -220,7 +220,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
                 e.stopPropagation();
                 setIsCompareOpen(true);
               }}
-              className="h-9 px-3.5 text-xs font-semibold border-border/60 dark:border-white/[0.08] bg-surface-0/60 dark:bg-white/[0.04] hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-300 gap-1.5 rounded-xl cursor-pointer focus-ring"
+              className="h-9 px-3.5 text-xs font-semibold border-border/60 dark:border-white/8 bg-surface-0/60 dark:bg-white/4 hover:border-brand-300 hover:text-brand-600 dark:hover:text-brand-300 gap-1.5 rounded-xl cursor-pointer focus-ring"
             >
               <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 text-brand-600 dark:text-brand-400" />
               <span>Compare Audits</span>
@@ -242,7 +242,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
           {/* Expand Toggle */}
           <button
             type="button"
-            className="h-9 w-9 rounded-xl bg-surface-2/60 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] border border-border/40 dark:border-white/[0.06] flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer focus-ring"
+            className="h-9 w-9 rounded-xl bg-surface-2/60 dark:bg-white/4 hover:bg-surface-2 dark:hover:bg-white/8 border border-border/40 dark:border-white/6 flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer focus-ring"
             aria-label={isExpanded ? "Collapse domain group" : "Expand domain group"}
           >
             {isExpanded ? (
@@ -256,7 +256,7 @@ export const DomainGroupCard: React.FC<DomainGroupCardProps> = ({
 
       {/* ── Collapsible Domain Audit List ── */}
       {isExpanded && (
-        <div className="p-4 sm:p-6 bg-surface-0/30 dark:bg-transparent space-y-4 border-t border-border/40 dark:border-white/[0.05] animate-in fade-in-50 duration-150">
+        <div className="p-4 sm:p-6 bg-surface-0/30 dark:bg-transparent space-y-4 border-t border-border/40 dark:border-white/5 animate-in fade-in-50 duration-150">
           {tests.map((test) => {
             const rawLcp = test.lcp;
             const rawFcp = test.fcp;
