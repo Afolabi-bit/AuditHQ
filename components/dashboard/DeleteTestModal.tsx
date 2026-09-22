@@ -105,7 +105,7 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/[0.08] rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl space-y-5 animate-in zoom-in-95 duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]"
+        className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/8 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl space-y-5 animate-in zoom-in-95 duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -132,7 +132,7 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
         </div>
 
         {/* Audit Details Box */}
-        <div className="bg-surface-1/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 space-y-1.5 text-xs font-mono">
+        <div className="bg-surface-1/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 space-y-1.5 text-xs font-mono">
           <div className="flex justify-between items-center gap-2">
             <span className="text-text-tertiary">Target URL:</span>
             <span
@@ -151,7 +151,7 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
         </div>
 
         {/* Quota Disclaimer Notice */}
-        <div className="bg-surface-1/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 text-xs text-text-secondary space-y-1 leading-relaxed">
+        <div className="bg-surface-1/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 text-xs text-text-secondary space-y-1 leading-relaxed">
           <p className="font-semibold text-text-primary">
             Are you sure you want to delete this test?
           </p>
@@ -175,7 +175,7 @@ export const DeleteTestModal: React.FC<DeleteTestModalProps> = ({
             size="sm"
             onClick={onClose}
             disabled={isDeleting}
-            className="h-10 px-4 text-xs font-semibold rounded-xl border-border/60 dark:border-white/[0.08] cursor-pointer"
+            className="h-10 px-4 text-xs font-semibold rounded-xl border-border/60 dark:border-white/8 cursor-pointer"
           >
             Cancel
           </Button>
