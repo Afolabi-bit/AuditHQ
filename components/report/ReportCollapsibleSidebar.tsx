@@ -140,7 +140,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
     <div className="h-full flex flex-col justify-between p-3.5 space-y-4">
       <div className="space-y-4">
         {/* Top Header & Collapse Toggle */}
-        <div className="flex items-center justify-between pb-3 border-b border-border/50 dark:border-white/[0.06]">
+        <div className="flex items-center justify-between pb-3 border-b border-border/50 dark:border-white/6">
           {!isCollapsed ? (
             <div className="flex items-center justify-between w-full">
               {isPublic ? (
@@ -163,7 +163,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
 
               <button
                 onClick={() => setIsCollapsed(true)}
-                className="hidden lg:flex p-1.5 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 dark:hover:bg-white/[0.04] transition-colors cursor-pointer"
+                className="hidden lg:flex p-1.5 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 dark:hover:bg-white/4 transition-colors cursor-pointer"
                 title="Collapse Sidebar"
               >
                 <CaretLeft weight="bold" className="h-4 w-4" />
@@ -172,7 +172,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
           ) : (
             <button
               onClick={() => setIsCollapsed(false)}
-              className="hidden lg:flex mx-auto p-2 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 dark:hover:bg-white/[0.04] transition-colors cursor-pointer"
+              className="hidden lg:flex mx-auto p-2 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 dark:hover:bg-white/4 transition-colors cursor-pointer"
               title="Expand Sidebar"
             >
               <CaretRight weight="bold" className="h-4 w-4" />
@@ -182,7 +182,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
           {/* Mobile close button */}
           <button
             onClick={onCloseMobile}
-            className="lg:hidden p-1.5 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 dark:hover:bg-white/[0.04]"
+            className="lg:hidden p-1.5 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 dark:hover:bg-white/4"
           >
             <X weight="bold" className="h-5 w-5" />
           </button>
@@ -212,7 +212,7 @@ export const ReportCollapsibleSidebar: React.FC<ReportSidebarProps> = ({
                     } ${
                       isActive
                         ? "bg-brand-500/10 text-brand-600 dark:text-brand-400 font-semibold border border-brand-500/20 shadow-2xs"
-                        : "text-text-secondary hover:text-text-primary hover:bg-surface-1/60 dark:hover:bg-white/[0.03] border border-transparent font-medium"
+                        : "text-text-secondary hover:text-text-primary hover:bg-surface-1/60 dark:hover:bg-white/3 border border-transparent font-medium"
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 relative">
