@@ -160,7 +160,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
   };
 
   return (
-    <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-6 sm:p-7 shadow-2xs hover:border-brand-500/30 dark:hover:border-white/15 transition-all">
+    <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-md border border-border/60 dark:border-white/[0.07] rounded-2xl p-6 sm:p-7 shadow-2xs hover:border-brand-500/30 dark:hover:border-white/15 transition-all">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div className="space-y-1">
@@ -177,7 +177,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
           </p>
         </div>
 
-        <span className="self-start sm:self-auto inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 dark:bg-emerald-500/[0.12] border border-emerald-500/20">
+        <span className="self-start sm:self-auto inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 dark:bg-emerald-500/12 border border-emerald-500/20">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -209,7 +209,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
                 placeholder="example.com, www.brand.com, or https://…"
                 onChange={(e) => setUrl(e.target.value)}
                 onClick={() => setIsUrlValid({ validity: true, message: "" })}
-                className={`ps-10 h-11 text-sm bg-surface-1/70 dark:bg-white/[0.04] border-border/60 dark:border-white/[0.08] text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 dark:focus:bg-white/[0.07] focus:border-brand-500 dark:focus:border-brand-400 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all ${
+                className={`ps-10 h-11 text-sm bg-surface-1/70 dark:bg-white/4 border-border/60 dark:border-white/8 text-text-primary placeholder:text-text-tertiary focus:bg-surface-0 dark:focus:bg-white/[0.07] focus:border-brand-500 dark:focus:border-brand-400 focus:ring-2 focus:ring-brand-500/20 rounded-xl transition-all ${
                   !isUrlValid.validity ? "border-destructive focus:border-destructive focus:ring-destructive/20" : ""
                 }`}
               />
@@ -224,13 +224,13 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
             <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Device Profile
             </Label>
-            <div className="grid grid-cols-2 gap-1 p-1 bg-surface-1/60 dark:bg-white/[0.03] rounded-xl border border-border/40 dark:border-white/[0.06] h-11 items-center">
+            <div className="grid grid-cols-2 gap-1 p-1 bg-surface-1/60 dark:bg-white/3 rounded-xl border border-border/40 dark:border-white/6 h-11 items-center">
               <button
                 type="button"
                 onClick={() => setDevice("Desktop")}
                 className={`h-9 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Desktop"
-                    ? "bg-surface-0 dark:bg-white/[0.08] text-brand-600 dark:text-white shadow-2xs border border-border/60 dark:border-white/10"
+                    ? "bg-surface-0 dark:bg-white/8 text-brand-600 dark:text-white shadow-2xs border border-border/60 dark:border-white/10"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
@@ -242,7 +242,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
                 onClick={() => setDevice("Mobile")}
                 className={`h-9 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                   device === "Mobile"
-                    ? "bg-surface-0 dark:bg-white/[0.08] text-brand-600 dark:text-white shadow-2xs border border-border/60 dark:border-white/10"
+                    ? "bg-surface-0 dark:bg-white/8 text-brand-600 dark:text-white shadow-2xs border border-border/60 dark:border-white/10"
                     : "text-text-secondary hover:text-text-primary"
                 }`}
               >
@@ -257,7 +257,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
             <Label className="text-xs font-semibold text-text-secondary uppercase tracking-wider">
               Network Preset
             </Label>
-            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1/60 dark:bg-white/[0.03] rounded-xl border border-border/40 dark:border-white/[0.06] h-11 items-center">
+            <div className="grid grid-cols-3 gap-1 p-1 bg-surface-1/60 dark:bg-white/3 rounded-xl border border-border/40 dark:border-white/6 h-11 items-center">
               {["No Throttling", "4G", "3G"].map((net) => (
                 <button
                   key={net}
@@ -265,7 +265,7 @@ const NewTest: React.FC<NewTestProps> = ({ user }) => {
                   onClick={() => setNetwork(net)}
                   className={`h-9 rounded-lg text-xs font-semibold flex items-center justify-center transition-all truncate px-1 cursor-pointer ${
                     network === net
-                      ? "bg-surface-0 dark:bg-white/[0.08] text-brand-600 dark:text-white shadow-2xs border border-border/60 dark:border-white/10"
+                      ? "bg-surface-0 dark:bg-white/8 text-brand-600 dark:text-white shadow-2xs border border-border/60 dark:border-white/10"
                       : "text-text-secondary hover:text-text-primary"
                   }`}
                   title={net}
