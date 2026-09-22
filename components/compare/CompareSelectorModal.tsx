@@ -147,7 +147,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/[0.08] rounded-3xl max-w-xl w-full p-6 shadow-2xl flex flex-col max-h-[88vh] h-full overflow-hidden animate-in zoom-in-95 duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]"
+        className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/8 rounded-3xl max-w-xl w-full p-6 shadow-2xl flex flex-col max-h-[88vh] h-full overflow-hidden animate-in zoom-in-95 duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 1. Modal Header */}
@@ -164,14 +164,14 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
 
           <button
             onClick={onClose}
-            className="h-8.5 w-8.5 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] border border-border/60 dark:border-white/[0.07] flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer shrink-0 shadow-2xs"
+            className="h-8.5 w-8.5 rounded-xl bg-surface-1/80 dark:bg-white/4 hover:bg-surface-2 dark:hover:bg-white/8 border border-border/60 dark:border-white/[0.07] flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors cursor-pointer shrink-0 shadow-2xs"
           >
             <X weight="bold" className="h-4 w-4" />
           </button>
         </div>
 
         {/* 2. Selected Pair Preview Box */}
-        <div className="grid grid-cols-1 sm:grid-cols-11 gap-2.5 items-center bg-surface-1/60 dark:bg-white/[0.03] p-3 rounded-2xl border border-border/60 dark:border-white/[0.07] shrink-0 my-3 shadow-2xs">
+        <div className="grid grid-cols-1 sm:grid-cols-11 gap-2.5 items-center bg-surface-1/60 dark:bg-white/3 p-3 rounded-2xl border border-border/60 dark:border-white/[0.07] shrink-0 my-3 shadow-2xs">
           {/* Base Selection Box */}
           <button
             type="button"
@@ -179,7 +179,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
             className={`sm:col-span-5 p-3 rounded-xl border text-start transition-all cursor-pointer ${
               activeSlot === "base"
                 ? "bg-surface-0/90 dark:bg-[#121620] border-brand-500 shadow-xs ring-1 ring-brand-500/30"
-                : "bg-surface-0/50 dark:bg-white/[0.02] border-border/50 dark:border-white/[0.07] hover:bg-surface-0/80"
+                : "bg-surface-0/50 dark:bg-white/2 border-border/50 dark:border-white/[0.07] hover:bg-surface-0/80"
             }`}
           >
             <div className="flex items-center justify-between gap-1 mb-1">
@@ -213,7 +213,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
               type="button"
               onClick={handleSwap}
               disabled={!baseId || !targetId}
-              className="h-8 w-8 rounded-full bg-surface-0/80 dark:bg-[#0c0e14] border border-border/60 dark:border-white/[0.08] shadow-xs hover:border-brand-500 hover:text-brand-500 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group disabled:opacity-40"
+              className="h-8 w-8 rounded-full bg-surface-0/80 dark:bg-[#0c0e14] border border-border/60 dark:border-white/8 shadow-xs hover:border-brand-500 hover:text-brand-500 flex items-center justify-center text-xs font-bold text-text-secondary transition-all cursor-pointer group disabled:opacity-40"
               title="Swap Base and Target"
             >
               <ArrowsLeftRight weight="bold" className="h-3.5 w-3.5 group-hover:rotate-180 transition-transform duration-300" />
@@ -227,7 +227,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
             className={`sm:col-span-5 p-3 rounded-xl border text-start transition-all cursor-pointer ${
               activeSlot === "target"
                 ? "bg-surface-0/90 dark:bg-[#121620] border-brand-500 shadow-xs ring-1 ring-brand-500/30"
-                : "bg-surface-0/50 dark:bg-white/[0.02] border-border/50 dark:border-white/[0.07] hover:bg-surface-0/80"
+                : "bg-surface-0/50 dark:bg-white/2 border-border/50 dark:border-white/[0.07] hover:bg-surface-0/80"
             }`}
           >
             <div className="flex items-center justify-between gap-1 mb-1">
@@ -278,7 +278,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
               placeholder="Search audits by URL or device..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-1/80 dark:bg-white/[0.04] border border-border/60 dark:border-white/[0.07] rounded-xl ps-9 pe-3 py-2 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0/80 dark:focus:bg-[#0c0e14] transition-all shadow-2xs"
+              className="w-full bg-surface-1/80 dark:bg-white/4 border border-border/60 dark:border-white/[0.07] rounded-xl ps-9 pe-3 py-2 text-xs font-mono text-text-primary placeholder:text-text-tertiary focus:outline-hidden focus:border-brand-500 focus:bg-surface-0/80 dark:focus:bg-[#0c0e14] transition-all shadow-2xs"
             />
           </div>
 
@@ -298,7 +298,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                 className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full border transition-all cursor-pointer ${
                   selectedDomainFilter === baseTest.domain.url
                     ? "bg-brand-500/10 text-brand-600 border-brand-500/30 dark:text-brand-300"
-                    : "bg-surface-1/80 dark:bg-white/[0.04] text-text-secondary border-border/50 dark:border-white/[0.07] hover:bg-surface-2"
+                    : "bg-surface-1/80 dark:bg-white/4 text-text-secondary border-border/50 dark:border-white/[0.07] hover:bg-surface-2"
                 }`}
               >
                 Only {baseTest.domain.url}
@@ -346,8 +346,8 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                     isCurrentActiveSelected
                       ? "bg-brand-50/60 dark:bg-brand-500/15 border-brand-500 shadow-2xs"
                       : isSelectedForBase || isSelectedForTarget
-                      ? "bg-surface-1/80 dark:bg-white/[0.04] border-brand-500/40"
-                      : "bg-surface-1/60 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06] border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-text-primary shadow-2xs"
+                      ? "bg-surface-1/80 dark:bg-white/4 border-brand-500/40"
+                      : "bg-surface-1/60 dark:bg-white/3 hover:bg-surface-1 dark:hover:bg-white/6 border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-text-primary shadow-2xs"
                   }`}
                 >
                   <div className="space-y-1 min-w-0 flex-1">
@@ -399,7 +399,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                         className={`px-2.5 py-1 rounded-lg text-[10px] font-bold font-mono transition-all cursor-pointer ${
                           isSelectedForBase
                             ? "bg-brand-600 text-white shadow-2xs"
-                            : "bg-surface-0/80 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] border border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-text-primary"
+                            : "bg-surface-0/80 dark:bg-white/4 hover:bg-surface-2 dark:hover:bg-white/8 border border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-text-primary"
                         }`}
                         title="Set as Base"
                       >
@@ -412,7 +412,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
                         className={`px-2.5 py-1 rounded-lg text-[10px] font-bold font-mono transition-all cursor-pointer ${
                           isSelectedForTarget
                             ? "bg-brand-600 text-white shadow-2xs"
-                            : "bg-surface-0/80 dark:bg-white/[0.04] hover:bg-surface-2 dark:hover:bg-white/[0.08] border border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-text-primary"
+                            : "bg-surface-0/80 dark:bg-white/4 hover:bg-surface-2 dark:hover:bg-white/8 border border-border/60 dark:border-white/[0.07] text-text-secondary hover:text-text-primary"
                         }`}
                         title="Set as Target"
                       >
@@ -449,7 +449,7 @@ export const CompareSelectorModal: React.FC<CompareSelectorModalProps> = ({
               variant="outline"
               size="sm"
               onClick={onClose}
-              className="cursor-pointer h-9 px-4 rounded-xl text-xs font-semibold border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 dark:hover:bg-white/[0.06]"
+              className="cursor-pointer h-9 px-4 rounded-xl text-xs font-semibold border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/3 hover:bg-surface-1 dark:hover:bg-white/6"
             >
               Cancel
             </Button>
