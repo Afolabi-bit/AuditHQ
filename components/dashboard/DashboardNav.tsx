@@ -34,7 +34,7 @@ const DashboardNav = ({ user }: { user: KindeUser }) => {
           <div className="flex items-center shrink-0">
             <Link
               href="/profile"
-              className={`flex items-center transition-all cursor-pointer group shrink-0 sm:gap-2.5 sm:p-1.5 sm:pe-3 sm:rounded-xl sm:border min-h-[44px] min-w-[44px] justify-center sm:justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+              className={`flex items-center transition-all cursor-pointer group shrink-0 sm:gap-2.5 sm:p-1.5 sm:pe-3 sm:rounded-xl sm:border min-h-11 min-w-11 justify-center sm:justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                 isProfile
                   ? "sm:bg-brand-50 sm:dark:bg-brand-500/10 sm:border-brand-200 sm:dark:border-brand-500/30 sm:text-brand-600 sm:dark:text-brand-300"
                   : "sm:bg-surface-0 sm:border-border sm:hover:border-brand-200 sm:hover:bg-surface-1"
