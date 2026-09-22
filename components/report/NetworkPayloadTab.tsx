@@ -70,7 +70,7 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
       {/* Top 3 Stat Highlights */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Page Weight */}
-        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex items-center justify-between">
+        <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex items-center justify-between">
           <div className="space-y-1">
             <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-mono">
               Total Page Weight
@@ -90,7 +90,7 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
         </div>
 
         {/* Total Requests */}
-        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex items-center justify-between">
+        <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex items-center justify-between">
           <div className="space-y-1">
             <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-mono">
               Network Requests
@@ -108,7 +108,7 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
         </div>
 
         {/* Third-Party Payloads */}
-        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex items-center justify-between">
+        <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs flex items-center justify-between">
           <div className="space-y-1">
             <p className="text-xs font-bold text-text-tertiary uppercase tracking-wider font-mono">
               Third-Party Entities
@@ -127,13 +127,13 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
       </div>
 
       {/* Asset Type Breakdown */}
-      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
+      <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-4">
         <h4 className="text-sm font-bold text-text-primary font-sans">
           Resource Type Breakdown
         </h4>
 
         {/* Segmented Bar */}
-        <div className="h-3 w-full bg-surface-2/80 dark:bg-white/[0.05] rounded-full overflow-hidden flex border border-border/40 dark:border-white/[0.05]">
+        <div className="h-3 w-full bg-surface-2/80 dark:bg-white/5 rounded-full overflow-hidden flex border border-border/40 dark:border-white/5">
           {resourceSummary.map((res, idx) => {
             const percent = totalByteWeight > 0 ? (res.transferSize / totalByteWeight) * 100 : 0;
             const color = getResourceColor(res.resourceType);
@@ -152,19 +152,19 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
         <div className="border border-border/60 dark:border-white/[0.07] rounded-2xl overflow-x-auto bg-surface-0/60 dark:bg-[#0c0e14]/80 shadow-2xs">
           <table className="w-full text-left border-collapse text-xs font-mono">
             <thead>
-              <tr className="bg-surface-1/70 dark:bg-white/[0.03] border-b border-border/50 dark:border-white/[0.07] text-text-tertiary text-[11px]">
+              <tr className="bg-surface-1/70 dark:bg-white/3 border-b border-border/50 dark:border-white/[0.07] text-text-tertiary text-[11px]">
                 <th className="p-3 px-3.5 font-semibold">Resource Type</th>
                 <th className="p-3 px-3.5 text-right font-semibold">Requests</th>
                 <th className="p-3 px-3.5 text-right font-semibold">Transfer Size</th>
                 <th className="p-3 px-3.5 text-right font-semibold">% of Total</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/40 dark:divide-white/[0.05]">
+            <tbody className="divide-y divide-border/40 dark:divide-white/5">
               {resourceSummary.map((res, idx) => {
                 const percent = totalByteWeight > 0 ? ((res.transferSize / totalByteWeight) * 100).toFixed(1) : "0";
                 const color = getResourceColor(res.resourceType);
                 return (
-                  <tr key={idx} className="hover:bg-surface-1/50 dark:hover:bg-white/[0.02] transition-colors">
+                  <tr key={idx} className="hover:bg-surface-1/50 dark:hover:bg-white/2 transition-colors">
                     <td className="p-3 px-3.5 font-sans font-semibold text-text-primary flex items-center gap-2">
                       <span className={`w-2.5 h-2.5 rounded-full ${color.bar}`} />
                       {res.label}
@@ -188,22 +188,22 @@ export const NetworkPayloadTab: React.FC<NetworkPayloadTabProps> = ({
 
       {/* Third Parties List */}
       {thirdParties.length > 0 && (
-        <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
+        <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs space-y-3">
           <h4 className="text-sm font-bold text-text-primary font-sans">
             Third-Party Code Impact ({thirdParties.length})
           </h4>
           <div className="border border-border/60 dark:border-white/[0.07] rounded-2xl overflow-x-auto bg-surface-0/60 dark:bg-[#0c0e14]/80 shadow-2xs">
             <table className="w-full text-left border-collapse text-xs font-mono">
               <thead>
-                <tr className="bg-surface-1/70 dark:bg-white/[0.03] border-b border-border/50 dark:border-white/[0.07] text-text-tertiary text-[11px]">
+                <tr className="bg-surface-1/70 dark:bg-white/3 border-b border-border/50 dark:border-white/[0.07] text-text-tertiary text-[11px]">
                   <th className="p-3 px-3.5 font-semibold">Third-Party Entity</th>
                   <th className="p-3 px-3.5 text-right font-semibold">Transfer Size</th>
                   <th className="p-3 px-3.5 text-right font-semibold">Blocking Time</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/40 dark:divide-white/[0.05]">
+              <tbody className="divide-y divide-border/40 dark:divide-white/5">
                 {thirdParties.map((tp, idx) => (
-                  <tr key={idx} className="hover:bg-surface-1/50 dark:hover:bg-white/[0.02] transition-colors">
+                  <tr key={idx} className="hover:bg-surface-1/50 dark:hover:bg-white/2 transition-colors">
                     <td className="p-3 px-3.5 font-sans font-semibold text-text-primary">
                       {tp.entity}
                     </td>
