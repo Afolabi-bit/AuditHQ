@@ -59,23 +59,23 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl p-6 sm:p-7 shadow-xs space-y-4">
+      <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl p-6 sm:p-7 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 flex items-center justify-center shadow-2xs">
               <Cpu weight="fill" className="h-5 w-5" />
             </div>
             <div className="space-y-1.5">
-              <div className="h-4 w-48 bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
-              <div className="h-3 w-32 bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
+              <div className="h-4 w-48 bg-surface-2/60 dark:bg-white/6 rounded-lg animate-pulse" />
+              <div className="h-3 w-32 bg-surface-2/60 dark:bg-white/6 rounded-lg animate-pulse" />
             </div>
           </div>
-          <div className="h-6 w-24 bg-surface-2/60 dark:bg-white/[0.06] rounded-full animate-pulse" />
+          <div className="h-6 w-24 bg-surface-2/60 dark:bg-white/6 rounded-full animate-pulse" />
         </div>
         <div className="space-y-2 pt-2">
-          <div className="h-3.5 w-full bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
-          <div className="h-3.5 w-5/6 bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
-          <div className="h-3.5 w-4/6 bg-surface-2/60 dark:bg-white/[0.06] rounded-lg animate-pulse" />
+          <div className="h-3.5 w-full bg-surface-2/60 dark:bg-white/6 rounded-lg animate-pulse" />
+          <div className="h-3.5 w-5/6 bg-surface-2/60 dark:bg-white/6 rounded-lg animate-pulse" />
+          <div className="h-3.5 w-4/6 bg-surface-2/60 dark:bg-white/6 rounded-lg animate-pulse" />
         </div>
       </div>
     );
@@ -83,7 +83,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
 
   if (error && !summary) {
     return (
-      <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl p-6 shadow-xs text-center space-y-3">
+      <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl p-6 shadow-xs text-center space-y-3">
         <div className="h-12 w-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mx-auto shadow-2xs">
           <Warning weight="fill" className="h-6 w-6" />
         </div>
@@ -117,7 +117,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
     summary.verdict === "Moderate Improvement";
 
   return (
-    <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
+    <div className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl p-6 sm:p-8 shadow-xs space-y-6 relative overflow-hidden">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/50 dark:border-white/[0.07] pb-5">
         <div className="flex items-center gap-3.5">
@@ -129,7 +129,7 @@ export const AiRegressionCard: React.FC<AiRegressionCardProps> = ({
               <h2 className="text-lg font-bold text-text-primary tracking-tight">
                 Comparison Summary
               </h2>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-surface-1/80 dark:bg-white/[0.04] text-text-secondary border border-border/50 dark:border-white/[0.07] uppercase">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-surface-1/80 dark:bg-white/4 text-text-secondary border border-border/50 dark:border-white/[0.07] uppercase">
                 Automated Analysis
               </span>
             </div>
