@@ -50,11 +50,11 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
         </p>
       </div>
 
-      <div className="bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl shadow-xs overflow-hidden p-2 sm:p-4">
+      <div className="bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl shadow-xs overflow-hidden p-2 sm:p-4">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs sm:text-sm">
             <thead>
-              <tr className="border-b border-border/50 dark:border-white/[0.07] bg-surface-1/70 dark:bg-white/[0.03] text-text-tertiary uppercase font-bold text-[11px] tracking-wider">
+              <tr className="border-b border-border/50 dark:border-white/[0.07] bg-surface-1/70 dark:bg-white/3 text-text-tertiary uppercase font-bold text-[11px] tracking-wider">
                 <th className="py-4 px-5">Resource Category</th>
                 <th className="py-4 px-5 text-right">Base Run</th>
                 <th className="py-4 px-5 text-right">Target Run</th>
@@ -62,7 +62,7 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
                 <th className="py-4 px-5 text-right">Change %</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border/40 dark:divide-white/[0.05] font-mono">
+            <tbody className="divide-y divide-border/40 dark:divide-white/5 font-mono">
               {resourceDiffs.map((item) => {
                 const isTotal = item.resourceType === "total";
                 const isImproved = item.status === "improved";
@@ -71,12 +71,12 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
                 return (
                   <tr
                     key={item.resourceType}
-                    className={`hover:bg-surface-1/50 dark:hover:bg-white/[0.02] transition-colors ${
-                      isTotal ? "bg-surface-1/40 dark:bg-white/[0.02] font-bold border-t border-border/60 dark:border-white/[0.07]" : ""
+                    className={`hover:bg-surface-1/50 dark:hover:bg-white/2 transition-colors ${
+                      isTotal ? "bg-surface-1/40 dark:bg-white/2 font-bold border-t border-border/60 dark:border-white/[0.07]" : ""
                     }`}
                   >
                     <td className="py-3.5 px-4 flex items-center gap-3 font-sans font-semibold text-text-primary">
-                      <div className="h-8 w-8 rounded-xl bg-surface-1/80 dark:bg-white/[0.04] border border-border/50 dark:border-white/[0.07] flex items-center justify-center shrink-0 shadow-2xs">
+                      <div className="h-8 w-8 rounded-xl bg-surface-1/80 dark:bg-white/4 border border-border/50 dark:border-white/[0.07] flex items-center justify-center shrink-0 shadow-2xs">
                         {getResourceIcon(item.resourceType)}
                       </div>
                       <span>{item.label}</span>
@@ -97,7 +97,7 @@ export const ResourcePayloadDiff: React.FC<ResourcePayloadDiffProps> = ({
                             ? "score-badge-good border-emerald-500/20"
                             : isRegressed
                             ? "score-badge-poor border-red-500/20"
-                            : "bg-surface-2/60 dark:bg-white/[0.04] text-text-secondary border-border/50 dark:border-white/[0.07]"
+                            : "bg-surface-2/60 dark:bg-white/4 text-text-secondary border-border/50 dark:border-white/[0.07]"
                         }`}
                       >
                         {isImproved ? (
