@@ -211,7 +211,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
   if (!summary) return null;
 
   return (
-    <section className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl shadow-xs relative overflow-hidden">
+    <section className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl shadow-xs relative overflow-hidden">
       <div className="p-6 sm:p-7 space-y-6">
         {/* Top Header Row */}
         <div className="flex items-center justify-between gap-4 border-b border-border/60 dark:border-white/[0.07] pb-5">
@@ -240,7 +240,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
         </div>
 
         {/* Executive Summary Box */}
-        <div className="p-5 rounded-2xl bg-surface-1/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] space-y-2">
+        <div className="p-5 rounded-2xl bg-surface-1/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] space-y-2">
           <p className="text-sm font-bold text-brand-600 dark:text-brand-400 flex items-center gap-2">
             <Lightning weight="fill" className="h-4.5 w-4.5" />
             {summary.headline}
@@ -252,7 +252,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
 
         {/* Quantified Impact Metrics */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-          <div className="p-4.5 bg-surface-1/70 dark:bg-white/[0.03] rounded-2xl border border-border/60 dark:border-white/[0.07] flex items-center gap-3.5">
+          <div className="p-4.5 bg-surface-1/70 dark:bg-white/3 rounded-2xl border border-border/60 dark:border-white/[0.07] flex items-center gap-3.5">
             <div className="h-10 w-10 rounded-xl bg-score-good/10 text-score-good border border-score-good/20 flex items-center justify-center shrink-0">
               <Clock weight="bold" className="h-5 w-5" />
             </div>
@@ -266,7 +266,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
             </div>
           </div>
 
-          <div className="p-4.5 bg-surface-1/70 dark:bg-white/[0.03] rounded-2xl border border-border/60 dark:border-white/[0.07] flex items-center gap-3.5">
+          <div className="p-4.5 bg-surface-1/70 dark:bg-white/3 rounded-2xl border border-border/60 dark:border-white/[0.07] flex items-center gap-3.5">
             <div className="h-10 w-10 rounded-xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 dark:text-brand-300 border border-brand-200 dark:border-brand-500/30 flex items-center justify-center shrink-0">
               <TrendUp weight="bold" className="h-5 w-5" />
             </div>
@@ -280,7 +280,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
             </div>
           </div>
 
-          <div className="p-4.5 bg-surface-1/70 dark:bg-white/[0.03] rounded-2xl border border-border/60 dark:border-white/[0.07] flex items-center gap-3.5">
+          <div className="p-4.5 bg-surface-1/70 dark:bg-white/3 rounded-2xl border border-border/60 dark:border-white/[0.07] flex items-center gap-3.5">
             <div className="h-10 w-10 rounded-xl bg-surface-2 text-text-secondary border border-border/60 dark:border-white/[0.07] flex items-center justify-center shrink-0">
               <Stack weight="fill" className="h-5 w-5" />
             </div>
@@ -308,11 +308,11 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-1/70 dark:bg-white/[0.02] overflow-hidden transition-all"
+                  className="rounded-2xl border border-border/60 dark:border-white/[0.07] bg-surface-1/70 dark:bg-white/2 overflow-hidden transition-all"
                 >
                   <button
                     onClick={() => setExpandedFixIndex(isExpanded ? null : idx)}
-                    className="w-full p-4 sm:p-4.5 text-left flex items-center justify-between gap-3 hover:bg-surface-2/60 dark:hover:bg-white/[0.04] transition-colors cursor-pointer"
+                    className="w-full p-4 sm:p-4.5 text-left flex items-center justify-between gap-3 hover:bg-surface-2/60 dark:hover:bg-white/4 transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-2.5 flex-wrap min-w-0">
                       <span className="font-mono text-xs font-bold text-brand-600 dark:text-brand-400 w-5">
@@ -328,7 +328,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                       >
                         {fix.urgency}
                       </span>
-                      <span className="text-xs text-text-tertiary bg-surface-0/80 dark:bg-white/[0.04] px-2.5 py-0.5 rounded-full border border-border/60 dark:border-white/[0.06]">
+                      <span className="text-xs text-text-tertiary bg-surface-0/80 dark:bg-white/4 px-2.5 py-0.5 rounded-full border border-border/60 dark:border-white/6">
                         {fix.category}
                       </span>
                       {fix.wastedFormatted && (
@@ -347,9 +347,9 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                   </button>
 
                   {isExpanded && (
-                    <div className="p-5 pt-0 border-t border-border/50 dark:border-white/[0.06] bg-surface-0/70 dark:bg-white/[0.02] space-y-4">
+                    <div className="p-5 pt-0 border-t border-border/50 dark:border-white/6 bg-surface-0/70 dark:bg-white/2 space-y-4">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-3.5 text-xs">
-                        <div className="p-4 bg-surface-1/70 dark:bg-white/[0.03] rounded-2xl border border-border/60 dark:border-white/[0.07] space-y-1">
+                        <div className="p-4 bg-surface-1/70 dark:bg-white/3 rounded-2xl border border-border/60 dark:border-white/[0.07] space-y-1">
                           <p className="font-semibold text-text-tertiary uppercase text-[10px] font-mono">
                             Root Cause
                           </p>
@@ -357,7 +357,7 @@ export const AiInsightsCard: React.FC<AiInsightsCardProps> = ({
                             {fix.problem}
                           </p>
                         </div>
-                        <div className="p-4 bg-surface-1/70 dark:bg-white/[0.03] rounded-2xl border border-border/60 dark:border-white/[0.07] space-y-1">
+                        <div className="p-4 bg-surface-1/70 dark:bg-white/3 rounded-2xl border border-border/60 dark:border-white/[0.07] space-y-1">
                           <p className="font-semibold text-brand-600 dark:text-brand-400 uppercase text-[10px] font-mono">
                             Suggested Fix
                           </p>
