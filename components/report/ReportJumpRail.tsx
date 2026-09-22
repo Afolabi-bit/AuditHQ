@@ -98,7 +98,7 @@ export const ReportJumpRail: React.FC = () => {
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer text-left ${
                     isActive
                       ? "bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20 shadow-xs"
-                      : "text-text-secondary hover:text-text-primary hover:bg-surface-1/60 dark:hover:bg-white/[0.04]"
+                      : "text-text-secondary hover:text-text-primary hover:bg-surface-1/60 dark:hover:bg-white/4"
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
@@ -127,7 +127,7 @@ export const ReportJumpRail: React.FC = () => {
                 className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                   isActive
                     ? "bg-brand-600 text-white shadow-xs"
-                    : "bg-surface-1/60 dark:bg-white/[0.04] text-text-secondary hover:text-text-primary border border-border/60 dark:border-white/[0.07]"
+                    : "bg-surface-1/60 dark:bg-white/4 text-text-secondary hover:text-text-primary border border-border/60 dark:border-white/[0.07]"
                 }`}
               >
                 {sec.icon}
