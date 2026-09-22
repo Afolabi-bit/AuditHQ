@@ -107,7 +107,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                 className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                   isActive
                     ? "bg-brand-600 text-white shadow-xs font-bold"
-                    : "bg-surface-0/70 dark:bg-white/[0.03] text-text-secondary hover:text-text-primary hover:bg-surface-1 border border-border/60 dark:border-white/[0.07]"
+                    : "bg-surface-0/70 dark:bg-white/3 text-text-secondary hover:text-text-primary hover:bg-surface-1 border border-border/60 dark:border-white/[0.07]"
                 }`}
               >
                 {tab.icon}
@@ -122,7 +122,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
       <div className="space-y-6">
         {/* TAB 1: General Profile */}
         {activeTab === "general" && (
-          <div className="bg-surface-0/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-3xl p-5 sm:p-8 md:p-9 shadow-xs backdrop-blur-xl space-y-6 sm:space-y-8">
+          <div className="bg-surface-0/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] rounded-3xl p-5 sm:p-8 md:p-9 shadow-xs backdrop-blur-xl space-y-6 sm:space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6 pb-6 border-b border-border/60 dark:border-white/[0.07]">
               <div className="flex flex-col xs:flex-row items-start xs:items-center gap-4 sm:gap-5 min-w-0">
                 <div className="relative shrink-0">
@@ -165,7 +165,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                 </div>
               </div>
 
-              <div className="bg-surface-1/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 text-start sm:text-end shrink-0">
+              <div className="bg-surface-1/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] rounded-2xl p-4 text-start sm:text-end shrink-0">
                 <p className="text-[10px] sm:text-[11px] font-semibold text-text-tertiary uppercase tracking-wider font-mono">
                   Current Plan
                 </p>
@@ -177,7 +177,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
 
             {/* Account Details Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 text-xs">
-              <div className="bg-surface-1/70 dark:bg-white/[0.03] rounded-2xl p-4.5 sm:p-5 border border-border/60 dark:border-white/[0.07] space-y-1">
+              <div className="bg-surface-1/70 dark:bg-white/3 rounded-2xl p-4.5 sm:p-5 border border-border/60 dark:border-white/[0.07] space-y-1">
                 <p className="text-text-tertiary font-medium text-[11px]">Authentication</p>
                 <p className="font-bold text-text-primary flex items-center gap-1.5">
                   <ShieldCheck weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0" />
@@ -185,7 +185,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                 </p>
               </div>
 
-              <div className="bg-surface-1/70 dark:bg-white/[0.03] rounded-2xl p-4.5 sm:p-5 border border-border/60 dark:border-white/[0.07] space-y-1">
+              <div className="bg-surface-1/70 dark:bg-white/3 rounded-2xl p-4.5 sm:p-5 border border-border/60 dark:border-white/[0.07] space-y-1">
                 <p className="text-text-tertiary font-medium text-[11px]">Audit Engine</p>
                 <p className="font-bold text-text-primary flex items-center gap-1.5">
                   <Lightning weight="fill" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0" />
@@ -193,7 +193,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                 </p>
               </div>
 
-              <div className="bg-surface-1/70 dark:bg-white/[0.03] rounded-2xl p-4.5 sm:p-5 border border-border/60 dark:border-white/[0.07] space-y-1">
+              <div className="bg-surface-1/70 dark:bg-white/3 rounded-2xl p-4.5 sm:p-5 border border-border/60 dark:border-white/[0.07] space-y-1">
                 <p className="text-text-tertiary font-medium text-[11px]">Connected Sites</p>
                 <p className="font-bold text-text-primary flex items-center gap-1.5">
                   <Globe weight="bold" className="h-4 w-4 text-brand-600 dark:text-brand-400 shrink-0" />
@@ -206,7 +206,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
 
         {/* TAB 2: Appearance & Theme */}
         {activeTab === "appearance" && (
-          <div className="bg-surface-0/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-3xl p-5 sm:p-8 md:p-9 shadow-xs backdrop-blur-xl space-y-5 sm:space-y-6">
+          <div className="bg-surface-0/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] rounded-3xl p-5 sm:p-8 md:p-9 shadow-xs backdrop-blur-xl space-y-5 sm:space-y-6">
             <div className="space-y-1 pb-3 border-b border-border/60 dark:border-white/[0.07]">
               <h2 className="text-sm sm:text-base font-bold text-text-primary">
                 Appearance & Display Theme
@@ -222,7 +222,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
 
         {/* TAB 3: Usage & Quotas */}
         {activeTab === "usage" && (
-          <div className="bg-surface-0/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-3xl p-5 sm:p-8 md:p-9 shadow-xs backdrop-blur-xl space-y-5 sm:space-y-6">
+          <div className="bg-surface-0/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] rounded-3xl p-5 sm:p-8 md:p-9 shadow-xs backdrop-blur-xl space-y-5 sm:space-y-6">
             <div className="space-y-1 pb-3 border-b border-border/60 dark:border-white/[0.07]">
               <h3 className="text-sm sm:text-base font-bold text-text-primary">
                 Monthly Usage Quota & Limits
@@ -232,7 +232,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
               </p>
             </div>
 
-            <div className="border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 bg-surface-1/70 dark:bg-white/[0.03] space-y-3 sm:space-y-4">
+            <div className="border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 bg-surface-1/70 dark:bg-white/3 space-y-3 sm:space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-xs font-semibold text-text-secondary">
                   Audits Run This Month
@@ -241,7 +241,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
                   {auditsThisMonth} / 100
                 </span>
               </div>
-              <div className="h-2 w-full bg-surface-2 dark:bg-white/[0.08] rounded-full overflow-hidden">
+              <div className="h-2 w-full bg-surface-2 dark:bg-white/8 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-brand-600 dark:bg-brand-500 rounded-full transition-all duration-300"
                   style={{ width: `${Math.min(100, (auditsThisMonth / 100) * 100)}%` }}
@@ -252,7 +252,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
               </p>
             </div>
 
-            <div className="border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 bg-surface-1/70 dark:bg-white/[0.03] space-y-2 text-xs">
+            <div className="border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 bg-surface-1/70 dark:bg-white/3 space-y-2 text-xs">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="font-semibold text-text-secondary">Total audits run</span>
                 <span className="font-bold font-mono text-text-primary whitespace-nowrap">{totalAudits} audits</span>
@@ -268,7 +268,7 @@ export const ProfileSettingsView: React.FC<ProfileSettingsViewProps> = ({
 
         {/* TAB 4: Security & Sign Out */}
         {activeTab === "security" && (
-          <div className="bg-surface-0/70 dark:bg-white/[0.03] border border-border/60 dark:border-white/[0.07] rounded-3xl p-5 sm:p-8 md:p-9 shadow-xs backdrop-blur-xl space-y-5 sm:space-y-6">
+          <div className="bg-surface-0/70 dark:bg-white/3 border border-border/60 dark:border-white/[0.07] rounded-3xl p-5 sm:p-8 md:p-9 shadow-xs backdrop-blur-xl space-y-5 sm:space-y-6">
             <div className="space-y-1 pb-3 border-b border-border/60 dark:border-white/[0.07]">
               <h2 className="text-sm sm:text-base font-bold text-text-primary">
                 Account Session & Security
