@@ -42,7 +42,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
             variant="outline"
             size="sm"
             onClick={() => setLightboxOpen(true)}
-            className="text-xs font-semibold text-text-primary bg-surface-0/70 dark:bg-white/[0.03] hover:bg-surface-1 border-border/60 dark:border-white/[0.08] rounded-xl h-9 px-3.5 cursor-pointer shadow-2xs"
+            className="text-xs font-semibold text-text-primary bg-surface-0/70 dark:bg-white/3 hover:bg-surface-1 border-border/60 dark:border-white/8 rounded-xl h-9 px-3.5 cursor-pointer shadow-2xs"
           >
             <ArrowsOut weight="bold" className="h-3.5 w-3.5 mr-1.5 text-text-tertiary" />
             Full Render View
@@ -54,7 +54,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
         {/* Filmstrip Reel */}
         {filmstrip.length > 0 && (
           <div
-            className={`bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs min-w-0 overflow-hidden ${
+            className={`bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs min-w-0 overflow-hidden ${
               fullPageScreenshot ? "lg:col-span-8" : "lg:col-span-12"
             }`}
           >
@@ -74,7 +74,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
                   key={index}
                   className="shrink-0 flex flex-col items-center space-y-2 group"
                 >
-                  <div className="w-32 h-22 bg-surface-1/70 dark:bg-white/[0.03] rounded-xl border border-border/60 dark:border-white/[0.08] overflow-hidden group-hover:border-brand-400 transition-all shadow-2xs">
+                  <div className="w-32 h-22 bg-surface-1/70 dark:bg-white/3 rounded-xl border border-border/60 dark:border-white/8 overflow-hidden group-hover:border-brand-400 transition-all shadow-2xs">
                     <img
                       src={frame.data}
                       alt={`Frame at ${(frame.timing / 1000).toFixed(1)}s`}
@@ -82,7 +82,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
                       loading="lazy"
                     />
                   </div>
-                  <span className="text-xs font-mono font-semibold text-text-secondary px-2.5 py-0.5 rounded-full bg-surface-1/80 dark:bg-white/[0.04] border border-border/60 dark:border-white/[0.07]">
+                  <span className="text-xs font-mono font-semibold text-text-secondary px-2.5 py-0.5 rounded-full bg-surface-1/80 dark:bg-white/4 border border-border/60 dark:border-white/[0.07]">
                     {(frame.timing / 1000).toFixed(1)}s
                   </span>
                 </div>
@@ -94,7 +94,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
         {/* Full Page Screenshot Thumbnail */}
         {fullPageScreenshot && (
           <div
-            className={`bg-surface-0/70 dark:bg-white/[0.03] backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs min-w-0 overflow-hidden ${
+            className={`bg-surface-0/70 dark:bg-white/3 backdrop-blur-xl border border-border/60 dark:border-white/[0.07] rounded-2xl p-5 sm:p-6 shadow-xs min-w-0 overflow-hidden ${
               filmstrip.length > 0 ? "lg:col-span-4" : "lg:col-span-12"
             }`}
           >
@@ -110,7 +110,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
 
             <div
               onClick={() => setLightboxOpen(true)}
-              className="h-32 bg-surface-1/70 dark:bg-white/[0.03] rounded-xl border border-border/60 dark:border-white/[0.08] overflow-hidden cursor-pointer group relative shadow-2xs"
+              className="h-32 bg-surface-1/70 dark:bg-white/3 rounded-xl border border-border/60 dark:border-white/8 overflow-hidden cursor-pointer group relative shadow-2xs"
             >
               <img
                 src={fullPageScreenshot}
@@ -129,7 +129,7 @@ export const VisualExperience: React.FC<VisualExperienceProps> = ({
           onClick={() => setLightboxOpen(false)}
         >
           <div
-            className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl rounded-3xl max-w-4xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-border/60 dark:border-white/[0.08] space-y-4"
+            className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl rounded-3xl max-w-4xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-border/60 dark:border-white/8 space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center border-b border-border/60 dark:border-white/[0.07] pb-3">
