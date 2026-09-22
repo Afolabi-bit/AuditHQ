@@ -28,7 +28,7 @@ export const SignOutButton: React.FC = () => {
         variant="outline"
         size="sm"
         onClick={() => setIsOpen(true)}
-        className="bg-surface-0/60 dark:bg-white/[0.03] hover:bg-destructive/10 text-destructive border-destructive/30 font-semibold text-xs rounded-xl px-4 h-9 cursor-pointer w-full sm:w-auto shrink-0 shadow-2xs transition-colors"
+        className="bg-surface-0/60 dark:bg-white/3 hover:bg-destructive/10 text-destructive border-destructive/30 font-semibold text-xs rounded-xl px-4 h-9 cursor-pointer w-full sm:w-auto shrink-0 shadow-2xs transition-colors"
       >
         <SignOut weight="bold" className="h-4 w-4 me-1.5" />
         Sign Out
@@ -44,7 +44,7 @@ export const SignOutButton: React.FC = () => {
             role="dialog"
             aria-modal="true"
             aria-labelledby="signout-dialog-title"
-            className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/[0.08] rounded-3xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-5 animate-in zoom-in-95 duration-150"
+            className="bg-surface-0/95 dark:bg-[#0c0e14]/95 backdrop-blur-2xl border border-border/60 dark:border-white/8 rounded-3xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-5 animate-in zoom-in-95 duration-150"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -77,7 +77,7 @@ export const SignOutButton: React.FC = () => {
             </div>
 
             {/* Message Body */}
-            <p className="text-xs text-text-secondary leading-relaxed bg-surface-1/70 dark:bg-white/[0.03] p-4 rounded-2xl border border-border/60 dark:border-white/[0.07]">
+            <p className="text-xs text-text-secondary leading-relaxed bg-surface-1/70 dark:bg-white/3 p-4 rounded-2xl border border-border/60 dark:border-white/[0.07]">
               Are you sure you want to sign out? You will need to log back in with your credentials to access your performance audits, continuous telemetry, and account settings.
             </p>
 
@@ -88,7 +88,7 @@ export const SignOutButton: React.FC = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setIsOpen(false)}
-                className="text-xs font-semibold text-text-secondary bg-surface-0/60 dark:bg-white/[0.03] hover:bg-surface-2 hover:text-text-primary border-border/60 dark:border-white/[0.08] rounded-xl h-10 px-4 cursor-pointer"
+                className="text-xs font-semibold text-text-secondary bg-surface-0/60 dark:bg-white/3 hover:bg-surface-2 hover:text-text-primary border-border/60 dark:border-white/8 rounded-xl h-10 px-4 cursor-pointer"
               >
                 Cancel
               </Button>
