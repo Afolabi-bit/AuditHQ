@@ -78,7 +78,7 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
 
       {/* Slide-over Right Drawer */}
       <div className="fixed inset-y-0 end-0 max-w-full flex ps-10">
-        <aside className="w-screen max-w-xl bg-surface-0/95 dark:bg-[#080a10]/95 backdrop-blur-2xl border-s border-border/80 dark:border-white/[0.08] shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250 ease-[cubic-bezier(0.32,0.72,0,1)]">
+        <aside className="w-screen max-w-xl bg-surface-0/95 dark:bg-[#080a10]/95 backdrop-blur-2xl border-s border-border/80 dark:border-white/8 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-250 ease-[cubic-bezier(0.32,0.72,0,1)]">
           {/* Header */}
           <div className="p-6 border-b border-border/50 dark:border-white/[0.07] space-y-3.5">
             <div className="flex items-center justify-between">
@@ -88,7 +88,7 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
+                className="p-2 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-1 dark:hover:bg-white/6 transition-colors cursor-pointer"
                 title="Close drawer (Esc)"
               >
                 <X weight="bold" className="h-5 w-5" />
@@ -132,7 +132,7 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-text-tertiary">
                 Diagnostic Overview
               </h3>
-              <p className="text-xs sm:text-sm text-text-secondary leading-relaxed bg-surface-1/70 dark:bg-white/[0.03] p-4.5 rounded-2xl border border-border/60 dark:border-white/[0.07]">
+              <p className="text-xs sm:text-sm text-text-secondary leading-relaxed bg-surface-1/70 dark:bg-white/3 p-4.5 rounded-2xl border border-border/60 dark:border-white/[0.07]">
                 {item.description}
               </p>
             </div>
@@ -150,7 +150,7 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
                   {item.items.map((row, idx) => (
                     <div
                       key={idx}
-                      className="p-4 bg-surface-1/60 dark:bg-white/[0.03] rounded-2xl border border-border/60 dark:border-white/[0.07] space-y-2.5 text-xs shadow-2xs"
+                      className="p-4 bg-surface-1/60 dark:bg-white/3 rounded-2xl border border-border/60 dark:border-white/[0.07] space-y-2.5 text-xs shadow-2xs"
                     >
                       {row.url && (
                         <div className="flex items-start justify-between gap-2">
@@ -159,7 +159,7 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
                           </span>
                           <button
                             onClick={() => handleCopy(row.url!)}
-                            className="p-1.5 text-text-tertiary hover:text-text-primary shrink-0 cursor-pointer rounded-lg hover:bg-surface-2 dark:hover:bg-white/[0.06] transition-colors"
+                            className="p-1.5 text-text-tertiary hover:text-text-primary shrink-0 cursor-pointer rounded-lg hover:bg-surface-2 dark:hover:bg-white/6 transition-colors"
                             title="Copy URL"
                           >
                             {copiedUrl === row.url ? (
@@ -171,7 +171,7 @@ export const DiagnosticInspectorDrawer: React.FC<DiagnosticInspectorDrawerProps>
                         </div>
                       )}
 
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-text-secondary pt-1.5 border-t border-border/40 dark:border-white/[0.05]">
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-text-secondary pt-1.5 border-t border-border/40 dark:border-white/5">
                         {row.wastedMs != null && (
                           <span className="font-semibold text-score-good">
                             Wasted: {formatMilliseconds(row.wastedMs)}
